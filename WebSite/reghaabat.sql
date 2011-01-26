@@ -1,0 +1,264 @@
+CREATE DATABASE IF NOT EXISTS reghaabat CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE reghaabat;
+-- 0 <= Rate <= 1, 0 <= Quality	
+
+/* tables */
+-- globals 
+CREATE TABLE ageclasses(
+	ID TINYINT(4) NOT NULL,
+	Title VARCHAR(255) NOT NULL,
+	Description VARCHAR(255) NULL DEFAULT NULL,
+	BeginAge TINYINT(4) NOT NULL,
+	EndAge TINYINT(4) NOT NULL,
+	PRIMARY KEY (ID)
+);
+CREATE TABLE tags (
+	ID TINYINT(4) NOT NULL,
+	Title VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID)
+);
+CREATE TABLE categories (
+	ID TINYINT(4) NOT NULL,
+	Title VARCHAR(255) NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+-- users
+CREATE TABLE library (
+	/* group */
+	MasterID int(11) NOT NULL,
+	Title VARCHAR(255) NOT NULL,
+	Description VARCHAR(1000) DEFAULT NULL,
+	Active tinyint(1) NOT NULL DEFAULT '0',
+  
+	/* library */
+	UniqueID CHAR(40) NOT NULL,
+	ServerID CHAR(32) NULL DEFAULT NULL,
+	Licence VARCHAR(255) NULL DEFAULT NULL
+);
+CREATE TABLE users (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	NationalID INT(11) NOT NULL,
+	Quality INT(11) NOT NULL DEFAULT '0',
+	FirstName VARCHAR(255) NOT NULL,
+	LastName VARCHAR(255) NOT NULL,
+	BirthDate DATE NOT NULL,
+	Address VARCHAR(255) NULL DEFAULT NULL,
+	Phone VARCHAR(50) NULL DEFAULT NULL,
+	Gender ENUM('male','female') NOT NULL,
+	RegisterTime DATETIME NULL DEFAULT NULL,
+	Description VARCHAR(255) NULL DEFAULT NULL,
+	Score INT NOT NULL DEFAULT '0',
+	CorrectionTime INT(11) NOT NULL DEFAULT '0' COMMENT 'Minute',
+	Email VARCHAR(255) DEFAULT NULL COLLATE 'ascii_bin',
+	UserPass CHAR(40) DEFAULT NULL COLLATE 'ascii_bin',
+	
+	PRIMARY KEY (ID),
+	UNIQUE KEY Email (Email),
+	UNIQUE KEY NationalID (NationalID)
+) AUTO_INCREMENT=1111;
+CREATE TABLE permissions (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	TournamentID int(11) NOT NULL,
+	UserID int(11) NOT NULL,
+	Permission ENUM('user', 'operator', 'designer', 'manager', 'master', 'admin') NOT NULL, /* Ozv, Ozvyar, Tarrah, Tarrahyar, Modir, Modir-e-Samaneh */
+	Accept tinyint(1) NOT NULL DEFAULT '0',
+	PRIMARY KEY (ID),
+	FOREIGN KEY (UserID) REFERENCES users(ID),
+	FOREIGN KEY (TournamentID) REFERENCES tournaments(ID)
+);
+CREATE TABLE pictures (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	ReferenceID INT(11) NOT NULL,
+	Kind ENUM('library', 'user', 'resource', 'match') NOT NULL,
+	Picture MEDIUMBLOB NULL,
+	PRIMARY KEY (ID, Kind)
+);
+
+-- matches 
+CREATE TABLE authors (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	Quality INT(11) NOT NULL DEFAULT '0',
+	Title VARCHAR(255) NOT NULL,
+	PRIMARY KEY (ID)
+);
+CREATE TABLE publications (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	Quality INT(11) NOT NULL DEFAULT '0',
+	Title VARCHAR(255) NOT NULL,
+	PRIMARY KEY (ID)
+);
+CREATE TABLE resources (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	CreatorID INT(11) NOT NULL,
+	AuthorID INT(11) NULL DEFAULT NULL,
+	PublicationID INT(11) NULL DEFAULT NULL,
+	EntityID INT(11) NOT NULL,
+	Quality INT(11) NOT NULL DEFAULT '0',
+	Kind ENUM('book', 'multimedia', 'webpage') NOT NULL DEFAULT 'book',
+	Tags SET('') NULL DEFAULT NULL,
+	Title VARCHAR(255) NOT NULL,
+	AgeClass TINYINT(4) NULL DEFAULT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (CreatorID) REFERENCES users(ID),
+	FOREIGN KEY (AuthorID) REFERENCES authors(ID),
+	FOREIGN KEY (PublicationID) REFERENCES publications(ID),
+	FOREIGN KEY (AgeClass) REFERENCES ageclasses(ID)
+);
+CREATE TABLE books (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	Pages INT NULL DEFAULT NULL,
+	PRIMARY KEY (ID)
+);
+CREATE TABLE multimedias (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	FileType VARCHAR(5) NULL DEFAULT NULL COLLATE 'ascii_bin',
+	Duration INT NULL DEFAULT NULL COMMENT 'minutes',
+	PRIMARY KEY (ID)
+);
+CREATE TABLE webpages (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	Content TEXT NULL,
+	Link varchar(1000) NULL DEFAULT NULL COLLATE 'ascii_bin',
+	Words INT NULL DEFAULT NULL,
+	PRIMARY KEY (ID)
+);
+CREATE TABLE matches (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	DesignerID INT(11) NOT NULL,
+	Quality INT(11) NOT NULL DEFAULT '0',
+
+	Title VARCHAR(255) NOT NULL,
+	AgeClass TINYINT(4) NULL DEFAULT NULL,
+	
+	-- Question
+	ResourceID INT(11) NULL DEFAULT NULL,
+	
+	-- Instruction
+	CategoryID TINYINT(4) NULL DEFAULT NULL,
+	Content TEXT NULL DEFAULT NULL,
+	Configuration VARCHAR(50) NULL DEFAULT NULL,
+
+	PRIMARY KEY (ID),
+	FOREIGN KEY (DesignerID) REFERENCES users(ID),
+	FOREIGN KEY (ResourceID) REFERENCES resources(ID),
+	FOREIGN KEY (CategoryID) REFERENCES categories(ID),
+	FOREIGN KEY (AgeClass) REFERENCES ageclasses(ID)
+);
+CREATE TABLE questions (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	MatchID INT(11) NOT NULL,
+	Question VARCHAR(1000) NOT NULL,
+	Answer VARCHAR(1000) NULL DEFAULT NULL,
+	ChoiceNumber TINYINT(4) NOT NULL DEFAULT '-1' COMMENT '-1: no choice, 0..n : valid',
+	PRIMARY KEY (ID),
+	FOREIGN KEY (MatchID) REFERENCES matches(ID)
+);
+CREATE TABLE choices (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	QuestionID TINYINT(4) NOT NULL,
+	Choice VARCHAR(255) DEFAULT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (QuestionID) REFERENCES questions(ID)
+);
+
+-- answers 
+CREATE TABLE answers (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	UserID INT(11) NOT NULL,
+	MatchID INT(11) NOT NULL,
+	DeliverTime DATETIME NULL DEFAULT NULL,
+	ReceiveTime DATETIME NULL DEFAULT NULL,
+	CorrectTime DATETIME NULL DEFAULT NULL,
+	Rate FLOAT NULL DEFAULT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (UserID) REFERENCES users(ID),
+	FOREIGN KEY (MatchID) REFERENCES matches(ID)
+);
+CREATE TABLE subanswers (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	AnswerID INT(11) NOT NULL,
+	Question VARCHAR(1000) NOT NULL,
+	Answer VARCHAR(1000) NOT NULL,
+	Rate FLOAT DEFAULT NULL,
+	Message TEXT COMMENT 'designer message to user',
+	Attachment BLOB,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (AnswerID) REFERENCES answers(ID)
+);
+
+/* tournaments */
+CREATE TABLE tournaments (
+	ID int(11) NOT NULL AUTO_INCREMENT,
+	Title VARCHAR(255) NOT NULL,
+	StartTime DATETIME NOT NULL,
+	Active TINYINT(1) NOT NULL,
+	CreatorID int(11) NOT NULL,
+	UserPayTransform FLOAT NOT NULL,
+	DesignerPayTransform FLOAT NOT NULL,
+	OpenUser tinyint(1) NOT NULL DEFAULT '1',
+	Address VARCHAR(1000) DEFAULT NULL,
+	PayUnit VARCHAR(100) NOT NULL,
+	PRIMARY KEY (ID)
+);
+CREATE TABLE follows (
+	ID int(11) NOT NULL AUTO_INCREMENT,
+	TournamentID INT(11) NOT NULL,
+	FollowedID INT(11) NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (TournamentID) REFERENCES tournaments(ID),
+	FOREIGN KEY (FollowedID) REFERENCES tournaments(ID)
+);
+CREATE TABLE supports (
+	ID int(11) NOT NULL AUTO_INCREMENT,
+	TournamentID INT(11) NOT NULL,
+	MatchID INT(11) NOT NULL,
+	CorrectorID INT(11) NOT NULL,
+	CurrentState ENUM('active', 'disabled', 'imported') NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (TournamentID) REFERENCES tournaments(ID),
+	FOREIGN KEY (MatchID) REFERENCES matches(ID)
+);
+CREATE TABLE scores (
+	ID int(11) NOT NULL AUTO_INCREMENT,
+	UserID INT(11) NOT NULL,
+	TournamentID INT(11) NOT NULL,
+	Score INT(11) NOT NULL DEFAULT '0',
+	ParticipateTime DATETIME NOT NULL,
+	Confirm TINYINT(1) NOT NULL DEFAULT '1',
+	PRIMARY KEY (ID),
+	FOREIGN KEY (UserID) REFERENCES users(ID),
+	FOREIGN KEY (TournamentID) REFERENCES tournaments(ID)
+);
+CREATE TABLE payments (
+	ID int(11) NOT NULL AUTO_INCREMENT,
+	TournamentID INT(11) NOT NULL,
+	UserID INT(11) NOT NULL,
+	Payment SMALLINT(6) NOT NULL,
+	PayTime DATETIME NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (UserID) REFERENCES users(ID),
+	FOREIGN KEY (TournamentID) REFERENCES tournaments(ID)
+);
+
+-- open_scores 
+CREATE TABLE open_categories (
+	ID int(11) NOT NULL AUTO_INCREMENT,
+	TournamentID INT(11) NOT NULL,
+	Title VARCHAR(255) NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (TournamentID) REFERENCES tournaments(ID)
+);
+CREATE TABLE open_scores (
+	ID INT(11) NOT NULL AUTO_INCREMENT,
+	TournamentID INT(11) NOT NULL,
+	UserID INT(11) NOT NULL,
+	CategoryID TINYINT(4) NOT NULL,
+	Title VARCHAR(255) NOT NULL,
+	Score SMALLINT(6) NOT NULL,
+	ScoreTime DATETIME NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (UserID) REFERENCES users(ID),
+	FOREIGN KEY (TournamentID) REFERENCES tournaments(ID),
+	FOREIGN KEY (CategoryID) REFERENCES open_categories(ID)
+);
