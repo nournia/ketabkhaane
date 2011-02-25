@@ -187,22 +187,23 @@ int main(void)
 #include <QDate>
 #include <QVariant>
 
-QString toGregorian(QString input) // 1370/03/11
+QDate toGregorian(QString input) // 1370/03/11
 {
     int y, m, d;
 
     jalali_to_gregorian(&y, &m, &d, input.left(4).toInt(), input.mid(5, 2).toInt(), input.right(2).toInt());
 
-    return QDate(y, m, d).toString("yyyy-MM-dd");
+    return QDate(y, m, d);
 }
 
 QVariant getGregorianVariant(QString jalali)
 {
-    QString str = toGregorian(jalali);
+    QVariant null; null.clear();
+    QDate date = toGregorian(jalali);
 
-    if (str != "")
-        return str;
+    if (date.isValid())
+        return date;
     else
-        return NULL;
+        return null;
 }
 

@@ -29,7 +29,7 @@ create table users (
 	quality integer not null default "0",
 	firstname varchar(255) not null,
 	lastname varchar(255) not null,
-	birth_date date not null,
+	birth_date date null default null,
 	address varchar(255) null default null,
 	phone varchar(50) null default null,
 	gender varchar(10) not null,
@@ -88,10 +88,19 @@ create table questions (
 	match_id integer not null,
 	question varchar(1000) not null,
 	answer varchar(1000) null default null,
-	choicenumber tinyint(4) null default null -- null: no choice
+	choice_number tinyint(4) null default null -- null: no choice
 );
 
 -- answers
+create table answers (
+	id integer not null primary key autoincrement,
+	user_id integer not null,
+	match_id integer not null,
+	deliver_time datetime null default null,
+	receive_time datetime null default null,
+	correct_time datetime null default null,
+	rate float null default null
+);
 
 -- tournaments 
  

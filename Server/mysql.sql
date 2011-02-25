@@ -32,7 +32,7 @@ create table users (
 	quality int not null default "0",
 	firstname varchar(255) not null,
 	lastname varchar(255) not null,
-	birth_date date not null,
+	birth_date date null default null,
 	address varchar(255) null default null,
 	phone varchar(50) null default null,
 	gender enum("male","female") not null,
@@ -151,22 +151,20 @@ create table questions (
 	choice varchar(255) default null,
 	primary key (id),
 	foreign key (questionid) references questions(id)
-);
+);*/
 
 -- answers 
 create table answers (
 	id int(11) not null auto_increment,
-	userid int(11) not null,
-	matchid int(11) not null,
-	delivertime datetime null default null,
-	receivetime datetime null default null,
-	correcttime datetime null default null,
+	user_id int(11) not null,
+	match_id int(11) not null,
+	deliver_time datetime null default null,
+	receive_time datetime null default null,
+	correct_time datetime null default null,
 	rate float null default null,
-	primary key (id),
-	foreign key (userid) references users(id),
-	foreign key (matchid) references matches(id)
+	primary key (id)
 );
-create table subanswers (
+/*create table subanswers (
 	id int(11) not null auto_increment,
 	answerid int(11) not null,
 	question varchar(1000) not null,

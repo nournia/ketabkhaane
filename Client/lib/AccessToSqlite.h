@@ -32,6 +32,9 @@ public:
         importTable("questions", "select matchid, question, answer from questions",
                     QStringList() << "match_id" << "question" << "answer");
 
+        importTable("answers", "select userid, matchid, deliverdate, receivedate, scoredate, round(transactions.score/matches.maxscore, 2) as rate from transactions left join matches on transactions.matchid = matches.id",
+                    QStringList() << "user_id" << "match_id" << "deliver_time" << "receive_time" << "correct_time" << "rate");
+
         importMatches();
 
 
@@ -131,7 +134,7 @@ private:
         {
             for (int i = 0; i < fields.size(); i++)
             {
-                if (! accessQry.record().fieldName(i).endsWith("Date"))
+                if (! accessQry.record().fieldName(i).endsWith("date"))
                     tmp = accessQry.value(i);
                 else
                     tmp = getGregorianVariant(accessQry.value(i).toString());
@@ -140,7 +143,7 @@ private:
 
             if (! sqliteQry.exec())
             {
-                qDebug() << sqliteDb.lastError();
+                qDebug() << table << " import error : " << sqliteQry.lastError();
                 return false;
             }
         }
