@@ -1,33 +1,9 @@
 create database if not exists reghaabat character set utf8 collate utf8_general_ci;
 use reghaabat;
 
-create table users (
-	id int not null auto_increment,
-	nationalid int not null,
-	quality int not null default "0",
-	firstname varchar(255) not null,
-	lastname varchar(255) not null,
-	birth_date date not null,
-	address varchar(255) null default null,
-	phone varchar(50) null default null,
-	gender enum("male","female") not null,
-	description varchar(255) null default null,
-	email varchar(255) default null collate "ascii_bin",
-	userpass char(40) default null collate "ascii_bin",
-
-	created_at datetime null default null,
-	score int not null default "0",
-	correction_time int not null default "0" comment "minute",
-	
-	primary key (id),
-	unique key email (email),
-	unique key nationalid (nationalid)
-);
-
-/*
 -- 0 <= rate <= 1, 0 <= quality	
 
--- tables 
+-- tables ------------------------------------------------------------------------------
 
 -- globals 
 create table ageclasses(
@@ -38,7 +14,7 @@ create table ageclasses(
 	endage tinyint(4) not null,
 	primary key (id)
 );
-create table tags (
+/*create table tags (
 	id tinyint(4) not null,
 	title varchar(50) not null,
 	primary key (id)
@@ -47,10 +23,32 @@ create table categories (
 	id tinyint(4) not null,
 	title varchar(255) not null,
 	primary key (id)
-);
+);*/
 
 -- users
-create table library (
+create table users (
+	id int not null auto_increment,
+	nationalid int not null,
+	quality int not null default "0",
+	firstname varchar(255) not null,
+	lastname varchar(255) not null,
+	birth_date date not null,
+	address varchar(255) null default null,
+	phone varchar(50) null default null,
+	gender boolean not null, --enum("male","female")
+	description varchar(255) null default null,
+	email varchar(255) default null collate "ascii_bin",
+	upassword char(40) default null collate "ascii_bin",
+
+	created_at datetime null default null,
+	score int not null default "0",
+	correction_time int not null default "0" comment "minute",
+	
+	primary key (id),
+	unique key email (email),
+	unique key nationalid (nationalid)
+);
+/*create table library (
 	-- group 
 	masterid int(11) not null,
 	title varchar(255) not null,
@@ -61,7 +59,7 @@ create table library (
 	uniqueid char(40) not null,
 	serverid char(32) null default null,
 	licence varchar(255) null default null
-);
+);*/
 create table permissions (
 	id int(11) not null auto_increment,
 	tournamentid int(11) not null,
@@ -69,17 +67,15 @@ create table permissions (
 	permission enum("user", "operator", "designer", "manager", "master", "admin") not null, -- ozv, ozvyar, tarrah, tarrahyar, modir, modir-e-samaneh 
 	accept tinyint(1) not null default "0",
 	primary key (id),
-	foreign key (userid) references users(id),
-	foreign key (tournamentid) references tournaments(id)
 );
-create table pictures (
+/*create table pictures (
 	id int(11) not null auto_increment,
 	referenceid int(11) not null,
 	kind enum("library", "user", "resource", "match") not null,
 	picture mediumblob null,
 	primary key (id, kind)
 );
-
+*/
 -- matches 
 create table authors (
 	id int(11) not null auto_increment,
@@ -93,7 +89,7 @@ create table publications (
 	title varchar(255) not null,
 	primary key (id)
 );
-create table resources (
+/*create table resources (
 	id int(11) not null auto_increment,
 	creatorid int(11) not null,
 	authorid int(11) null default null,
@@ -268,3 +264,11 @@ create table open_scores (
 	foreign key (categoryid) references open_categories(id)
 );
 */
+
+-- data ------------------------------------------------------------------------------
+
+insert into ageclasses values (0, '???', '?????? ? ??? ??? ??????', 6, 7);
+insert into ageclasses values (1, '?', '??????? ??? ? ??? ??????', 8, 9);
+insert into ageclasses values (2, '?', '??????? ????? ? ???? ??????', 10, 11);
+insert into ageclasses values (3, '?', '??????? ????????', 12, 14); 
+insert into ageclasses values (4, '?', '??????? ????????', 15, 18);

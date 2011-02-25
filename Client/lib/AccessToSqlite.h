@@ -20,120 +20,152 @@ class AccessToSqlite {
 public:
     AccessToSqlite(QString accessFilename, QString sqliteFilename)
     {
-        QSqlDatabase accessDb, sqliteDb;
+        connectAccess(accessFilename);
+        connectSqlite(sqliteFilename);
+        buildSqliteDb();
 
-        accessDb = connectAccess(accessFilename);
-        sqliteDb = connectSqlite(sqliteFilename);
+        importTable("users", QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "created_at" << "description");
 
-        buildSqliteDb(sqliteDb);
+        // matches
+        if (! accessQry.exec("select id, author, publication from matches"))
+            qDebug() << accessQry.lastError();
 
-        //        QStringList list = sqliteDb.tables(QSql::Tables);
-        //        qDebug() << list.size();
-        //        for(int i=0; i < list.size(); i++)
-        //        {
-        //            qDebug() << "Table names " << list.at(i) << endl;
-        //        }
-
-        QSqlQuery accessQry(accessDb), sqliteQry(sqliteDb);
-
-        accessQry.exec("select * from users");
-
-        QString fields[] = {"firstname", "lastname", "birth_date", "address", "phone", "gender", "created_at", "description", NULL};
-        QString qry = getInsertQuery("users", fields);
-        if (! sqliteQry.prepare(qry))
-            qDebug() << sqliteDb.lastError();
-
-        sqliteDb.transaction();
         while (accessQry.next())
         {
-            sqliteQry.bindValue(":firstname", accessQry.value(1));
-            sqliteQry.bindValue(":lastname", accessQry.value(2));
-            sqliteQry.bindValue(":birth_date", getGregorianVariant(accessQry.value(3).toString()));
-            sqliteQry.bindValue(":address", accessQry.value(4));
-            sqliteQry.bindValue(":phone", accessQry.value(5));
-            sqliteQry.bindValue(":gender", accessQry.value(6));
-            sqliteQry.bindValue(":created_at", getGregorianVariant(accessQry.value(7).toString()));
-            sqliteQry.bindValue(":description", accessQry.value(8));
-
-            if (! sqliteQry.exec())
-            {
-                qDebug() << sqliteDb.lastError();
-                break;
-            }
+            getTitleId("authors", accessQry.value(1).toString());
+            getTitleId("publications", accessQry.value(2).toString());
         }
-        sqliteDb.commit();
 
-        qDebug() << "finish";
+        sqliteDb.transaction();
+
+
+        sqliteDb.commit();
+        qDebug() << "+ matches";
+
+        qDebug() << "finished";
+    }
+
+    QVariant getTitleId(QString table, QString title)
+    {
+        if (title == "") return NULL;
+
+        QSqlQuery tmp(sqliteDb);
+        tmp.exec("select id from " + table + " where title = '"+ title +"'");
+
+        if (tmp.next())
+            return tmp.value(0);
+        else
+        {
+            tmp.exec("insert into " + table + " (title) values ('" + title + "')");
+            return tmp.lastInsertId();
+        }
     }
 
 private:
+    QSqlDatabase accessDb, sqliteDb;
+    QSqlQuery accessQry, sqliteQry;
 
-    QSqlDatabase& connectAccess(QString filename)
+    bool connectAccess(QString filename)
     {
-        QSqlDatabase db = QSqlDatabase::addDatabase("QODBC", "AccessDb");
-        db.setDatabaseName("Driver={Microsoft Access Driver (*.mdb)};DSN='';DBQ=" + filename);
-        db.setPassword("abrdmkazhdpkzsrst");
+        accessDb = QSqlDatabase::addDatabase("QODBC", "AccessDb");
+        accessDb.setDatabaseName("Driver={Microsoft Access Driver (*.mdb)};DSN='';DBQ=" + filename);
+        accessDb.setPassword("abrdmkazhdpkzsrst");
 
-        if (! db.open())
-            qDebug() << db.lastError();
+        if (! accessDb.open())
+        {
+            qDebug() << accessDb.lastError();
+            return false;
+        }
 
-        return db;
+        accessQry = QSqlQuery(accessDb);
+        return true;
     }
 
-    QSqlDatabase& connectSqlite(QString filename)
+    bool connectSqlite(QString filename)
     {
-        QFile(filename).remove();
+        sqliteDb = QSqlDatabase::addDatabase("QSQLITE", "SqliteDb");
+        sqliteDb.setDatabaseName(filename);
 
-        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "SqliteDb");
-        db.setDatabaseName(filename);
+        if (! sqliteDb.open())
+        {
+            qDebug() << sqliteDb.lastError();
+            return false;
+        }
 
-        if (! db.open())
-            qDebug() << db.lastError();
-
-        return db;
+        sqliteQry = QSqlQuery (sqliteDb);
+        return true;
     }
 
-    bool buildSqliteDb(QSqlDatabase& db)
+    bool buildSqliteDb()
     {
-        QSqlQuery query(db);
         QFile file("../sqlite.sql");
         if (! file.open(QIODevice::ReadOnly | QIODevice::Text))
             return false;
 
-        query.exec(QTextStream(&file).readAll());
+        foreach (QString table, sqliteDb.tables(QSql::Tables))
+        {
+            if (! table.startsWith("sqlite_") && ! sqliteQry.exec("drop table if exists " + table + ";"))
+                qDebug() << sqliteQry.lastError();
+        }
+
+        foreach (QString q, QTextStream(&file).readAll().split(";"))
+        {
+            //qDebug() << q;
+            if (q.contains("create", Qt::CaseInsensitive) || q.contains("insert", Qt::CaseInsensitive))
+            if (! sqliteQry.exec(q))
+            {
+                qDebug() << sqliteQry.lastError();
+                return false;
+            }
+        }
         return true;
     }
 
-    QString& getInsertQuery(char* table, QString* fields)
+    QString getInsertQuery(QString table, QStringList fields)
     {
-        static QString qry = "INSERT INTO ";
-        qry = qry + table + " (";
         QString params = ") VALUES (";
 
-        for (int i = 0; fields[i] != NULL; i++)
+        for (int i = 0; i < fields.size(); i++)
         {
-            qry += fields[i];
             params = params + ':' + fields[i];
-            if (fields[i+1] != NULL)
-            {
-                qry += ',';
+            if (i < fields.size()-1)
                 params += ',';
-            }
         }
 
-        qry = qry + params + ")";
-        return qry;
+        return "INSERT INTO " + table + " (" + fields.join(",") + params + ")";
     }
 
-
-    QVariant getGregorianVariant(QString jalali)
+    bool importTable(QString table, QStringList fields)
     {
-        QString str = toGregorian(jalali);
+        accessQry.exec("select * from " + table);
 
-        if (str != "")
-            return str;
-        else
-            return NULL;
+        QString qry = getInsertQuery(table, fields);
+        if (! sqliteQry.prepare(qry))
+            qDebug() << sqliteDb.lastError();
+
+        QVariant tmp;
+        sqliteDb.transaction();
+        while (accessQry.next())
+        {
+            for (int i = 0; i < fields.size(); i++)
+            {
+                if (! accessQry.record().fieldName(i).endsWith("Date"))
+                    tmp = accessQry.value(i);
+                else
+                    tmp = getGregorianVariant(accessQry.value(i).toString());
+                sqliteQry.bindValue(i, tmp);
+            }
+
+            if (! sqliteQry.exec())
+            {
+                qDebug() << sqliteDb.lastError();
+                return false;
+            }
+        }
+        sqliteDb.commit();
+
+        qDebug() << "+ users";
+        return true;
     }
 };
 

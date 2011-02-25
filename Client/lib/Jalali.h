@@ -161,9 +161,31 @@ void jalali_to_gregorian(int *g_y, int *g_m, int *g_d,
 }
 
 
-// Qt Specification
+/*
+int main(void)
+{
+   int y, m, d;
+   time_t bin_time;
+   struct tm *br_time;
 
+   time(&bin_time);
+   br_time = localtime(&bin_time);
+
+   gregorian_to_jalali(&y, &m, &d,
+                       1900+br_time->tm_year,
+                       1+br_time->tm_mon,
+                       br_time->tm_mday);
+
+   printf("Current Jalali date: %d %s %d\n", d, j_month_name[m], y);
+
+   return 0;
+}
+*/
+
+
+// Qt Specification
 #include <QDate>
+#include <QVariant>
 
 QString toGregorian(QString input) // 1370/03/11
 {
@@ -174,23 +196,13 @@ QString toGregorian(QString input) // 1370/03/11
     return QDate(y, m, d).toString("yyyy-MM-dd");
 }
 
-/*
-int main(void)
+QVariant getGregorianVariant(QString jalali)
 {
-   int y, m, d;
-   time_t bin_time;
-   struct tm *br_time;
+    QString str = toGregorian(jalali);
 
-   time(&bin_time);
-   br_time = localtime(&bin_time); 
-
-   gregorian_to_jalali(&y, &m, &d,
-		       1900+br_time->tm_year,
-		       1+br_time->tm_mon,
-		       br_time->tm_mday);
-
-   printf("Current Jalali date: %d %s %d\n", d, j_month_name[m], y);
-
-   return 0;
+    if (str != "")
+        return str;
+    else
+        return NULL;
 }
-*/
+
