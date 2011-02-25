@@ -89,24 +89,19 @@ create table publications (
 	title varchar(255) not null,
 	primary key (id)
 );
-/*create table resources (
+create table resources (
 	id int(11) not null auto_increment,
-	creatorid int(11) not null,
-	authorid int(11) null default null,
-	publicationid int(11) null default null,
-	entityid int(11) not null,
+	author_id int(11) null default null,
+	publication_id int(11) null default null,
+	entity_id int(11) null default null, -- books.id | multimedias.id | webpages.id 
 	quality int(11) not null default "0",
 	kind enum("book", "multimedia", "webpage") not null default "book",
-	tags set("") null default null,
+	--tags set("") null default null,
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
-	primary key (id),
-	foreign key (creatorid) references users(id),
-	foreign key (authorid) references authors(id),
-	foreign key (publicationid) references publications(id),
-	foreign key (ageclass) references ageclasses(id)
+	primary key (id)
 );
-create table books (
+/*create table books (
 	id int(11) not null auto_increment,
 	pages int null default null,
 	primary key (id)
@@ -123,30 +118,26 @@ create table webpages (
 	link varchar(1000) null default null collate "ascii_bin",
 	words int null default null,
 	primary key (id)
-);
+);*/
 create table matches (
 	id int(11) not null auto_increment,
-	designerid int(11) not null,
+	designer_id int(11) null default null,
 	quality int(11) not null default "0",
 
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
 	
 	-- question
-	resourceid int(11) null default null,
+	resource_id int(11) null default null,
 	
 	-- instruction
-	categoryid tinyint(4) null default null,
+	category_id tinyint(4) null default null,
 	content text null default null,
 	configuration varchar(50) null default null,
 
-	primary key (id),
-	foreign key (designerid) references users(id),
-	foreign key (resourceid) references resources(id),
-	foreign key (categoryid) references categories(id),
-	foreign key (ageclass) references ageclasses(id)
+	primary key (id)
 );
-create table questions (
+/*create table questions (
 	id int(11) not null auto_increment,
 	matchid int(11) not null,
 	question varchar(1000) not null,

@@ -56,7 +56,33 @@ create table publications (
 	quality integer not null default "0",
 	title varchar(255) not null
 );
+create table resources (
+	id integer not null primary key autoincrement,
+	author_id integer null default null,
+	publication_id integer null default null,
+	entity_id integer null default null, -- books.id | multimedias.id | webpages.id 
+	quality integer not null default "0",
+	kind varchar(12) not null,
+	-- tags set("") null default null,
+	title varchar(255) not null,
+	ageclass tinyint(4) null default null
+);
+create table matches (
+	id integer not null primary key autoincrement,
+	designer_id integer null default null,
+	quality integer not null default "0",
 
+	title varchar(255) not null,
+	ageclass tinyint(4) null default null,
+	
+	-- question
+	resource_id integer null default null,
+	
+	-- instruction
+	category_id tinyint(4) null default null,
+	content text null default null,
+	configuration varchar(50) null default null
+);
 -- answers
 
 -- tournaments 
