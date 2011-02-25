@@ -11,14 +11,16 @@
 -- globals 
 
 create table ageclasses(
-	id tinyint(4) not null,
+	id tinyint(4) not null primary key,
 	title varchar(255) not null,
 	description varchar(255) null default null,
 	beginage tinyint(4) not null,
-	endage tinyint(4) not null,
-	primary key (id)
+	endage tinyint(4) not null
 );
-
+create table categories (
+	id tinyint(4) not null primary key,
+	title varchar(255) not null
+);
 
 -- users
 create table users (
@@ -70,3 +72,10 @@ insert into ageclasses values (1, 'ب', 'سال‌های دوم و سوم دبس
 insert into ageclasses values (2, 'ج', 'سال‌های چهارم و پنجم دبستان', 10, 11);
 insert into ageclasses values (3, 'د', 'سال‌های راهنمایی', 12, 14); 
 insert into ageclasses values (4, 'ه', 'سال‌های دبیرستان', 15, 18);
+
+insert into categories (id, title) values (0, 'نقاشی');
+insert into categories (id, title) values (1, 'رنگ‌آمیزی');
+insert into categories (id, title) values (2, 'تحقیق');
+insert into categories (id, title) values (3, 'آزمایش');
+insert into categories (id, title) values (4, 'کاردستی');
+

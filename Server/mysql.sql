@@ -14,14 +14,14 @@ create table ageclasses(
 	endage tinyint(4) not null,
 	primary key (id)
 );
-/*create table tags (
-	id tinyint(4) not null,
-	title varchar(50) not null,
-	primary key (id)
-);
 create table categories (
 	id tinyint(4) not null,
 	title varchar(255) not null,
+	primary key (id)
+);
+/*create table tags (
+	id tinyint(4) not null,
+	title varchar(50) not null,
 	primary key (id)
 );*/
 
@@ -59,7 +59,7 @@ create table users (
 	uniqueid char(40) not null,
 	serverid char(32) null default null,
 	licence varchar(255) null default null
-);*/
+);
 create table permissions (
 	id int(11) not null auto_increment,
 	tournamentid int(11) not null,
@@ -267,8 +267,9 @@ create table open_scores (
 
 -- data ------------------------------------------------------------------------------
 
-insert into ageclasses values (0, '???', '?????? ? ??? ??? ??????', 6, 7);
-insert into ageclasses values (1, '?', '??????? ??? ? ??? ??????', 8, 9);
-insert into ageclasses values (2, '?', '??????? ????? ? ???? ??????', 10, 11);
-insert into ageclasses values (3, '?', '??????? ????????', 12, 14); 
-insert into ageclasses values (4, '?', '??????? ????????', 15, 18);
+insert into ageclasses values (0, 'الف', 'آمادگی و سال اول دبستان', 6, 7);
+insert into ageclasses values (1, 'ب', 'سال‌های دوم و سوم دبستان', 8, 9);
+insert into ageclasses values (2, 'ج', 'سال‌های چهارم و پنجم دبستان', 10, 11);
+insert into ageclasses values (3, 'د', 'سال‌های راهنمایی', 12, 14); 
+insert into ageclasses values (4, 'ه', 'سال‌های دبیرستان', 15, 18);
+

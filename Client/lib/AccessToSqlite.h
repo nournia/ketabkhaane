@@ -102,6 +102,7 @@ private:
         if (! file.open(QIODevice::ReadOnly | QIODevice::Text))
             return false;
 
+        sqliteDb.transaction();
         foreach (QString table, sqliteDb.tables(QSql::Tables))
         {
             if (! table.startsWith("sqlite_") && ! sqliteQry.exec("drop table if exists " + table + ";"))
@@ -118,6 +119,8 @@ private:
                 return false;
             }
         }
+        sqliteDb.commit();
+
         return true;
     }
 
