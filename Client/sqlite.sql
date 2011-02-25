@@ -32,7 +32,7 @@ create table users (
 	birth_date date not null,
 	address varchar(255) null default null,
 	phone varchar(50) null default null,
-	gender boolean not null,
+	gender varchar(10) not null,
 	description varchar(255) null default null,
 	email varchar(255) default null,
 	upassword char(40) default null,
@@ -83,6 +83,14 @@ create table matches (
 	content text null default null,
 	configuration varchar(50) null default null
 );
+create table questions (
+	id integer not null primary key autoincrement,
+	match_id integer not null,
+	question varchar(1000) not null,
+	answer varchar(1000) null default null,
+	choicenumber tinyint(4) null default null -- null: no choice
+);
+
 -- answers
 
 -- tournaments 

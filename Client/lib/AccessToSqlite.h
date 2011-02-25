@@ -26,9 +26,14 @@ public:
         if (! buildSqliteDb())
             return;
 
-        importTable("users", QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "created_at" << "description");
+        importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), registerdate, description from users",
+                    QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "created_at" << "description");
+
+        importTable("questions", "select matchid, question, answer from questions",
+                    QStringList() << "match_id" << "question" << "answer");
 
         importMatches();
+
 
         qDebug() << "finished";
     }
@@ -112,9 +117,9 @@ private:
         return "INSERT INTO " + table + " (" + fields.join(",") + params + ")";
     }
 
-    bool importTable(QString table, QStringList fields)
+    bool importTable(QString table, QString query, QStringList fields)
     {
-        accessQry.exec("select * from " + table);
+        accessQry.exec(query);
 
         QString qry = getInsertQuery(table, fields);
         if (! sqliteQry.prepare(qry))
@@ -141,7 +146,7 @@ private:
         }
         sqliteDb.commit();
 
-        qDebug() << "+ users";
+        qDebug() << "+ " << table;
         return true;
     }
 
@@ -234,7 +239,7 @@ private:
                 qDebug() << sqliteQry.lastError();
         }
         sqliteDb.commit();
-        qDebug() << "+ matches";
+        qDebug() << "+ " << QString("matches");
 
     }
 };

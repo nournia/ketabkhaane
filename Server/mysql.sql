@@ -35,7 +35,7 @@ create table users (
 	birth_date date not null,
 	address varchar(255) null default null,
 	phone varchar(50) null default null,
-	gender boolean not null, --enum("male","female")
+	gender enum("male","female") not null,
 	description varchar(255) null default null,
 	email varchar(255) default null collate "ascii_bin",
 	upassword char(40) default null collate "ascii_bin",
@@ -137,16 +137,15 @@ create table matches (
 
 	primary key (id)
 );
-/*create table questions (
+create table questions (
 	id int(11) not null auto_increment,
-	matchid int(11) not null,
+	match_id int(11) not null,
 	question varchar(1000) not null,
 	answer varchar(1000) null default null,
-	choicenumber tinyint(4) not null default "-1" comment "-1: no choice, 0..n : valid",
-	primary key (id),
-	foreign key (matchid) references matches(id)
+	choicenumber tinyint(4) null default null, -- null: no choice
+	primary key (id)
 );
-create table choices (
+/*create table choices (
 	id int(11) not null auto_increment,
 	questionid tinyint(4) not null,
 	choice varchar(255) default null,
