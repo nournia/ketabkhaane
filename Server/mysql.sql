@@ -95,7 +95,7 @@ create table resources (
 	publication_id int(11) null default null,
 	entity_id int(11) null default null, -- books.id | multimedias.id | webpages.id 
 	quality int(11) not null default "0",
-	kind enum("book", "multimedia", "webpage") not null default "book",
+	kind enum("book", "multimedia", "webpage") not null,
 	--tags set("") null default null,
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
@@ -142,7 +142,7 @@ create table questions (
 	match_id int(11) not null,
 	question varchar(1000) not null,
 	answer varchar(1000) null default null,
-	choicenumber tinyint(4) null default null, -- null: no choice
+	--choice tinyint(4) null default null, -- null: no choice
 	primary key (id)
 );
 /*create table choices (
@@ -197,17 +197,16 @@ create table follows (
 	primary key (id),
 	foreign key (tournamentid) references tournaments(id),
 	foreign key (followedid) references tournaments(id)
-);
+);*/
 create table supports (
 	id int(11) not null auto_increment,
-	tournamentid int(11) not null,
-	matchid int(11) not null,
-	correctorid int(11) not null,
-	currentstate enum("active", "disabled", "imported") not null,
-	primary key (id),
-	foreign key (tournamentid) references tournaments(id),
-	foreign key (matchid) references matches(id)
-);
+	tournament_id int(11) not null,
+	match_id int(11) not null,
+	corrector_id int(11) not null,
+	current_state enum("active", "disabled", "imported") not null,
+	score smallint(6),
+	primary key (id)
+);/*
 create table scores (
 	id int(11) not null auto_increment,
 	userid int(11) not null,

@@ -26,14 +26,17 @@ public:
         if (! buildSqliteDb())
             return;
 
-        importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), registerdate, description from users",
-                    QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "created_at" << "description");
+//        importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), registerdate, description from users",
+//                    QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "created_at" << "description");
 
-        importTable("questions", "select matchid, question, answer from questions",
-                    QStringList() << "match_id" << "question" << "answer");
+//        importTable("questions", "select matchid, question, answer from questions",
+//                    QStringList() << "match_id" << "question" << "answer");
 
-        importTable("answers", "select userid, matchid, deliverdate, receivedate, scoredate, round(transactions.score/matches.maxscore, 2) as rate from transactions left join matches on transactions.matchid = matches.id",
-                    QStringList() << "user_id" << "match_id" << "deliver_time" << "receive_time" << "correct_time" << "rate");
+//        importTable("answers", "select userid, matchid, deliverdate, receivedate, scoredate, round(transactions.score/matches.maxscore, 2) as rate from transactions left join matches on transactions.matchid = matches.id",
+//                    QStringList() << "user_id" << "match_id" << "deliver_time" << "receive_time" << "correct_time" << "rate");
+
+        importTable("supports", "select 1, id, iif(designerid is null, -1, designerid), maxscore, iif(state = 0, 'active', iif(state = 1, 'disabled', iif(state = 2 , 'imported', NULL))) from matches",
+                    QStringList() << "tournament_id" << "match_id" << "corrector_id" << "score" << "current_state");
 
         importMatches();
 
@@ -192,7 +195,7 @@ private:
         groups.insert(32, 0);
 
         // access select query
-        if (! accessQry.exec("select id, designerid, title, "+ ageField +" as ageclass, groupid, content, pictureconfiguration, author, publication from matches"))
+        if (! accessQry.exec("select id, iif(designerid is null, -1, designerid), title, "+ ageField +" as ageclass, groupid, content, pictureconfiguration, author, publication from matches"))
             qDebug() << accessQry.lastError();
 
         // resource and match insertion

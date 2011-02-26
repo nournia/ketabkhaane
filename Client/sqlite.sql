@@ -1,4 +1,4 @@
-﻿-- 0 <= rate <= 1, 0 <= quality	
+﻿-- 0 <= rate <= 1, 0 <= quality
 
 /*
 	int(11) -> integer
@@ -32,7 +32,7 @@ create table users (
 	birth_date date null default null,
 	address varchar(255) null default null,
 	phone varchar(50) null default null,
-	gender varchar(10) not null,
+	gender varchar(10) not null, -- enum("male","female")
 	description varchar(255) null default null,
 	email varchar(255) default null,
 	upassword char(40) default null,
@@ -62,14 +62,14 @@ create table resources (
 	publication_id integer null default null,
 	entity_id integer null default null, -- books.id | multimedias.id | webpages.id 
 	quality integer not null default "0",
-	kind varchar(12) not null,
+	kind varchar(12) not null, -- enum("book", "multimedia", "webpage")
 	-- tags set("") null default null,
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null
 );
 create table matches (
 	id integer not null primary key autoincrement,
-	designer_id integer null default null,
+	designer_id integer not null,
 	quality integer not null default "0",
 
 	title varchar(255) not null,
@@ -87,13 +87,13 @@ create table questions (
 	id integer not null primary key autoincrement,
 	match_id integer not null,
 	question varchar(1000) not null,
-	answer varchar(1000) null default null,
-	choice_number tinyint(4) null default null -- null: no choice
+	answer varchar(1000) null default null
+	--choice tinyint(4) null default null -- null: no choice
 );
 
 -- answers
 create table answers (
-	id integer not null primary key autoincrement,
+	id integer not null primary key autoincrement, -- local
 	user_id integer not null,
 	match_id integer not null,
 	deliver_time datetime null default null,
@@ -103,7 +103,14 @@ create table answers (
 );
 
 -- tournaments 
- 
+  create table supports (
+	id integer not null primary key autoincrement, -- local
+	tournament_id integer not null,
+	match_id integer not null,
+	corrector_id integer not null,
+	score smallint,
+	current_state varchar(10) not null -- enum("active", "disabled", "imported")
+);
 
 -- open_scores 
  
