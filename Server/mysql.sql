@@ -28,7 +28,7 @@ create table categories (
 -- users
 create table users (
 	id int not null auto_increment,
-	nationalid int not null,
+	national_id int not null,
 	quality int not null default "0",
 	firstname varchar(255) not null,
 	lastname varchar(255) not null,
@@ -46,7 +46,7 @@ create table users (
 	
 	primary key (id),
 	unique key email (email),
-	unique key nationalid (nationalid)
+	unique key nationalid (national_id)
 );
 /*create table library (
 	-- group 
@@ -67,15 +67,15 @@ create table permissions (
 	permission enum("user", "operator", "designer", "manager", "master", "admin") not null, -- ozv, ozvyar, tarrah, tarrahyar, modir, modir-e-samaneh 
 	accept tinyint(1) not null default "0",
 	primary key (id),
-);
-/*create table pictures (
+);*/
+create table pictures (
 	id int(11) not null auto_increment,
-	referenceid int(11) not null,
+	reference_id int(11) not null,
 	kind enum("library", "user", "resource", "match") not null,
 	picture mediumblob null,
-	primary key (id, kind)
+	primary key (id)
 );
-*/
+
 -- matches 
 create table authors (
 	id int(11) not null auto_increment,
@@ -217,40 +217,32 @@ create table scores (
 	primary key (id),
 	foreign key (userid) references users(id),
 	foreign key (tournamentid) references tournaments(id)
-);
+);*/
 create table payments (
 	id int(11) not null auto_increment,
-	tournamentid int(11) not null,
-	userid int(11) not null,
+	tournament_id int(11) not null,
+	user_id int(11) not null,
 	payment smallint(6) not null,
-	paytime datetime not null,
-	primary key (id),
-	foreign key (userid) references users(id),
-	foreign key (tournamentid) references tournaments(id)
+	pay_time datetime not null,
+	primary key (id)
 );
 
 -- open_scores 
 create table open_categories (
 	id int(11) not null auto_increment,
-	tournamentid int(11) not null,
 	title varchar(255) not null,
-	primary key (id),
-	foreign key (tournamentid) references tournaments(id)
+	primary key (id)
 );
 create table open_scores (
 	id int(11) not null auto_increment,
-	tournamentid int(11) not null,
-	userid int(11) not null,
-	categoryid tinyint(4) not null,
+	tournament_id int(11) not null,
+	user_id int(11) not null,
+	category_id tinyint(4) not null,
 	title varchar(255) not null,
 	score smallint(6) not null,
-	scoretime datetime not null,
-	primary key (id),
-	foreign key (userid) references users(id),
-	foreign key (tournamentid) references tournaments(id),
-	foreign key (categoryid) references open_categories(id)
+	score_time datetime not null,
+	primary key (id)
 );
-*/
 
 -- data ------------------------------------------------------------------------------
 

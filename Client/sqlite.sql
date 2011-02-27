@@ -25,7 +25,7 @@ create table categories (
 -- users
 create table users (
 	id integer not null primary key autoincrement,
-	nationalid integer null default null,
+	national_id integer null default null,
 	quality integer not null default "0",
 	firstname varchar(255) not null,
 	lastname varchar(255) not null,
@@ -41,20 +41,44 @@ create table users (
 	score integer not null default "0",
 	correction_time integer not null default "0",
 
+	update_time datetime default current_timestamp, 
 	unique (email) on conflict abort,
-	unique (nationalid) on conflict abort
+	unique (national_id) on conflict abort
+);
+create table library (
+	-- group 
+	title varchar(255) not null,
+	description varchar(1000) null default null,
+  
+	sync_time datetime null default null,
+	-- library 
+	-- uniqueid char(40) not null,
+	-- serverid char(32) null default null,
+	licence varchar(255) null default null
+);
+create table pictures (
+	id integer not null primary key autoincrement,
+	reference_id integer not null,
+	kind varchar(10) not null, -- enum("library", "user", "resource", "match")
+	picture blob null,
+
+	update_time datetime default current_timestamp
 );
 
 -- matches
 create table authors (
 	id integer not null primary key autoincrement,
 	quality integer not null default "0",
-	title varchar(255) not null
+	title varchar(255) not null,
+
+	update_time datetime default current_timestamp
 );
 create table publications (
 	id integer not null primary key autoincrement,
 	quality integer not null default "0",
-	title varchar(255) not null
+	title varchar(255) not null,
+
+	update_time datetime default current_timestamp
 );
 create table resources (
 	id integer not null primary key autoincrement,
@@ -65,7 +89,9 @@ create table resources (
 	kind varchar(12) not null, -- enum("book", "multimedia", "webpage")
 	-- tags set("") null default null,
 	title varchar(255) not null,
-	ageclass tinyint(4) null default null
+	ageclass tinyint(4) null default null,
+
+	update_time datetime default current_timestamp
 );
 create table matches (
 	id integer not null primary key autoincrement,
@@ -81,14 +107,18 @@ create table matches (
 	-- instruction
 	category_id tinyint(4) null default null,
 	content text null default null,
-	configuration varchar(50) null default null
+	configuration varchar(50) null default null,
+
+	update_time datetime default current_timestamp
 );
 create table questions (
 	id integer not null primary key autoincrement,
 	match_id integer not null,
 	question varchar(1000) not null,
-	answer varchar(1000) null default null
+	answer varchar(1000) null default null,
 	--choice tinyint(4) null default null -- null: no choice
+
+	update_time datetime default current_timestamp
 );
 
 -- answers
@@ -99,21 +129,47 @@ create table answers (
 	deliver_time datetime null default null,
 	receive_time datetime null default null,
 	correct_time datetime null default null,
-	rate float null default null
+	rate float null default null,
+
+	update_time datetime default current_timestamp
 );
 
 -- tournaments 
   create table supports (
 	id integer not null primary key autoincrement, -- local
-	tournament_id integer not null,
 	match_id integer not null,
 	corrector_id integer not null,
 	score smallint,
-	current_state varchar(10) not null -- enum("active", "disabled", "imported")
+	current_state varchar(10) not null, -- enum("active", "disabled", "imported")
+
+	update_time datetime default current_timestamp
+);
+create table payments (
+	id integer not null primary key autoincrement,
+	user_id integer not null,
+	payment smallint not null,
+	pay_time datetime not null,
+
+	update_time datetime default current_timestamp
 );
 
 -- open_scores 
- 
+create table open_categories (
+	id integer not null primary key autoincrement,
+	title varchar(255) not null
+);
+create table open_scores (
+	id integer not null primary key autoincrement,
+	user_id integer not null,
+	category_id tinyint(4) not null,
+	title varchar(255) not null,
+	score smallint(6) not null,
+	score_time datetime not null,
+
+	update_time datetime default current_timestamp
+);
+
+
 
 -- data ------------------------------------------------------------------------------
 
@@ -129,3 +185,8 @@ insert into categories (id, title) values (2, 'تحقیق');
 insert into categories (id, title) values (3, 'آزمایش');
 insert into categories (id, title) values (4, 'کاردستی');
 
+insert into open_categories (id, title) values (0, 'خلاصه‌نویسی');
+insert into open_categories (id, title) values (1, 'شعر');
+insert into open_categories (id, title) values (2, 'داستان');
+
+insert into library (title) values ('کتابخانه‌ی شهید خرازی');

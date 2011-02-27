@@ -20,4 +20,6 @@ SOURCES += main.cpp
 
 HEADERS += \
     AccessToSqlite.h \
-    Jalali.h
+    Jalali.h \
+    ReghaabatConnect.h \
+    ReghaabatSync.h
