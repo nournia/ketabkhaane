@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
     //convertAccessDbToSqliteDb("D:\\Flash\\Project\\Match\\Match\\ForConvert.mdb", "reghaabat.db");
 
-
+    syncDb();
 
     return a.exec();
 }

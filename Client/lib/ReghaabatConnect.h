@@ -10,7 +10,7 @@
 
 QSqlDatabase connectDb(QString filename = "reghaabat.db")
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "SqliteDb");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(filename);
 
     if (! db.open())
