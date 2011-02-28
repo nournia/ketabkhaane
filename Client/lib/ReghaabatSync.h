@@ -23,14 +23,15 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     else
         lastSync.setDate(QDate(1000, 01, 01));
 
-    QString sql;
+    QString sql = "select update_time, sum(cid) from (";
     for (int i = 0; i < tables.size(); i++)
     {
-        sql += "select update_time, count(id), '"+ tables[i] +"' from "+ tables[i] +" where update_time > :sync_time group by update_time ";
+        sql += "select update_time, count(id) as cid from "+ tables[i] +" where update_time > :sync_time group by update_time ";
 
         if (i != tables.size() - 1)
             sql += "union ";
     }
+    sql += ") as t_all group by update_time order by update_time";
 
     qry.prepare(sql);
     qry.bindValue(":sync_time", lastSync);
