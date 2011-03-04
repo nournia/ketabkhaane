@@ -2,7 +2,7 @@
 #define ACCESSTOSQLITE_H
 
 #include <Jalali.h>
-#include <ReghaabatConnect.h>
+#include <connector.h>
 
 #include <QtCore/QCoreApplication>
 #include <QDate>

@@ -1,16 +1,7 @@
-#ifndef REGHAABATSYNC_H
-#define REGHAABATSYNC_H
-
-#include <ReghaabatConnect.h>
-
-//#include <parser.h>
-
-#include <QVariant>
-#include <QDateTime>
-#include <QFile>
+#include "syncer.h"
 
 // priority of tables
-QStringList tables = QStringList() << "users" << "matches" << "questions";
+QStringList tables = QStringList() << "users"; // << "matches" << "questions";
 
 bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
 {
@@ -23,15 +14,15 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     else
         lastSync.setDate(QDate(1000, 01, 01));
 
-    QString sql = "select update_time, sum(cid) from (";
+    QString sql = "select updated_at, sum(cid) from (";
     for (int i = 0; i < tables.size(); i++)
     {
-        sql += "select update_time, count(id) as cid from "+ tables[i] +" where update_time > :sync_time group by update_time ";
+        sql += "select updated_at, count(id) as cid from "+ tables[i] +" where updated_at > :sync_time group by updated_at ";
 
         if (i != tables.size() - 1)
             sql += "union ";
     }
-    sql += ") as t_all group by update_time order by update_time";
+    sql += ") as t_all group by updated_at order by updated_at";
 
     qry.prepare(sql);
     qry.bindValue(":sync_time", lastSync);
@@ -84,21 +75,24 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
     QSqlQuery qry;
 
     QString json = "{";
+    bool firstTable = true;
     foreach (QString table, tables)
     {
-        qry.prepare("select * from "+ table +" where update_time > :last_sync and update_time <= :sync_time");
+        qry.prepare("select * from "+ table +" where updated_at > :last_sync and updated_at <= :sync_time");
         qry.bindValue(":last_sync", lastSync);
         qry.bindValue(":sync_time", syncTime);
         qry.exec();
         int cols = qry.record().count();
 
+        if (! firstTable) json += ','; else firstTable = false;
         json += '\"' + table + '\"' + ':' + '[';
-        bool firstRow = true, firstCol = true;
+        bool firstRow = true;
         while (qry.next())
         {
             if (! firstRow) json += ','; else firstRow = false;
 
             json += '[';
+            bool firstCol = true;
             for (int i = 0; i < cols-1; i++)
             {
                 if (! firstCol) json += ','; else firstCol = false;
@@ -113,15 +107,20 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
     return json;
 }
 
-bool syncDb()
+
+QString Syncer::syncDb()
 {
-    connectDb();
+    Connector::connectDb();
     QDateTime lastSync, syncTime;
 
     setSyncBoundaries(200, lastSync, syncTime);
     QString json = writeJson(lastSync, syncTime);
 
+//    Sender s;
+//    s.send(QUrl("http://localhost:3000/client/upload"), json);
 
+    return json;
+    /*
     QFile file("tmp.json");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -129,10 +128,7 @@ bool syncDb()
         out.setCodec( "UTF-8" );
         out << json;
         file.close();
-    }
+    }*/
 
-    qDebug() << "finished";
-
+//    qDebug() << "finished";
 }
-
-#endif // REGHAABATSYNC_H

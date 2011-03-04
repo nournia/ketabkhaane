@@ -4,8 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core
-QT       += sql
+QT       += core \
+            sql \
+            network
 
 QT       -= gui
 
@@ -15,10 +16,14 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    syncer.cpp \
+    sender.cpp \
+    connector.cpp
 
 HEADERS += \
     AccessToSqlite.h \
     Jalali.h \
-    ReghaabatConnect.h \
-    ReghaabatSync.h
+    syncer.h \
+    sender.h \
+    connector.h
