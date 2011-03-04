@@ -1,5 +1,6 @@
-create database if not exists reghaabat character set utf8 collate utf8_general_ci;
-use reghaabat;
+drop database if exists reghaabat_development;
+create database reghaabat_development character set utf8 collate utf8_general_ci;
+use reghaabat_development;
 
 -- 0 <= rate <= 1, 0 <= quality	
 
@@ -40,10 +41,11 @@ create table users (
 	email varchar(255) default null collate "ascii_bin",
 	upassword char(40) default null collate "ascii_bin",
 
-	created_at datetime null default null,
+	created_at timestamp not null, 
 	score int not null default "0",
 	correction_time int not null default "0" comment "minute",
 	
+	updated_at timestamp not null, 
 	primary key (id),
 	unique key email (email),
 	unique key nationalid (national_id)
@@ -96,7 +98,7 @@ create table resources (
 	entity_id int(11) null default null, -- books.id | multimedias.id | webpages.id 
 	quality int(11) not null default "0",
 	kind enum("book", "multimedia", "webpage") not null,
-	--tags set("") null default null,
+	-- tags set("") null default null,
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
 	primary key (id)
@@ -142,7 +144,7 @@ create table questions (
 	match_id int(11) not null,
 	question varchar(1000) not null,
 	answer varchar(1000) null default null,
-	--choice tinyint(4) null default null, -- null: no choice
+	-- choice tinyint(4) null default null, -- null: no choice
 	primary key (id)
 );
 /*create table choices (

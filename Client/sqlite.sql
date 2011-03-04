@@ -37,11 +37,11 @@ create table users (
 	email varchar(255) default null,
 	upassword char(40) default null,
 
-	created_at datetime null default null,
+	created_at timestamp null default null,
 	score integer not null default "0",
 	correction_time integer not null default "0",
 
-	update_time datetime default current_timestamp, 
+	updated_at timestamp default current_timestamp, 
 	unique (email) on conflict abort,
 	unique (national_id) on conflict abort
 );
@@ -62,7 +62,7 @@ create table pictures (
 	kind varchar(10) not null, -- enum("library", "user", "resource", "match")
 	picture blob null,
 
-	update_time datetime default current_timestamp
+	updated_at timestamp default current_timestamp
 );
 
 -- matches
@@ -71,14 +71,14 @@ create table authors (
 	quality integer not null default "0",
 	title varchar(255) not null,
 
-	update_time datetime default current_timestamp
+	updated_at timestamp default current_timestamp
 );
 create table publications (
 	id integer not null primary key autoincrement,
 	quality integer not null default "0",
 	title varchar(255) not null,
 
-	update_time datetime default current_timestamp
+	updated_at timestamp default current_timestamp
 );
 create table resources (
 	id integer not null primary key autoincrement,
@@ -91,7 +91,7 @@ create table resources (
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
 
-	update_time datetime default current_timestamp
+	updated_at timestamp default current_timestamp
 );
 create table matches (
 	id integer not null primary key autoincrement,
@@ -109,7 +109,7 @@ create table matches (
 	content text null default null,
 	configuration varchar(50) null default null,
 
-	update_time datetime default current_timestamp
+	updated_at timestamp default current_timestamp
 );
 create table questions (
 	id integer not null primary key autoincrement,
@@ -118,7 +118,7 @@ create table questions (
 	answer varchar(1000) null default null,
 	--choice tinyint(4) null default null -- null: no choice
 
-	update_time datetime default current_timestamp
+	updated_at timestamp default current_timestamp
 );
 
 -- answers
@@ -131,7 +131,7 @@ create table answers (
 	correct_time datetime null default null,
 	rate float null default null,
 
-	update_time datetime default current_timestamp
+	updated_at timestamp default current_timestamp
 );
 
 -- tournaments 
@@ -142,7 +142,7 @@ create table answers (
 	score smallint,
 	current_state varchar(10) not null, -- enum("active", "disabled", "imported")
 
-	update_time datetime default current_timestamp
+	updated_at timestamp default current_timestamp
 );
 create table payments (
 	id integer not null primary key autoincrement,
@@ -150,7 +150,7 @@ create table payments (
 	payment smallint not null,
 	pay_time datetime not null,
 
-	update_time datetime default current_timestamp
+	updated_at timestamp default current_timestamp
 );
 
 -- open_scores 
@@ -166,7 +166,7 @@ create table open_scores (
 	score smallint(6) not null,
 	score_time datetime not null,
 
-	update_time datetime default current_timestamp
+	updated_at timestamp default current_timestamp
 );
 
 
