@@ -62,9 +62,9 @@ inline QString getJsonValue(QVariant v)
     if (v.isNull())
         return "null";
     else {
-        bool ok; v.toInt(&ok);
+        bool ok; int i = v.toInt(&ok);
         if (ok)
-            return v.toString();
+            return QString::number(i);
         else
             return sanitizeString(v.toString());
     }
