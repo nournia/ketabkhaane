@@ -107,19 +107,27 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
     return json;
 }
 
+//Syncer::Syncer(QObject *parent)
+//    :QObject(parent)
+//{}
 
-QString Syncer::syncDb()
+QString Syncer::getChunk()
 {
     Connector::connectDb();
     QDateTime lastSync, syncTime;
 
     setSyncBoundaries(200, lastSync, syncTime);
-    QString json = writeJson(lastSync, syncTime);
 
-//    Sender s;
-//    s.send(QUrl("http://localhost:3000/client/upload"), json);
+    return writeJson(lastSync, syncTime);
+}
 
-    return json;
+void Syncer::syncDb()
+{
+
+//    Sender s(this);
+//    s.send(QUrl("http://localhost/server.php"), getChunk());
+
+
     /*
     QFile file("tmp.json");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))

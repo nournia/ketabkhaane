@@ -11,6 +11,7 @@ class Sender : public QObject
     Q_OBJECT
 
 public:
+//    Sender(QObject *parent = 0);
     void send(QUrl url, QString& data);
 
 private slots:

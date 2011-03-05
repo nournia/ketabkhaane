@@ -3,6 +3,10 @@
 #include <QDebug>
 #include <QFile>
 
+//Sender::Sender(QObject *parent)
+//    :QObject(parent)
+//{}
+
 void Sender::send(QUrl url, QString& data)
 {
 //    QFile file("tmp.json");

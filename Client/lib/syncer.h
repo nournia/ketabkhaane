@@ -14,7 +14,9 @@ class Syncer : public QObject
 {
     Q_OBJECT
 public:
-    static QString syncDb();
+//    Syncer(QObject *parent = 0);
+    void syncDb();
+    QString getChunk();
 };
 
 #endif // SYNCER_H
