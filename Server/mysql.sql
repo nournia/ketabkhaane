@@ -29,7 +29,7 @@ create table categories (
 -- users
 create table users (
 	id int not null auto_increment,
-	national_id int not null,
+	national_id int null default null,
 	quality int not null default "0",
 	firstname varchar(255) not null,
 	lastname varchar(255) not null,
