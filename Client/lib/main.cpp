@@ -15,7 +15,11 @@ int main(int argc, char *argv[])
     Sender sender;
 
     QString json = syncer.getChunk();
-    sender.send(QUrl("http://localhost/server.php"), json);
+    //while (! json.isNull())
+    {
+        sender.send(QUrl("http://localhost/server.php"), json);
+
+    }
 
 
     return a.exec();

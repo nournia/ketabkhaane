@@ -49,7 +49,7 @@ void Sender::httpFinished()
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream out(&file);
-        out.setCodec( "UTF-8" );
+        //out.setCodec( "UTF-8" );
         out << reply->readAll();
         file.close();
     }
