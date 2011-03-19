@@ -1,4 +1,4 @@
-#ifndef ACCESSTOSQLITE_H
+﻿#ifndef ACCESSTOSQLITE_H
 #define ACCESSTOSQLITE_H
 
 #include <Jalali.h>
@@ -9,6 +9,7 @@
 #include <QStringList>
 #include <QVariant>
 #include <QFile>
+#include <QDebug>
 
 QSqlDatabase accessDb, sqliteDb;
 QSqlQuery accessQry, sqliteQry;
@@ -69,6 +70,16 @@ QString getInsertQuery(QString table, QStringList fields)
     return "INSERT INTO " + table + " (" + fields.join(",") + params + ")";
 }
 
+QVariant refineValue(QVariant value)
+{
+    QString tn = value.typeName();
+    if (tn == "QString" &&  value.toString().contains(''))
+        return value.toString().replace('', "");
+        //return value.toString().replace('ي', 'ی').replace('ك', 'ک').replace('', ""); // replace specific charcters
+    else
+        return value;
+}
+
 bool importTable(QString table, QString query, QStringList fields)
 {
     if (! accessQry.exec(query))
@@ -91,7 +102,7 @@ bool importTable(QString table, QString query, QStringList fields)
         for (int i = 0; i < fields.size(); i++)
         {
             if (! accessQry.record().fieldName(i).endsWith("date"))
-                tmp = accessQry.value(i);
+                tmp = refineValue(accessQry.value(i));
             else
                 tmp = getGregorianVariant(accessQry.value(i).toString());
             sqliteQry.bindValue(i, tmp);
@@ -204,7 +215,7 @@ bool importMatches()
 
 void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
 {
-    sqliteDb = connectDb(sqliteFilename);
+    sqliteDb = Connector::connectDb(sqliteFilename);
     accessDb = connectAccess(accessFilename);
 
     sqliteQry = QSqlQuery(sqliteDb);
@@ -237,7 +248,7 @@ void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
                 QStringList() << "user_id" << "category_id" << "title" << "score" << "score_time");
 
 
-    qDebug() << "finished";
+    qDebug() << "import finished";
 }
 
 

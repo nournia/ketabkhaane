@@ -4,11 +4,14 @@
 
 QSqlDatabase Connector::connectDb(QString filename)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(filename);
+    if (! QSqlDatabase::contains())
+    {
+        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName(filename);
 
-    if (! db.open())
-        qDebug() << "reghaabat db connection error : " << db.lastError();
-
-    return db;
+        if (! db.open())
+            qDebug() << "reghaabat db connection error : " << db.lastError();
+        return db;
+    } else
+        return QSqlDatabase::database();
 }

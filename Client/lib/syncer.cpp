@@ -1,7 +1,9 @@
 #include "syncer.h"
 
+#include <QFile>
+
 // priority of tables
-QStringList tables = QStringList() << "users"; // << "matches" << "questions";
+QStringList tables = QStringList() << /* "users" << "matches" << */ "questions";
 
 bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
 {
@@ -37,11 +39,10 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     while (qry.next())
     {
         rows += qry.value(1).toInt();
+        syncTime = qry.value(0).toDateTime();
+
         if (rows >= maxRows)
-        {
-            syncTime = qry.value(0).toDateTime();
             return true;
-        }
     }
 }
 
@@ -104,6 +105,19 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
         json += ']';
     }
     json += '}';
+
+
+
+    QFile file("tmp.json");
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QTextStream out(&file);
+        out.setCodec( "UTF-8" );
+        out << json;
+        file.close();
+    }
+
+
     return json;
 }
 
@@ -126,17 +140,6 @@ void Syncer::syncDb()
 
 //    Sender s(this);
 //    s.send(QUrl("http://localhost/server.php"), getChunk());
-
-
-    /*
-    QFile file("tmp.json");
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        QTextStream out(&file);
-        out.setCodec( "UTF-8" );
-        out << json;
-        file.close();
-    }*/
 
 //    qDebug() << "finished";
 }

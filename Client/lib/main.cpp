@@ -1,6 +1,6 @@
 #include <QtCore/QCoreApplication>
 
-//#include <AccessToSqlite.h>
+#include <AccessToSqlite.h>
 #include <syncer.h>
 #include <connector.h>
 
@@ -18,9 +18,7 @@ int main(int argc, char *argv[])
     //while (! json.isNull())
     {
         sender.send(QUrl("http://localhost/server.php"), json);
-
     }
-
 
     return a.exec();
 }
