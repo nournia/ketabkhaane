@@ -41,10 +41,10 @@ create table users (
 	email varchar(255) default null collate "ascii_bin",
 	upassword char(40) default null collate "ascii_bin",
 
-	created_at timestamp not null, 
 	score int not null default "0",
 	correction_time int not null default "0" comment "minute",
 	
+	created_at timestamp not null, 
 	updated_at timestamp not null, 
 	primary key (id),
 	unique key email (email),
@@ -137,6 +137,7 @@ create table matches (
 	content text null default null,
 	configuration varchar(50) null default null,
 
+	updated_at timestamp not null, 
 	primary key (id)
 );
 create table questions (
@@ -145,6 +146,7 @@ create table questions (
 	question varchar(1000) not null,
 	answer varchar(1000) null default null,
 	-- choice tinyint(4) null default null, -- null: no choice
+	updated_at timestamp not null, 
 	primary key (id)
 );
 /*create table choices (
@@ -164,6 +166,7 @@ create table answers (
 	receive_time datetime null default null,
 	correct_time datetime null default null,
 	rate float null default null,
+	updated_at timestamp not null, 
 	primary key (id)
 );
 /*create table subanswers (
@@ -226,6 +229,7 @@ create table payments (
 	user_id int(11) not null,
 	payment smallint(6) not null,
 	pay_time datetime not null,
+	updated_at timestamp not null, 
 	primary key (id)
 );
 
@@ -243,6 +247,7 @@ create table open_scores (
 	title varchar(255) not null,
 	score smallint(6) not null,
 	score_time datetime not null,
+	updated_at timestamp not null, 
 	primary key (id)
 );
 

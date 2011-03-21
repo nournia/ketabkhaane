@@ -3,7 +3,7 @@
 #include <QFile>
 
 // priority of tables
-QStringList tables = QStringList() << /* "users" << "matches" << */ "questions";
+QStringList tables = QStringList() << "users"; // << "matches" << "questions" << "answers" << "payments";
 
 bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
 {
@@ -79,7 +79,8 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
     bool firstTable = true;
     foreach (QString table, tables)
     {
-        qry.prepare("select * from "+ table +" where updated_at > :last_sync and updated_at <= :sync_time");
+        //qry.prepare("select * from "+ table +" where updated_at > :last_sync and updated_at <= :sync_time and created_at < :last_sync");
+        qry.prepare("select * from "+ table +" where created_at > :last_sync and created_at <= :sync_time");
         qry.bindValue(":last_sync", lastSync);
         qry.bindValue(":sync_time", syncTime);
         qry.exec();

@@ -1,4 +1,4 @@
-﻿#ifndef ACCESSTOSQLITE_H
+#ifndef ACCESSTOSQLITE_H
 #define ACCESSTOSQLITE_H
 
 #include <Jalali.h>
@@ -211,6 +211,7 @@ bool importMatches()
     sqliteDb.commit();
     qDebug() << "+ " << QString("matches");
 
+    return true;
 }
 
 void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
@@ -231,7 +232,7 @@ void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
                 QStringList() << "match_id" << "question" << "answer");
 
     importTable("answers", "select userid, matchid, deliverdate, receivedate, scoredate, round(transactions.score/matches.maxscore, 2) as rate from transactions left join matches on transactions.matchid = matches.id",
-                QStringList() << "user_id" << "match_id" << "deliver_time" << "receive_time" << "correct_time" << "rate");
+                QStringList() << "user_id" << "match_id" << "created_at" << "received_at" << "corrected_at" << "rate");
 
     importTable("supports", "select id, iif(designerid is null, -1, designerid), maxscore, iif(state = 0, 'active', iif(state = 1, 'disabled', iif(state = 2 , 'imported', NULL))) from matches",
                 QStringList() << "match_id" << "corrector_id" << "score" << "current_state");
@@ -239,13 +240,13 @@ void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
     importMatches();
 
     importTable("payments", "select userid, score, scoredate from payments",
-                QStringList() << "user_id" << "payment" << "pay_time");
+                QStringList() << "user_id" << "payment" << "created_at");
 
     importTable("pictures", "select id, picture, iif(id > 100000, 'match', iif(id > 1000, 'user', 'library')) from pictures",
                 QStringList() << "reference_id" << "picture" << "kind");
 
     importTable("open_scores", "select userid, 0, title, score, scoredate from freescores",
-                QStringList() << "user_id" << "category_id" << "title" << "score" << "score_time");
+                QStringList() << "user_id" << "category_id" << "title" << "score" << "created_at");
 
 
     qDebug() << "import finished";

@@ -10,7 +10,7 @@
 void Sender::send(QUrl url, QString& data)
 {
     QByteArray postData;
-    postData.append("json=" + data.toUtf8()); // postData.append("param1=alireza&");  postData.append("param2=me");
+    postData.append("create=" + data.toUtf8()); // postData.append("param1=alireza&");  postData.append("param2=me");
 
 //    reply = qnam.get(QNetworkRequest(url));
     reply = qnam.post(QNetworkRequest(url), postData);
