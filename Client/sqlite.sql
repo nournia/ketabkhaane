@@ -99,7 +99,7 @@ create table resources (
 );
 create table matches (
 	id integer not null primary key autoincrement,
-	designer_id integer not null,
+	designer_id integer not null, -- user_id
 	quality integer not null default "0",
 
 	title varchar(255) not null,
@@ -144,7 +144,7 @@ create table answers (
   create table supports (
 	id integer not null primary key autoincrement, -- local
 	match_id integer not null,
-	corrector_id integer not null,
+	corrector_id integer not null, -- user_id
 	score smallint,
 	current_state varchar(10) not null, -- enum("active", "disabled", "imported")
 
