@@ -85,8 +85,8 @@ create table publications (
 );
 create table resources (
 	id integer not null primary key autoincrement,
-	author_id integer null default null,
-	publication_id integer null default null,
+	author_id integer null default null references authors(id) on update cascade,
+	publication_id integer null default null references publications(id) on update cascade,
 	entity_id integer null default null, -- books.id | multimedias.id | webpages.id 
 	quality integer not null default "0",
 	kind varchar(12) not null, -- enum("book", "multimedia", "webpage")
@@ -99,17 +99,17 @@ create table resources (
 );
 create table matches (
 	id integer not null primary key autoincrement,
-	designer_id integer not null, -- user_id
+	designer_id integer not null references users(id) on update cascade,
 	quality integer not null default "0",
 
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
 	
 	-- question
-	resource_id integer null default null,
+	resource_id integer null default null references resources(id) on update cascade,
 	
 	-- instruction
-	category_id tinyint(4) null default null,
+	category_id tinyint(4) null default null references categories(id) on update cascade,
 	content text null default null,
 	configuration varchar(50) null default null,
 
@@ -118,7 +118,7 @@ create table matches (
 );
 create table questions (
 	id integer not null primary key autoincrement,
-	match_id integer not null,
+	match_id integer not null references matches(id) on update cascade,
 	question varchar(1000) not null,
 	answer varchar(1000) null default null,
 	--choice tinyint(4) null default null -- null: no choice
@@ -130,8 +130,8 @@ create table questions (
 -- answers
 create table answers (
 	id integer not null primary key autoincrement, -- local
-	user_id integer not null,
-	match_id integer not null,
+	user_id integer not null references users(id) on update cascade,
+	match_id integer not null references matches(id) on update cascade,
 	received_at datetime null default null,
 	corrected_at datetime null default null,
 	rate float null default null,
@@ -143,8 +143,8 @@ create table answers (
 -- tournaments 
   create table supports (
 	id integer not null primary key autoincrement, -- local
-	match_id integer not null,
-	corrector_id integer not null, -- user_id
+	match_id integer not null references matches(id) on update cascade,
+	corrector_id integer not null references users(id) on update cascade,
 	score smallint,
 	current_state varchar(10) not null, -- enum("active", "disabled", "imported")
 
@@ -153,7 +153,7 @@ create table answers (
 );
 create table payments (
 	id integer not null primary key autoincrement,
-	user_id integer not null,
+	user_id integer not null references users(id) on update cascade,
 	payment smallint not null,
 
 	created_at timestamp default current_timestamp,
@@ -167,8 +167,8 @@ create table open_categories (
 );
 create table open_scores (
 	id integer not null primary key autoincrement,
-	user_id integer not null,
-	category_id tinyint(4) not null,
+	user_id integer not null references users(id) on update cascade,
+	category_id tinyint(4) not null references categories(id) on update cascade,
 	title varchar(255) not null,
 	score smallint(6) not null,
 
