@@ -35,6 +35,14 @@ function getTableColumns($table, & $tournamentRow)
 ?>
 <?php
 	connectDatabase();
+	
+	$dependents = array(
+		'users' => array('matches'=>'designer_id', 'answers'=> 'user_id', 'payments'=>'user_id', 'open_scores'=>'user_id', 'supports'=>'corrector_id'),
+		'matches' => array('questions'=>'match_id', 'answers'=>'match_id', 'supports'=>'match_id'),
+		'authors' => array('resources'=>'author_id'),
+		'publications' => array('resources'=>'publication_id'),
+		'resources' => array('matches'=>'resource_id')
+	);
 
 	if (empty($_POST['id']) or empty($_POST['key']))
 	{
@@ -59,8 +67,6 @@ function getTableColumns($table, & $tournamentRow)
 		$json = $_POST['create']; // utf8_decode($_POST['json']);
 		$data = json_decode($json);
 
-		// echo $json; 	print_r($data); die;
-		
 		foreach ($data as $table => $rows)
 		{
 			$columns = getTableColumns($table, $tournamentRow);
@@ -74,13 +80,17 @@ function getTableColumns($table, & $tournamentRow)
 				
 				for($i = 1; $i < count($row); $i++)
 					$values .= getQueryValue($row[$i]) .',';
-				$values .= 'NOW()'; // updated_at field
+				$values .= 'null'; //'NOW()'; // updated_at field
 				
 				mysql_query("insert into {$table} ({$columns}) values ({$values})");
 				
+				$lastId = $row[0]; $newId = mysql_insert_id();
 				// print new id for record -- client will update last id to this new one
-				echo $row[0] .'-'. mysql_insert_id() .',';
-				//mysql_query("replace into {$table} values ({$values})");
+				echo $lastId .'-'. $newId .',';
+
+				if (! empty($dependents[$table]))
+				foreach ($dependents[$table] as $dependent => $key)
+					mysql_query("update {$dependent} set {$key} = {$newId} where {$key} = {$lastId}");
 			}
 			echo '/'; // end of table
 		}
@@ -88,4 +98,5 @@ function getTableColumns($table, & $tournamentRow)
 		echo 'invalid access';
 		
 	disconnectDatabase();
+	//mysql_query("replace into {$table} values ({$values})");
 ?>

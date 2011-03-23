@@ -2,8 +2,8 @@
 
 #include <QFile>
 
-// priority of tables
-QStringList tables = QStringList() << /*"users" << "matches" << "questions" << "answers" << */ "payments"; //<< "supports" << "open_scores" << "authors" << "publications" <<*/ "resources";
+// reverse priority of tables
+QStringList tables = QStringList() << "answers" << "questions" << "payments" << "supports" << "open_scores" << "matches" << "resources" << "authors" << "publications" << "users";
 
 bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
 {
@@ -108,7 +108,6 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
     json += '}';
 
 
-
     QFile file("tmp.json");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -138,7 +137,6 @@ QString Syncer::getChunk()
 
 void Syncer::syncDb()
 {
-
 //    Sender s(this);
 //    s.send(QUrl("http://localhost/server.php"), getChunk());
 

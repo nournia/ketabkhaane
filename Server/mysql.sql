@@ -43,7 +43,7 @@ create table users (
 	correction_time int not null default "0" comment "minute",
 	
 	created_at timestamp not null, 
-	updated_at timestamp not null,
+	updated_at timestamp null default null,
 	unique key email (email),
 	unique key nationalid (national_id)
 );
@@ -76,7 +76,7 @@ create table pictures (
 	picture mediumblob null,
 
 	created_at timestamp not null, 
-	updated_at timestamp not null
+	updated_at timestamp null default null
 );
 
 -- matches 
@@ -86,7 +86,7 @@ create table authors (
 	title varchar(255) not null,
 
 	created_at timestamp not null, 
-	updated_at timestamp not null
+	updated_at timestamp null default null
 );
 create table publications (
 	id integer not null primary key auto_increment,
@@ -94,7 +94,7 @@ create table publications (
 	title varchar(255) not null,
 
 	created_at timestamp not null, 
-	updated_at timestamp not null
+	updated_at timestamp null default null
 );
 create table resources (
 	id integer not null primary key auto_increment,
@@ -108,7 +108,7 @@ create table resources (
 	ageclass tinyint(4) null default null,
 
 	created_at timestamp not null, 
-	updated_at timestamp not null
+	updated_at timestamp null default null
 );
 /*create table books (
 	id integer not null auto_increment,
@@ -145,7 +145,7 @@ create table matches (
 	configuration varchar(50) null default null,
 
 	created_at timestamp not null, 
-	updated_at timestamp not null
+	updated_at timestamp null default null
 );
 create table questions (
 	id integer not null primary key auto_increment,
@@ -155,7 +155,7 @@ create table questions (
 	-- choice tinyint(4) null default null, -- null: no choice
 
 	created_at timestamp not null, 
-	updated_at timestamp not null
+	updated_at timestamp null default null
 );
 /*create table choices (
 	id integer not null auto_increment,
@@ -175,7 +175,7 @@ create table answers (
 	rate float null default null,
 
 	created_at timestamp not null, 
-	updated_at timestamp not null
+	updated_at timestamp null default null
 );
 /*create table subanswers (
 	id integer not null auto_increment,
@@ -220,7 +220,7 @@ create table supports (
 	score smallint(6),
 
 	created_at timestamp not null, 
-	updated_at timestamp not null
+	updated_at timestamp null default null
 );/*
 create table scores (
 	id integer not null auto_increment,
@@ -240,7 +240,7 @@ create table payments (
 	payment smallint(6) not null,
 
 	created_at timestamp not null, 
-	updated_at timestamp not null
+	updated_at timestamp null default null
 );
 
 -- open_scores 
@@ -257,7 +257,7 @@ create table open_scores (
 	score smallint(6) not null,
 
 	created_at timestamp not null, 
-	updated_at timestamp not null
+	updated_at timestamp null default null
 );
 
 -- data ------------------------------------------------------------------------------

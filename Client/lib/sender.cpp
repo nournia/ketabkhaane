@@ -21,8 +21,9 @@ class Updater
         if (! qry.exec("update " + table + " set id = " + newId + " where id = " + lastId))
             qDebug() << "update " + table + " set id = " + newId + " where id = " + lastId << qry.lastError();
 
-//        foreach (TablePair dependant, dependants[table])
-//            qry.exec("update "+ dependant.first +" set "+ dependant.second +" = " + newId + " where "+ dependant.second +" = " + lastId);
+        // two times faster than foreign keys
+        foreach (TablePair dependant, dependants[table])
+            qry.exec("update "+ dependant.first +" set "+ dependant.second +" = " + newId + " where "+ dependant.second +" = " + lastId);
     }
 
     void appendDependat(QString table, QString dependant, QString column)
@@ -41,7 +42,17 @@ class Updater
 public:
     Updater()
     {
-//        appendDependat("users", "answers", "user_id");
+        appendDependat("users", "matches", "designer_id");
+        appendDependat("users", "answers", "user_id");
+        appendDependat("users", "payments", "user_id");
+        appendDependat("users", "open_scores", "user_id");
+        appendDependat("users", "supports", "corrector_id");
+        appendDependat("matches", "questions", "match_id");
+        appendDependat("matches", "answers", "match_id");
+        appendDependat("matches", "supports", "match_id");
+        appendDependat("authors", "resources", "author_id");
+        appendDependat("publications", "resources", "publication_id");
+        appendDependat("resources", "matches", "resource_id");
     }
 
     void updateClientIds(QString response)
@@ -49,7 +60,7 @@ public:
         QSqlDatabase db = Connector::connectDb();
         QSqlQuery qry;
 
-        qry.exec("pragma foreign_keys = on");
+        //qry.exec("pragma foreign_keys = on");
 
         QString tablename;
         QStringList pair;
