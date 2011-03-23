@@ -20,6 +20,15 @@ int main(int argc, char *argv[])
         sender.send(QUrl("http://localhost/server.php"), json);
     }
 
+/*
+    QSqlQuery qry;
+
+    if (! qry.exec("update matches set id = 12 where id = 311006"))
+        qDebug() << qry.lastError();
+
+    qDebug() << "ok";
+*/
+
     return a.exec();
 }
 

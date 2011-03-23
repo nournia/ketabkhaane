@@ -18,10 +18,11 @@ class Updater
     {
         static QSqlQuery qry;
 
-        qry.exec("update " + table + " set id = " + newId + " where id = " + lastId);
+        if (! qry.exec("update " + table + " set id = " + newId + " where id = " + lastId))
+            qDebug() << "update " + table + " set id = " + newId + " where id = " + lastId << qry.lastError();
 
-        foreach (TablePair dependant, dependants[table])
-            qry.exec("update "+ dependant.first +" set "+ dependant.second +" = " + newId + " where "+ dependant.second +" = " + lastId);
+//        foreach (TablePair dependant, dependants[table])
+//            qry.exec("update "+ dependant.first +" set "+ dependant.second +" = " + newId + " where "+ dependant.second +" = " + lastId);
     }
 
     void appendDependat(QString table, QString dependant, QString column)
@@ -40,25 +41,26 @@ class Updater
 public:
     Updater()
     {
-        appendDependat("users", "answers", "user_id");
-        appendDependat("users", "payments", "user_id");
-        appendDependat("users", "open_scores", "user_id");
-        appendDependat("users", "matches", "designer_id");
-        appendDependat("users", "supports", "corrector_id");
+//        appendDependat("users", "answers", "user_id");
     }
 
     void updateClientIds(QString response)
     {
         QSqlDatabase db = Connector::connectDb();
-        db.transaction();
+        QSqlQuery qry;
+
+        qry.exec("pragma foreign_keys = on");
 
         QString tablename;
         QStringList pair;
-        bool first = true;
 
-        foreach (QString table, response.split("-/"))
+        foreach (QString table, response.split(",/"))
         if (table.contains('-'))
-            foreach (QString line, table.split('-'))
+        {
+            db.transaction();
+
+            bool first = true;
+            foreach (QString line, table.split(','))
             {
                 if (first)
                 {
@@ -66,11 +68,16 @@ public:
                     first = false;
                 } else
                 {
-                    pair = line.split(','); // lastId, newId
+                    pair = line.split('-'); // lastId, newId
                     updateId(tablename, pair[0], pair[1]);
                 }
             }
-        db.commit();
+
+            db.commit();
+            qDebug() << "+ " << tablename;
+        }
+
+        qry.exec("pragma foreign_keys = off");
     }
 };
 
@@ -95,10 +102,6 @@ void Sender::httpFinished()
 {
     QString response = reply->readAll();
 
-    Updater updater;
-    updater.updateClientIds(response);
-
-    /*
     QFile file("tmp.html");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -107,7 +110,9 @@ void Sender::httpFinished()
         out << response;
         file.close();
     }
-    */
+
+    Updater updater;
+    updater.updateClientIds(response);
 
     qDebug() << "sync finished";
 }

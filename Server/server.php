@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-<meta charset="utf-8" />
-</head>
-<body>
-<pre>
 <?php 
 function connectDatabase()
 {
@@ -26,13 +19,17 @@ function getQueryValue($value)
 	else return 'null';
 }
 
-function getTableColumns($table)
+function getTableColumns($table, & $tournamentRow)
 {
-	$columns = '';
+	$columns = ''; $tournamentRow = false;
 	$result = mysql_query("show columns from {$table}");
 	while ($row = mysql_fetch_array($result))
-	if ($row[0] != 'id')
-		$columns .= (! empty($columns) ? ',' : '') . $row[0];
+	{
+		if ($row[0] != 'id')
+			$columns .= (! empty($columns) ? ',' : '') . $row[0];
+		if ($row[0] == 'tournament_id')
+			$tournamentRow = true;
+	}
 	return $columns;
 }
 ?>
@@ -53,18 +50,22 @@ function getTableColumns($table)
 		$json = $_POST['create']; // utf8_decode($_POST['json']);
 		$data = json_decode($json);
 
-		//echo $json; 	print_r($data); die;
+		// echo $json; 	print_r($data); die;
 		
 		// retreive trournament_id
 		$tournament_id = 1;
 				
 		foreach ($data as $table => $rows)
 		{
-			$columns = getTableColumns($table);
-			
+			$columns = getTableColumns($table, $tournamentRow);
+			$tournamentValue = $tournamentRow ? $tournament_id .',' : '';
+
+			echo $table .',';			
 			foreach($rows as $row)
 			{
-				$values = '';
+				// for tournament tables like payments start with "1," and else with ""
+				$values = $tournamentValue;
+				
 				for($i = 1; $i < count($row); $i++)
 					$values .= getQueryValue($row[$i]) .',';
 				$values .= 'NOW()'; // updated_at field
@@ -72,17 +73,13 @@ function getTableColumns($table)
 				mysql_query("insert into {$table} ({$columns}) values ({$values})");
 				
 				// print new id for record -- client will update last id to this new one
-				echo $row[0] .'\t'. mysql_insert_id() .'\n';
+				echo $row[0] .'-'. mysql_insert_id() .',';
 				//mysql_query("replace into {$table} values ({$values})");
 			}
+			echo '/'; // end of table
 		}
-		
-		echo 'ok';
 	} else
 		echo 'invalid access';
 		
 	disconnectDatabase();
 ?>
-</pre>
-</body>
-</html>

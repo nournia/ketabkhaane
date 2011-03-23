@@ -75,6 +75,9 @@ create table pictures (
 	reference_id int(11) not null,
 	kind enum("library", "user", "resource", "match") not null,
 	picture mediumblob null,
+
+	created_at timestamp not null, 
+	updated_at timestamp not null, 
 	primary key (id)
 );
 
@@ -83,12 +86,18 @@ create table authors (
 	id int(11) not null auto_increment,
 	quality int(11) not null default "0",
 	title varchar(255) not null,
+
+	created_at timestamp not null, 
+	updated_at timestamp not null, 
 	primary key (id)
 );
 create table publications (
 	id int(11) not null auto_increment,
 	quality int(11) not null default "0",
 	title varchar(255) not null,
+
+	created_at timestamp not null, 
+	updated_at timestamp not null, 
 	primary key (id)
 );
 create table resources (
@@ -101,6 +110,9 @@ create table resources (
 	-- tags set("") null default null,
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
+
+	created_at timestamp not null, 
+	updated_at timestamp not null, 
 	primary key (id)
 );
 /*create table books (
@@ -123,7 +135,7 @@ create table webpages (
 );*/
 create table matches (
 	id int(11) not null auto_increment,
-	designer_id int(11) null default null,
+	designer_id int(11) not null,
 	quality int(11) not null default "0",
 
 	title varchar(255) not null,
@@ -137,6 +149,7 @@ create table matches (
 	content text null default null,
 	configuration varchar(50) null default null,
 
+	created_at timestamp not null, 
 	updated_at timestamp not null, 
 	primary key (id)
 );
@@ -146,6 +159,8 @@ create table questions (
 	question varchar(1000) not null,
 	answer varchar(1000) null default null,
 	-- choice tinyint(4) null default null, -- null: no choice
+
+	created_at timestamp not null, 
 	updated_at timestamp not null, 
 	primary key (id)
 );
@@ -162,10 +177,11 @@ create table answers (
 	id int(11) not null auto_increment,
 	user_id int(11) not null,
 	match_id int(11) not null,
-	deliver_time datetime null default null,
-	receive_time datetime null default null,
-	correct_time datetime null default null,
+	received_at datetime null default null,
+	corrected_at datetime null default null,
 	rate float null default null,
+
+	created_at timestamp not null, 
 	updated_at timestamp not null, 
 	primary key (id)
 );
@@ -210,6 +226,9 @@ create table supports (
 	corrector_id int(11) not null,
 	current_state enum("active", "disabled", "imported") not null,
 	score smallint(6),
+
+	created_at timestamp not null, 
+	updated_at timestamp not null, 
 	primary key (id)
 );/*
 create table scores (
@@ -228,7 +247,8 @@ create table payments (
 	tournament_id int(11) not null,
 	user_id int(11) not null,
 	payment smallint(6) not null,
-	pay_time datetime not null,
+
+	created_at timestamp not null, 
 	updated_at timestamp not null, 
 	primary key (id)
 );
@@ -246,7 +266,8 @@ create table open_scores (
 	category_id tinyint(4) not null,
 	title varchar(255) not null,
 	score smallint(6) not null,
-	score_time datetime not null,
+
+	created_at timestamp not null, 
 	updated_at timestamp not null, 
 	primary key (id)
 );

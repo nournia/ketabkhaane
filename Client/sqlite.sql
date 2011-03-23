@@ -4,6 +4,8 @@
 	int(11) -> integer
 	auto_increment -> autoincrement
 	primary key -> in field
+	
+	cascade -> cascade deferrable initially deferred
 */
 
 -- tables ------------------------------------------------------------------------------
@@ -145,8 +147,8 @@ create table answers (
 	id integer not null primary key autoincrement, -- local
 	match_id integer not null references matches(id) on update cascade,
 	corrector_id integer not null references users(id) on update cascade,
-	score smallint,
 	current_state varchar(10) not null, -- enum("active", "disabled", "imported")
+	score smallint,
 
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp

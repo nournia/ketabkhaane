@@ -109,10 +109,7 @@ bool importTable(QString table, QString query, QStringList fields)
         }
 
         if (! sqliteQry.exec())
-        {
-            qDebug() << table << " import error : " << sqliteQry.lastError();
-            return false;
-        }
+            qDebug() << table << " import error : " << sqliteQry.lastError() << accessQry.value(0).toString() << accessQry.value(1).toString();
     }
     sqliteDb.commit();
 
@@ -159,7 +156,7 @@ bool importMatches()
     groups.insert(32, 0);
 
     // access select query
-    if (! accessQry.exec("select id, iif(designerid is null, -1, designerid), title, "+ ageField +" as ageclass, groupid, content, pictureconfiguration, author, publication from matches"))
+    if (! accessQry.exec("select id, designerid, title, "+ ageField +" as ageclass, groupid, content, pictureconfiguration, author, publication from matches"))
         qDebug() << accessQry.lastError();
 
     // resource and match insertion
@@ -206,7 +203,7 @@ bool importMatches()
         }
 
         if (! sqliteQry.exec())
-            qDebug() << sqliteQry.lastError();
+            qDebug() << sqliteQry.lastError() << accessQry.value(1).toString();
     }
     sqliteDb.commit();
     qDebug() << "+ " << QString("matches");
@@ -225,19 +222,21 @@ void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
     if (! buildSqliteDb())
         return;
 
+    sqliteQry.exec("pragma foreign_keys = on");
+
     importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), registerdate, description from users",
                 QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "created_at" << "description");
+
+    importMatches();
 
     importTable("questions", "select matchid, question, answer from questions",
                 QStringList() << "match_id" << "question" << "answer");
 
-    importTable("answers", "select userid, matchid, deliverdate, receivedate, scoredate, round(transactions.score/matches.maxscore, 2) as rate from transactions left join matches on transactions.matchid = matches.id",
+    importTable("answers", "select userid, matchid, iif(deliverdate is null, '1300/01/01', deliverdate) as ddate, iif(deliverdate is null, '1300/01/01', receivedate) as rdate, iif(deliverdate is null, '1300/01/01', scoredate) as sdate, round(transactions.score/matches.maxscore, 2) as rate from transactions left join matches on transactions.matchid = matches.id",
                 QStringList() << "user_id" << "match_id" << "created_at" << "received_at" << "corrected_at" << "rate");
 
-    importTable("supports", "select id, iif(designerid is null, -1, designerid), maxscore, iif(state = 0, 'active', iif(state = 1, 'disabled', iif(state = 2 , 'imported', NULL))) from matches",
+    importTable("supports", "select id, designerid, maxscore, iif(state = 0, 'active', iif(state = 1, 'disabled', iif(state = 2 , 'imported', NULL))) from matches",
                 QStringList() << "match_id" << "corrector_id" << "score" << "current_state");
-
-    importMatches();
 
     importTable("payments", "select userid, score, scoredate from payments",
                 QStringList() << "user_id" << "payment" << "created_at");
@@ -248,6 +247,7 @@ void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
     importTable("open_scores", "select userid, 0, title, score, scoredate from freescores",
                 QStringList() << "user_id" << "category_id" << "title" << "score" << "created_at");
 
+    sqliteQry.exec("pragma foreign_keys = off");
 
     qDebug() << "import finished";
 }

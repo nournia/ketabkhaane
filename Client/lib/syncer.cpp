@@ -3,7 +3,7 @@
 #include <QFile>
 
 // priority of tables
-QStringList tables = QStringList() << "users"; // << "matches" << "questions" << "answers" << "payments";
+QStringList tables = QStringList() << /*"users" << "matches" << "questions" << "answers" << "payments" << "supports" << "open_scores" << "authors" << "publications" <<*/ "resources";
 
 bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
 {
