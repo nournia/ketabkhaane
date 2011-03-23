@@ -1,0 +1,24 @@
+﻿افزودن اعضای زیر از کتابخانه:
+1215
+1233
+1323
+1544
+1775
+2323
+این اعضا با پرس‌وجوی زیر استخراج شده‌اند:
+select distinct designerid from matches where designerid not in (select id from users)
+
+---
+اصلاح تمامی مسابقه‌هایی که طراح آنها خالی است.
+update matches set designerid = 1111 where designerid is null
+
+---
+حذف تراکنشهای مسابقات حذف شده که امتیاز آنها نیز پاک شده است:
+delete from transactions where matchid not in (select id from matches)
+delete from transactions where userid not in (select id from users)
+
+---
+حذف سوال مسابقه‌های حذف‌شده
+delete from questions where matchid not in (select id from matches)
+
+
