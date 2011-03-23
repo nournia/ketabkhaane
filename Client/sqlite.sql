@@ -1,10 +1,7 @@
 ﻿-- 0 <= rate <= 1, 0 <= quality
 
 /*
-	int(11) -> integer
 	auto_increment -> autoincrement
-	primary key -> in field
-	
 	cascade -> cascade deferrable initially deferred
 */
 
@@ -48,15 +45,12 @@ create table users (
 	unique (national_id) on conflict abort
 );
 create table library (
-	-- group 
+	id integer null default null,
+	group_id integer not null,
 	title varchar(255) not null,
 	description varchar(1000) null default null,
-  
-	sync_time datetime null default null,
-	-- library 
-	-- uniqueid char(40) not null,
-	-- serverid char(32) null default null,
-	licence varchar(255) null default null
+	synced_at timestamp null default null,
+	license varchar(255) null default null
 );
 create table pictures (
 	id integer not null primary key autoincrement,
@@ -198,4 +192,4 @@ insert into open_categories (id, title) values (0, 'خلاصه‌نویسی');
 insert into open_categories (id, title) values (1, 'شعر');
 insert into open_categories (id, title) values (2, 'داستان');
 
-insert into library (title) values ('کتابخانه‌ی شهید خرازی');
+insert into library (id, group_id, title, license) values (1, 1, 'کتابخانه‌ی شهید خرازی', 'aslwkelrfjsasdf');

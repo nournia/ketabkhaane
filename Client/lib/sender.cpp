@@ -87,8 +87,14 @@ public:
 
 void Sender::send(QUrl url, QString& data)
 {
+    QSqlQuery qry;
+    qry.exec("select id, group_id, license from library");
+    qry.next();
+
     QByteArray postData;
-    postData.append("create=" + data.toUtf8()); // postData.append("param1=alireza&");  postData.append("param2=me");
+    postData.append("id=" + qry.value(0).toString() + "&");
+    postData.append("key=" + qry.value(1).toString() + "-" + qry.value(2).toString() + "&");
+    postData.append("create=" + data.toUtf8());
 
 //    reply = qnam.get(QNetworkRequest(url));
     reply = qnam.post(QNetworkRequest(url), postData);

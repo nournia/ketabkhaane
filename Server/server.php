@@ -36,14 +36,23 @@ function getTableColumns($table, & $tournamentRow)
 <?php
 	connectDatabase();
 
-/*
-	$result = mysql_query('select * from users');
-	while ($row = mysql_fetch_row($result))
-		print_r($row);
-	die;
-*/
+	if (empty($_POST['id']) or empty($_POST['key']))
+	{
+		echo 'error';
+		exit;
+	}
 
-
+	$qry = "select tournament_id from libraries where id = {$_POST['id']} and concat(group_id, '-', license) = '{$_POST['key']}'";
+	$library = mysql_fetch_array(mysql_query($qry));
+	if (empty($library))
+	{
+		echo 'error';
+		exit;
+	}
+	
+	// retreive trournament_id
+	$tournament_id = $library['tournament_id'];
+	
 	if (! empty($_POST['create']))
 	{
 		// get posted json data and decode them
@@ -52,9 +61,6 @@ function getTableColumns($table, & $tournamentRow)
 
 		// echo $json; 	print_r($data); die;
 		
-		// retreive trournament_id
-		$tournament_id = 1;
-				
 		foreach ($data as $table => $rows)
 		{
 			$columns = getTableColumns($table, $tournamentRow);
