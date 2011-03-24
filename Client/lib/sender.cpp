@@ -12,53 +12,77 @@ typedef QPair<QString, QString> TablePair;
 class Updater
 {
     // list of tables which must be updated after key table
-    QMap<QString, QList<QPair<QString, QString> > > dependants;
+    QMap<QString, QList<QPair<QString, QString> > > dependents;
+
+    QSqlQuery qry;
+
+    QMap<QString, QString> conflicted;
 
     void updateId(QString& table, QString& lastId, QString& newId)
     {
-        static QSqlQuery qry;
+        if (conflicted.contains(lastId))
+            lastId =  conflicted[lastId];
 
-        if (! qry.exec("update " + table + " set id = " + newId + " where id = " + lastId))
-            qDebug() << "update " + table + " set id = " + newId + " where id = " + lastId << qry.lastError();
+        if (qry.exec("update " + table + " set id = " + newId + " where id = " + lastId))
+        {
+            // two times faster than foreign keys
+            foreach (TablePair dependant, dependents[table])
+                qry.exec("update "+ dependant.first +" set "+ dependant.second +" = " + newId + " where "+ dependant.second +" = " + lastId);
+        } else
+        {
+            // handle primary key conflict
+            if (qry.lastError().text().startsWith("PRIMARY KEY"))
+            {
+                // get first valid id
+                qry.exec("select max(id)+1 from " + table);
+                qry.next();
+                QString validId = qry.value(0).toString();
 
-        // two times faster than foreign keys
-        foreach (TablePair dependant, dependants[table])
-            qry.exec("update "+ dependant.first +" set "+ dependant.second +" = " + newId + " where "+ dependant.second +" = " + lastId);
+                // update newId to first vaild id
+                updateId(table, newId, validId);
+                conflicted[newId] = validId;
+
+                // update lastId to newId
+                updateId(table, lastId, newId);
+            }
+            else qDebug() << qry.lastError();
+        }
     }
 
-    void appendDependat(QString table, QString dependant, QString column)
+    void appendDependent(QString table, QString dependant, QString column)
     {
         TablePair tmp; tmp.first = dependant; tmp.second = column;
 
-        if (! dependants.contains(table))
+        if (! dependents.contains(table))
         {
             QList<QPair<QString, QString> > list;
             list.append(tmp);
-            dependants[table] = list;
+            dependents[table] = list;
         } else
-            dependants[table].append(tmp);
+            dependents[table].append(tmp);
     }
 
 public:
     Updater()
     {
-        appendDependat("users", "matches", "designer_id");
-        appendDependat("users", "answers", "user_id");
-        appendDependat("users", "payments", "user_id");
-        appendDependat("users", "open_scores", "user_id");
-        appendDependat("users", "supports", "corrector_id");
-        appendDependat("matches", "questions", "match_id");
-        appendDependat("matches", "answers", "match_id");
-        appendDependat("matches", "supports", "match_id");
-        appendDependat("authors", "resources", "author_id");
-        appendDependat("publications", "resources", "publication_id");
-        appendDependat("resources", "matches", "resource_id");
+        qry = QSqlQuery();
+
+        appendDependent("users", "matches", "designer_id");
+        appendDependent("users", "answers", "user_id");
+        appendDependent("users", "payments", "user_id");
+        appendDependent("users", "open_scores", "user_id");
+        appendDependent("users", "supports", "corrector_id");
+        appendDependent("matches", "questions", "match_id");
+        appendDependent("matches", "answers", "match_id");
+        appendDependent("matches", "supports", "match_id");
+        appendDependent("authors", "resources", "author_id");
+        appendDependent("publications", "resources", "publication_id");
+        appendDependent("resources", "matches", "resource_id");
     }
 
     void updateClientIds(QString response)
     {
         QSqlDatabase db = Connector::connectDb();
-        QSqlQuery qry;
 
         //qry.exec("pragma foreign_keys = on");
 

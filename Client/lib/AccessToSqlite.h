@@ -241,11 +241,11 @@ void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
     importTable("payments", "select userid, score, scoredate from payments",
                 QStringList() << "user_id" << "payment" << "created_at");
 
-    importTable("pictures", "select id, picture, iif(id > 100000, 'match', iif(id > 1000, 'user', 'library')) from pictures",
-                QStringList() << "reference_id" << "picture" << "kind");
-
     importTable("open_scores", "select userid, 0, title, score, scoredate from freescores",
                 QStringList() << "user_id" << "category_id" << "title" << "score" << "created_at");
+
+//    importTable("pictures", "select id, picture, iif(id > 100000, 'match', iif(id > 1000, 'user', 'library')) from pictures",
+//                QStringList() << "reference_id" << "picture" << "kind");
 
     sqliteQry.exec("pragma foreign_keys = off");
 
