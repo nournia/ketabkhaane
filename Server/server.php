@@ -72,7 +72,8 @@ function getTableColumns($table, & $tournamentRow)
 			$columns = getTableColumns($table, $tournamentRow);
 			$tournamentValue = $tournamentRow ? $tournament_id .',' : '';
 
-			echo $table .',';			
+			$transitions = array();
+			echo $table .',';
 			foreach($rows as $row)
 			{
 				// for tournament tables like payments start with "1," and else with ""
@@ -84,14 +85,24 @@ function getTableColumns($table, & $tournamentRow)
 				
 				mysql_query("insert into {$table} ({$columns}) values ({$values})");
 				
+				// push transition in array and at the end print it in direct or reverse order
 				$lastId = $row[0]; $newId = mysql_insert_id();
-				// print new id for record -- client will update last id to this new one
-				echo $lastId .'-'. $newId .',';
-
+				array_push($transitions, $lastId .'-'. $newId .',');
+				
 				if (! empty($dependents[$table]))
 				foreach ($dependents[$table] as $dependent => $key)
 					mysql_query("update {$dependent} set {$key} = {$newId} where {$key} = {$lastId}");
 			}
+			
+			// print new ids for record; client will update last id to this new one
+			$count = count($transitions);
+			if ($lastId < $newId) // reverse order
+				for ($i = $count-1; $i >= 0; $i--)
+					echo $transitions[$i];
+			else // direct order
+				for ($i = 0; $i < $count; $i++)
+					echo $transitions[$i];
+			
 			echo '/'; // end of table
 		}
 	} else
