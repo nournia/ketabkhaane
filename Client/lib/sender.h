@@ -10,16 +10,16 @@ class Sender : public QObject
 {
     Q_OBJECT
 
+    QNetworkAccessManager qnam;
+    QNetworkReply* reply;
+    void send(QUrl url, QMap<QString, QString> & posts);
+
 public:
 //    Sender(QObject *parent = 0);
-    void send(QUrl url, QString& data);
+    void sync();
 
 private slots:
     void httpFinished();
-
-private:
-    QNetworkAccessManager qnam;
-    QNetworkReply* reply;
 };
 
 #endif // SENDER_H

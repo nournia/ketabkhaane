@@ -10,16 +10,16 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     QSqlQuery qry;
 
     // prepare last sync time
-    qry.exec("select sync_time from library");
+    qry.exec("select synced_at from library");
     if (qry.next() && qry.value(0).toString() != "")
         lastSync = qry.value(0).toDateTime();
     else
-        lastSync.setDate(QDate(1000, 01, 01));
+        lastSync.setDate(QDate(1900, 01, 01));
 
     QString sql = "select updated_at, sum(cid) from (";
     for (int i = 0; i < tables.size(); i++)
     {
-        sql += "select updated_at, count(id) as cid from "+ tables[i] +" where updated_at > :sync_time group by updated_at ";
+        sql += "select updated_at, count(id) as cid from "+ tables[i] + " where updated_at > '" + lastSync.toString("yyyy-MM-dd hh:mm:ss") + "' group by updated_at ";
 
         if (i != tables.size() - 1)
             sql += "union ";
@@ -27,7 +27,7 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     sql += ") as t_all group by updated_at order by updated_at";
 
     qry.prepare(sql);
-    qry.bindValue(":sync_time", lastSync);
+    //qry.bindValue(":sync_time", lastSync);
 
     if (! qry.exec())
     {
@@ -38,12 +38,16 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     int rows = 0;
     while (qry.next())
     {
+//        qDebug() << qry.value(0).toString() << qry.value(1).toString();
         rows += qry.value(1).toInt();
         syncTime = qry.value(0).toDateTime();
 
         if (rows >= maxRows)
             return true;
     }
+
+    // unsynced rows are less than limit
+    syncTime = QDateTime::currentDateTime();
 }
 
 // from qjson library
@@ -84,13 +88,15 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
         qry.bindValue(":last_sync", lastSync);
         qry.bindValue(":sync_time", syncTime);
         qry.exec();
-        int cols = qry.record().count();
+
+        if (! qry.next()) continue;
 
         if (! firstTable) json += ','; else firstTable = false;
         json += '\"' + table + '\"' + ':' + '[';
+        int cols = qry.record().count();
         bool firstRow = true;
-        while (qry.next())
-        {
+
+        do {
             if (! firstRow) json += ','; else firstRow = false;
 
             json += '[';
@@ -101,7 +107,7 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
                 json += getJsonValue(qry.value(i).toString());
             }
             json += ']';
-        }
+        } while (qry.next());
 
         json += ']';
     }
@@ -117,7 +123,6 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
         file.close();
     }
 
-
     return json;
 }
 
@@ -125,14 +130,14 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
 //    :QObject(parent)
 //{}
 
-QString Syncer::getChunk()
+QByteArray Syncer::getChunk(QDateTime& syncTime)
 {
     Connector::connectDb();
-    QDateTime lastSync, syncTime;
+    QDateTime lastSync;
 
-    setSyncBoundaries(200, lastSync, syncTime);
+    setSyncBoundaries(5000, lastSync, syncTime);
 
-    return writeJson(lastSync, syncTime);
+    return writeJson(lastSync, syncTime).toUtf8();
 }
 
 void Syncer::syncDb()

@@ -13,14 +13,8 @@ int main(int argc, char *argv[])
 
     convertAccessDbToSqliteDb("D:\\Flash\\Project\\Match\\Match\\ForConvert.mdb", "reghaabat.db");
 
-    Syncer syncer;
     Sender sender;
-
-    QString json = syncer.getChunk();
-    //while (! json.isNull())
-    {
-        sender.send(QUrl("http://localhost/server.php"), json);
-    }
+    sender.sync();
 
     return a.exec();
 }

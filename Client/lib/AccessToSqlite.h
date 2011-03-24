@@ -58,7 +58,7 @@ bool buildSqliteDb()
 
 QString getInsertQuery(QString table, QStringList fields)
 {
-    QString params = ") VALUES (";
+    QString params = ") values (";
 
     for (int i = 0; i < fields.size(); i++)
     {
@@ -67,7 +67,7 @@ QString getInsertQuery(QString table, QStringList fields)
             params += ',';
     }
 
-    return "INSERT INTO " + table + " (" + fields.join(",") + params + ")";
+    return "insert into " + table + " (" + fields.join(",") + params + ")";
 }
 
 QVariant refineValue(QVariant value)
@@ -224,25 +224,25 @@ void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
 
     sqliteQry.exec("pragma foreign_keys = on");
 
-    importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), registerdate, description from users",
-                QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "created_at" << "description");
+    importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), description, registerdate, registerdate as udate from users",
+                QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description"  << "created_at"  << "updated_at");
 
     importMatches();
 
     importTable("questions", "select matchid, question, answer from questions",
                 QStringList() << "match_id" << "question" << "answer");
 
-    importTable("answers", "select userid, matchid, iif(deliverdate is null, '1300/01/01', deliverdate) as ddate, iif(deliverdate is null, '1300/01/01', receivedate) as rdate, iif(deliverdate is null, '1300/01/01', scoredate) as sdate, round(transactions.score/matches.maxscore, 2) as rate from transactions left join matches on transactions.matchid = matches.id",
-                QStringList() << "user_id" << "match_id" << "created_at" << "received_at" << "corrected_at" << "rate");
+    importTable("answers", "select userid, matchid, iif(deliverdate is null, '1300/01/01', receivedate) as rdate, iif(deliverdate is null, '1300/01/01', scoredate) as sdate, round(transactions.score/matches.maxscore, 2) as rate, iif(deliverdate is null, '1300/01/01', deliverdate) as ddate, iif(deliverdate is null, '1300/01/01', deliverdate) as udate from transactions left join matches on transactions.matchid = matches.id",
+                QStringList() << "user_id" << "match_id" << "received_at" << "corrected_at" << "rate" << "created_at" << "updated_at");
 
     importTable("supports", "select id, designerid, maxscore, iif(state = 0, 'active', iif(state = 1, 'disabled', iif(state = 2 , 'imported', NULL))) from matches",
                 QStringList() << "match_id" << "corrector_id" << "score" << "current_state");
 
-    importTable("payments", "select userid, score, scoredate from payments",
-                QStringList() << "user_id" << "payment" << "created_at");
+    importTable("payments", "select userid, score, scoredate, scoredate as udate from payments",
+                QStringList() << "user_id" << "payment" << "created_at" << "updated_at");
 
-    importTable("open_scores", "select userid, 0, title, score, scoredate from freescores",
-                QStringList() << "user_id" << "category_id" << "title" << "score" << "created_at");
+    importTable("open_scores", "select userid, 0, title, score, scoredate, scoredate as udate from freescores",
+                QStringList() << "user_id" << "category_id" << "title" << "score" << "created_at" << "updated_at");
 
 //    importTable("pictures", "select id, picture, iif(id > 100000, 'match', iif(id > 1000, 'user', 'library')) from pictures",
 //                QStringList() << "reference_id" << "picture" << "kind");

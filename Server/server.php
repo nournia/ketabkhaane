@@ -36,6 +36,8 @@ function getTableColumns($table, & $tournamentRow)
 <?php
 	connectDatabase();
 	
+	// debug print_r($_POST); die;	
+	
 	$dependents = array(
 		'users' => array('matches'=>'designer_id', 'answers'=> 'user_id', 'payments'=>'user_id', 'open_scores'=>'user_id', 'supports'=>'corrector_id'),
 		'matches' => array('questions'=>'match_id', 'answers'=>'match_id', 'supports'=>'match_id'),
@@ -44,9 +46,9 @@ function getTableColumns($table, & $tournamentRow)
 		'resources' => array('matches'=>'resource_id')
 	);
 
-	if (empty($_POST['id']) or empty($_POST['key']))
+	if (empty($_POST['id']) or empty($_POST['key']) or empty($_POST['time']))
 	{
-		echo 'error';
+		echo 'error - invalid arguments';
 		exit;
 	}
 
@@ -54,7 +56,7 @@ function getTableColumns($table, & $tournamentRow)
 	$library = mysql_fetch_array(mysql_query($qry));
 	if (empty($library))
 	{
-		echo 'error';
+		echo 'error - invalid access';
 		exit;
 	}
 	
@@ -105,9 +107,10 @@ function getTableColumns($table, & $tournamentRow)
 			
 			echo '/'; // end of table
 		}
-	} else
-		echo 'invalid access';
-		
+	}
+	
+	echo $_POST['time'];
+	
 	disconnectDatabase();
 	//mysql_query("replace into {$table} values ({$values})");
 ?>

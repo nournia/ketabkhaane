@@ -1,11 +1,13 @@
 #include "sender.h"
 
+#include <syncer.h>
 #include <QDebug>
 #include <QFile>
 #include <QSqlQuery>
 #include <QStringList>
 #include <connector.h>
 #include <QPair>
+#include <QDateTime>
 
 typedef QPair<QString, QString> TablePair;
 
@@ -18,6 +20,7 @@ class Updater
 
     QMap<QString, QString> conflicted;
 
+    // updates lastId to newId in table even newId exists
     void updateId(QString& table, QString& lastId, QString& newId)
     {
         if (conflicted.contains(lastId))
@@ -49,6 +52,7 @@ class Updater
         }
     }
 
+    // appends one dependency to dependents array
     void appendDependent(QString table, QString dependant, QString column)
     {
         TablePair tmp; tmp.first = dependant; tmp.second = column;
@@ -63,6 +67,7 @@ class Updater
     }
 
 public:
+    // fills dependents array
     Updater()
     {
         qry = QSqlQuery();
@@ -80,20 +85,24 @@ public:
         appendDependent("resources", "matches", "resource_id");
     }
 
+    // main function for updating ids from server response
     void updateClientIds(QString response)
     {
         QSqlDatabase db = Connector::connectDb();
-
         //qry.exec("pragma foreign_keys = on");
+        db.transaction();
 
         QString tablename;
         QStringList pair;
 
         foreach (QString table, response.split(",/"))
-        if (table.contains('-'))
+        if (table.contains('error'))
         {
-            db.transaction();
-
+            qDebug() << table;
+            break;
+        }
+        else if (table.contains(','))
+        {
             bool first = true;
             foreach (QString line, table.split(','))
             {
@@ -107,12 +116,24 @@ public:
                     updateId(tablename, pair[0], pair[1]);
                 }
             }
+        } else
+        {
+            QDateTime syncTime = QDateTime::fromString(table, "yyyy-MM-dd hh:mm:ss");
 
-            db.commit();
-            qDebug() << "+ " << tablename;
+            if (syncTime.isValid())
+            {
+                if (! qry.exec("update library set synced_at = '" + table + "'"))
+                    qDebug() << qry.lastError();
+
+                qDebug() << syncTime.toString();
+
+                // wait for response data processing
+                db.commit();
+            } else
+                qDebug() << "error in sync process";
         }
 
-        qry.exec("pragma foreign_keys = off");
+        //qry.exec("pragma foreign_keys = off");
     }
 };
 
@@ -120,16 +141,16 @@ public:
 //    :QObject(parent)
 //{}
 
-void Sender::send(QUrl url, QString& data)
+void Sender::send(QUrl url, QMap<QString, QString> & posts)
 {
-    QSqlQuery qry;
-    qry.exec("select id, group_id, license from library");
-    qry.next();
-
+    bool first = true;
     QByteArray postData;
-    postData.append("id=" + qry.value(0).toString() + "&");
-    postData.append("key=" + qry.value(1).toString() + "-" + qry.value(2).toString() + "&");
-    postData.append("create=" + data.toUtf8());
+    QMapIterator<QString, QString> i(posts);
+    while (i.hasNext()) {
+        i.next();
+        postData.append((!first ? "&" : "") + i.key() + "=" + i.value());
+        first = false;
+    }
 
 //    reply = qnam.get(QNetworkRequest(url));
     reply = qnam.post(QNetworkRequest(url), postData);
@@ -137,7 +158,6 @@ void Sender::send(QUrl url, QString& data)
     connect(reply, SIGNAL(finished()),
             this, SLOT(httpFinished()));
 }
-
 
 void Sender::httpFinished()
 {
@@ -155,5 +175,30 @@ void Sender::httpFinished()
     Updater updater;
     updater.updateClientIds(response);
 
-    qDebug() << "sync finished";
+    // must change !!!
+    // only datetime response means no need to sync
+    QDateTime syncTime = QDateTime::fromString(response, "yyyy-MM-dd hh:mm:ss");
+    if (! syncTime.isValid())
+        sync();
+    else
+        qDebug() << "sync finished";
+}
+
+void Sender::sync()
+{
+    Connector::connectDb();
+
+    QSqlQuery qry;
+    qry.exec("select id, group_id, license from library");
+    qry.next();
+
+    Syncer syncer;
+    QDateTime syncTime;
+    QMap<QString, QString> posts;
+    posts["id"] = qry.value(0).toString();
+    posts["key"] = qry.value(1).toString() + "-" + qry.value(2).toString();
+    posts["create"] = syncer.getChunk(syncTime);
+    posts["time"] = syncTime.toString("yyyy-MM-dd hh:mm:ss");
+
+    send(QUrl("http://localhost/server.php"), posts);
 }
