@@ -53,6 +53,7 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
 // from qjson library
 inline QString sanitizeString( QString str )
 {
+    str.replace('&', ','); // must change !!!
     str.replace( QLatin1String( "\\" ), QLatin1String( "\\\\" ) );
     str.replace( QLatin1String( "\"" ), QLatin1String( "\\\"" ) );
     str.replace( QLatin1String( "\b" ), QLatin1String( "\\b" ) );
