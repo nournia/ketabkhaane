@@ -8,6 +8,7 @@
 #include <connector.h>
 #include <QPair>
 #include <QDateTime>
+#include <QCryptographicHash>
 
 typedef QPair<QString, QString> TablePair;
 
@@ -195,7 +196,7 @@ void Sender::sync()
     QDateTime syncTime; bool finished;
     QMap<QString, QString> posts;
     posts["id"] = qry.value(0).toString();
-    posts["key"] = qry.value(1).toString() + "-" + qry.value(2).toString();
+    posts["key"] = QCryptographicHash::hash(QString(qry.value(1).toString() + "-" + qry.value(2).toString()).toUtf8(), QCryptographicHash::Sha1).toHex();
     posts["actions"] = syncer.getChunk(syncTime, finished);
     posts["time"] = syncTime.toString("yyyy-MM-dd hh:mm:ss");
     if (finished) posts["finished"] = "true";

@@ -49,7 +49,7 @@ function getTableColumns($table, & $tournamentRow)
 		'resources' => array('matches'=>'resource_id')
 	);
 
-	$qry = "select id, tournament_id from libraries where id = {$_POST['id']} and concat(group_id, '-', license) = '{$_POST['key']}'";
+	$qry = "select id, tournament_id from libraries where id = {$_POST['id']} and sha1(concat(group_id, '-', license)) = '{$_POST['key']}'";
 	$library = mysql_fetch_array(mysql_query($qry));
 	if (empty($library))
 	{
