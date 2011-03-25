@@ -16,7 +16,7 @@ class Syncer : public QObject
 public:
 //    Syncer(QObject *parent = 0);
     void syncDb();
-    QByteArray getChunk(QDateTime& syncTime);
+    QByteArray getChunk(QDateTime& syncTime, bool& finished);
 };
 
 #endif // SYNCER_H

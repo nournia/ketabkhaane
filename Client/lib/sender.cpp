@@ -86,7 +86,7 @@ public:
     }
 
     // main function for updating ids from server response
-    void updateClientIds(QString response)
+    bool updateClientIds(QString response)
     {
         QSqlDatabase db = Connector::connectDb();
         //qry.exec("pragma foreign_keys = on");
@@ -116,21 +116,25 @@ public:
                     updateId(tablename, pair[0], pair[1]);
                 }
             }
-        } else
+        } else if (table.startsWith('+') || table.startsWith('*'))
         {
-            QDateTime syncTime = QDateTime::fromString(table, "yyyy-MM-dd hh:mm:ss");
+            QString sTime = table.mid(1);
+            QDateTime syncTime = QDateTime::fromString(sTime, "yyyy-MM-dd hh:mm:ss");
 
             if (syncTime.isValid())
             {
-                if (! qry.exec("update library set synced_at = '" + table + "'"))
+                if (! qry.exec("update library set synced_at = '" + sTime + "'"))
                     qDebug() << qry.lastError();
 
                 qDebug() << syncTime.toString();
 
                 // wait for response data processing
                 db.commit();
+
+                return table.startsWith('+'); // continue
             } else
                 qDebug() << "error in sync process";
+            return false;
         }
 
         //qry.exec("pragma foreign_keys = off");
@@ -173,12 +177,7 @@ void Sender::httpFinished()
     }
 
     Updater updater;
-    updater.updateClientIds(response);
-
-    // must change !!!
-    // only datetime response means no need to sync
-    QDateTime syncTime = QDateTime::fromString(response, "yyyy-MM-dd hh:mm:ss");
-    if (! syncTime.isValid())
+    if (updater.updateClientIds(response)) // continue
         sync();
     else
         qDebug() << "sync finished";
@@ -193,12 +192,13 @@ void Sender::sync()
     qry.next();
 
     Syncer syncer;
-    QDateTime syncTime;
+    QDateTime syncTime; bool finished;
     QMap<QString, QString> posts;
     posts["id"] = qry.value(0).toString();
     posts["key"] = qry.value(1).toString() + "-" + qry.value(2).toString();
-    posts["create"] = syncer.getChunk(syncTime);
+    posts["actions"] = syncer.getChunk(syncTime, finished);
     posts["time"] = syncTime.toString("yyyy-MM-dd hh:mm:ss");
+    if (finished) posts["finished"] = "true";
 
     send(QUrl("http://localhost/server.php"), posts);
 }

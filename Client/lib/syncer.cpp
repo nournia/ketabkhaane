@@ -27,7 +27,6 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     sql += ") as t_all group by updated_at order by updated_at";
 
     qry.prepare(sql);
-    //qry.bindValue(":sync_time", lastSync);
 
     if (! qry.exec())
     {
@@ -43,11 +42,12 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
         syncTime = qry.value(0).toDateTime();
 
         if (rows >= maxRows)
-            return true;
+            return false;
     }
 
     // unsynced rows are less than limit
     syncTime = QDateTime::currentDateTime();
+    return true;
 }
 
 // from qjson library
@@ -79,39 +79,53 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
 {
     QSqlQuery qry;
 
+    QString dtLast = "'" + lastSync.toString("yyyy-MM-dd hh:mm:ss") + "'", dtSync = "'" + syncTime.toString("yyyy-MM-dd hh:mm:ss") + "'";
+
     QString json = "{";
-    bool firstTable = true;
-    foreach (QString table, tables)
+    for (int k = 0; k < 2; k++)
     {
-        //qry.prepare("select * from "+ table +" where updated_at > :last_sync and updated_at <= :sync_time and created_at < :last_sync");
-        qry.prepare("select * from "+ table +" where created_at > :last_sync and created_at <= :sync_time");
-        qry.bindValue(":last_sync", lastSync);
-        qry.bindValue(":sync_time", syncTime);
-        qry.exec();
+        if (k == 0)
+            json += "\"insert\":{"; // first key
+        else
+            json += ",\"replace\":{"; // second key
 
-        if (! qry.next()) continue;
+        bool firstTable = true;
+        foreach (QString table, tables)
+        {
+            if (k == 0)
+                qry.exec("select * from "+ table +" where created_at > "+ dtLast +" and created_at <= "+ dtSync);
+            else
+                qry.exec("select * from "+ table +" where updated_at > "+ dtLast +" and updated_at <= "+ dtSync +" and created_at < "+ dtLast);
 
-        if (! firstTable) json += ','; else firstTable = false;
-        json += '\"' + table + '\"' + ':' + '[';
-        int cols = qry.record().count();
-        bool firstRow = true;
+//            qry.bindValue(":last_sync", lastSync);
+//            qry.bindValue(":sync_time", syncTime);
+//            qry.exec();
 
-        do {
-            if (! firstRow) json += ','; else firstRow = false;
+            if (! qry.next()) continue;
 
-            json += '[';
-            bool firstCol = true;
-            for (int i = 0; i < cols-1; i++)
-            {
-                if (! firstCol) json += ','; else firstCol = false;
-                json += getJsonValue(qry.value(i).toString());
-            }
-            json += ']';
-        } while (qry.next());
+            if (! firstTable) json += ','; else firstTable = false;
+            json += '\"' + table + '\"' + ':' + '[';
+            int cols = qry.record().count();
+            bool firstRow = true;
 
-        json += ']';
+            do {
+                if (! firstRow) json += ','; else firstRow = false;
+
+                json += '[';
+                bool firstCol = true;
+                for (int i = 0; i < cols-1; i++)
+                {
+                    if (! firstCol) json += ','; else firstCol = false;
+                    json += getJsonValue(qry.value(i).toString());
+                }
+                json += ']'; // end of row
+            } while (qry.next());
+
+            json += ']'; // end of table
+        }
+        json += '}'; // end of insert or update
     }
-    json += '}';
+    json += '}'; // end of file
 
 
     QFile file("tmp.json");
@@ -130,12 +144,12 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
 //    :QObject(parent)
 //{}
 
-QByteArray Syncer::getChunk(QDateTime& syncTime)
+QByteArray Syncer::getChunk(QDateTime& syncTime, bool& finished)
 {
     Connector::connectDb();
     QDateTime lastSync;
 
-    setSyncBoundaries(5000, lastSync, syncTime);
+    finished = setSyncBoundaries(1000000, lastSync, syncTime);
 
     return writeJson(lastSync, syncTime).toUtf8();
 }

@@ -42,7 +42,7 @@ create table users (
 	score int not null default "0",
 	correction_time int not null default "0" comment "minute",
 	
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null,
 	unique key email (email),
 	unique key nationalid (national_id)
@@ -75,7 +75,7 @@ create table pictures (
 	kind enum("library", "user", "resource", "match") not null,
 	picture mediumblob null,
 
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
 
@@ -85,7 +85,7 @@ create table authors (
 	quality integer not null default "0",
 	title varchar(255) not null,
 
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
 create table publications (
@@ -93,7 +93,7 @@ create table publications (
 	quality integer not null default "0",
 	title varchar(255) not null,
 
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
 create table resources (
@@ -107,7 +107,7 @@ create table resources (
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
 
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
 /*create table books (
@@ -144,7 +144,7 @@ create table matches (
 	content text null default null,
 	configuration varchar(50) null default null,
 
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
 create table questions (
@@ -154,7 +154,7 @@ create table questions (
 	answer varchar(1000) null default null,
 	-- choice tinyint(4) null default null, -- null: no choice
 
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
 /*create table choices (
@@ -174,7 +174,7 @@ create table answers (
 	corrected_at datetime null default null,
 	rate float null default null,
 
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
 /*create table subanswers (
@@ -219,7 +219,7 @@ create table supports (
 	current_state enum("active", "disabled", "imported") not null,
 	score smallint(6),
 
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );/*
 create table scores (
@@ -239,7 +239,7 @@ create table payments (
 	user_id integer not null,
 	payment smallint(6) not null,
 
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
 
@@ -256,7 +256,7 @@ create table open_scores (
 	title varchar(255) not null,
 	score smallint(6) not null,
 
-	created_at timestamp not null, 
+	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
 
