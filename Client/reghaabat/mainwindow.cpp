@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <AccessToSqlite.h>
+#include <sender.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,4 +19,10 @@ MainWindow::~MainWindow()
 void MainWindow::on_bConvert_clicked()
 {
     convertAccessDbToSqliteDb("D:\\Flash\\Project\\Match\\Match\\ForConvert.mdb", "reghaabat.db");
+}
+
+void MainWindow::on_actionSync_triggered()
+{
+//    Sender sender;
+//    sender.sync();
 }
