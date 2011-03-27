@@ -221,18 +221,18 @@ create table supports (
 
 	created_at timestamp null default null, 
 	updated_at timestamp null default null
-);/*
+);
 create table scores (
-	id integer not null auto_increment,
-	userid integer not null,
-	tournamentid integer not null,
+	id integer not null primary key auto_increment,
+	tournament_id integer not null,
+	user_id integer not null,
 	score integer not null default "0",
-	participatetime datetime not null,
+	participated_at datetime not null,
 	confirm tinyint(1) not null default "1",
-	primary key (id),
-	foreign key (userid) references users(id),
-	foreign key (tournamentid) references tournaments(id)
-);*/
+
+	created_at timestamp null default null, 
+	updated_at timestamp null default null
+);
 create table payments (
 	id integer not null primary key auto_increment,
 	tournament_id integer not null,
