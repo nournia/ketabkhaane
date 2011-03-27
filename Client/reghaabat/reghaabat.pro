@@ -4,15 +4,22 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql network
 
 TARGET = reghaabat
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    connector.cpp \
+    syncer.cpp \
+    sender.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    connector.h \
+    syncer.h \
+    sender.h \
+    Jalali.h
 
 FORMS    += mainwindow.ui
