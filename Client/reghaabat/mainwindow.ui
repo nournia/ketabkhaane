@@ -36,9 +36,6 @@
      </widget>
     </item>
    </layout>
-   <zorder>bConvert</zorder>
-   <zorder>bConvert</zorder>
-   <zorder>container</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -55,17 +52,23 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
+   <addaction name="actionLogin"/>
    <addaction name="actionSync"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionSync">
    <property name="text">
-    <string>sync</string>
+    <string>به روز رسانی</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionLogin">
+   <property name="text">
+    <string>ورود</string>
    </property>
   </action>
  </widget>

@@ -4,6 +4,8 @@
 #include <AccessToSqlite.h>
 #include <sender.h>
 
+#include <logindialog.h>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -25,4 +27,10 @@ void MainWindow::on_actionSync_triggered()
 {
 //    Sender sender;
 //    sender.sync();
+}
+
+void MainWindow::on_actionLogin_triggered()
+{
+    LoginDialog ld(this);
+    ld.exec();
 }

@@ -14,12 +14,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     connector.cpp \
     syncer.cpp \
-    sender.cpp
+    sender.cpp \
+    logindialog.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
     syncer.h \
     sender.h \
-    Jalali.h
+    Jalali.h \
+    logindialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    logindialog.ui
