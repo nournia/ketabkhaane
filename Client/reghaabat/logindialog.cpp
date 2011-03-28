@@ -6,6 +6,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
+    titleEdit = new TitleEdit(ui->eUsername, this);
 }
 
 LoginDialog::~LoginDialog()
