@@ -36,7 +36,10 @@ public:
         setModel(&m_model);
 
         // configurations
+        QFont font("Tahoma");
+        popup()->setFont(font);
 
+        popup()->setLayoutDirection(Qt::RightToLeft);
     }
 
     inline void update(QString word)
