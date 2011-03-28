@@ -6,7 +6,13 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
-    titleEdit = new TitleEdit(ui->eUsername, this);
+
+    eUsername = new MyLineEdit(this);
+    eUsername->setObjectName("eUsername");
+    ui->formLayout->setWidget(1, QFormLayout::FieldRole, eUsername);
+
+    MyCompleter * completer = new MyCompleter("select firstname || ' ' || lastname from users", this);
+    eUsername->setCompleter(completer);
 }
 
 LoginDialog::~LoginDialog()

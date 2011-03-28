@@ -16,7 +16,7 @@ SOURCES += main.cpp\
     syncer.cpp \
     sender.cpp \
     logindialog.cpp \
-    titleedit.cpp
+    mylineedit.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -24,7 +24,7 @@ HEADERS  += mainwindow.h \
     sender.h \
     Jalali.h \
     logindialog.h \
-    titleedit.h
+    mylineedit.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui

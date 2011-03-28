@@ -2,7 +2,7 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
-#include <titleedit.h>
+#include <mylineedit.h>
 
 namespace Ui {
     class LoginDialog;
@@ -18,7 +18,7 @@ public:
 
 private:
     Ui::LoginDialog *ui;
-    TitleEdit *titleEdit;
+    MyLineEdit *eUsername;
 };
 
 #endif // LOGINDIALOG_H
