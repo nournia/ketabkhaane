@@ -24,25 +24,25 @@ private slots:
     void on_bConvert_clicked();
 };
 
+
 // rghaabat global variables
+// from: http://stackoverflow.com/questions/3747085/global-variables-in-qt
 class Reghaabat
 {
 private:
-  Reghaabat();
-//  Reghaabat(const Reghaabat& _instance);
-
-  static Reghaabat* m_Instance;
+    Reghaabat();
+    static Reghaabat* m_Instance;
 
 public:
     int userId;
-     QString userName, userPermission;
+    QString userName, userPermission;
 
-     static Reghaabat* instance()
-     {
-       if (! m_Instance)
-         m_Instance = new Reghaabat;
-       return m_Instance;
-     }
+    static Reghaabat* instance()
+    {
+        if (! m_Instance)
+            m_Instance = new Reghaabat;
+        return m_Instance;
+    }
 };
 
 #endif // MAINWINDOW_H
