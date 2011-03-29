@@ -1,26 +1,19 @@
 #include "mylineedit.h"
 
 MyLineEdit::MyLineEdit(QWidget *parent)
-    : QLineEdit(parent), c(0)
-{
-}
+    : QLineEdit(parent), c(0), valueId(-1) {}
 
-MyLineEdit::~MyLineEdit()
-{
-}
+MyLineEdit::~MyLineEdit() {}
 
 void MyLineEdit::setCompleter(MyCompleter *completer)
 {
-    if (c)
-        QObject::disconnect(c, 0, this, 0);
-
+    if (c) QObject::disconnect(c, 0, this, 0);
     c = completer;
-
-    if (!c)
-        return;
+    if (!c) return;
 
     c->setWidget(this);
     connect(completer, SIGNAL(activated(const QString&)), this, SLOT(insertCompletion(const QString&)));
+    connect(this, SIGNAL(editingFinished()), this, SLOT(setIdValue()));
 }
 
 MyCompleter *MyLineEdit::completer() const
@@ -33,7 +26,6 @@ void MyLineEdit::insertCompletion(const QString& completion)
     setText(completion);
     selectAll();
 }
-
 
 void MyLineEdit::keyPressEvent(QKeyEvent *e)
 {
@@ -69,3 +61,26 @@ void MyLineEdit::keyPressEvent(QKeyEvent *e)
     c->update(text());
     c->popup()->setCurrentIndex(c->completionModel()->index(0, 0));
 }
+
+void MyLineEdit::setIdValue()
+{
+    QSqlQuery qry;
+    qry.prepare(completer()->query + " where ctitle = ?");
+    qry.bindValue(0, this->text());
+    qry.exec();
+
+    valueId = -1;
+    if (qry.next())
+    {
+        valueId = qry.value(0).toInt();
+        if (qry.next())
+            valueId = -1;
+    }
+
+    if (valueId != -1)
+        setStyleSheet("background-color:  hsv(120, 60, 255)");
+    else
+        setStyleSheet("background-color:  hsv(0, 60, 255)");
+
+}
+

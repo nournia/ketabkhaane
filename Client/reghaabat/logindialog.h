@@ -20,6 +20,10 @@ public:
 private:
     Ui::LoginDialog *ui;
     MyLineEdit *eUsername;
+
+private slots:
+    void on_bCancel_clicked();
+    void on_bOk_clicked();
 };
 
 #endif // LOGINDIALOG_H

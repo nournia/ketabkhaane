@@ -19,19 +19,21 @@ class MyCompleter : public QCompleter
     Q_OBJECT
 
 public:
+    QString query;
+
     inline MyCompleter(const QStringList& words, QObject* parent)
         : QCompleter(parent), m_list(words), m_model()
     {
         setModel(&m_model);
     }
 
-    MyCompleter (QString query, QObject* parent)
-        : QCompleter(parent)
+    MyCompleter (QString q, QObject* parent)
+        : QCompleter(parent), query(q)
     {
         QSqlQuery qry;
         qry.exec(query);
         while (qry.next())
-            m_list << qry.value(0).toString();
+            m_list << qry.value(1).toString();
 
         setModel(&m_model);
 
@@ -74,14 +76,18 @@ public:
     void setCompleter(MyCompleter *c);
     MyCompleter *completer() const;
 
+    int value() { return valueId; }
+
 protected:
     void keyPressEvent(QKeyEvent *e);
 
 private slots:
     void insertCompletion(const QString &completion);
+    void setIdValue();
 
 private:
     MyCompleter *c;
+    int valueId; // from completer query
 };
 
 #endif // MYLINEEDIT_H
