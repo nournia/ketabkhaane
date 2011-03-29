@@ -61,14 +61,17 @@ create table libraries (
 	description varchar(1000) null default null,
 	synced_at timestamp null default null,
 	license varchar(255) null default null
-);/*
+);
 create table permissions (
 	id integer not null primary key auto_increment,
 	group_id integer not null,
 	user_id integer not null,
 	permission enum("user", "operator", "designer", "manager", "master", "admin") not null, -- ozv, ozvyar, tarrah, tarrahyar, modir, modir-e-samaneh 
-	accept tinyint(1) not null default "0"
-);*/
+	accept tinyint(1) not null default "0",
+
+	created_at timestamp null default null, 
+	updated_at timestamp null default null
+);
 create table pictures (
 	id integer not null primary key auto_increment,
 	reference_id integer not null,

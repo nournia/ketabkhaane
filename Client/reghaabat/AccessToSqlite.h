@@ -211,12 +211,12 @@ bool importMatches()
     return true;
 }
 
-void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
+void convertAccessDbToSqliteDb(QString accessFilename)
 {
-    sqliteDb = Connector::connectDb(sqliteFilename);
+    sqliteDb = Connector::connectDb();
     accessDb = connectAccess(accessFilename);
 
-    sqliteQry = QSqlQuery(sqliteDb);
+    sqliteQry = QSqlQuery();
     accessQry = QSqlQuery(accessDb);
 
     if (! buildSqliteDb())
@@ -248,6 +248,8 @@ void convertAccessDbToSqliteDb(QString accessFilename, QString sqliteFilename)
 //                QStringList() << "reference_id" << "picture" << "kind");
 
     sqliteQry.exec("pragma foreign_keys = off");
+
+    accessQry.finish();
 
     qDebug() << "import finished";
 }

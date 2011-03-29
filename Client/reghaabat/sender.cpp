@@ -78,6 +78,7 @@ public:
         appendDependent("users", "payments", "user_id");
         appendDependent("users", "open_scores", "user_id");
         appendDependent("users", "supports", "corrector_id");
+        appendDependent("users", "permissions", "user_id");
         appendDependent("matches", "questions", "match_id");
         appendDependent("matches", "answers", "match_id");
         appendDependent("matches", "supports", "match_id");
@@ -142,9 +143,9 @@ public:
     }
 };
 
-//Sender::Sender(QObject *parent)
-//    :QObject(parent)
-//{}
+Sender::Sender(QObject *parent)
+    :QObject(parent)
+{}
 
 void Sender::send(QUrl url, QMap<QString, QString> & posts)
 {
@@ -157,7 +158,6 @@ void Sender::send(QUrl url, QMap<QString, QString> & posts)
         first = false;
     }
 
-//    reply = qnam.get(QNetworkRequest(url));
     reply = qnam.post(QNetworkRequest(url), postData);
 
     connect(reply, SIGNAL(finished()),
@@ -172,7 +172,6 @@ void Sender::httpFinished()
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream out(&file);
-        //out.setCodec( "UTF-8" );
         out << response;
         file.close();
     }
@@ -186,13 +185,11 @@ void Sender::httpFinished()
 
 void Sender::sync()
 {
-    Connector::connectDb();
-
     QSqlQuery qry;
     qry.exec("select id, group_id, license from library");
     qry.next();
 
-    Syncer syncer;
+    Syncer syncer(this);
     QDateTime syncTime; bool finished;
     QMap<QString, QString> posts;
     posts["id"] = qry.value(0).toString();

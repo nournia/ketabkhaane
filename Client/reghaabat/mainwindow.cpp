@@ -20,13 +20,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_bConvert_clicked()
 {
-    convertAccessDbToSqliteDb("D:\\Flash\\Project\\Match\\Match\\ForConvert.mdb", "reghaabat.db");
+    convertAccessDbToSqliteDb("D:\\Flash\\Project\\Match\\Match\\ForConvert.mdb");
 }
 
 void MainWindow::on_actionSync_triggered()
 {
-//    Sender sender;
-//    sender.sync();
+    static Sender sender(this);
+    sender.sync();
 }
 
 void MainWindow::on_actionLogin_triggered()

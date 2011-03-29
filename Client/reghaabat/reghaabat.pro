@@ -24,7 +24,8 @@ HEADERS  += mainwindow.h \
     sender.h \
     Jalali.h \
     logindialog.h \
-    mylineedit.h
+    mylineedit.h \
+    AccessToSqlite.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui

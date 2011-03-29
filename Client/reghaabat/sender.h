@@ -15,7 +15,7 @@ class Sender : public QObject
     void send(QUrl url, QMap<QString, QString> & posts);
 
 public:
-//    Sender(QObject *parent = 0);
+    Sender(QObject *parent = 0);
     void sync();
 
 private slots:

@@ -3,7 +3,7 @@
 #include <QFile>
 
 // reverse priority of tables
-QStringList tables = QStringList() << "answers" << "questions" << "payments" << "supports" << "open_scores" << "matches" << "resources" << "authors" << "publications" << "users";
+QStringList tables = QStringList() << "permissions" << "answers" << "questions" << "payments" << "supports" << "open_scores" << "matches" << "resources" << "authors" << "publications" << "users";
 
 bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
 {
@@ -26,9 +26,7 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     }
     sql += ") as t_all group by updated_at order by updated_at";
 
-    qry.prepare(sql);
-
-    if (! qry.exec())
+    if (! qry.exec(sql))
     {
         qDebug() << qry.lastError();
         return false;
@@ -37,7 +35,6 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     int rows = 0;
     while (qry.next())
     {
-//        qDebug() << qry.value(0).toString() << qry.value(1).toString();
         rows += qry.value(1).toInt();
         syncTime = qry.value(0).toDateTime();
 
@@ -98,10 +95,6 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
             else
                 qry.exec("select * from "+ table +" where updated_at > "+ dtLast +" and updated_at <= "+ dtSync +" and created_at < "+ dtLast);
 
-//            qry.bindValue(":last_sync", lastSync);
-//            qry.bindValue(":sync_time", syncTime);
-//            qry.exec();
-
             if (! qry.next()) continue;
 
             if (! firstTable) json += ','; else firstTable = false;
@@ -141,13 +134,12 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
     return json;
 }
 
-//Syncer::Syncer(QObject *parent)
-//    :QObject(parent)
-//{}
+Syncer::Syncer(QObject *parent)
+    :QObject(parent)
+{}
 
 QByteArray Syncer::getChunk(QDateTime& syncTime, bool& finished)
 {
-    Connector::connectDb();
     QDateTime lastSync;
 
     finished = setSyncBoundaries(1000000, lastSync, syncTime);

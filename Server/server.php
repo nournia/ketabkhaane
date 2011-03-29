@@ -18,19 +18,6 @@ function getQueryValue($value)
 		return "'". mysql_real_escape_string($value) . "'";
 	else return 'null';
 }
-
-function getTableColumns($table, & $tournamentRow)
-{
-	$columns = ''; $tournamentRow = false;
-	$result = mysql_query("show columns from {$table}");
-	while ($row = mysql_fetch_array($result))
-	{
-		$columns .= (! empty($columns) ? ',' : '') . $row[0];
-		if ($row[0] == 'tournament_id')
-			$tournamentRow = true;
-	}
-	return $columns;
-}
 ?>
 <?php
 	connectDatabase();
@@ -42,23 +29,20 @@ function getTableColumns($table, & $tournamentRow)
 	}
 
 	$dependents = array(
-		'users' => array('matches'=>'designer_id', 'answers'=> 'user_id', 'payments'=>'user_id', 'open_scores'=>'user_id', 'supports'=>'corrector_id'),
+		'users' => array('matches'=>'designer_id', 'answers'=> 'user_id', 'payments'=>'user_id', 'open_scores'=>'user_id', 'supports'=>'corrector_id', 'permissions'=>'user_id'),
 		'matches' => array('questions'=>'match_id', 'answers'=>'match_id', 'supports'=>'match_id'),
 		'authors' => array('resources'=>'author_id'),
 		'publications' => array('resources'=>'publication_id'),
 		'resources' => array('matches'=>'resource_id')
 	);
 
-	$qry = "select id, tournament_id from libraries where id = {$_POST['id']} and sha1(concat(group_id, '-', license)) = '{$_POST['key']}'";
+	$qry = "select * from libraries where id = {$_POST['id']} and sha1(concat(group_id, '-', license)) = '{$_POST['key']}'";
 	$library = mysql_fetch_array(mysql_query($qry));
 	if (empty($library))
 	{
 		echo 'error - invalid access';
 		exit;
 	}
-	
-	// retreive trournament_id
-	$tournament_id = $library['tournament_id'];
 	
 	// get posted json data and decode them
 	$actions = json_decode($_POST['actions']); // utf8_decode($_POST['json']);
@@ -70,16 +54,25 @@ function getTableColumns($table, & $tournamentRow)
 	{
 		$insert = $command == 'insert';
 		
-		$columns = getTableColumns($table, $tournamentRow);
-		$tournamentValue = $tournamentRow ? $tournament_id .',' : '';
-
-		if ($insert) $transitions[$table] = array();
+		// get table columns
+		$columns = ''; $libraryValues = '';
+		$result = mysql_query("show columns from {$table}");
+		while ($row = mysql_fetch_array($result))
+		{
+			$columns .= (! empty($columns) ? ',' : '') . $row[0];
+			if ($row[0] == 'tournament_id')
+				$libraryValues = $library['tournament_id'] .',';
+			else if ($row[0] == 'group_id')
+				$libraryValues = $library['group_id'] .',';
+		}
+		
+//		if ($insert) $transitions[$table] = array();
 
 		foreach($rows as $row)
 		{
 			$values = ($command == 'insert' ? 'null' : $row[0]) . ',';
 			// for tournament tables like payments start with "1," and else with ""
-			$values .= $tournamentValue; // tournament_id must be the second field
+			$values .= $libraryValues; // tournament_id must be the second field
 			for($i = 1; $i < count($row); $i++)
 				$values .= getQueryValue($row[$i]) .',';
 			$values .= $insert ? $defaultUpdatedAt : 'now()'; // updated_at field
@@ -116,7 +109,7 @@ function getTableColumns($table, & $tournamentRow)
 	}
 	
 	if (isset($_POST['finished']))
-	foreach (array('answers', 'questions', 'payments', 'supports', 'open_scores', 'matches', 'resources', 'authors', 'publications', 'users') as $table)
+	foreach (array('permissions', 'answers', 'questions', 'payments', 'supports', 'open_scores', 'matches', 'resources', 'authors', 'publications', 'users') as $table)
 			mysql_query("update {$table} set updated_at = now() where updated_at = {$defaultUpdatedAt}");
 			
 	mysql_query("update libraries set synced_at = '{$_POST['time']}' where id = {$library['id']}");
