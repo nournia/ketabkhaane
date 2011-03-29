@@ -30,12 +30,10 @@ private slots:
 class Reghaabat
 {
 private:
-    Reghaabat();
     static Reghaabat* m_Instance;
 
 public:
-    int userId;
-    QString userName, userPermission;
+    QString userId, userName, userPermission;
 
     static Reghaabat* instance()
     {

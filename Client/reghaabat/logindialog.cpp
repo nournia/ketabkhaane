@@ -27,7 +27,7 @@ LoginDialog::~LoginDialog()
 void LoginDialog::on_bOk_clicked()
 {
 
-    //    qDebug() << Reghaabat::instance()->userId;
+        qDebug() << Reghaabat::instance()->userName;
 
 }
 

@@ -34,6 +34,8 @@ void MainWindow::on_actionSync_triggered()
 
 void MainWindow::on_actionLogin_triggered()
 {
+    Reghaabat::instance()->userName = "new one";
+
     LoginDialog ld(this);
     ld.exec();
 }
