@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <mylineedit.h>
+#include <mainwindow.h>
 
 namespace Ui {
     class LoginDialog;

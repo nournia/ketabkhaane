@@ -6,6 +6,9 @@
 
 #include <logindialog.h>
 
+// init reghaabat global variables
+Reghaabat* Reghaabat::m_Instance = 0;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
