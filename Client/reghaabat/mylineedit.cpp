@@ -66,21 +66,21 @@ void MyLineEdit::setIdValue()
 {
     QSqlQuery qry;
     qry.prepare(completer()->query + " where ctitle = ?");
-    qry.bindValue(0, this->text());
+    qry.addBindValue(this->text());
     qry.exec();
 
-    valueId = -1;
+    valueId = "";
     if (qry.next())
     {
-        valueId = qry.value(0).toInt();
+        valueId = qry.value(0).toString();
         if (qry.next())
-            valueId = -1;
+            valueId = "";
     }
 
-    if (valueId != -1)
+    if (text() == "")
+        setStyleSheet("");
+    else if (valueId != "")
         setStyleSheet("background-color:  hsv(120, 60, 255)");
     else
         setStyleSheet("background-color:  hsv(0, 60, 255)");
-
 }
-

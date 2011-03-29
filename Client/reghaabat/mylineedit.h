@@ -76,7 +76,7 @@ public:
     void setCompleter(MyCompleter *c);
     MyCompleter *completer() const;
 
-    int value() { return valueId; }
+    QString value() { return valueId; }
 
 protected:
     void keyPressEvent(QKeyEvent *e);
@@ -87,7 +87,7 @@ private slots:
 
 private:
     MyCompleter *c;
-    int valueId; // from completer query
+    QString valueId; // from completer query
 };
 
 #endif // MYLINEEDIT_H
