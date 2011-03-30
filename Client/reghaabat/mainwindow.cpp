@@ -19,8 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->statusBar->setFont(QFont("Tahoma"));
-
-    userForm = 0;
 }
 
 MainWindow::~MainWindow()
@@ -54,6 +52,8 @@ void MainWindow::on_actionLogout_triggered()
     Reghaabat::instance()->userPermission = "";
 
     ui->statusBar->showMessage(Reghaabat::instance()->userName);
+
+    clear();
 }
 
 void MainWindow::on_actionNewUser_triggered()
@@ -65,4 +65,9 @@ void MainWindow::on_actionNewUser_triggered()
 //        ui->container = userForm;
     }
     userForm->edit("1111");
+}
+
+void MainWindow::clear()
+{
+    delete userForm; userForm = 0;
 }

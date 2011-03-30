@@ -34,3 +34,8 @@ void UserForm::edit(QString userId)
     else
         ui->rFemale->setChecked(true);
 }
+
+void UserForm::on_buttonBox_rejected()
+{
+    ((MainWindow*)parent())->clear();
+}

@@ -21,6 +21,9 @@ public:
 
 private:
     Ui::UserForm *ui;
+
+private slots:
+    void on_buttonBox_rejected();
 };
 
 #endif // USERFORM_H
