@@ -19,6 +19,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->statusBar->setFont(QFont("Tahoma"));
+
+    // add username edit
+    eUsername = new MyLineEdit(ui->gUser);
+    eUsername->setObjectName("eUsername");
+    ui->horizontalLayout->addWidget(eUsername);
+//    QWidget::setTabOrder(eUsername, ui->ePassword);
+    eUsername->setFocus();
+
+    MyCompleter * completer = new MyCompleter("select users.id, firstname || ' ' || lastname as ctitle from users", this);
+    eUsername->setCompleter(completer);
 }
 
 MainWindow::~MainWindow()

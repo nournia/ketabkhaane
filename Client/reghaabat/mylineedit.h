@@ -38,8 +38,8 @@ public:
         setModel(&m_model);
 
         // configurations
-//        QFont font("Tahoma");
-//        popup()->setFont(font);
+        QFont font("Tahoma");
+        popup()->setFont(font);
 
         popup()->setLayoutDirection(Qt::RightToLeft);
     }

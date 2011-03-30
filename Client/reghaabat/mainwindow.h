@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <mylineedit.h>
+
 namespace Ui {
     class MainWindow;
 }
@@ -19,6 +21,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    MyLineEdit *eUsername;
 
 private slots:
     void on_actionNewUser_triggered();
