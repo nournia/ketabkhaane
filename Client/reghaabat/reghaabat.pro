@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     sender.cpp \
     logindialog.cpp \
     mylineedit.cpp \
-    userform.cpp
+    userform.cpp \
+    helper.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     mylineedit.h \
     AccessToSqlite.h \
     MUsers.h \
-    userform.h
+    userform.h \
+    helper.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \

@@ -1,9 +1,9 @@
 #ifndef MUSERS_H
 #define MUSERS_H
 
-#include <mainwindow.h>
 #include <QCryptographicHash>
-#include <QSqlQuery>
+
+#include <helper.h>
 
 class MUsers
 {
@@ -17,13 +17,21 @@ public:
 
         if (qry.next())
         {
-            Reghaabat::instance()->userId = qry.value(0).toString();
-            Reghaabat::instance()->userName = qry.value(1).toString();
-            Reghaabat::instance()->userPermission = qry.value(1).toString();
+//            Reghaabat::instance()->userId = qry.value(0).toString();
+//            Reghaabat::instance()->userName = qry.value(1).toString();
+//            Reghaabat::instance()->userPermission = qry.value(1).toString();
 
             return true;
         }
         else return false;
+    }
+
+    static StrMap get(QString userId)
+    {
+        QSqlQuery qry;
+        qry.exec("select * from users where id = "+ userId);
+        qry.next();
+        return getRecord(qry);
     }
 };
 

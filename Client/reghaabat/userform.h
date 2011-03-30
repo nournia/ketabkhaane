@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include <MUsers.h>
+
 namespace Ui {
     class UserForm;
 }
@@ -14,6 +16,8 @@ class UserForm : public QWidget
 public:
     explicit UserForm(QWidget *parent = 0);
     ~UserForm();
+
+    void edit(QString userId);
 
 private:
     Ui::UserForm *ui;

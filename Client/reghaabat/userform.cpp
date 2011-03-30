@@ -12,3 +12,10 @@ UserForm::~UserForm()
 {
     delete ui;
 }
+
+void UserForm::edit(QString userId)
+{
+    StrMap user = MUsers::get(userId);
+
+    ui->eFirstname->setText(user["firstname"]);
+}

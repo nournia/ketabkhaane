@@ -10,12 +10,17 @@
 // init reghaabat global variables
 Reghaabat* Reghaabat::m_Instance = 0;
 
+UserForm *userForm;
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui->statusBar->setFont(QFont("Tahoma"));
+
+    userForm = 0;
 }
 
 MainWindow::~MainWindow()
@@ -53,6 +58,10 @@ void MainWindow::on_actionLogout_triggered()
 
 void MainWindow::on_actionNewUser_triggered()
 {
-//    if (ui->centralWidget->)
-    ui->centralWidget->layout()->addWidget(new UserForm(this));
+    if (! userForm)
+    {
+        userForm = new UserForm(this);
+        ui->centralWidget->layout()->addWidget(userForm);
+    }
+    userForm->edit("1111");
 }
