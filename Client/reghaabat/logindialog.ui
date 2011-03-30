@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>271</width>
-    <height>105</height>
+    <height>151</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,7 @@
    <item row="1" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>نام کاربری</string>
+      <string>Username</string>
      </property>
     </widget>
    </item>
@@ -42,14 +42,14 @@
      <item row="0" column="0">
       <widget class="QPushButton" name="bOk">
        <property name="text">
-        <string>تایید</string>
+        <string>O</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="bCancel">
        <property name="text">
-        <string>لغو</string>
+        <string>Can</string>
        </property>
       </widget>
      </item>
@@ -58,7 +58,7 @@
    <item row="2" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>کلمه‌ی عبور</string>
+      <string>Password</string>
      </property>
     </widget>
    </item>
@@ -74,6 +74,13 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="5" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

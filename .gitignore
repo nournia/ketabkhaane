@@ -1,3 +1,5 @@
 
 Client/lib-build-desktop/*
 Client/reghaabat-build-desktop/*
+*.qm
+*.bat

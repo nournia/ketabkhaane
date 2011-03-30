@@ -25,7 +25,10 @@ HEADERS  += mainwindow.h \
     Jalali.h \
     logindialog.h \
     mylineedit.h \
-    AccessToSqlite.h
+    AccessToSqlite.h \
+    MUsers.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui
+
+TRANSLATIONS = reghaabat_fa.ts
