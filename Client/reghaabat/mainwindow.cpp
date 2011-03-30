@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->statusBar->setFont(QFont("Tahoma"));
 }
 
 MainWindow::~MainWindow()
@@ -34,8 +35,17 @@ void MainWindow::on_actionSync_triggered()
 
 void MainWindow::on_actionLogin_triggered()
 {
-    Reghaabat::instance()->userName = "new one";
-
     LoginDialog ld(this);
     ld.exec();
+
+    ui->statusBar->showMessage(Reghaabat::instance()->userName);
+}
+
+void MainWindow::on_actionLogout_triggered()
+{
+    Reghaabat::instance()->userId = "";
+    Reghaabat::instance()->userName = "";
+    Reghaabat::instance()->userPermission = "";
+
+    ui->statusBar->showMessage(Reghaabat::instance()->userName);
 }

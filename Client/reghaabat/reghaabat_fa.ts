@@ -5,8 +5,9 @@
     <name>LoginDialog</name>
     <message>
         <location filename="logindialog.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <source>Login</source>
+        <oldsource>Dialog</oldsource>
+        <translation>ورود</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -14,17 +15,7 @@
         <translation>نام کاربری</translation>
     </message>
     <message>
-        <location line="+16"/>
-        <source>O</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location line="+7"/>
-        <source>Can</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
         <source>Password</source>
         <translation>کلمه‌ی عبور</translation>
     </message>
@@ -47,7 +38,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+46"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -57,9 +48,14 @@
         <translation>ورود</translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="+5"/>
+        <source>logout</source>
+        <translation>خروج</translation>
+    </message>
+    <message>
+        <location line="-10"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
