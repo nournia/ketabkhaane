@@ -2,6 +2,8 @@
 #include "ui_logindialog.h"
 
 #include <QDebug>
+#include <MUsers.h>
+#include <QMessageBox>
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
@@ -26,9 +28,14 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::on_bOk_clicked()
 {
+    if (! MUsers::login(eUsername->value(), ui->ePassword->text()))
+    {
+        QMessageBox msgBox;
+        msgBox.setText(tr("Invalid Username or Password."));
+        msgBox.exec();
+    }
 
-        qDebug() << Reghaabat::instance()->userName;
-
+    this->close();
 }
 
 void LoginDialog::on_bCancel_clicked()
