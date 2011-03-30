@@ -17,25 +17,7 @@
    <enum>Qt::RightToLeft</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <widget class="QPushButton" name="bConvert">
-      <property name="text">
-       <string>Convert Access Database</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QWidget" name="container" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <layout class="QVBoxLayout" name="verticalLayout_2"/>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -57,6 +39,7 @@
    <addaction name="actionLogin"/>
    <addaction name="actionSync"/>
    <addaction name="actionLogout"/>
+   <addaction name="actionNewUser"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="font">
@@ -81,6 +64,11 @@
   <action name="actionLogout">
    <property name="text">
     <string>logout</string>
+   </property>
+  </action>
+  <action name="actionNewUser">
+   <property name="text">
+    <string>newUser</string>
    </property>
   </action>
  </widget>

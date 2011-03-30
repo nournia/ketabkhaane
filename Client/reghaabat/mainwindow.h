@@ -19,6 +19,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+    void on_actionNewUser_triggered();
     void on_actionLogout_triggered();
     void on_actionLogin_triggered();
     void on_actionSync_triggered();

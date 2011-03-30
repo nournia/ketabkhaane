@@ -30,15 +30,10 @@
     <message>
         <location filename="mainwindow.ui" line="+14"/>
         <source>Reghaabat</source>
-        <translation type="unfinished">رقابت</translation>
+        <translation>رقابت</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <source>Convert Access Database</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+46"/>
+        <location line="+39"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -53,7 +48,12 @@
         <translation>خروج</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="+5"/>
+        <source>newUser</source>
+        <translation>عضو جدید</translation>
+    </message>
+    <message>
+        <location line="-15"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
@@ -69,6 +69,89 @@
         <location line="+2"/>
         <source>Rooyesh</source>
         <translation>رویش</translation>
+    </message>
+</context>
+<context>
+    <name>UserForm</name>
+    <message>
+        <location filename="userform.ui" line="+14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Firstname</source>
+        <translation>نام</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Lastname</source>
+        <translation>نام خانوادگی</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>NationalId</source>
+        <translation>شماره ملی</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>BirthDate</source>
+        <translation>تاریخ تولد</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>DDDD/DD/DD;_</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Address</source>
+        <translation>نشانی</translation>
+    </message>
+    <message>
+        <location line="-10"/>
+        <source>Phone</source>
+        <translation>شماره تلفن</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Description</source>
+        <translation>توضیحات</translation>
+    </message>
+    <message>
+        <location line="-99"/>
+        <source>Gender</source>
+        <translation>جنسیت</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Male</source>
+        <translation>آقا</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Female</source>
+        <translation>خانم</translation>
+    </message>
+    <message>
+        <location line="+124"/>
+        <source>Access</source>
+        <translation>دسترسی</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Email</source>
+        <translation>ایمیل</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Password</source>
+        <translation>کلمه عبور</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Permission</source>
+        <translation>نوع</translation>
     </message>
 </context>
 </TS>

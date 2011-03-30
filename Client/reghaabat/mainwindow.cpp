@@ -5,6 +5,7 @@
 #include <sender.h>
 
 #include <logindialog.h>
+#include <userform.h>
 
 // init reghaabat global variables
 Reghaabat* Reghaabat::m_Instance = 0;
@@ -48,4 +49,10 @@ void MainWindow::on_actionLogout_triggered()
     Reghaabat::instance()->userPermission = "";
 
     ui->statusBar->showMessage(Reghaabat::instance()->userName);
+}
+
+void MainWindow::on_actionNewUser_triggered()
+{
+//    if (ui->centralWidget->)
+    ui->centralWidget->layout()->addWidget(new UserForm(this));
 }

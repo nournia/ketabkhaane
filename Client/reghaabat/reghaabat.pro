@@ -16,7 +16,8 @@ SOURCES += main.cpp\
     syncer.cpp \
     sender.cpp \
     logindialog.cpp \
-    mylineedit.cpp
+    mylineedit.cpp \
+    userform.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -26,9 +27,11 @@ HEADERS  += mainwindow.h \
     logindialog.h \
     mylineedit.h \
     AccessToSqlite.h \
-    MUsers.h
+    MUsers.h \
+    userform.h
 
 FORMS    += mainwindow.ui \
-    logindialog.ui
+    logindialog.ui \
+    userform.ui
 
 TRANSLATIONS = reghaabat_fa.ts
