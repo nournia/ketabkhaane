@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>271</width>
-    <height>151</height>
+    <height>109</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,35 +30,17 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QLineEdit" name="ePassword">
-     <property name="echoMode">
-      <enum>QLineEdit::Password</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="0">
-      <widget class="QPushButton" name="bOk">
-       <property name="text">
-        <string>O</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="bCancel">
-       <property name="text">
-        <string>Can</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Password</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="ePassword">
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
      </property>
     </widget>
    </item>
@@ -75,7 +57,7 @@
      </property>
     </spacer>
    </item>
-   <item row="5" column="1">
+   <item row="4" column="1">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
@@ -86,8 +68,6 @@
  </widget>
  <tabstops>
   <tabstop>ePassword</tabstop>
-  <tabstop>bOk</tabstop>
-  <tabstop>bCancel</tabstop>
  </tabstops>
  <resources/>
  <connections/>

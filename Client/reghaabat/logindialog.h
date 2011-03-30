@@ -22,8 +22,8 @@ private:
     MyLineEdit *eUsername;
 
 private slots:
-    void on_bCancel_clicked();
-    void on_bOk_clicked();
+    void on_buttonBox_rejected();
+    void on_buttonBox_accepted();
 };
 
 #endif // LOGINDIALOG_H

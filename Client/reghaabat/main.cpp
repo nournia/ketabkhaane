@@ -12,9 +12,13 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
-    QTranslator translator;
-    translator.load("reghaabat_fa");
-    a.installTranslator(& translator);
+    QTranslator rTranslator;
+    rTranslator.load("reghaabat_fa");
+    a.installTranslator(& rTranslator);
+
+    QTranslator qTranslator;
+    qTranslator.load("qt_fa");
+    a.installTranslator(& qTranslator);
 
     a.setStyle("plastique");
 

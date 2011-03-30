@@ -26,7 +26,7 @@ LoginDialog::~LoginDialog()
     delete ui;
 }
 
-void LoginDialog::on_bOk_clicked()
+void LoginDialog::on_buttonBox_accepted()
 {
     if (! MUsers::login(eUsername->value(), ui->ePassword->text()))
     {
@@ -34,11 +34,10 @@ void LoginDialog::on_bOk_clicked()
         msgBox.setText(tr("Invalid Username or Password."));
         msgBox.exec();
     }
-
     this->close();
 }
 
-void LoginDialog::on_bCancel_clicked()
+void LoginDialog::on_buttonBox_rejected()
 {
     this->close();
 }
