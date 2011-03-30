@@ -11,23 +11,24 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+	mainwindow.cpp \
     connector.cpp \
     syncer.cpp \
     sender.cpp \
     logindialog.cpp \
     mylineedit.cpp \
     userform.cpp \
-    helper.cpp
+    helper.cpp \
+    jalali.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
     syncer.h \
     sender.h \
-    Jalali.h \
+    jalali.h \
     logindialog.h \
     mylineedit.h \
-    AccessToSqlite.h \
+    accesstosqlite.h \
     MUsers.h \
     userform.h \
     helper.h

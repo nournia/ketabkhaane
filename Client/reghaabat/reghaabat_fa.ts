@@ -17,7 +17,7 @@
     <message>
         <location line="+7"/>
         <source>Password</source>
-        <translation>کلمه‌ی عبور</translation>
+        <translation>کلمه عبور</translation>
     </message>
     <message>
         <location filename="logindialog.cpp" line="+34"/>
@@ -33,7 +33,7 @@
         <translation>رقابت</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+46"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -79,22 +79,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+18"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+17"/>
         <source>Lastname</source>
         <translation>نام خانوادگی</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+17"/>
         <source>NationalId</source>
         <translation>شماره ملی</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+20"/>
         <source>BirthDate</source>
         <translation>تاریخ تولد</translation>
     </message>
@@ -104,37 +104,37 @@
         <translation></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+24"/>
         <source>Address</source>
         <translation>نشانی</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-17"/>
         <source>Phone</source>
-        <translation>شماره تلفن</translation>
+        <translation>شماره تماس</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+34"/>
         <source>Description</source>
         <translation>توضیحات</translation>
     </message>
     <message>
-        <location line="-99"/>
+        <location line="+17"/>
         <source>Gender</source>
         <translation>جنسیت</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+19"/>
         <source>Male</source>
         <translation>آقا</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+10"/>
         <source>Female</source>
         <translation>خانم</translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location line="+13"/>
         <source>Access</source>
         <translation>دسترسی</translation>
     </message>
@@ -144,12 +144,12 @@
         <translation>ایمیل</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+17"/>
         <source>Password</source>
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+17"/>
         <source>Permission</source>
         <translation>نوع</translation>
     </message>

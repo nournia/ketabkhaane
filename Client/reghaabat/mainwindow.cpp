@@ -62,6 +62,7 @@ void MainWindow::on_actionNewUser_triggered()
     {
         userForm = new UserForm(this);
         ui->centralWidget->layout()->addWidget(userForm);
+//        ui->container = userForm;
     }
     userForm->edit("1111");
 }

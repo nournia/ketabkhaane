@@ -6,7 +6,7 @@
 #include <QMap>
 #include <QVariant>
 
-typedef QMap<QString, QString> StrMap;
+typedef QMap<QString, QVariant> StrMap;
 StrMap getRecord(QSqlQuery& query);
 
 #endif // SQLMAP_H
