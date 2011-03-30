@@ -24,6 +24,8 @@ private:
     MyLineEdit *eUsername;
 
 private slots:
+    void selectUser();
+
     void on_actionNewUser_triggered();
     void on_actionLogout_triggered();
     void on_actionLogin_triggered();

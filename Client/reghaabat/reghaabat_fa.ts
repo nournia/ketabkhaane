@@ -33,7 +33,12 @@
         <translation>رقابت</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+37"/>
+        <source>Username</source>
+        <translation>نام کاربر</translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -79,7 +84,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+24"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
@@ -99,12 +104,7 @@
         <translation>تاریخ تولد</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <source>DDDD/DD/DD;_</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+24"/>
+        <location line="+37"/>
         <source>Address</source>
         <translation>نشانی</translation>
     </message>
@@ -114,7 +114,12 @@
         <translation>شماره تماس</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="-7"/>
+        <source>9999/99/99;_</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+41"/>
         <source>Description</source>
         <translation>توضیحات</translation>
     </message>
@@ -134,24 +139,21 @@
         <translation>خانم</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Access</source>
-        <translation>دسترسی</translation>
+        <translation type="obsolete">دسترسی</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>Email</source>
         <translation>ایمیل</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>Password</source>
-        <translation>کلمه عبور</translation>
+        <translation type="obsolete">کلمه عبور</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>Permission</source>
-        <translation>نوع</translation>
+        <translation type="obsolete">نوع</translation>
     </message>
 </context>
 </TS>

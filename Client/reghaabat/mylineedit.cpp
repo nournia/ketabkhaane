@@ -13,7 +13,9 @@ void MyLineEdit::setCompleter(MyCompleter *completer)
 
     c->setWidget(this);
     connect(completer, SIGNAL(activated(const QString&)), this, SLOT(insertCompletion(const QString&)));
-    connect(this, SIGNAL(editingFinished()), this, SLOT(setIdValue()));
+    connect(this, SIGNAL(textChanged(QString)), SLOT(setIdValue()));
+//    connect(this, SIGNAL(editingFinished()), this, SLOT(setIdValue()));
+//    connect(this, SIGNAL(returnPressed()), this, SLOT(setIdValue()));
 }
 
 MyCompleter *MyLineEdit::completer() const

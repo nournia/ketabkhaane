@@ -24,16 +24,31 @@ MainWindow::MainWindow(QWidget *parent) :
     eUsername = new MyLineEdit(ui->gUser);
     eUsername->setObjectName("eUsername");
     ui->horizontalLayout->addWidget(eUsername);
-//    QWidget::setTabOrder(eUsername, ui->ePassword);
     eUsername->setFocus();
 
     MyCompleter * completer = new MyCompleter("select users.id, firstname || ' ' || lastname as ctitle from users", this);
     eUsername->setCompleter(completer);
+
+    connect(eUsername, SIGNAL(returnPressed()), this, SLOT(selectUser()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::clear()
+{
+    delete userForm; userForm = 0;
+}
+
+void MainWindow::selectUser()
+{
+    if (eUsername->value() != "")
+    {
+        if (userForm)
+            userForm->edit(eUsername->value());
+    }
 }
 
 void MainWindow::on_bConvert_clicked()
@@ -72,12 +87,5 @@ void MainWindow::on_actionNewUser_triggered()
     {
         userForm = new UserForm(this);
         ui->centralWidget->layout()->addWidget(userForm);
-//        ui->container = userForm;
     }
-    userForm->edit("1111");
-}
-
-void MainWindow::clear()
-{
-    delete userForm; userForm = 0;
 }
