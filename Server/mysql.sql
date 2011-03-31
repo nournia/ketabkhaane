@@ -28,7 +28,7 @@ create table categories (
 create table users (
 	id int not null primary key auto_increment,
 	national_id int null default null,
-	quality int not null default "0",
+	-- quality int not null default "0",
 	firstname varchar(255) not null,
 	lastname varchar(255) not null,
 	birth_date date null default null,
@@ -85,7 +85,7 @@ create table pictures (
 -- matches 
 create table authors (
 	id integer not null primary key auto_increment,
-	quality integer not null default "0",
+	-- quality integer not null default "0",
 	title varchar(255) not null,
 
 	created_at timestamp null default null, 
@@ -93,7 +93,7 @@ create table authors (
 );
 create table publications (
 	id integer not null primary key auto_increment,
-	quality integer not null default "0",
+	-- quality integer not null default "0",
 	title varchar(255) not null,
 
 	created_at timestamp null default null, 
@@ -103,7 +103,7 @@ create table resources (
 	id integer not null primary key auto_increment,
 	author_id integer null default null,
 	publication_id integer null default null,
-	quality integer not null default "0",
+	-- quality integer not null default "0",
 	kind enum("book", "multimedia", "webpage") not null,
 	-- tags set("") null default null,
 	title varchar(255) not null,
@@ -118,7 +118,7 @@ create table resources (
 create table matches (
 	id integer not null primary key auto_increment,
 	designer_id integer not null,
-	quality integer not null default "0",
+	-- quality integer not null default "0",
 
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,

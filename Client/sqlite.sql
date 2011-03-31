@@ -1,4 +1,4 @@
-﻿-- 0 <= rate <= 1, 0 <= quality
+﻿-- 0 <= rate <= 1
 
 /*
 	auto_increment -> autoincrement
@@ -25,7 +25,6 @@ create table categories (
 create table users (
 	id integer not null primary key autoincrement,
 	national_id integer null default null,
-	quality integer not null default "0",
 	firstname varchar(255) not null,
 	lastname varchar(255) not null,
 	birth_date date null default null,
@@ -74,7 +73,6 @@ create table pictures (
 -- matches
 create table authors (
 	id integer not null primary key autoincrement,
-	quality integer not null default "0",
 	title varchar(255) not null,
 
 	created_at timestamp default current_timestamp,
@@ -82,7 +80,6 @@ create table authors (
 );
 create table publications (
 	id integer not null primary key autoincrement,
-	quality integer not null default "0",
 	title varchar(255) not null,
 
 	created_at timestamp default current_timestamp,
@@ -92,13 +89,12 @@ create table resources (
 	id integer not null primary key autoincrement,
 	author_id integer null default null references authors(id) on update cascade,
 	publication_id integer null default null references publications(id) on update cascade,
-	quality integer not null default "0",
 	kind varchar(12) not null, -- enum("book", "multimedia", "webpage")
 	-- tags set("") null default null,
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
 	content text null default null, -- html for all types
-	link varchar(1000) null default null collate "ascii_bin", -- book:, multimedia: fileaddress, webpage: url
+	link varchar(1000) null default null, -- book:, multimedia: fileaddress, webpage: url
 	volume int null default null, -- book: pages, multimedia: seconds, webpage: words
 
 	created_at timestamp default current_timestamp,
@@ -107,7 +103,6 @@ create table resources (
 create table matches (
 	id integer not null primary key autoincrement,
 	designer_id integer not null references users(id) on update cascade,
-	quality integer not null default "0",
 
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
