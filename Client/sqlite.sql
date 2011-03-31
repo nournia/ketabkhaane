@@ -92,12 +92,14 @@ create table resources (
 	id integer not null primary key autoincrement,
 	author_id integer null default null references authors(id) on update cascade,
 	publication_id integer null default null references publications(id) on update cascade,
-	entity_id integer null default null, -- books.id | multimedias.id | webpages.id 
 	quality integer not null default "0",
 	kind varchar(12) not null, -- enum("book", "multimedia", "webpage")
 	-- tags set("") null default null,
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
+	content text null default null, -- html for all types
+	link varchar(1000) null default null collate "ascii_bin", -- book:, multimedia: fileaddress, webpage: url
+	volume int null default null, -- book: pages, multimedia: seconds, webpage: words
 
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp

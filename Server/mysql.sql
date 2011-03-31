@@ -103,34 +103,18 @@ create table resources (
 	id integer not null primary key auto_increment,
 	author_id integer null default null,
 	publication_id integer null default null,
-	entity_id integer null default null, -- books.id | multimedias.id | webpages.id 
 	quality integer not null default "0",
 	kind enum("book", "multimedia", "webpage") not null,
 	-- tags set("") null default null,
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
+	content text null default null, -- html for all types
+	link varchar(1000) null default null collate "ascii_bin", -- book:, multimedia: fileaddress, webpage: url
+	volume int null default null, -- book: pages, multimedia: seconds, webpage: words
 
 	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
-/*create table books (
-	id integer not null auto_increment,
-	pages int null default null,
-	primary key (id)
-);
-create table multimedias (
-	id integer not null auto_increment,
-	filetype varchar(5) null default null collate "ascii_bin",
-	duration int null default null comment "minutes",
-	primary key (id)
-);
-create table webpages (
-	id integer not null auto_increment,
-	content text null,
-	link varchar(1000) null default null collate "ascii_bin",
-	words int null default null,
-	primary key (id)
-);*/
 create table matches (
 	id integer not null primary key auto_increment,
 	designer_id integer not null,
