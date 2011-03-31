@@ -6,7 +6,7 @@
 #include <QPushButton>
 
 #include <helper.h>
-
+#include <matchrow.h>
 
 UserMain::UserMain(QWidget *parent) :
     QWidget(parent),
@@ -27,23 +27,16 @@ void UserMain::select(QString userId)
     if (ui->gMatches->layout())
     while ((child = ui->gMatches->layout()->takeAt(0)) != 0)
          delete child->widget();
-    delete ui->gMatches->layout();
-
 
     QSqlQuery qry;
     qry.exec(QString("select match_id, matches.title from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null;").arg(userId));
 
-    QFormLayout* lay = new QFormLayout(ui->gMatches);
     for (int i = 1; qry.next(); i++)
     {
-        QLabel* label = new QLabel(qry.value(1).toString(), ui->gMatches);
-        label->setLayoutDirection(Qt::LeftToRight);
-        lay->setWidget(i, QFormLayout::FieldRole, label);
-
-        QPushButton* button = new QPushButton(tr("Receive"), ui->gMatches);
-        button->setMaximumWidth(40);
-        lay->setWidget(i, QFormLayout::LabelRole, button);
+        MatchRow* row = new MatchRow(qry.value(0).toString(), qry.value(1).toString(), ui->gMatches);
+        ui->gMatches->layout()->addWidget(row);
     }
 
-    ui->gMatches->setLayout(lay);
+    // space filler
+    ui->gMatches->layout()->addWidget(new QWidget);
 }

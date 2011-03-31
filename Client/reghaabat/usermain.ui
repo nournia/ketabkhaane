@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string/>
   </property>
   <property name="layoutDirection">
    <enum>Qt::RightToLeft</enum>
@@ -28,6 +28,7 @@
         <property name="title">
          <string/>
         </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3"/>
        </widget>
       </item>
      </layout>

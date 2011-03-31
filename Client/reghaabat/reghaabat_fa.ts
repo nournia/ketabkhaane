@@ -64,6 +64,14 @@
     </message>
 </context>
 <context>
+    <name>MatchRow</name>
+    <message>
+        <location filename="matchrow.ui" line="+45"/>
+        <source>Receive</source>
+        <translation>دریافت</translation>
+    </message>
+</context>
+<context>
     <name>QApplication</name>
     <message>
         <location filename="logindialog.cpp" line="+0"/>
@@ -161,12 +169,7 @@
 <context>
     <name>UserMain</name>
     <message>
-        <location filename="usermain.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location filename="usermain.ui" line="+23"/>
         <source>Matches</source>
         <translation>مسابقه‌ها</translation>
     </message>
@@ -175,9 +178,8 @@
         <translation type="obsolete">تحویل</translation>
     </message>
     <message>
-        <location filename="usermain.cpp" line="+45"/>
         <source>Receive</source>
-        <translation>دریافت</translation>
+        <translation type="obsolete">دریافت</translation>
     </message>
 </context>
 </TS>

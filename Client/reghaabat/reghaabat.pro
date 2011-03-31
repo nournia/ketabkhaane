@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     userform.cpp \
     helper.cpp \
     jalali.cpp \
-    usermain.cpp
+    usermain.cpp \
+    matchrow.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -33,11 +34,13 @@ HEADERS  += mainwindow.h \
     musers.h \
     userform.h \
     helper.h \
-    usermain.h
+    usermain.h \
+    matchrow.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
     userform.ui \
-    usermain.ui
+    usermain.ui \
+    matchrow.ui
 
 TRANSLATIONS = reghaabat_fa.ts
