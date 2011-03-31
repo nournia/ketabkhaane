@@ -25,7 +25,9 @@ UserMain::UserMain(QWidget *parent) :
     MyCompleter * completer = new MyCompleter("select id, title as ctitle from matches", this);
     eMatchname->setCompleter(completer);
 
-//    connect(eMatchname, SIGNAL(returnPressed()), this, SLOT(selectUser()));
+    connect(eMatchname, SIGNAL(returnPressed()), this, SLOT(selectMatch()));
+
+    ui->newMatchButtons->setEnabled(false);
 }
 
 UserMain::~UserMain()
@@ -33,8 +35,18 @@ UserMain::~UserMain()
     delete ui;
 }
 
-void UserMain::select(QString userId)
+void UserMain::selectMatch()
 {
+    ui->newMatchButtons->setEnabled(eMatchname->value() != "");
+
+    if (eMatchname->value() != "")
+        ui->bDeliver->setFocus();
+}
+
+void UserMain::select(QString uid)
+{
+    userId = uid;
+
     // clean gMatches
     QLayoutItem *child;
     if (ui->gMatches->layout())
@@ -52,4 +64,13 @@ void UserMain::select(QString userId)
 
     // space filler
     ui->gMatches->layout()->addWidget(new QWidget);
+}
+
+void UserMain::on_bDeliver_clicked()
+{
+    if (eMatchname->value() != "")
+    {
+        MMatches::deliver(userId, eMatchname->value());
+        select(userId);
+    }
 }

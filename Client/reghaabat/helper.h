@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QVariant>
 #include <QSqlError>
+#include <QDateTime>
 
 typedef QMap<QString, QVariant> StrMap;
 StrMap getRecord(QSqlQuery& query);

@@ -35,7 +35,8 @@ HEADERS  += mainwindow.h \
     userform.h \
     helper.h \
     usermain.h \
-    matchrow.h
+    matchrow.h \
+    mmatches.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \

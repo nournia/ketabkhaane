@@ -4,6 +4,7 @@
 #include <QWidget>
 
 #include <mylineedit.h>
+#include <mmatches.h>
 
 namespace Ui {
     class UserMain;
@@ -20,9 +21,14 @@ public:
     void select(QString userId);
 
     MyLineEdit* eMatchname;
+    QString userId;
 
 private:
     Ui::UserMain *ui;
+
+private slots:
+    void on_bDeliver_clicked();
+    void selectMatch();
 };
 
 #endif // USERMAIN_H
