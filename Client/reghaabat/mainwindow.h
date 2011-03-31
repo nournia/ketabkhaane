@@ -18,6 +18,7 @@ public:
     ~MainWindow();
 
     void clear();
+    void showForm(QWidget* form);
 
 private:
     Ui::MainWindow *ui;

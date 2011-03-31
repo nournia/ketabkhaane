@@ -23,7 +23,7 @@ void UserForm::clear()
     ((MainWindow*)parent())->clear();
 }
 
-void UserForm::edit(QString id)
+void UserForm::select(QString id)
 {
     StrMap user = MUsers::get(id);
 

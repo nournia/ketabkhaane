@@ -20,7 +20,7 @@
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location filename="logindialog.cpp" line="+34"/>
+        <location filename="logindialog.cpp" line="+32"/>
         <source>Invalid Username or Password.</source>
         <translation>نام کاربری و یا کلمه‌ی عبور اشتباه است.</translation>
     </message>
@@ -33,7 +33,7 @@
         <translation>رقابت</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+40"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
@@ -66,12 +66,14 @@
 <context>
     <name>QApplication</name>
     <message>
+        <location filename="logindialog.cpp" line="+0"/>
         <location filename="main.cpp" line="+25"/>
+        <location filename="userform.cpp" line="+71"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location filename="main.cpp" line="+2"/>
         <source>Rooyesh</source>
         <translation>رویش</translation>
     </message>
@@ -81,7 +83,7 @@
     <message>
         <location filename="userform.ui" line="+14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+24"/>
@@ -154,6 +156,24 @@
     <message>
         <source>Permission</source>
         <translation type="obsolete">نوع</translation>
+    </message>
+</context>
+<context>
+    <name>UserMain</name>
+    <message>
+        <location filename="usermain.ui" line="+14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Matches</source>
+        <translation>مسابقه‌ها</translation>
+    </message>
+    <message>
+        <location filename="usermain.cpp" line="+35"/>
+        <source>Deliver</source>
+        <translation>تحویل</translation>
     </message>
 </context>
 </TS>

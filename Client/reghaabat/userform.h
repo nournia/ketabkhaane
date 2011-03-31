@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include <MUsers.h>
+#include <musers.h>
 
 namespace Ui {
     class UserForm;
@@ -18,7 +18,7 @@ public:
     ~UserForm();
 
     QString userId; // user under edit
-    void edit(QString userId);
+    void select(QString userId);
     void clear();
 
 private:

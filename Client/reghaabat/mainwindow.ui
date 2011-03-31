@@ -17,9 +17,6 @@
    <enum>Qt::RightToLeft</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <property name="locale">
-    <locale language="Persian" country="Iran"/>
-   </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="spacing">
      <number>2</number>

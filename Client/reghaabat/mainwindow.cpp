@@ -5,11 +5,13 @@
 #include <sender.h>
 
 #include <logindialog.h>
+#include <usermain.h>
 #include <userform.h>
 
 // init reghaabat global variables
 Reghaabat* Reghaabat::m_Instance = 0;
 
+UserMain *userMain;
 UserForm *userForm;
 
 
@@ -40,14 +42,32 @@ MainWindow::~MainWindow()
 void MainWindow::clear()
 {
     delete userForm; userForm = 0;
+    delete userMain; userMain = 0;
+}
+
+void MainWindow::showForm(QWidget* form)
+{
+    QVBoxLayout* lay =  new QVBoxLayout();
+    lay->setContentsMargins(0, 0, 0, 0);
+
+    lay->addWidget(form);
+    delete ui->container->layout();
+    ui->container->setLayout(lay);
+    ui->container->show();
 }
 
 void MainWindow::selectUser()
 {
-    if (eUsername->value() != "")
+    QString userId = eUsername->value();
+    if (userId != "")
     {
-        if (userForm)
-            userForm->edit(eUsername->value());
+        if (! userMain)
+        {
+            clear();
+            userMain = new UserMain(this);
+            showForm(userMain);
+        }
+        userMain->select(userId);
     }
 }
 
@@ -85,7 +105,8 @@ void MainWindow::on_actionNewUser_triggered()
 {
     if (! userForm)
     {
+        clear();
         userForm = new UserForm(this);
-        ui->centralWidget->layout()->addWidget(userForm);
+        showForm(userForm);
     }
 }

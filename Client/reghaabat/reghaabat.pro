@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     mylineedit.cpp \
     userform.cpp \
     helper.cpp \
-    jalali.cpp
+    jalali.cpp \
+    usermain.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -29,12 +30,14 @@ HEADERS  += mainwindow.h \
     logindialog.h \
     mylineedit.h \
     accesstosqlite.h \
-    MUsers.h \
+    musers.h \
     userform.h \
-    helper.h
+    helper.h \
+    usermain.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
-    userform.ui
+    userform.ui \
+    usermain.ui
 
 TRANSLATIONS = reghaabat_fa.ts
