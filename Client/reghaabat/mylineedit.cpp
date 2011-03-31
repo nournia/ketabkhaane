@@ -81,8 +81,11 @@ void MyLineEdit::setIdValue()
 
     if (text() == "")
         setStyleSheet("");
-    else if (valueId != "")
-        setStyleSheet("background-color:  hsv(120, 60, 255)");
-    else
+    else if (valueId == "")
         setStyleSheet("background-color:  hsv(0, 60, 255)");
+    else
+    {
+        setStyleSheet("background-color:  hsv(120, 60, 255)");
+        emit returnPressed();
+    }
 }

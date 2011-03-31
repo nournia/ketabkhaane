@@ -14,6 +14,7 @@
 #include <QKeyEvent>
 #include <QSqlQuery>
 
+#include <QDebug>
 class MyCompleter : public QCompleter
 {
     Q_OBJECT
@@ -51,7 +52,10 @@ public:
         QStringList filtered = m_list.filter(word, caseSensitivity());
         m_model.setStringList(filtered);
         m_word = word;
-        complete();
+
+        // for only one exact match choice
+        if (! (filtered.size() == 1 && filtered.first() == m_word))
+            complete();
     }
 
     inline QString word()
