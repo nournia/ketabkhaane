@@ -113,7 +113,6 @@ create table matches (
 	-- instruction
 	category_id tinyint(4) null default null references categories(id) on update cascade,
 	content text null default null,
-	configuration varchar(50) null default null,
 
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp

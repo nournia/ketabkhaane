@@ -61,13 +61,11 @@ function getQueryValue($value)
 		{
 			$columns .= (! empty($columns) ? ',' : '') . $row[0];
 			if ($row[0] == 'tournament_id')
-				$libraryValues = $library['tournament_id'] .',';
+				$libraryValues .= $library['tournament_id'] .',';
 			else if ($row[0] == 'group_id')
-				$libraryValues = $library['group_id'] .',';
+				$libraryValues .= $library['group_id'] .',';
 		}
 		
-//		if ($insert) $transitions[$table] = array();
-
 		foreach($rows as $row)
 		{
 			$values = ($command == 'insert' ? 'null' : $row[0]) . ',';

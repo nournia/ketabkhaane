@@ -129,7 +129,6 @@ create table matches (
 	-- instruction
 	category_id tinyint(4) null default null,
 	content text null default null,
-	configuration varchar(50) null default null,
 
 	created_at timestamp null default null, 
 	updated_at timestamp null default null

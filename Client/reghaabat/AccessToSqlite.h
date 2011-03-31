@@ -160,7 +160,7 @@ bool importMatches()
         qDebug() << accessQry.lastError();
 
     // resource and match insertion
-    sqliteQry.prepare(getInsertQuery("matches", QStringList() << "id" << "designer_id" << "title" << "ageclass" << "resource_id" << "category_id" << "content" << "configuration"));
+    sqliteQry.prepare(getInsertQuery("matches", QStringList() << "id" << "designer_id" << "title" << "ageclass" << "resource_id" << "category_id" << "content"));
 
     QSqlQuery resourceQry(sqliteDb);
     resourceQry.prepare(getInsertQuery("resources", QStringList() << "kind" << "author_id" << "publication_id" << "title" << "ageclass"));
@@ -177,7 +177,6 @@ bool importMatches()
         {
             sqliteQry.bindValue(":category_id", null);
             sqliteQry.bindValue(":content", null);
-            sqliteQry.bindValue(":configuration", null);
 
             if (accessQry.value(0).toString().startsWith("31"))
                 resourceQry.bindValue(":kind", "book");
@@ -199,7 +198,6 @@ bool importMatches()
 
             sqliteQry.bindValue(":category_id", groups[accessQry.value(4).toInt()]);
             sqliteQry.bindValue(":content", accessQry.value(5));
-            sqliteQry.bindValue(":configuration", accessQry.value(6));
         }
 
         if (! sqliteQry.exec())
