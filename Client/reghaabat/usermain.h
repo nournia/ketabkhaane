@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include <mylineedit.h>
+
 namespace Ui {
     class UserMain;
 }
@@ -16,6 +18,8 @@ public:
     ~UserMain();
 
     void select(QString userId);
+
+    MyLineEdit* eMatchname;
 
 private:
     Ui::UserMain *ui;

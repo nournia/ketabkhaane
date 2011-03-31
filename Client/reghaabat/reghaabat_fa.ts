@@ -89,12 +89,7 @@
 <context>
     <name>UserForm</name>
     <message>
-        <location filename="userform.ui" line="+14"/>
-        <source>Form</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+24"/>
+        <location filename="userform.ui" line="+38"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
@@ -169,13 +164,33 @@
 <context>
     <name>UserMain</name>
     <message>
-        <location filename="usermain.ui" line="+23"/>
         <source>Matches</source>
-        <translation>مسابقه‌ها</translation>
+        <translation type="obsolete">مسابقه‌ها</translation>
     </message>
     <message>
+        <location filename="usermain.ui" line="+40"/>
+        <source>New Match</source>
+        <translation>مسابقه جدید</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Preview</source>
+        <translation>پیش نمایش</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Print</source>
+        <translation>چاپ</translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>Deliver</source>
-        <translation type="obsolete">تحویل</translation>
+        <translation>تحویل</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Received Matches</source>
+        <translation>مسابقه‌های برده شده</translation>
     </message>
     <message>
         <source>Receive</source>

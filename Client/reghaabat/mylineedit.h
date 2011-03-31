@@ -54,7 +54,7 @@ public:
         m_word = word;
 
         // for only one exact match choice
-        if (! (filtered.size() == 1 && filtered.first() == m_word))
+        if (!word.isEmpty() && !(filtered.size() == 1 && filtered.first() == m_word))
             complete();
     }
 
