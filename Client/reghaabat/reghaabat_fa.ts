@@ -171,9 +171,13 @@
         <translation>مسابقه‌ها</translation>
     </message>
     <message>
-        <location filename="usermain.cpp" line="+35"/>
         <source>Deliver</source>
-        <translation>تحویل</translation>
+        <translation type="obsolete">تحویل</translation>
+    </message>
+    <message>
+        <location filename="usermain.cpp" line="+45"/>
+        <source>Receive</source>
+        <translation>دریافت</translation>
     </message>
 </context>
 </TS>
