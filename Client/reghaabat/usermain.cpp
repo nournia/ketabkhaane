@@ -33,7 +33,7 @@ void UserMain::select(QString userId)
 
     for (int i = 1; qry.next(); i++)
     {
-        MatchRow* row = new MatchRow(qry.value(0).toString(), qry.value(1).toString(), ui->gMatches);
+        MatchRow* row = new MatchRow(userId, qry.value(0).toString(), qry.value(1).toString(), ui->gMatches);
         ui->gMatches->layout()->addWidget(row);
     }
 
