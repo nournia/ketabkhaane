@@ -26,8 +26,6 @@ UserMain::UserMain(QWidget *parent) :
     eMatchname->setCompleter(completer);
 
     connect(eMatchname, SIGNAL(returnPressed()), this, SLOT(selectMatch()));
-
-    ui->newMatchButtons->setEnabled(false);
 }
 
 UserMain::~UserMain()
@@ -46,6 +44,10 @@ void UserMain::selectMatch()
 void UserMain::select(QString uid)
 {
     userId = uid;
+
+    ui->newMatchButtons->setEnabled(false);
+    eMatchname->setText("");
+    eMatchname->setFocus();
 
     // clean gMatches
     QLayoutItem *child;

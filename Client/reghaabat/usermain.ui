@@ -121,6 +121,9 @@
      <property name="title">
       <string>Received Matches</string>
      </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout_3"/>
     </widget>
    </item>

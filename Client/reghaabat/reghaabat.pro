@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     helper.cpp \
     jalali.cpp \
     usermain.cpp \
-    matchrow.cpp
+    matchrow.cpp \
+    matchform.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -36,12 +37,14 @@ HEADERS  += mainwindow.h \
     helper.h \
     usermain.h \
     matchrow.h \
-    mmatches.h
+    mmatches.h \
+    matchform.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
     userform.ui \
     usermain.ui \
-    matchrow.ui
+    matchrow.ui \
+    matchform.ui
 
 TRANSLATIONS = reghaabat_fa.ts
