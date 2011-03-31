@@ -207,6 +207,9 @@ QVariant getGregorianVariant(QString jalali)
 
 QString toJalali(QDate input)
 {
+    if (! input.isValid())
+        return "";
+
     int y, m, d;
     gregorian_to_jalali(&y, &m, &d, input.year(), input.month(), input.day());
     const QChar fill = QLatin1Char('0');

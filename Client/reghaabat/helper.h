@@ -5,8 +5,11 @@
 #include <QSqlRecord>
 #include <QMap>
 #include <QVariant>
+#include <QSqlError>
 
 typedef QMap<QString, QVariant> StrMap;
 StrMap getRecord(QSqlQuery& query);
+
+QString getReplaceQuery(QString table, StrMap data, QString id);
 
 #endif // SQLMAP_H

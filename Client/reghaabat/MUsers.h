@@ -34,6 +34,14 @@ public:
         qry.next();
         return getRecord(qry);
     }
+
+    static QString set(StrMap user, QString userId)
+    {
+        QSqlQuery qry;
+        if (! qry.exec(getReplaceQuery("users", user, userId)))
+            return qry.lastError().text();
+        return "";
+    }
 };
 
 

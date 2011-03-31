@@ -29,11 +29,7 @@ LoginDialog::~LoginDialog()
 void LoginDialog::on_buttonBox_accepted()
 {
     if (! MUsers::login(eUsername->value(), ui->ePassword->text()))
-    {
-        QMessageBox msgBox;
-        msgBox.setText(tr("Invalid Username or Password."));
-        msgBox.exec();
-    }
+        QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Invalid Username or Password."));
     this->close();
 }
 

@@ -1,6 +1,8 @@
 #include "userform.h"
 #include "ui_userform.h"
 
+#include <QMessageBox>
+
 #include <jalali.h>
 
 UserForm::UserForm(QWidget *parent) :
@@ -15,10 +17,17 @@ UserForm::~UserForm()
     delete ui;
 }
 
-void UserForm::edit(QString userId)
+void UserForm::clear()
 {
-    StrMap user = MUsers::get(userId);
+    userId = "";
+    ((MainWindow*)parent())->clear();
+}
 
+void UserForm::edit(QString id)
+{
+    StrMap user = MUsers::get(id);
+
+    userId = id;
     ui->eFirstname->setText(user["firstname"].toString());
     ui->eLastname->setText(user["lastname"].toString());
     ui->eNationalId->setText(user["national_id"].toString());
@@ -37,5 +46,27 @@ void UserForm::edit(QString userId)
 
 void UserForm::on_buttonBox_rejected()
 {
-    ((MainWindow*)parent())->clear();
+    clear();
+}
+
+void UserForm::on_buttonBox_accepted()
+{
+    StrMap user;
+    user["firstname"] = ui->eFirstname->text();
+    user["lastname"] = ui->eLastname->text();
+    user["national_id"] = ui->eNationalId->text();
+    user["address"] = ui->eAddress->text();
+    user["phone"] = ui->ePhone->text();
+    user["description"] = ui->eDescription->text();
+    user["email"] = ui->eEmail->text();
+    user["birth_date"] = toGregorian(ui->eBirthDate->text());
+    user["gender"] = ui->rMale->isChecked() ? "male" : "female";
+
+    QString msg = MUsers::set(user, userId);
+
+    // there isn't any error
+    if (msg == "")
+        clear();
+    else
+        QMessageBox::warning(this, QApplication::tr("Reghaabat"), msg);
 }

@@ -17,12 +17,15 @@ public:
     explicit UserForm(QWidget *parent = 0);
     ~UserForm();
 
+    QString userId; // user under edit
     void edit(QString userId);
+    void clear();
 
 private:
     Ui::UserForm *ui;
 
 private slots:
+    void on_buttonBox_accepted();
     void on_buttonBox_rejected();
 };
 
