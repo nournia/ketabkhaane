@@ -25,9 +25,9 @@ void UserForm::clear()
 
 void UserForm::select(QString id)
 {
-    StrMap user = MUsers::get(id);
-
     userId = id;
+
+    StrMap user = MUsers::get(id);
     ui->eFirstname->setText(user["firstname"].toString());
     ui->eLastname->setText(user["lastname"].toString());
     ui->eNationalId->setText(user["national_id"].toString());

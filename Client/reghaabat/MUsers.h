@@ -9,6 +9,22 @@
 class MUsers
 {
 public:
+    static StrMap get(QString userId)
+    {
+        QSqlQuery qry;
+        qry.exec("select * from users where id = "+ userId);
+        qry.next();
+        return getRecord(qry);
+    }
+
+    static QString set(StrMap user, QString userId)
+    {
+        QSqlQuery qry;
+        if (! qry.exec(getReplaceQuery("users", user, userId)))
+            return qry.lastError().text();
+        return "";
+    }
+
     static bool login(QString userId, QString password)
     {
         QSqlQuery qry;
@@ -25,22 +41,6 @@ public:
             return true;
         }
         else return false;
-    }
-
-    static StrMap get(QString userId)
-    {
-        QSqlQuery qry;
-        qry.exec("select * from users where id = "+ userId);
-        qry.next();
-        return getRecord(qry);
-    }
-
-    static QString set(StrMap user, QString userId)
-    {
-        QSqlQuery qry;
-        if (! qry.exec(getReplaceQuery("users", user, userId)))
-            return qry.lastError().text();
-        return "";
     }
 };
 

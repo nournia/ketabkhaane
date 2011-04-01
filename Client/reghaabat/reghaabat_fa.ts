@@ -117,16 +117,19 @@
     </message>
     <message>
         <location line="+8"/>
+        <location filename="matchform.cpp" line="+42"/>
         <source>active</source>
         <translation>فعال</translation>
     </message>
     <message>
         <location line="+5"/>
+        <location filename="matchform.cpp" line="+2"/>
         <source>imported</source>
         <translation>نیازمند بررسی</translation>
     </message>
     <message>
         <location line="+5"/>
+        <location filename="matchform.cpp" line="+2"/>
         <source>disabled</source>
         <translation>غیر فعال</translation>
     </message>
@@ -146,12 +149,14 @@
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+40"/>
+        <location filename="matchform.cpp" line="+7"/>
+        <location line="+26"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-24"/>
+        <location line="+25"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -182,17 +187,21 @@
 <context>
     <name>QuestionModule</name>
     <message>
-        <location filename="questionmodule.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+42"/>
+        <location filename="questionmodule.ui" line="+53"/>
         <source>Question</source>
         <translation>سوال</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+54"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p dir=&apos;rtl&apos; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+17"/>
         <source>Answer</source>
         <translation>پاسخ</translation>
     </message>

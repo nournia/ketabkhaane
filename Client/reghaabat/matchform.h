@@ -19,6 +19,8 @@ public:
     explicit MatchForm(QWidget *parent = 0);
     ~MatchForm();
 
+    void select(QString id);
+
     MyLineEdit *eCorrector, *eAuthor, *ePublication;
     QString matchId; // in edit mode
     QList<QuestionModule*> qModules;

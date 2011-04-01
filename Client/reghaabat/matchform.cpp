@@ -24,6 +24,59 @@ MatchForm::MatchForm(QWidget *parent) :
 
     MMatches::fillAgeClassCombo(ui->cAgeClass);
     on_cType_currentIndexChanged(0);
+
+    select("311013");
+}
+
+#include <QDebug>
+void MatchForm::select(QString id)
+{
+    matchId = id;
+
+    StrMap match = MMatches::get(id);
+
+    ui->eTitle->setText(match["title"].toString());
+    ui->cAgeClass->setCurrentIndex(ui->cAgeClass->findData(match["ageclass"]));
+    eCorrector->setText(match["corrector"].toString());
+    ui->sScore->setValue(match["score"].toInt());
+
+    QString state = match["current_state"].toString();
+    if (state == "active")
+        ui->cState->setCurrentIndex(0);
+    else if (state == "imported")
+        ui->cState->setCurrentIndex(1);
+    else if (state == "disabled")
+        ui->cState->setCurrentIndex(2);
+
+    if (match["category_id"] == "")
+    {
+        ui->cType->setCurrentIndex(0); // Questions
+
+        QString kind = match["kind"].toString();
+        if (kind == "book")
+            ui->cGroup->setCurrentIndex(0);
+        else if (kind == "multimedia")
+            ui->cGroup->setCurrentIndex(1);
+
+        eAuthor->setText(match["author"].toString());
+        ePublication->setText(match["publication"].toString());
+
+        // questions
+        QSqlQuery questions = MMatches::getQuestions(id);
+        while (questions.next())
+        {
+            QuestionModule* module = new QuestionModule(questions.value(0).toString(), questions.value(1).toString(), this);
+            qModules.append(module);
+            module->refresh(true);
+            ui->lQuestions->layout()->addWidget(module);
+        }
+    }
+    else
+    {
+        ui->cType->setCurrentIndex(1); // Instructions
+        ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["category_id"].toString()));
+        ui->eContent->setHtml(match["content"].toString());
+    }
 }
 
 MatchForm::~MatchForm()
@@ -39,17 +92,18 @@ void MatchForm::on_cType_currentIndexChanged(int index)
         ui->cGroup->clear();
         ui->cGroup->addItem(tr("book"));
         ui->cGroup->addItem(tr("multimedia"));
-
     } else
         MMatches::fillCategoryCombo(ui->cGroup);
 
     ui->gResource->setVisible(intructions);
+    ui->sQuestions->setVisible(intructions);
+    ui->eContent->setVisible(! intructions);
 }
 
 void MatchForm::on_bNewQuestion_clicked()
 {
     // check for last question for
-    if (qModules.size() >= 1 && qModules.at(qModules.size()-1)->question == "")
+    if (qModules.size() >= 1 && qModules.at(qModules.size()-1)->question() == "")
         qModules.at(qModules.size()-1)->select();
     else // create new one
     {
@@ -62,5 +116,6 @@ void MatchForm::on_bNewQuestion_clicked()
         module->select();
     }
 }
+
 
 
