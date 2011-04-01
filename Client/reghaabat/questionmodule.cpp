@@ -1,8 +1,8 @@
 #include "questionmodule.h"
 #include "ui_questionmodule.h"
 
-QuestionModule::QuestionModule(QString q, QString a, QWidget *parent) :
-    QWidget(parent), question(q), answer(a),
+QuestionModule::QuestionModule(QString question, QString answer, QWidget *parent) :
+    QWidget(parent),
     ui(new Ui::QuestionModule)
 {
     ui->setupUi(this);
@@ -37,4 +37,14 @@ void QuestionModule::refresh(bool collapse)
 void QuestionModule::select()
 {
     ui->eQuestion->setFocus();
+}
+
+QString QuestionModule::question()
+{
+    return ui->eQuestion->text();
+}
+
+QString QuestionModule::answer()
+{
+    return ui->eAnswer->toPlainText();
 }

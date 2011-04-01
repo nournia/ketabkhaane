@@ -12,12 +12,13 @@ class QuestionModule : public QWidget
     Q_OBJECT
 
 public:
-    explicit QuestionModule(QString q, QString a, QWidget *parent = 0);
+    explicit QuestionModule(QString question, QString answer, QWidget *parent = 0);
     ~QuestionModule();
 
     void refresh(bool collapse = false);
 
-    QString question, answer;
+    QString question();
+    QString answer();
 
     void select();
 
