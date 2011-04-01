@@ -102,7 +102,7 @@ create table resources (
 );
 create table matches (
 	id integer not null primary key autoincrement,
-	designer_id integer not null references users(id) on update cascade,
+	designer_id integer null default null references users(id) on update cascade,
 
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
