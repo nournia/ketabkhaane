@@ -71,12 +71,7 @@
 <context>
     <name>MatchForm</name>
     <message>
-        <location filename="matchform.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+26"/>
+        <location filename="matchform.ui" line="+49"/>
         <source>Type</source>
         <translation>نوع</translation>
     </message>
@@ -116,7 +111,7 @@
         <translation>امتیاز</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+23"/>
         <source>State</source>
         <translation>وضعیت</translation>
     </message>
@@ -136,7 +131,7 @@
         <translation>غیر فعال</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+52"/>
         <source>Author</source>
         <translation>نویسنده</translation>
     </message>
@@ -146,7 +141,12 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+39"/>
+        <location line="+46"/>
+        <source>New Question</source>
+        <translation>سوال جدید</translation>
+    </message>
+    <message>
+        <location filename="matchform.cpp" line="+40"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
@@ -159,7 +159,7 @@
 <context>
     <name>MatchRow</name>
     <message>
-        <location filename="matchrow.ui" line="+45"/>
+        <location filename="matchrow.ui" line="+42"/>
         <source>Receive</source>
         <translation>دریافت</translation>
     </message>
@@ -180,9 +180,27 @@
     </message>
 </context>
 <context>
+    <name>QuestionModule</name>
+    <message>
+        <location filename="questionmodule.ui" line="+14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Question</source>
+        <translation>سوال</translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Answer</source>
+        <translation>پاسخ</translation>
+    </message>
+</context>
+<context>
     <name>UserForm</name>
     <message>
-        <location filename="userform.ui" line="+38"/>
+        <location filename="userform.ui" line="+35"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
@@ -261,7 +279,7 @@
         <translation type="obsolete">مسابقه‌ها</translation>
     </message>
     <message>
-        <location filename="usermain.ui" line="+49"/>
+        <location filename="usermain.ui" line="+46"/>
         <source>New Match</source>
         <translation>مسابقه جدید</translation>
     </message>

@@ -33,7 +33,8 @@ MatchForm::~MatchForm()
 
 void MatchForm::on_cType_currentIndexChanged(int index)
 {
-    if (ui->cType->currentIndex() == 0)
+    bool intructions = ui->cType->currentIndex() == 0;
+    if (intructions)
     {
         ui->cGroup->clear();
         ui->cGroup->addItem(tr("book"));
@@ -41,4 +42,25 @@ void MatchForm::on_cType_currentIndexChanged(int index)
 
     } else
         MMatches::fillCategoryCombo(ui->cGroup);
+
+    ui->gResource->setVisible(intructions);
 }
+
+void MatchForm::on_bNewQuestion_clicked()
+{
+    // check for last question for
+    if (qModules.size() >= 1 && qModules.at(qModules.size()-1)->question == "")
+        qModules.at(qModules.size()-1)->select();
+    else // create new one
+    {
+        for (int i = 0; i < qModules.size(); i++)
+            qModules.at(i)->refresh(true);
+
+        QuestionModule* module = new QuestionModule("", "", this);
+        qModules.append(module);
+        ui->lQuestions->layout()->addWidget(module);
+        module->select();
+    }
+}
+
+
