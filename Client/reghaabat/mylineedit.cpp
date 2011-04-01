@@ -1,7 +1,10 @@
 #include "mylineedit.h"
 
-MyLineEdit::MyLineEdit(QWidget *parent)
-    : QLineEdit(parent), c(0), valueId(-1) {}
+MyLineEdit::MyLineEdit(QString query, QWidget *parent)
+    : QLineEdit(parent), c(0), valueId(-1)
+{
+    setCompleter(new MyCompleter(query, this));
+}
 
 MyLineEdit::~MyLineEdit() {}
 

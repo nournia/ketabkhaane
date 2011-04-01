@@ -74,7 +74,7 @@ class MyLineEdit : public QLineEdit
     Q_OBJECT
 
 public:
-    MyLineEdit(QWidget *parent = 0);
+    MyLineEdit(QString query, QWidget *parent = 0);
     ~MyLineEdit();
 
     void setCompleter(MyCompleter *c);

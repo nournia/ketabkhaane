@@ -20,7 +20,7 @@
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location filename="logindialog.cpp" line="+32"/>
+        <location filename="logindialog.cpp" line="+29"/>
         <source>Invalid Username or Password.</source>
         <translation>نام کاربری و یا کلمه‌ی عبور اشتباه است.</translation>
     </message>
@@ -33,12 +33,12 @@
         <translation>رقابت</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+46"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+44"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -58,9 +58,102 @@
         <translation>عضو جدید</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="+5"/>
+        <source>newMatch</source>
+        <translation>مسابقه جدید</translation>
+    </message>
+    <message>
+        <location line="-20"/>
         <source>Ctrl+S</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>MatchForm</name>
+    <message>
+        <location filename="matchform.ui" line="+14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Type</source>
+        <translation>نوع</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Questions</source>
+        <translation>پرسشی</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Instructions</source>
+        <translation>توضیحی</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Group</source>
+        <translation>گروه</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>AgeClass</source>
+        <translation>رده سنی</translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Title</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Corrector</source>
+        <translation>مصحح</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Score</source>
+        <translation>امتیاز</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>State</source>
+        <translation>وضعیت</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>active</source>
+        <translation>فعال</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>imported</source>
+        <translation>نیازمند بررسی</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>disabled</source>
+        <translation>غیر فعال</translation>
+    </message>
+    <message>
+        <location line="+46"/>
+        <source>Author</source>
+        <translation>نویسنده</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Publication</source>
+        <translation>انتشارات</translation>
+    </message>
+    <message>
+        <location filename="matchform.cpp" line="+39"/>
+        <source>book</source>
+        <translation>کتاب</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>multimedia</source>
+        <translation>چند رسانه‌ای</translation>
     </message>
 </context>
 <context>
@@ -168,12 +261,12 @@
         <translation type="obsolete">مسابقه‌ها</translation>
     </message>
     <message>
-        <location filename="usermain.ui" line="+40"/>
+        <location filename="usermain.ui" line="+49"/>
         <source>New Match</source>
         <translation>مسابقه جدید</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
     </message>
@@ -183,12 +276,12 @@
         <translation>چاپ</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+19"/>
         <source>Deliver</source>
         <translation>تحویل</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+13"/>
         <source>Received Matches</source>
         <translation>مسابقه‌های برده شده</translation>
     </message>

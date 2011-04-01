@@ -11,14 +11,11 @@ LoginDialog::LoginDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    eUsername = new MyLineEdit(this);
+    eUsername = new MyLineEdit("select users.id, firstname || ' ' || lastname as ctitle from users inner join permissions on users.id = permissions.user_id", this);
     eUsername->setObjectName("eUsername");
     ui->formLayout->setWidget(1, QFormLayout::FieldRole, eUsername);
     QWidget::setTabOrder(eUsername, ui->ePassword);
     eUsername->setFocus();
-
-    MyCompleter * completer = new MyCompleter("select users.id, firstname || ' ' || lastname as ctitle from users inner join permissions on users.id = permissions.user_id", this);
-    eUsername->setCompleter(completer);
 }
 
 LoginDialog::~LoginDialog()

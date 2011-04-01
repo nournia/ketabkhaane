@@ -2,6 +2,7 @@
 #define MMATCHES_H
 
 #include <helper.h>
+#include <QComboBox>
 
 class MMatches
 {
@@ -23,6 +24,26 @@ public:
         qry.addBindValue(userId);
         qry.addBindValue(matchId);
         qry.exec();
+    }
+
+    static void fillAgeClassCombo(QComboBox* cb)
+    {
+        QSqlQuery qry;
+        qry.exec("select id, title || ' - ' || description from ageclasses");
+
+        cb->clear();
+        while(qry.next())
+            cb->addItem(qry.value(1).toString(), qry.value(0));
+    }
+
+    static void fillCategoryCombo(QComboBox* cb)
+    {
+        QSqlQuery qry;
+        qry.exec("select id, title from categories");
+
+        cb->clear();
+        while(qry.next())
+            cb->addItem(qry.value(1).toString(), qry.value(0));
     }
 };
 

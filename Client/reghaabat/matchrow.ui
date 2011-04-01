@@ -16,9 +16,6 @@
     <height>23</height>
    </size>
   </property>
-  <property name="windowTitle">
-   <string/>
-  </property>
   <property name="layoutDirection">
    <enum>Qt::RightToLeft</enum>
   </property>

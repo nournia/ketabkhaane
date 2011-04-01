@@ -4,15 +4,17 @@
 #include <AccessToSqlite.h>
 #include <sender.h>
 
-#include <logindialog.h>
-#include <usermain.h>
-#include <userform.h>
-
 // init reghaabat global variables
 Reghaabat* Reghaabat::m_Instance = 0;
 
-UserMain *userMain;
-UserForm *userForm;
+#include <logindialog.h>
+#include <usermain.h>
+#include <userform.h>
+#include <matchform.h>
+
+UserMain* userMain;
+UserForm* userForm;
+MatchForm* matchForm;
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -23,13 +25,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->statusBar->setFont(QFont("Tahoma"));
 
     // add username edit
-    eUsername = new MyLineEdit(ui->gUser);
+    eUsername = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users", ui->gUser);
     eUsername->setObjectName("eUsername");
     ui->horizontalLayout->addWidget(eUsername);
     eUsername->setFocus();
-
-    MyCompleter * completer = new MyCompleter("select users.id, firstname || ' ' || lastname as ctitle from users", this);
-    eUsername->setCompleter(completer);
 
     connect(eUsername, SIGNAL(returnPressed()), this, SLOT(selectUser()));
 }
@@ -43,10 +42,14 @@ void MainWindow::clear()
 {
     delete userForm; userForm = 0;
     delete userMain; userMain = 0;
+    delete matchForm; matchForm = 0;
 }
 
 void MainWindow::showForm(QWidget* form)
 {
+    QString formClass = form->metaObject()->className();
+    ui->gUser->setVisible(formClass == "UserForm" || formClass == "UserMain");
+
     QVBoxLayout* lay =  new QVBoxLayout();
     lay->setContentsMargins(0, 0, 0, 0);
 
@@ -108,5 +111,15 @@ void MainWindow::on_actionNewUser_triggered()
         clear();
         userForm = new UserForm(this);
         showForm(userForm);
+    }
+}
+
+void MainWindow::on_actionNewMatch_triggered()
+{
+    if (! matchForm)
+    {
+        clear();
+        matchForm = new MatchForm(this);
+        showForm(matchForm);
     }
 }

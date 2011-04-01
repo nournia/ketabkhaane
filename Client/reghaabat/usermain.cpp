@@ -15,15 +15,12 @@ UserMain::UserMain(QWidget *parent) :
     ui->setupUi(this);
 
     // add matchname edit
-    eMatchname = new MyLineEdit(this);
+    eMatchname = new MyLineEdit("select id, title as ctitle from matches", this);
     eMatchname->setObjectName("eMatchname");
     ui->horizontalLayout->addWidget(eMatchname);
     QWidget::setTabOrder(eMatchname, ui->bDeliver);
     QWidget::setTabOrder(ui->bDeliver, ui->cPrint);
     QWidget::setTabOrder(ui->cPrint, ui->bPreview);
-
-    MyCompleter * completer = new MyCompleter("select id, title as ctitle from matches", this);
-    eMatchname->setCompleter(completer);
 
     connect(eMatchname, SIGNAL(returnPressed()), this, SLOT(selectMatch()));
 }
