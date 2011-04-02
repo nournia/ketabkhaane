@@ -89,6 +89,10 @@ private slots:
     void insertCompletion(const QString &completion);
     void setIdValue();
 
+signals:
+    void select();
+    void cancel();
+
 private:
     MyCompleter *c;
     QString valueId; // from completer query

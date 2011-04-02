@@ -69,26 +69,33 @@ void MyLineEdit::keyPressEvent(QKeyEvent *e)
 
 void MyLineEdit::setIdValue()
 {
+    if (! valueId.isEmpty())
+        emit cancel();
+
+    if (text().isEmpty())
+    {
+        setStyleSheet("");
+        return;
+    }
+
+    // retrieve value id
     QSqlQuery qry;
     qry.prepare(completer()->query + " where ctitle = ?");
     qry.addBindValue(this->text());
     qry.exec();
-
-    valueId = "";
     if (qry.next())
     {
         valueId = qry.value(0).toString();
-        if (qry.next())
+        if (qry.next()) // return empty if there is more than one exact match case
             valueId = "";
-    }
+    } else
+        valueId = "";
 
-    if (text() == "")
-        setStyleSheet("");
-    else if (valueId == "")
+    if (valueId.isEmpty())
         setStyleSheet("background-color:  hsv(0, 60, 255)");
     else
     {
         setStyleSheet("background-color:  hsv(120, 60, 255)");
-        emit returnPressed();
+        emit select();
     }
 }
