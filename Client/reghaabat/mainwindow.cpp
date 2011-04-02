@@ -35,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(eUsername, SIGNAL(returnPressed()), this, SLOT(selectUser()));
 
+    applyPermission();
+
     formFirst = new FormFirst(this);
     showForm(formFirst);
 }
@@ -51,6 +53,24 @@ void MainWindow::clear()
     delete userMain; userMain = 0;
     delete matchForm; matchForm = 0;
     delete optionsForm; optionsForm = 0;
+}
+
+void MainWindow::applyPermission()
+{
+   ui->actionSync->setEnabled(false);
+   ui->actionOptions->setEnabled(false);
+   ui->actionNewUser->setEnabled(false);
+   ui->actionNewMatch->setEnabled(false);
+
+   if (Reghaabat::instance()->userId.isEmpty())
+   {
+       ui->actionLogin->setVisible(true);
+       ui->actionLogout->setVisible(false);
+   } else
+   {
+       ui->actionLogin->setVisible(false);
+       ui->actionLogout->setVisible(true);
+   }
 }
 
 void MainWindow::showForm(QWidget* form)
@@ -93,7 +113,11 @@ void MainWindow::on_actionLogin_triggered()
     LoginDialog ld(this);
     ld.exec();
 
-    ui->statusBar->showMessage(Reghaabat::instance()->userName);
+    if (! Reghaabat::instance()->userId.isEmpty())
+    {
+        ui->statusBar->showMessage(Reghaabat::instance()->userName);
+        applyPermission();
+    }
 }
 
 void MainWindow::on_actionLogout_triggered()

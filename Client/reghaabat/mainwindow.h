@@ -18,6 +18,7 @@ public:
     ~MainWindow();
 
     void clear();
+    void applyPermission();
     void showForm(QWidget* form);
 
 private:

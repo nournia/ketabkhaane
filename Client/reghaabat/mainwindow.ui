@@ -87,8 +87,8 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionLogin"/>
-   <addaction name="actionSync"/>
    <addaction name="actionLogout"/>
+   <addaction name="actionSync"/>
    <addaction name="actionNewUser"/>
    <addaction name="actionNewMatch"/>
    <addaction name="actionOptions"/>
