@@ -7,14 +7,14 @@
 Reghaabat* Reghaabat::m_Instance = 0;
 
 #include <logindialog.h>
-#include <usermain.h>
+#include <formoperator.h>
 #include <userform.h>
 #include <matchform.h>
 #include <optionsform.h>
 #include <formfirst.h>
 
 FormFirst* formFirst;
-UserMain* userMain;
+FormOperator* formOperator;
 UserForm* userForm;
 MatchForm* matchForm;
 OptionsForm* optionsForm;
@@ -50,7 +50,7 @@ void MainWindow::clear()
 {
     delete formFirst; formFirst = 0;
     delete userForm; userForm = 0;
-    delete userMain; userMain = 0;
+    delete formOperator; formOperator = 0;
     delete matchForm; matchForm = 0;
     delete optionsForm; optionsForm = 0;
 }
@@ -59,6 +59,7 @@ void MainWindow::applyPermission()
 {
    ui->actionSync->setEnabled(false);
    ui->actionOptions->setEnabled(false);
+   ui->actionDeliverMatch->setEnabled(false);
    ui->actionNewUser->setEnabled(false);
    ui->actionNewMatch->setEnabled(false);
 
@@ -71,12 +72,17 @@ void MainWindow::applyPermission()
        ui->actionLogin->setVisible(false);
        ui->actionLogout->setVisible(true);
    }
+
+   if (Reghaabat::hasAccess("operator"))
+   {
+       ui->actionDeliverMatch->setEnabled(true);
+   }
 }
 
 void MainWindow::showForm(QWidget* form)
 {
     QString formClass = form->metaObject()->className();
-    ui->gUser->setVisible(formClass == "UserForm" || formClass == "UserMain");
+    ui->gUser->setVisible(formClass == "UserForm" || formClass == "FormOperator");
 
     QVBoxLayout* lay =  new QVBoxLayout();
     lay->setContentsMargins(0, 0, 0, 0);
@@ -92,13 +98,13 @@ void MainWindow::selectUser()
     QString userId = eUsername->value();
     if (userId != "")
     {
-        if (! userMain)
+        if (! formOperator)
         {
             clear();
-            userMain = new UserMain(this);
-            showForm(userMain);
+            formOperator = new FormOperator(this);
+            showForm(formOperator);
         }
-        userMain->select(userId);
+        formOperator->select(userId);
     }
 }
 
@@ -117,6 +123,8 @@ void MainWindow::on_actionLogin_triggered()
     {
         ui->statusBar->showMessage(Reghaabat::instance()->userName);
         applyPermission();
+
+        ui->actionDeliverMatch->trigger();
     }
 }
 
@@ -159,5 +167,15 @@ void MainWindow::on_actionOptions_triggered()
         optionsForm = new OptionsForm(this);
         showForm(optionsForm);
     }
+}
 
+void MainWindow::on_actionDeliverMatch_triggered()
+{
+    if (! formOperator)
+    {
+        clear();
+        formOperator = new FormOperator(this);
+        showForm(formOperator);
+    }
+    eUsername->setFocus();
 }

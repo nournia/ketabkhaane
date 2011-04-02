@@ -38,7 +38,7 @@ public:
         {
             Reghaabat::instance()->userId = qry.value(0).toString();
             Reghaabat::instance()->userName = qry.value(1).toString();
-            Reghaabat::instance()->userPermission = qry.value(1).toString();
+            Reghaabat::instance()->userPermission = qry.value(2).toString();
 
             return true;
         }

@@ -26,6 +26,7 @@ private:
     MyLineEdit *eUsername;
 
 private slots:
+    void on_actionDeliverMatch_triggered();
     void on_actionOptions_triggered();
     void on_actionNewMatch_triggered();
     void selectUser();
@@ -36,6 +37,7 @@ private slots:
     void on_actionSync_triggered();
 };
 
+#include <QDebug>
 
 // rghaabat global variables
 // from: http://stackoverflow.com/questions/3747085/global-variables-in-qt
@@ -52,6 +54,12 @@ public:
         if (! m_Instance)
             m_Instance = new Reghaabat;
         return m_Instance;
+    }
+
+    static bool hasAccess(QString limit)
+    {
+        QStringList permissions = QStringList() << "user" << "operator" << "designer" << "manager" << "master" << "admin";
+        return permissions.indexOf(Reghaabat::instance()->userPermission) >= permissions.indexOf(limit);
     }
 };
 
