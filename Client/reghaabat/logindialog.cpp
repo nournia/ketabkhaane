@@ -27,6 +27,8 @@ void LoginDialog::on_buttonBox_accepted()
 {
     if (ui->ePassword->text().isEmpty()) return;
 
+    this->close();
+
     StrMap user;
     if (MUsers::login(eUsername->value(), ui->ePassword->text(), user))
     {
@@ -35,7 +37,6 @@ void LoginDialog::on_buttonBox_accepted()
         Reghaabat::instance()->userPermission = user["permission"].toString();
     }
     else QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Invalid Username or Password."));
-    this->close();
 }
 
 void LoginDialog::on_buttonBox_rejected()

@@ -42,6 +42,21 @@ public:
         else
             return false;
     }
+
+    static bool changePassword(QString userId, QString oldPass, QString newPass)
+    {
+        QSqlQuery qry;
+        qry.exec("select upassword from users where id = "+ userId);
+        if (! qry.next()) return false;
+
+        if (qry.value(0).toString() != QCryptographicHash::hash(oldPass.toUtf8(), QCryptographicHash::Sha1).toHex())
+            return false;
+
+        QString password = QCryptographicHash::hash(newPass.toUtf8(), QCryptographicHash::Sha1).toHex();
+        if (! qry.exec(QString("update users set upassword = '%1' where id = %2").arg(password).arg(userId)))
+            return false;
+        return true;
+    }
 };
 
 

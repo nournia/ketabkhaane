@@ -48,13 +48,14 @@
    </attribute>
    <addaction name="actionLogin"/>
    <addaction name="actionLogout"/>
-   <addaction name="actionSync"/>
+   <addaction name="actionChangePassword"/>
    <addaction name="actionNewUser"/>
    <addaction name="actionEditUser"/>
    <addaction name="actionNewMatch"/>
    <addaction name="actionEditMatch"/>
    <addaction name="actionOptions"/>
    <addaction name="actionDeliverMatch"/>
+   <addaction name="actionSync"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="font">
@@ -112,6 +113,11 @@
   <action name="actionEditMatch">
    <property name="text">
     <string>editMatch</string>
+   </property>
+  </action>
+  <action name="actionChangePassword">
+   <property name="text">
+    <string>changePassword</string>
    </property>
   </action>
  </widget>

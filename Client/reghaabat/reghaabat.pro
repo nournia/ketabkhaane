@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     matchform.cpp \
     questionmodule.cpp \
     optionsform.cpp \
-    formfirst.cpp
+    formfirst.cpp \
+    dialogchangepassword.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -44,7 +45,8 @@ HEADERS  += mainwindow.h \
     matchform.h \
     questionmodule.h \
     optionsform.h \
-    formfirst.h
+    formfirst.h \
+    dialogchangepassword.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -54,6 +56,7 @@ FORMS    += mainwindow.ui \
     matchform.ui \
     questionmodule.ui \
     optionsform.ui \
-    formfirst.ui
+    formfirst.ui \
+    dialogchangepassword.ui
 
 TRANSLATIONS = reghaabat_fa.ts

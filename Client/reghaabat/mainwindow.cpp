@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 
 #include <QLabel>
+#include <logindialog.h>
+#include <dialogchangepassword.h>
 
 #include <sender.h>
 
@@ -50,15 +52,9 @@ void MainWindow::applyPermission()
    ui->actionNewMatch->setEnabled(false);
    ui->actionEditMatch->setEnabled(false);
 
-   if (Reghaabat::instance()->userId.isEmpty())
-   {
-       ui->actionLogin->setVisible(true);
-       ui->actionLogout->setVisible(false);
-   } else
-   {
-       ui->actionLogin->setVisible(false);
-       ui->actionLogout->setVisible(true);
-   }
+   ui->actionLogin->setVisible(Reghaabat::instance()->userId.isEmpty());
+   ui->actionLogout->setVisible(! ui->actionLogin->isVisible());
+   ui->actionChangePassword->setEnabled(! ui->actionLogin->isVisible());
 
    // enables
    ui->actionSync->setEnabled(true);
@@ -199,4 +195,10 @@ void MainWindow::firstPage()
     clear();
     formFirst = new FormFirst(this);
     showForm(formFirst);
+}
+
+void MainWindow::on_actionChangePassword_triggered()
+{
+    DialogChangePassword dialog(this);
+    dialog.exec();
 }

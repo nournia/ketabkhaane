@@ -2,6 +2,34 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fa_IR">
 <context>
+    <name>DialogChangePassword</name>
+    <message>
+        <location filename="dialogchangepassword.ui" line="+14"/>
+        <source>Change Password</source>
+        <translation>تغییر کلمه عبور</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Old Password</source>
+        <translation>کلمه عبور کنونی</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>New Password</source>
+        <translation>کلمه عبور جدید</translation>
+    </message>
+    <message>
+        <location filename="dialogchangepassword.cpp" line="+27"/>
+        <source>Password Changed.</source>
+        <translation>کلمه عبور جدید ثبت شد.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Invalid Password.</source>
+        <translation>کلمه عبور نامعتبر است.</translation>
+    </message>
+</context>
+<context>
     <name>FormOperator</name>
     <message>
         <location filename="formoperator.ui" line="+46"/>
@@ -58,7 +86,7 @@
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location filename="logindialog.cpp" line="+37"/>
+        <location filename="logindialog.cpp" line="+39"/>
         <source>Invalid Username or Password.</source>
         <translation>نام کاربری و یا کلمه‌ی عبور اشتباه است.</translation>
     </message>
@@ -75,7 +103,7 @@
         <translation type="obsolete">نام کاربر</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+58"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -120,7 +148,12 @@
         <translation>ویرایش مسابقه</translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location line="+5"/>
+        <source>changePassword</source>
+        <translation>تغییر کلمه عبور</translation>
+    </message>
+    <message>
+        <location line="-45"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
@@ -208,7 +241,7 @@
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+63"/>
+        <location filename="matchform.cpp" line="+97"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
@@ -237,10 +270,12 @@
 <context>
     <name>QApplication</name>
     <message>
+        <location filename="dialogchangepassword.cpp" line="-2"/>
+        <location line="+2"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="main.cpp" line="+25"/>
         <location filename="matchform.cpp" line="+60"/>
-        <location filename="userform.cpp" line="+59"/>
+        <location filename="userform.cpp" line="+60"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>

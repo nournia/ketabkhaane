@@ -4,7 +4,6 @@
 #include <QMainWindow>
 
 #include <mylineedit.h>
-#include <logindialog.h>
 #include <formoperator.h>
 #include <userform.h>
 #include <matchform.h>
@@ -31,6 +30,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+    void on_actionChangePassword_triggered();
     void on_actionEditMatch_triggered();
     void on_actionEditUser_triggered();
     void on_actionDeliverMatch_triggered();
