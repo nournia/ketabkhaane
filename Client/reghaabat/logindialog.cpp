@@ -16,6 +16,13 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui->formLayout->setWidget(1, QFormLayout::FieldRole, eUsername);
     QWidget::setTabOrder(eUsername, ui->ePassword);
     eUsername->setFocus();
+
+    connect(eUsername, SIGNAL(select()), this, SLOT(selectUser()));
+}
+
+void LoginDialog::selectUser()
+{
+    ui->ePassword->setFocus();
 }
 
 LoginDialog::~LoginDialog()

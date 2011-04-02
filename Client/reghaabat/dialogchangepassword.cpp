@@ -22,10 +22,8 @@ void DialogChangePassword::on_buttonBox_accepted()
 {
     this->close();
 
-    if (MUsers::changePassword(Reghaabat::instance()->userId, ui->eOldPassword->text(), ui->eNewPassword->text()))
-        QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Password Changed."));
-    else
-        QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Invalid Password."));
+    QString msg = MUsers::changePassword(Reghaabat::instance()->userId, ui->eOldPassword->text(), ui->eNewPassword->text(), ui->eRetypedPassword->text());
+    QMessageBox::warning(this, QApplication::tr("Reghaabat"), msg);
 }
 
 void DialogChangePassword::on_buttonBox_rejected()

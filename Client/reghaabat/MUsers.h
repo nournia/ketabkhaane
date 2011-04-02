@@ -27,6 +27,7 @@ public:
         return "";
     }
 
+
     static bool login(QString userId, QString password, StrMap& user)
     {
         QSqlQuery qry;
@@ -43,20 +44,38 @@ public:
             return false;
     }
 
-    static bool changePassword(QString userId, QString oldPass, QString newPass)
+    static QString changePassword(QString userId, QString oldPass, QString newPass, QString rePass)
     {
         QSqlQuery qry;
         qry.exec("select upassword from users where id = "+ userId);
         if (! qry.next()) return false;
 
         if (qry.value(0).toString() != QCryptographicHash::hash(oldPass.toUtf8(), QCryptographicHash::Sha1).toHex())
-            return false;
+            return QObject::tr("Invalid Old Password.");
+
+        if (newPass != rePass)
+            return QObject::tr("New password must exact matches with retyped one.");
+
+        if (! validPassword(newPass))
+            return QObject::tr("Password phrase length must be greater than 6 characters and mustn't be a pure number.");
 
         QString password = QCryptographicHash::hash(newPass.toUtf8(), QCryptographicHash::Sha1).toHex();
         if (! qry.exec(QString("update users set upassword = '%1' where id = %2").arg(password).arg(userId)))
+            return qry.lastError().text();
+
+        return QObject::tr("Password Changed.");
+    }
+
+    static bool validPassword(QString pass)
+    {
+        qDebug() << pass.toInt();
+        if (pass.length() < 6)
+            return false;
+        else if (pass.toInt() != 0)
             return false;
         return true;
     }
+
 };
 
 

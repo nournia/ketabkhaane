@@ -19,14 +19,17 @@
         <translation>کلمه عبور جدید</translation>
     </message>
     <message>
-        <location filename="dialogchangepassword.cpp" line="+27"/>
-        <source>Password Changed.</source>
-        <translation>کلمه عبور جدید ثبت شد.</translation>
+        <location line="+40"/>
+        <source>Retyped Password</source>
+        <translation>تکرار کلمه عبور</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <source>Password Changed.</source>
+        <translation type="obsolete">کلمه عبور جدید ثبت شد.</translation>
+    </message>
+    <message>
         <source>Invalid Password.</source>
-        <translation>کلمه عبور نامعتبر است.</translation>
+        <translation type="obsolete">کلمه عبور نامعتبر است.</translation>
     </message>
 </context>
 <context>
@@ -86,7 +89,7 @@
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location filename="logindialog.cpp" line="+39"/>
+        <location filename="logindialog.cpp" line="+46"/>
         <source>Invalid Username or Password.</source>
         <translation>نام کاربری و یا کلمه‌ی عبور اشتباه است.</translation>
     </message>
@@ -270,8 +273,7 @@
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="dialogchangepassword.cpp" line="-2"/>
-        <location line="+2"/>
+        <location filename="dialogchangepassword.cpp" line="+26"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="main.cpp" line="+25"/>
         <location filename="matchform.cpp" line="+60"/>
@@ -283,6 +285,29 @@
         <location filename="main.cpp" line="+2"/>
         <source>Rooyesh</source>
         <translation>رویش</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="musers.h" line="+54"/>
+        <source>Invalid Old Password.</source>
+        <translation>کلمه عبور وارد شده اشتباه است.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>New password must exact matches with retyped one.</source>
+        <translation>کلمه عبور جدید باید با تکرار آن تطابق داشته باشد.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Password phrase length must be greater than 6 characters and mustn&apos;t be a pure number.</source>
+        <translation>کلمه عبور باید حداقل 6 حرف باشد و نباید فقط از عدد تشکل شده باشد.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Password Changed.</source>
+        <translation>کلمه عبور جدید ثبت شد.</translation>
     </message>
 </context>
 <context>
