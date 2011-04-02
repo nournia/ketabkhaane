@@ -14,15 +14,23 @@ FormOperator::FormOperator(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // add username edit
+    eUser = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users", this);
+    ui->lUser->addWidget(eUser);
+    connect(eUser, SIGNAL(select()), this, SLOT(selectUser()));
+    connect(eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
+
     // add matchname edit
-    eMatchname = new MyLineEdit("select id, title as ctitle from matches", this);
-    eMatchname->setObjectName("eMatchname");
-    ui->horizontalLayout->addWidget(eMatchname);
-    QWidget::setTabOrder(eMatchname, ui->bDeliver);
+    eMatch = new MyLineEdit("select id, title as ctitle from matches", this);
+    ui->lMatch->addWidget(eMatch);
+    QWidget::setTabOrder(eMatch, ui->bDeliver);
     QWidget::setTabOrder(ui->bDeliver, ui->cPrint);
     QWidget::setTabOrder(ui->cPrint, ui->bPreview);
 
-    connect(eMatchname, SIGNAL(returnPressed()), this, SLOT(selectMatch()));
+    connect(eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
+    connect(eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
+
+    cancelUser();
 }
 
 FormOperator::~FormOperator()
@@ -30,46 +38,64 @@ FormOperator::~FormOperator()
     delete ui;
 }
 
-void FormOperator::selectMatch()
+void FormOperator::cancelUser()
 {
-    ui->newMatchButtons->setEnabled(eMatchname->value() != "");
+    ui->gDelivered->setEnabled(false);
+    ui->gMatch->setEnabled(false);
+    ui->bEditUser->setEnabled(false);
 
-    if (eMatchname->value() != "")
-        ui->bDeliver->setFocus();
+    cancelMatch();
+    eMatch->setText("");
+
+    // clean gDelivered
+    QLayoutItem *child;
+    if (ui->gDelivered->layout())
+    while ((child = ui->gDelivered->layout()->takeAt(0)) != 0)
+         delete child->widget();
 }
 
-void FormOperator::select(QString uid)
+void FormOperator::cancelMatch()
 {
-    userId = uid;
-
     ui->newMatchButtons->setEnabled(false);
-    eMatchname->setText("");
-    eMatchname->setFocus();
+}
 
-    // clean gMatches
-    QLayoutItem *child;
-    if (ui->gMatches->layout())
-    while ((child = ui->gMatches->layout()->takeAt(0)) != 0)
-         delete child->widget();
-
-    QSqlQuery qry;
-    qry.exec(QString("select match_id, matches.title from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null;").arg(userId));
-
-    for (int i = 1; qry.next(); i++)
+void FormOperator::selectUser()
+{
+    cancelUser();
+    if (! eUser->value().isEmpty())
     {
-        MatchRow* row = new MatchRow(userId, qry.value(0).toString(), qry.value(1).toString(), ui->gMatches);
-        ui->gMatches->layout()->addWidget(row);
-    }
+        ui->gDelivered->setEnabled(true);
+        ui->gMatch->setEnabled(true);
+        ui->bEditUser->setEnabled(true);
+        eMatch->setFocus();
 
-    // space filler
-    ui->gMatches->layout()->addWidget(new QWidget);
+        QSqlQuery qry;
+        qry.exec(QString("select match_id, matches.title from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null;").arg(eUser->value()));
+
+        for (int i = 1; qry.next(); i++)
+        {
+            MatchRow* row = new MatchRow(eUser->value(), qry.value(0).toString(), qry.value(1).toString(), ui->gDelivered);
+            ui->gDelivered->layout()->addWidget(row);
+        }
+
+        // space filler
+        ui->gDelivered->layout()->addWidget(new QWidget);
+    }
+}
+
+void FormOperator::selectMatch()
+{
+    ui->newMatchButtons->setEnabled(! eMatch->value().isEmpty());
+
+    if (! eMatch->value().isEmpty())
+        ui->bDeliver->setFocus();
 }
 
 void FormOperator::on_bDeliver_clicked()
 {
-    if (eMatchname->value() != "")
+    if (! eMatch->value().isEmpty())
     {
-        MMatches::deliver(userId, eMatchname->value());
-        select(userId);
+        MMatches::deliver(eUser->value(), eMatch->value());
+        selectUser();
     }
 }

@@ -18,17 +18,17 @@ public:
     explicit FormOperator(QWidget *parent = 0);
     ~FormOperator();
 
-    void select(QString userId);
-
-    MyLineEdit* eMatchname;
-    QString userId;
+    MyLineEdit *eUser, *eMatch;
 
 private:
     Ui::FormOperator *ui;
 
 private slots:
-    void on_bDeliver_clicked();
+    void selectUser();
     void selectMatch();
+    void cancelUser();
+    void cancelMatch();
+    void on_bDeliver_clicked();
 };
 
 #endif // FormOperator_H

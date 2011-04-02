@@ -23,13 +23,11 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    MyLineEdit *eUsername;
 
 private slots:
     void on_actionDeliverMatch_triggered();
     void on_actionOptions_triggered();
     void on_actionNewMatch_triggered();
-    void selectUser();
 
     void on_actionNewUser_triggered();
     void on_actionLogout_triggered();
@@ -58,8 +56,13 @@ public:
 
     static bool hasAccess(QString limit)
     {
+        QString permission = Reghaabat::instance()->userPermission;
         QStringList permissions = QStringList() << "user" << "operator" << "designer" << "manager" << "master" << "admin";
-        return permissions.indexOf(Reghaabat::instance()->userPermission) >= permissions.indexOf(limit);
+
+        if (permission == "designer" && limit == "operator")
+            return false;
+
+        return permissions.indexOf(permission) >= permissions.indexOf(limit);
     }
 };
 

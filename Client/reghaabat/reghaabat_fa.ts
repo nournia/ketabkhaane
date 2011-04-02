@@ -4,7 +4,17 @@
 <context>
     <name>FormOperator</name>
     <message>
-        <location filename="formoperator.ui" line="+46"/>
+        <location filename="formoperator.ui" line="+40"/>
+        <source>Username</source>
+        <translation>نام کاربر</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Edit</source>
+        <translation>ویرایش</translation>
+    </message>
+    <message>
+        <location line="+33"/>
         <source>New Match</source>
         <translation>مسابقه جدید</translation>
     </message>
@@ -25,7 +35,8 @@
     </message>
     <message>
         <location line="+13"/>
-        <source>Received Matches</source>
+        <source>Delivered Matches</source>
+        <oldsource>Received Matches</oldsource>
         <translation>مسابقه‌های برده شده</translation>
     </message>
 </context>
@@ -48,7 +59,7 @@
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location filename="logindialog.cpp" line="+29"/>
+        <location filename="logindialog.cpp" line="+31"/>
         <source>Invalid Username or Password.</source>
         <translation>نام کاربری و یا کلمه‌ی عبور اشتباه است.</translation>
     </message>
@@ -61,12 +72,11 @@
         <translation>رقابت</translation>
     </message>
     <message>
-        <location line="+46"/>
         <source>Username</source>
-        <translation>نام کاربر</translation>
+        <translation type="obsolete">نام کاربر</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+52"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>

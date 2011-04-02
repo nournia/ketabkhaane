@@ -27,14 +27,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->statusBar->setFont(QFont("Tahoma"));
 
-    // add username edit
-    eUsername = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users", ui->gUser);
-    eUsername->setObjectName("eUsername");
-    ui->horizontalLayout->addWidget(eUsername);
-    eUsername->setFocus();
-
-    connect(eUsername, SIGNAL(returnPressed()), this, SLOT(selectUser()));
-
     applyPermission();
 
     formFirst = new FormFirst(this);
@@ -73,17 +65,28 @@ void MainWindow::applyPermission()
        ui->actionLogout->setVisible(true);
    }
 
+   // enables
+   ui->actionSync->setEnabled(true);
+
    if (Reghaabat::hasAccess("operator"))
    {
+       ui->actionNewUser->setEnabled(true);
        ui->actionDeliverMatch->setEnabled(true);
+   }
+
+   if (Reghaabat::hasAccess("designer"))
+   {
+       ui->actionNewMatch->setEnabled(true);
+   }
+
+   if (Reghaabat::hasAccess("master"))
+   {
+       ui->actionOptions->setEnabled(true);
    }
 }
 
 void MainWindow::showForm(QWidget* form)
 {
-    QString formClass = form->metaObject()->className();
-    ui->gUser->setVisible(formClass == "UserForm" || formClass == "FormOperator");
-
     QVBoxLayout* lay =  new QVBoxLayout();
     lay->setContentsMargins(0, 0, 0, 0);
 
@@ -91,21 +94,6 @@ void MainWindow::showForm(QWidget* form)
     delete ui->container->layout();
     ui->container->setLayout(lay);
     ui->container->show();
-}
-
-void MainWindow::selectUser()
-{
-    QString userId = eUsername->value();
-    if (userId != "")
-    {
-        if (! formOperator)
-        {
-            clear();
-            formOperator = new FormOperator(this);
-            showForm(formOperator);
-        }
-        formOperator->select(userId);
-    }
 }
 
 void MainWindow::on_actionSync_triggered()
@@ -137,10 +125,14 @@ void MainWindow::on_actionLogout_triggered()
     ui->statusBar->showMessage(Reghaabat::instance()->userName);
 
     clear();
+
+    applyPermission();
 }
 
 void MainWindow::on_actionNewUser_triggered()
 {
+    if (! Reghaabat::hasAccess("operator")) return;
+
     if (! userForm)
     {
         clear();
@@ -151,6 +143,8 @@ void MainWindow::on_actionNewUser_triggered()
 
 void MainWindow::on_actionNewMatch_triggered()
 {
+    if (! Reghaabat::hasAccess("designer")) return;
+
     if (! matchForm)
     {
         clear();
@@ -161,6 +155,8 @@ void MainWindow::on_actionNewMatch_triggered()
 
 void MainWindow::on_actionOptions_triggered()
 {
+    if (! Reghaabat::hasAccess("master")) return;
+
     if (! optionsForm)
     {
         clear();
@@ -171,11 +167,14 @@ void MainWindow::on_actionOptions_triggered()
 
 void MainWindow::on_actionDeliverMatch_triggered()
 {
+    if (! Reghaabat::hasAccess("operator")) return;
+
     if (! formOperator)
     {
         clear();
         formOperator = new FormOperator(this);
         showForm(formOperator);
     }
-    eUsername->setFocus();
+
+    formOperator->eUser->setFocus();
 }
