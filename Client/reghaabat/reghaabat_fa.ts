@@ -4,17 +4,16 @@
 <context>
     <name>FormOperator</name>
     <message>
-        <location filename="formoperator.ui" line="+40"/>
+        <location filename="formoperator.ui" line="+46"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
     <message>
-        <location line="+15"/>
         <source>Edit</source>
-        <translation>ویرایش</translation>
+        <translation type="obsolete">ویرایش</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+35"/>
         <source>New Match</source>
         <translation>مسابقه جدید</translation>
     </message>
@@ -59,7 +58,7 @@
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location filename="logindialog.cpp" line="+31"/>
+        <location filename="logindialog.cpp" line="+37"/>
         <source>Invalid Username or Password.</source>
         <translation>نام کاربری و یا کلمه‌ی عبور اشتباه است.</translation>
     </message>
@@ -76,7 +75,7 @@
         <translation type="obsolete">نام کاربر</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+54"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -111,7 +110,17 @@
         <translation>تحویل مسابقه</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="+5"/>
+        <source>editUser</source>
+        <translation>ویرایش عضو</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>editMatch</source>
+        <translation>ویرایش مسابقه</translation>
+    </message>
+    <message>
+        <location line="-40"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
@@ -119,7 +128,12 @@
 <context>
     <name>MatchForm</name>
     <message>
-        <location filename="matchform.ui" line="+49"/>
+        <location filename="matchform.ui" line="+46"/>
+        <source>Matchname</source>
+        <translation>عنوان مسابقه</translation>
+    </message>
+    <message>
+        <location line="+44"/>
         <source>Type</source>
         <translation>نوع</translation>
     </message>
@@ -194,7 +208,7 @@
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+65"/>
+        <location filename="matchform.cpp" line="+63"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
@@ -226,7 +240,7 @@
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="main.cpp" line="+25"/>
         <location filename="matchform.cpp" line="+60"/>
-        <location filename="userform.cpp" line="+72"/>
+        <location filename="userform.cpp" line="+59"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -261,7 +275,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UserForm</name>
     <message>
-        <location filename="userform.ui" line="+35"/>
+        <location filename="userform.ui" line="+67"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
@@ -271,7 +285,7 @@ p, li { white-space: pre-wrap; }
         <translation>نام خانوادگی</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+56"/>
         <source>NationalId</source>
         <translation>شماره ملی</translation>
     </message>
@@ -291,7 +305,12 @@ p, li { white-space: pre-wrap; }
         <translation>شماره تماس</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-134"/>
+        <source>Username</source>
+        <translation>نام کاربر</translation>
+    </message>
+    <message>
+        <location line="+127"/>
         <source>9999/99/99;_</source>
         <translation></translation>
     </message>
@@ -301,7 +320,7 @@ p, li { white-space: pre-wrap; }
         <translation>توضیحات</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="-113"/>
         <source>Gender</source>
         <translation>جنسیت</translation>
     </message>
@@ -320,7 +339,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">دسترسی</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+101"/>
         <source>Email</source>
         <translation>ایمیل</translation>
     </message>

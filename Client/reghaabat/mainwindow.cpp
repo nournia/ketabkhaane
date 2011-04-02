@@ -44,7 +44,9 @@ void MainWindow::applyPermission()
    ui->actionOptions->setEnabled(false);
    ui->actionDeliverMatch->setEnabled(false);
    ui->actionNewUser->setEnabled(false);
+   ui->actionEditUser->setEnabled(false);
    ui->actionNewMatch->setEnabled(false);
+   ui->actionEditMatch->setEnabled(false);
 
    if (Reghaabat::instance()->userId.isEmpty())
    {
@@ -62,12 +64,14 @@ void MainWindow::applyPermission()
    if (Reghaabat::hasAccess("operator"))
    {
        ui->actionNewUser->setEnabled(true);
+       ui->actionEditUser->setEnabled(true);
        ui->actionDeliverMatch->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("designer"))
    {
        ui->actionNewMatch->setEnabled(true);
+       ui->actionEditMatch->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("master"))
@@ -124,51 +128,10 @@ void MainWindow::on_actionNewUser_triggered()
 {
     if (! Reghaabat::hasAccess("operator")) return;
 
-    if (! userForm)
-    {
-        clear();
-        userForm = new UserForm(this);
-        connect(userForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
-        showForm(userForm);
-    }
-}
-
-void MainWindow::on_actionNewMatch_triggered()
-{
-    if (! Reghaabat::hasAccess("designer")) return;
-
-    if (! matchForm)
-    {
-        clear();
-        matchForm = new MatchForm(this);
-        showForm(matchForm);
-    }
-}
-
-void MainWindow::on_actionOptions_triggered()
-{
-    if (! Reghaabat::hasAccess("master")) return;
-
-    if (! optionsForm)
-    {
-        clear();
-        optionsForm = new OptionsForm(this);
-        showForm(optionsForm);
-    }
-}
-
-void MainWindow::on_actionDeliverMatch_triggered()
-{
-    if (! Reghaabat::hasAccess("operator")) return;
-
-    if (! formOperator)
-    {
-        clear();
-        formOperator = new FormOperator(this);
-        showForm(formOperator);
-    }
-
-    formOperator->eUser->setFocus();
+    clear();
+    userForm = new UserForm(this);
+    connect(userForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
+    showForm(userForm);
 }
 
 void MainWindow::on_actionEditUser_triggered()
@@ -179,6 +142,46 @@ void MainWindow::on_actionEditUser_triggered()
         userForm->editMode(true);
         userForm->eUser->setFocus();
     }
+}
+
+void MainWindow::on_actionNewMatch_triggered()
+{
+    if (! Reghaabat::hasAccess("designer")) return;
+
+    clear();
+    matchForm = new MatchForm(this);
+    connect(matchForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
+    showForm(matchForm);
+}
+
+void MainWindow::on_actionEditMatch_triggered()
+{
+    on_actionNewMatch_triggered();
+    if (matchForm)
+    {
+       matchForm->editMode(true);
+       matchForm->eMatch->setFocus();
+    }
+}
+
+void MainWindow::on_actionOptions_triggered()
+{
+    if (! Reghaabat::hasAccess("master")) return;
+
+    clear();
+    optionsForm = new OptionsForm(this);
+    showForm(optionsForm);
+}
+
+void MainWindow::on_actionDeliverMatch_triggered()
+{
+    if (! Reghaabat::hasAccess("operator")) return;
+
+    clear();
+    formOperator = new FormOperator(this);
+    showForm(formOperator);
+
+    formOperator->eUser->setFocus();
 }
 
 void MainWindow::firstPage()

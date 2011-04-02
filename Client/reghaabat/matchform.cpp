@@ -32,55 +32,89 @@ MatchForm::MatchForm(QWidget *parent) :
     MMatches::fillAgeClassCombo(ui->cAgeClass);
 
     on_cType_currentIndexChanged(0);
-}
 
-void MatchForm::select(QString id)
-{
-    matchId = id;
+    // add matchname edit
+    eMatch = new MyLineEdit("", this);
+    ui->lMatch->addWidget(eMatch);
+    connect(eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
+    connect(eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
 
-    QList<StrPair> questions;
-    StrMap match;
-    MMatches::get(id, match, questions);
-
-    ui->eTitle->setText(match["title"].toString());
-    eCorrector->setText(match["corrector"].toString());
-    ui->sScore->setValue(match["score"].toInt());
-    ui->cAgeClass->setCurrentIndex(ui->cAgeClass->findData(match["ageclass"]));
-    ui->cState->setCurrentIndex(ui->cState->findData(match["current_state"]));
-
-    if (match["category_id"] == "")
-    {
-        ui->cType->setCurrentIndex(0); // Questions
-        ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["kind"]));
-        eAuthor->setText(match["author"].toString());
-        ePublication->setText(match["publication"].toString());
-
-        // questions
-        for (int i = 0; i < questions.size(); i++)
-        {
-            QuestionModule* module = new QuestionModule(questions.at(i).first, questions.at(i).second, this);
-            qModules.append(module);
-            module->refresh(true);
-            ui->lQuestions->layout()->addWidget(module);
-        }
-    }
-    else
-    {
-        ui->cType->setCurrentIndex(1); // Instructions
-        ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["category_id"].toString()));
-        ui->eContent->setPlainText(match["content"].toString());
-    }
-}
-
-void MatchForm::clear()
-{
-    matchId = "";
-    ((MainWindow*)parent())->clear();
+    cancelMatch();
+    editMode(false);
 }
 
 MatchForm::~MatchForm()
 {
     delete ui;
+}
+
+void MatchForm::editMode(bool edit)
+{
+    ui->gMatch->setVisible(edit);
+    ui->gData->setEnabled(! edit);
+}
+
+void MatchForm::selectMatch()
+{
+    if (! eMatch->value().isEmpty())
+    {
+        QList<StrPair> questions;
+        StrMap match;
+        MMatches::get(eMatch->value(), match, questions);
+
+        ui->eTitle->setText(match["title"].toString());
+        eCorrector->setText(match["corrector"].toString());
+        ui->sScore->setValue(match["score"].toInt());
+        ui->cAgeClass->setCurrentIndex(ui->cAgeClass->findData(match["ageclass"]));
+        ui->cState->setCurrentIndex(ui->cState->findData(match["current_state"]));
+
+        if (match["category_id"] == "")
+        {
+            ui->cType->setCurrentIndex(0); // Questions
+            ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["kind"]));
+            eAuthor->setText(match["author"].toString());
+            ePublication->setText(match["publication"].toString());
+
+            // questions
+            for (int i = 0; i < questions.size(); i++)
+            {
+                QuestionModule* module = new QuestionModule(questions.at(i).first, questions.at(i).second, this);
+                qModules.append(module);
+                module->refresh(true);
+                ui->lQuestions->layout()->addWidget(module);
+            }
+        }
+        else
+        {
+            ui->cType->setCurrentIndex(1); // Instructions
+            ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["category_id"].toString()));
+            ui->eContent->setPlainText(match["content"].toString());
+        }
+
+        ui->gData->setEnabled(true);
+        ui->eTitle->setFocus();
+    }
+}
+
+void MatchForm::cancelMatch()
+{
+    eMatch->setCompleter(new MyCompleter("select id, title as ctitle from matches", eMatch));
+
+    /*
+    ui->eFirstname->setText("");
+    ui->eLastname->setText("");
+    ui->eNationalId->setText("");
+    ui->eAddress->setText("");
+    ui->ePhone->setText("");
+    ui->eDescription->setText("");
+    ui->eEmail->setText("");
+    ui->eBirthDate->setText("");
+    ui->rMale->setChecked(true);
+    */
+
+    ui->gData->setEnabled(false);
+
+    eMatch->setFocus();
 }
 
 void MatchForm::on_cType_currentIndexChanged(int index)
@@ -144,16 +178,16 @@ void MatchForm::on_buttonBox_accepted()
         match["content"]  = ui->eContent->toPlainText();
     }
 
-    QString msg = MMatches::set(matchId, match, questions);
+    QString msg = MMatches::set(eMatch->value(), match, questions);
 
     // there isn't any error
     if (msg == "")
-        clear();
+        emit closeForm();
     else
         QMessageBox::warning(this, QApplication::tr("Reghaabat"), msg);
 }
 
 void MatchForm::on_buttonBox_rejected()
 {
-    clear();
+    emit closeForm();
 }

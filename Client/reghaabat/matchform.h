@@ -19,17 +19,21 @@ public:
     explicit MatchForm(QWidget *parent = 0);
     ~MatchForm();
 
-    void select(QString id);
-    void clear();
+    void editMode(bool edit);
 
-    MyLineEdit *eCorrector, *eAuthor, *ePublication;
-    QString matchId; // in edit mode
+    MyLineEdit *eMatch, *eCorrector, *eAuthor, *ePublication;
     QList<QuestionModule*> qModules;
 
 private:
     Ui::MatchForm *ui;
 
+signals:
+    void closeForm();
+
 private slots:
+    void selectMatch();
+    void cancelMatch();
+
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
     void on_bNewQuestion_clicked();

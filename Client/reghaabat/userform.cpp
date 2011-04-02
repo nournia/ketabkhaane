@@ -83,6 +83,7 @@ void UserForm::selectUser()
 
         ui->gData->setEnabled(true);
         ui->buttonBox->setEnabled(true);
+        ui->eFirstname->setFocus();
     }
 }
 
@@ -102,5 +103,6 @@ void UserForm::cancelUser()
 
     ui->gData->setEnabled(false);
     ui->buttonBox->setEnabled(false);
+
     eUser->setFocus();
 }

@@ -31,8 +31,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
-    void firstPage();
-
+    void on_actionEditMatch_triggered();
     void on_actionEditUser_triggered();
     void on_actionDeliverMatch_triggered();
     void on_actionOptions_triggered();
@@ -41,6 +40,8 @@ private slots:
     void on_actionLogout_triggered();
     void on_actionLogin_triggered();
     void on_actionSync_triggered();
+
+    void firstPage();
 };
 
 #include <QDebug>
