@@ -20,7 +20,7 @@ SOURCES += main.cpp\
     userform.cpp \
     helper.cpp \
     jalali.cpp \
-    usermain.cpp \
+    formoperator.cpp \
     matchrow.cpp \
     matchform.cpp \
     questionmodule.cpp \
@@ -38,7 +38,7 @@ HEADERS  += mainwindow.h \
     musers.h \
     userform.h \
     helper.h \
-    usermain.h \
+    formoperator.h \
     matchrow.h \
     mmatches.h \
     matchform.h \
@@ -49,7 +49,7 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     logindialog.ui \
     userform.ui \
-    usermain.ui \
+    formoperator.ui \
     matchrow.ui \
     matchform.ui \
     questionmodule.ui \

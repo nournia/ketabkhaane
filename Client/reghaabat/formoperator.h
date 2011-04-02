@@ -1,5 +1,5 @@
-#ifndef USERMAIN_H
-#define USERMAIN_H
+#ifndef FormOperator_H
+#define FormOperator_H
 
 #include <QWidget>
 
@@ -7,16 +7,16 @@
 #include <mmatches.h>
 
 namespace Ui {
-    class UserMain;
+    class FormOperator;
 }
 
-class UserMain : public QWidget
+class FormOperator : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit UserMain(QWidget *parent = 0);
-    ~UserMain();
+    explicit FormOperator(QWidget *parent = 0);
+    ~FormOperator();
 
     void select(QString userId);
 
@@ -24,11 +24,11 @@ public:
     QString userId;
 
 private:
-    Ui::UserMain *ui;
+    Ui::FormOperator *ui;
 
 private slots:
     void on_bDeliver_clicked();
     void selectMatch();
 };
 
-#endif // USERMAIN_H
+#endif // FormOperator_H

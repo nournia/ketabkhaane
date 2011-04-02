@@ -2,6 +2,34 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fa_IR">
 <context>
+    <name>FormOperator</name>
+    <message>
+        <location filename="formoperator.ui" line="+46"/>
+        <source>New Match</source>
+        <translation>مسابقه جدید</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Preview</source>
+        <translation>پیش نمایش</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Print</source>
+        <translation>چاپ</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Deliver</source>
+        <translation>تحویل</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Received Matches</source>
+        <translation>مسابقه‌های برده شده</translation>
+    </message>
+</context>
+<context>
     <name>LoginDialog</name>
     <message>
         <location filename="logindialog.ui" line="+14"/>
@@ -38,7 +66,7 @@
         <translation>نام کاربر</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+46"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -68,7 +96,12 @@
         <translation>تنظیمات</translation>
     </message>
     <message>
-        <location line="-25"/>
+        <location line="+5"/>
+        <source>deliverMatch</source>
+        <translation>تحویل مسابقه</translation>
+    </message>
+    <message>
+        <location line="-30"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
@@ -172,7 +205,7 @@
 <context>
     <name>OptionsForm</name>
     <message>
-        <location filename="optionsform.ui" line="+26"/>
+        <location filename="optionsform.ui" line="+29"/>
         <source>Convert Old Database</source>
         <translation>تبدیل پایگاه داده قبلی</translation>
     </message>
@@ -297,29 +330,24 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">مسابقه‌ها</translation>
     </message>
     <message>
-        <location filename="usermain.ui" line="+46"/>
         <source>New Match</source>
-        <translation>مسابقه جدید</translation>
+        <translation type="obsolete">مسابقه جدید</translation>
     </message>
     <message>
-        <location line="+21"/>
         <source>Preview</source>
-        <translation>پیش نمایش</translation>
+        <translation type="obsolete">پیش نمایش</translation>
     </message>
     <message>
-        <location line="+26"/>
         <source>Print</source>
-        <translation>چاپ</translation>
+        <translation type="obsolete">چاپ</translation>
     </message>
     <message>
-        <location line="+19"/>
         <source>Deliver</source>
-        <translation>تحویل</translation>
+        <translation type="obsolete">تحویل</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Received Matches</source>
-        <translation>مسابقه‌های برده شده</translation>
+        <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
         <source>Receive</source>

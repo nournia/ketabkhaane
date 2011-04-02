@@ -1,5 +1,5 @@
-#include "usermain.h"
-#include "ui_usermain.h"
+#include "formoperator.h"
+#include "ui_formoperator.h"
 
 #include <QFormLayout>
 #include <QLabel>
@@ -8,9 +8,9 @@
 #include <helper.h>
 #include <matchrow.h>
 
-UserMain::UserMain(QWidget *parent) :
+FormOperator::FormOperator(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::UserMain)
+    ui(new Ui::FormOperator)
 {
     ui->setupUi(this);
 
@@ -25,12 +25,12 @@ UserMain::UserMain(QWidget *parent) :
     connect(eMatchname, SIGNAL(returnPressed()), this, SLOT(selectMatch()));
 }
 
-UserMain::~UserMain()
+FormOperator::~FormOperator()
 {
     delete ui;
 }
 
-void UserMain::selectMatch()
+void FormOperator::selectMatch()
 {
     ui->newMatchButtons->setEnabled(eMatchname->value() != "");
 
@@ -38,7 +38,7 @@ void UserMain::selectMatch()
         ui->bDeliver->setFocus();
 }
 
-void UserMain::select(QString uid)
+void FormOperator::select(QString uid)
 {
     userId = uid;
 
@@ -65,7 +65,7 @@ void UserMain::select(QString uid)
     ui->gMatches->layout()->addWidget(new QWidget);
 }
 
-void UserMain::on_bDeliver_clicked()
+void FormOperator::on_bDeliver_clicked()
 {
     if (eMatchname->value() != "")
     {
