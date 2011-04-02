@@ -62,6 +62,9 @@
      <pointsize>8</pointsize>
     </font>
    </property>
+   <property name="sizeGripEnabled">
+    <bool>false</bool>
+   </property>
   </widget>
   <action name="actionSync">
    <property name="text">

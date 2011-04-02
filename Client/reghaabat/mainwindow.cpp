@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QLabel>
+
 #include <sender.h>
 
 // init reghaabat global variables
@@ -104,7 +106,15 @@ void MainWindow::on_actionLogin_triggered()
 
     if (! Reghaabat::instance()->userId.isEmpty())
     {
-        ui->statusBar->showMessage(Reghaabat::instance()->userName);
+        QLabel* label = new QLabel(Reghaabat::instance()->userName, this);
+
+        QVBoxLayout* lay =  new QVBoxLayout();
+        lay->setContentsMargins(3, 3, 3, 3);
+        lay->addWidget(label);
+        delete ui->statusBar->layout();
+        ui->statusBar->setLayout(lay);
+        ui->statusBar->show();
+
         applyPermission();
 
         on_actionDeliverMatch_triggered();
@@ -117,7 +127,7 @@ void MainWindow::on_actionLogout_triggered()
     Reghaabat::instance()->userName = "";
     Reghaabat::instance()->userPermission = "";
 
-    ui->statusBar->showMessage(Reghaabat::instance()->userName);
+    delete ui->statusBar->layout();
 
     clear();
 
