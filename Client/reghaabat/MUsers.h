@@ -9,15 +9,17 @@
 class MUsers
 {
 public:
-    static StrMap get(QString userId)
+    static bool get(QString userId, StrMap user)
     {
         QSqlQuery qry;
         qry.exec("select * from users where id = "+ userId);
-        qry.next();
-        return getRecord(qry);
+        if (! qry.next()) return false;
+
+        user = getRecord(qry);
+        return true;
     }
 
-    static QString set(StrMap user, QString userId)
+    static QString set(QString userId, StrMap user)
     {
         QSqlQuery qry;
         if (! qry.exec(getReplaceQuery("users", user, userId)))

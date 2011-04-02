@@ -20,6 +20,7 @@ public:
     ~MatchForm();
 
     void select(QString id);
+    void clear();
 
     MyLineEdit *eCorrector, *eAuthor, *ePublication;
     QString matchId; // in edit mode
@@ -29,6 +30,8 @@ private:
     Ui::MatchForm *ui;
 
 private slots:
+    void on_buttonBox_rejected();
+    void on_buttonBox_accepted();
     void on_bNewQuestion_clicked();
     void on_cType_currentIndexChanged(int index);
 };

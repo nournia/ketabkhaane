@@ -1,6 +1,9 @@
 #include "matchform.h"
 #include "ui_matchform.h"
 
+#include <QMessageBox>
+#include <mainwindow.h>
+
 MatchForm::MatchForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MatchForm)
@@ -20,52 +23,44 @@ MatchForm::MatchForm(QWidget *parent) :
     QWidget::setTabOrder(ui->cState, eAuthor);
     QWidget::setTabOrder(eAuthor, ePublication);
 
-    ui->cType->setFocus();
+    // fill cState
+    ui->cState->addItem(tr("active"), "active");
+    ui->cState->addItem(tr("imported"), "imported");
+    ui->cState->addItem(tr("disabled"), "disabled");
 
+    // fill cAgeClass
     MMatches::fillAgeClassCombo(ui->cAgeClass);
+
     on_cType_currentIndexChanged(0);
 
-    select("311013");
+    select("343001");
 }
 
-#include <QDebug>
 void MatchForm::select(QString id)
 {
     matchId = id;
 
-    StrMap match = MMatches::get(id);
+    QList<StrPair> questions;
+    StrMap match;
+    MMatches::get(id, match, questions);
 
     ui->eTitle->setText(match["title"].toString());
-    ui->cAgeClass->setCurrentIndex(ui->cAgeClass->findData(match["ageclass"]));
     eCorrector->setText(match["corrector"].toString());
     ui->sScore->setValue(match["score"].toInt());
-
-    QString state = match["current_state"].toString();
-    if (state == "active")
-        ui->cState->setCurrentIndex(0);
-    else if (state == "imported")
-        ui->cState->setCurrentIndex(1);
-    else if (state == "disabled")
-        ui->cState->setCurrentIndex(2);
+    ui->cAgeClass->setCurrentIndex(ui->cAgeClass->findData(match["ageclass"]));
+    ui->cState->setCurrentIndex(ui->cState->findData(match["current_state"]));
 
     if (match["category_id"] == "")
     {
         ui->cType->setCurrentIndex(0); // Questions
-
-        QString kind = match["kind"].toString();
-        if (kind == "book")
-            ui->cGroup->setCurrentIndex(0);
-        else if (kind == "multimedia")
-            ui->cGroup->setCurrentIndex(1);
-
+        ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["kind"]));
         eAuthor->setText(match["author"].toString());
         ePublication->setText(match["publication"].toString());
 
         // questions
-        QSqlQuery questions = MMatches::getQuestions(id);
-        while (questions.next())
+        for (int i = 0; i < questions.size(); i++)
         {
-            QuestionModule* module = new QuestionModule(questions.value(0).toString(), questions.value(1).toString(), this);
+            QuestionModule* module = new QuestionModule(questions.at(i).first, questions.at(i).second, this);
             qModules.append(module);
             module->refresh(true);
             ui->lQuestions->layout()->addWidget(module);
@@ -75,8 +70,14 @@ void MatchForm::select(QString id)
     {
         ui->cType->setCurrentIndex(1); // Instructions
         ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["category_id"].toString()));
-        ui->eContent->setHtml(match["content"].toString());
+        ui->eContent->setPlainText(match["content"].toString());
     }
+}
+
+void MatchForm::clear()
+{
+    matchId = "";
+    ((MainWindow*)parent())->clear();
 }
 
 MatchForm::~MatchForm()
@@ -90,8 +91,8 @@ void MatchForm::on_cType_currentIndexChanged(int index)
     if (intructions)
     {
         ui->cGroup->clear();
-        ui->cGroup->addItem(tr("book"));
-        ui->cGroup->addItem(tr("multimedia"));
+        ui->cGroup->addItem(tr("book"), "book");
+        ui->cGroup->addItem(tr("multimedia"), "multimedia");
     } else
         MMatches::fillCategoryCombo(ui->cGroup);
 
@@ -117,5 +118,44 @@ void MatchForm::on_bNewQuestion_clicked()
     }
 }
 
+void MatchForm::on_buttonBox_accepted()
+{
+    StrMap match;
+    QList<StrPair> questions;
 
+    match["title"] = ui->eTitle->text();
+    match["corrector"] = eCorrector->value();
+    match["score"] = ui->sScore->value();
+    match["ageclass"] = ui->cAgeClass->itemData(ui->cAgeClass->currentIndex());
+    match["current_state"] = ui->cState->itemData(ui->cState->currentIndex());
 
+    if (ui->cType->currentIndex() == 0)
+    {
+        match["kind"] = ui->cGroup->itemData(ui->cGroup->currentIndex());
+        match["author"] = eAuthor->value();
+        match["publication"] = ePublication->value();
+
+        // questions
+        for (int i = 0; i < qModules.size(); i++)
+            if (qModules.at(i)->question() != "")
+                questions.append(qMakePair(qModules.at(i)->question(), qModules.at(i)->answer()));
+    }
+    else
+    {
+        match["category_id"] = ui->cGroup->itemData(ui->cGroup->currentIndex());
+        match["content"]  = ui->eContent->toPlainText();
+    }
+
+    QString msg = MMatches::set(matchId, match, questions);
+
+    // there isn't any error
+    if (msg == "")
+        clear();
+    else
+        QMessageBox::warning(this, QApplication::tr("Reghaabat"), msg);
+}
+
+void MatchForm::on_buttonBox_rejected()
+{
+    clear();
+}

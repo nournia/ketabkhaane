@@ -163,23 +163,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="cState">
-          <item>
-           <property name="text">
-            <string>active</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>imported</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>disabled</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QComboBox" name="cState"/>
         </item>
         <item>
          <spacer name="horizontalSpacer_2">

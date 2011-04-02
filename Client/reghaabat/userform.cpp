@@ -27,7 +27,8 @@ void UserForm::select(QString id)
 {
     userId = id;
 
-    StrMap user = MUsers::get(id);
+    StrMap user;
+    MUsers::get(id, user);
     ui->eFirstname->setText(user["firstname"].toString());
     ui->eLastname->setText(user["lastname"].toString());
     ui->eNationalId->setText(user["national_id"].toString());
@@ -62,7 +63,7 @@ void UserForm::on_buttonBox_accepted()
     user["birth_date"] = toGregorian(ui->eBirthDate->text());
     user["gender"] = ui->rMale->isChecked() ? "male" : "female";
 
-    QString msg = MUsers::set(user, userId);
+    QString msg = MUsers::set(userId, user);
 
     // there isn't any error
     if (msg == "")
