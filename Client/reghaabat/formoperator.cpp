@@ -7,6 +7,7 @@
 
 #include <helper.h>
 #include <matchrow.h>
+#include <mainwindow.h>
 
 FormOperator::FormOperator(QWidget *parent) :
     QWidget(parent),
@@ -42,7 +43,6 @@ void FormOperator::cancelUser()
 {
     ui->gDelivered->setEnabled(false);
     ui->gMatch->setEnabled(false);
-    ui->bEditUser->setEnabled(false);
 
     cancelMatch();
     eMatch->setText("");
@@ -66,7 +66,6 @@ void FormOperator::selectUser()
     {
         ui->gDelivered->setEnabled(true);
         ui->gMatch->setEnabled(true);
-        ui->bEditUser->setEnabled(true);
         eMatch->setFocus();
 
         QSqlQuery qry;

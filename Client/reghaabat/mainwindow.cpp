@@ -5,14 +5,6 @@
 
 // init reghaabat global variables
 Reghaabat* Reghaabat::m_Instance = 0;
-
-#include <logindialog.h>
-#include <formoperator.h>
-#include <userform.h>
-#include <matchform.h>
-#include <optionsform.h>
-#include <formfirst.h>
-
 FormFirst* formFirst;
 FormOperator* formOperator;
 UserForm* userForm;
@@ -29,8 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     applyPermission();
 
-    formFirst = new FormFirst(this);
-    showForm(formFirst);
+    firstPage();
 }
 
 MainWindow::~MainWindow()
@@ -112,7 +103,7 @@ void MainWindow::on_actionLogin_triggered()
         ui->statusBar->showMessage(Reghaabat::instance()->userName);
         applyPermission();
 
-        ui->actionDeliverMatch->trigger();
+        on_actionDeliverMatch_triggered();
     }
 }
 
@@ -137,6 +128,7 @@ void MainWindow::on_actionNewUser_triggered()
     {
         clear();
         userForm = new UserForm(this);
+        connect(userForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
         showForm(userForm);
     }
 }
@@ -177,4 +169,21 @@ void MainWindow::on_actionDeliverMatch_triggered()
     }
 
     formOperator->eUser->setFocus();
+}
+
+void MainWindow::on_actionEditUser_triggered()
+{
+    on_actionNewUser_triggered();
+    if (userForm)
+    {
+        userForm->editMode(true);
+        userForm->eUser->setFocus();
+    }
+}
+
+void MainWindow::firstPage()
+{
+    clear();
+    formFirst = new FormFirst(this);
+    showForm(formFirst);
 }

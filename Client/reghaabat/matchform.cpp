@@ -32,8 +32,6 @@ MatchForm::MatchForm(QWidget *parent) :
     MMatches::fillAgeClassCombo(ui->cAgeClass);
 
     on_cType_currentIndexChanged(0);
-
-    select("343001");
 }
 
 void MatchForm::select(QString id)

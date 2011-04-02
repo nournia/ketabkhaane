@@ -50,7 +50,9 @@
    <addaction name="actionLogout"/>
    <addaction name="actionSync"/>
    <addaction name="actionNewUser"/>
+   <addaction name="actionEditUser"/>
    <addaction name="actionNewMatch"/>
+   <addaction name="actionEditMatch"/>
    <addaction name="actionOptions"/>
    <addaction name="actionDeliverMatch"/>
   </widget>
@@ -97,6 +99,16 @@
   <action name="actionDeliverMatch">
    <property name="text">
     <string>deliverMatch</string>
+   </property>
+  </action>
+  <action name="actionEditUser">
+   <property name="text">
+    <string>editUser</string>
+   </property>
+  </action>
+  <action name="actionEditMatch">
+   <property name="text">
+    <string>editMatch</string>
    </property>
   </action>
  </widget>

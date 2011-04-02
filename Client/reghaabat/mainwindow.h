@@ -4,6 +4,12 @@
 #include <QMainWindow>
 
 #include <mylineedit.h>
+#include <logindialog.h>
+#include <formoperator.h>
+#include <userform.h>
+#include <matchform.h>
+#include <optionsform.h>
+#include <formfirst.h>
 
 namespace Ui {
     class MainWindow;
@@ -25,10 +31,12 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+    void firstPage();
+
+    void on_actionEditUser_triggered();
     void on_actionDeliverMatch_triggered();
     void on_actionOptions_triggered();
     void on_actionNewMatch_triggered();
-
     void on_actionNewUser_triggered();
     void on_actionLogout_triggered();
     void on_actionLogin_triggered();

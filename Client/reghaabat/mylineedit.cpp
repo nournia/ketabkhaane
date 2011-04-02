@@ -3,7 +3,8 @@
 MyLineEdit::MyLineEdit(QString query, QWidget *parent)
     : QLineEdit(parent), c(0), valueId(-1)
 {
-    setCompleter(new MyCompleter(query, this));
+    if (! query.isEmpty())
+        setCompleter(new MyCompleter(query, this));
 }
 
 MyLineEdit::~MyLineEdit() {}
@@ -17,8 +18,6 @@ void MyLineEdit::setCompleter(MyCompleter *completer)
     c->setWidget(this);
     connect(completer, SIGNAL(activated(const QString&)), this, SLOT(insertCompletion(const QString&)));
     connect(this, SIGNAL(textChanged(QString)), SLOT(setIdValue()));
-//    connect(this, SIGNAL(editingFinished()), this, SLOT(setIdValue()));
-//    connect(this, SIGNAL(returnPressed()), this, SLOT(setIdValue()));
 }
 
 MyCompleter *MyLineEdit::completer() const

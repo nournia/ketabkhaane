@@ -2,7 +2,7 @@
 #define USERFORM_H
 
 #include <QWidget>
-
+#include <mylineedit.h>
 #include <musers.h>
 
 namespace Ui {
@@ -17,14 +17,19 @@ public:
     explicit UserForm(QWidget *parent = 0);
     ~UserForm();
 
-    QString userId; // user under edit
-    void select(QString userId);
-    void clear();
+    void editMode(bool edit);
 
+    MyLineEdit* eUser;
 private:
     Ui::UserForm *ui;
 
+signals:
+    void closeForm();
+
 private slots:
+    void selectUser();
+    void cancelUser();
+
     void on_buttonBox_accepted();
     void on_buttonBox_rejected();
 };

@@ -9,7 +9,7 @@
 class MUsers
 {
 public:
-    static bool get(QString userId, StrMap user)
+    static bool get(QString userId, StrMap& user)
     {
         QSqlQuery qry;
         qry.exec("select * from users where id = "+ userId);
@@ -27,22 +27,20 @@ public:
         return "";
     }
 
-    static bool login(QString userId, QString password)
+    static bool login(QString userId, QString password, StrMap& user)
     {
         QSqlQuery qry;
         QString upassword = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1).toHex();
-        QString query = "select users.id, firstname || ' ' || lastname, permission from users inner join permissions where users.id = "+ userId +" and upassword = '"+ upassword +"'";
+        QString query = "select users.id, firstname || ' ' || lastname as name, permission from users inner join permissions where users.id = "+ userId +" and upassword = '"+ upassword +"'";
         qry.exec(query);
 
         if (qry.next())
         {
-            Reghaabat::instance()->userId = qry.value(0).toString();
-            Reghaabat::instance()->userName = qry.value(1).toString();
-            Reghaabat::instance()->userPermission = qry.value(2).toString();
-
+            user = getRecord(qry);
             return true;
         }
-        else return false;
+        else
+            return false;
     }
 };
 
