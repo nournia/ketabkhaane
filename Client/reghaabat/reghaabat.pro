@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     usermain.cpp \
     matchrow.cpp \
     matchform.cpp \
-    questionmodule.cpp
+    questionmodule.cpp \
+    optionsform.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -40,7 +41,8 @@ HEADERS  += mainwindow.h \
     matchrow.h \
     mmatches.h \
     matchform.h \
-    questionmodule.h
+    questionmodule.h \
+    optionsform.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -48,6 +50,7 @@ FORMS    += mainwindow.ui \
     usermain.ui \
     matchrow.ui \
     matchform.ui \
-    questionmodule.ui
+    questionmodule.ui \
+    optionsform.ui
 
 TRANSLATIONS = reghaabat_fa.ts

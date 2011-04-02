@@ -91,6 +91,7 @@
    <addaction name="actionLogout"/>
    <addaction name="actionNewUser"/>
    <addaction name="actionNewMatch"/>
+   <addaction name="actionOptions"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="font">
@@ -125,6 +126,11 @@
   <action name="actionNewMatch">
    <property name="text">
     <string>newMatch</string>
+   </property>
+  </action>
+  <action name="actionOptions">
+   <property name="text">
+    <string>options</string>
    </property>
   </action>
  </widget>

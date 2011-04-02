@@ -38,7 +38,7 @@
         <translation>نام کاربر</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+45"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -63,7 +63,12 @@
         <translation>مسابقه جدید</translation>
     </message>
     <message>
-        <location line="-20"/>
+        <location line="+5"/>
+        <source>options</source>
+        <translation>تنظیمات</translation>
+    </message>
+    <message>
+        <location line="-25"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
@@ -116,25 +121,22 @@
         <translation>وضعیت</translation>
     </message>
     <message>
-        <location line="+8"/>
-        <location filename="matchform.cpp" line="+42"/>
+        <location filename="matchform.cpp" line="+27"/>
         <source>active</source>
         <translation>فعال</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <location filename="matchform.cpp" line="+2"/>
+        <location line="+1"/>
         <source>imported</source>
         <translation>نیازمند بررسی</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <location filename="matchform.cpp" line="+2"/>
+        <location line="+1"/>
         <source>disabled</source>
         <translation>غیر فعال</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location filename="matchform.ui" line="+54"/>
         <source>Author</source>
         <translation>نویسنده</translation>
     </message>
@@ -144,19 +146,17 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+52"/>
         <source>New Question</source>
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+7"/>
-        <location line="+26"/>
+        <location filename="matchform.cpp" line="+65"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
-        <location line="-24"/>
-        <location line="+25"/>
+        <location line="+1"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -170,11 +170,20 @@
     </message>
 </context>
 <context>
+    <name>OptionsForm</name>
+    <message>
+        <location filename="optionsform.ui" line="+26"/>
+        <source>Convert Old Database</source>
+        <translation>تبدیل پایگاه داده قبلی</translation>
+    </message>
+</context>
+<context>
     <name>QApplication</name>
     <message>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="main.cpp" line="+25"/>
-        <location filename="userform.cpp" line="+71"/>
+        <location filename="matchform.cpp" line="+60"/>
+        <location filename="userform.cpp" line="+72"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -192,7 +201,7 @@
         <translation>سوال</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+64"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -201,7 +210,7 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="-10"/>
         <source>Answer</source>
         <translation>پاسخ</translation>
     </message>

@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <AccessToSqlite.h>
 #include <sender.h>
 
 // init reghaabat global variables
@@ -11,10 +10,12 @@ Reghaabat* Reghaabat::m_Instance = 0;
 #include <usermain.h>
 #include <userform.h>
 #include <matchform.h>
+#include <optionsform.h>
 
 UserMain* userMain;
 UserForm* userForm;
 MatchForm* matchForm;
+OptionsForm* optionsForm;
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -43,6 +44,7 @@ void MainWindow::clear()
     delete userForm; userForm = 0;
     delete userMain; userMain = 0;
     delete matchForm; matchForm = 0;
+    delete optionsForm; optionsForm = 0;
 }
 
 void MainWindow::showForm(QWidget* form)
@@ -72,11 +74,6 @@ void MainWindow::selectUser()
         }
         userMain->select(userId);
     }
-}
-
-void MainWindow::on_bConvert_clicked()
-{
-    convertAccessDbToSqliteDb("D:\\Flash\\Project\\Match\\Match\\ForConvert.mdb");
 }
 
 void MainWindow::on_actionSync_triggered()
@@ -122,4 +119,15 @@ void MainWindow::on_actionNewMatch_triggered()
         matchForm = new MatchForm(this);
         showForm(matchForm);
     }
+}
+
+void MainWindow::on_actionOptions_triggered()
+{
+    if (! optionsForm)
+    {
+        clear();
+        optionsForm = new OptionsForm(this);
+        showForm(optionsForm);
+    }
+
 }
