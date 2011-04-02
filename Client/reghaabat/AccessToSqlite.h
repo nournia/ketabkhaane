@@ -247,8 +247,6 @@ void convertAccessDbToSqliteDb(QString accessFilename)
 
     sqliteQry.exec("pragma foreign_keys = off");
 
-    accessQry.finish();
-
     qDebug() << "import finished";
 }
 

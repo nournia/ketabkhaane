@@ -11,7 +11,9 @@ Reghaabat* Reghaabat::m_Instance = 0;
 #include <userform.h>
 #include <matchform.h>
 #include <optionsform.h>
+#include <formfirst.h>
 
+FormFirst* formFirst;
 UserMain* userMain;
 UserForm* userForm;
 MatchForm* matchForm;
@@ -32,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     eUsername->setFocus();
 
     connect(eUsername, SIGNAL(returnPressed()), this, SLOT(selectUser()));
+
+    formFirst = new FormFirst(this);
+    showForm(formFirst);
 }
 
 MainWindow::~MainWindow()
@@ -41,6 +46,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::clear()
 {
+    delete formFirst; formFirst = 0;
     delete userForm; userForm = 0;
     delete userMain; userMain = 0;
     delete matchForm; matchForm = 0;
