@@ -86,8 +86,6 @@ void MatchForm::selectMatch()
                 module->refresh(true);
                 ui->lQuestions->layout()->addWidget(module);
             }
-            QWidget* filler = new QWidget();
-            filler->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
             ui->lQuestions->layout()->addWidget(new QWidget());
         }
         else
@@ -148,7 +146,30 @@ void MatchForm::on_bNewQuestion_clicked()
     if (qModules.size() >= 1 && qModules.at(qModules.size()-1)->question() == "")
         qModules.at(qModules.size()-1)->select();
     else // create new one
-        addQuestion("", "");
+    {
+        QLayout* lay = ui->lQuestions->layout();
+
+        // remove filler widget
+        if (lay->count() > 0)
+        {
+            QLayoutItem* last = lay->takeAt(lay->count()-1);
+            lay->removeItem(last);
+            delete last;
+        }
+
+        // collapse all questions
+        for (int i = 0; i < qModules.size(); i++)
+            qModules.at(i)->refresh(true);
+
+        // add new question
+        QuestionModule* module = new QuestionModule("", "", this);
+        qModules.append(module);
+        lay->addWidget(module);
+        module->select();
+
+        // add filler
+        lay->addWidget(new QWidget);
+    }
 }
 
 void MatchForm::on_buttonBox_accepted()
@@ -204,32 +225,6 @@ void MatchForm::clearQuestions()
         delete child;
     }
     ui->lQuestions->show();
-}
-
-void MatchForm::addQuestion(QString question, QString answer)
-{
-    QLayout* lay = ui->lQuestions->layout();
-
-    // remove filler widget
-    if (lay->count() > 0)
-    {
-        QLayoutItem* last = lay->takeAt(lay->count()-1);
-        lay->removeItem(last);
-        delete last;
-    }
-
-    // collapse all questions
-    for (int i = 0; i < qModules.size(); i++)
-        qModules.at(i)->refresh(true);
-
-    // add new question
-    QuestionModule* module = new QuestionModule(question, answer, this);
-    qModules.append(module);
-    lay->addWidget(module);
-    module->select();
-
-    // add filler
-    lay->addWidget(new QWidget);
 }
 
 
