@@ -24,6 +24,9 @@ public:
     MyLineEdit *eMatch, *eCorrector, *eAuthor, *ePublication;
     QList<QuestionModule*> qModules;
 
+    void clearQuestions();
+    void addQuestion(QString question, QString answer);
+
 private:
     Ui::MatchForm *ui;
 

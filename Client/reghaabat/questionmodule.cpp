@@ -9,6 +9,9 @@ QuestionModule::QuestionModule(QString question, QString answer, QWidget *parent
 
     ui->eQuestion->setText(question);
     ui->eAnswer->setPlainText(answer);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    refresh(false);
 }
 
 QuestionModule::~QuestionModule()
@@ -31,7 +34,7 @@ void QuestionModule::refresh(bool collapse)
     if (ui->wAnswer->isVisible())
         h += ui->wAnswer->minimumHeight();
 
-    setMaximumHeight(h);
+    resize(width(), h);
 }
 
 void QuestionModule::select()

@@ -58,6 +58,9 @@ void MatchForm::selectMatch()
 {
     if (! eMatch->value().isEmpty())
     {
+        cancelMatch();
+        clearQuestions();
+
         QList<StrPair> questions;
         StrMap match;
         MMatches::get(eMatch->value(), match, questions);
@@ -83,6 +86,9 @@ void MatchForm::selectMatch()
                 module->refresh(true);
                 ui->lQuestions->layout()->addWidget(module);
             }
+            QWidget* filler = new QWidget();
+            filler->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+            ui->lQuestions->layout()->addWidget(new QWidget());
         }
         else
         {
@@ -100,17 +106,20 @@ void MatchForm::cancelMatch()
 {
     eMatch->setCompleter(new MyCompleter("select id, title as ctitle from matches", eMatch));
 
-    /*
-    ui->eFirstname->setText("");
-    ui->eLastname->setText("");
-    ui->eNationalId->setText("");
-    ui->eAddress->setText("");
-    ui->ePhone->setText("");
-    ui->eDescription->setText("");
-    ui->eEmail->setText("");
-    ui->eBirthDate->setText("");
-    ui->rMale->setChecked(true);
-    */
+    ui->eTitle->setText("");
+    eCorrector->setText("");
+    ui->sScore->setValue(0);
+    ui->cAgeClass->setCurrentIndex(0);
+    ui->cState->setCurrentIndex(0);
+
+    ui->cGroup->setCurrentIndex(0);
+    eAuthor->setText("");
+    ePublication->setText("");
+    ui->eContent->setPlainText("");
+
+    clearQuestions();
+
+    on_bNewQuestion_clicked();
 
     ui->gData->setEnabled(false);
 
@@ -139,15 +148,7 @@ void MatchForm::on_bNewQuestion_clicked()
     if (qModules.size() >= 1 && qModules.at(qModules.size()-1)->question() == "")
         qModules.at(qModules.size()-1)->select();
     else // create new one
-    {
-        for (int i = 0; i < qModules.size(); i++)
-            qModules.at(i)->refresh(true);
-
-        QuestionModule* module = new QuestionModule("", "", this);
-        qModules.append(module);
-        ui->lQuestions->layout()->addWidget(module);
-        module->select();
-    }
+        addQuestion("", "");
 }
 
 void MatchForm::on_buttonBox_accepted()
@@ -191,3 +192,44 @@ void MatchForm::on_buttonBox_rejected()
 {
     emit closeForm();
 }
+
+// questions
+void MatchForm::clearQuestions()
+{
+    qModules.clear();
+    QLayoutItem *child;
+    while ((child = ui->lQuestions->layout()->takeAt(0)) != 0)
+    {
+        delete child->widget();
+        delete child;
+    }
+    ui->lQuestions->show();
+}
+
+void MatchForm::addQuestion(QString question, QString answer)
+{
+    QLayout* lay = ui->lQuestions->layout();
+
+    // remove filler widget
+    if (lay->count() > 0)
+    {
+        QLayoutItem* last = lay->takeAt(lay->count()-1);
+        lay->removeItem(last);
+        delete last;
+    }
+
+    // collapse all questions
+    for (int i = 0; i < qModules.size(); i++)
+        qModules.at(i)->refresh(true);
+
+    // add new question
+    QuestionModule* module = new QuestionModule(question, answer, this);
+    qModules.append(module);
+    lay->addWidget(module);
+    module->select();
+
+    // add filler
+    lay->addWidget(new QWidget);
+}
+
+
