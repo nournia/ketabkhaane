@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <logindialog.h>
 #include <dialogchangepassword.h>
+#include <formchangepermissions.h>
 
 #include <sender.h>
 
@@ -14,7 +15,7 @@ FormOperator* formOperator;
 UserForm* userForm;
 MatchForm* matchForm;
 OptionsForm* optionsForm;
-
+FormChangePermissions* formChangePermissions;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,7 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     applyPermission();
 
-    firstPage();
+//    firstPage();
+    formChangePermissions = new FormChangePermissions(this);
+    showForm(formChangePermissions);
 }
 
 MainWindow::~MainWindow()
