@@ -77,6 +77,27 @@ public:
         return "";
     }
 
+    static QString setPermission(QString userId, QString permission)
+    {
+        QSqlQuery qry;
+
+        qry.exec("select permission from permissions where user_id = "+ userId);
+        if (qry.next())
+        {
+            if (qry.value(0).toString() == "master")
+            {
+                qry.exec("select user_id from permissions where permission = 'master' and user_id != "+ userId);
+                if (! qry.next())
+                    return QObject::tr("You must have at least one master user.");
+            }
+        }
+
+        if (! qry.exec(QString("update permissions set permission = '%1' where user_id = %2").arg(permission).arg(userId)))
+            return qry.lastError().text();
+
+        return "";
+    }
+
     static bool validPassword(QString pass)
     {
         if (pass.length() < 6)

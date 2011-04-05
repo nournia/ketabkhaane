@@ -320,7 +320,7 @@
 <context>
     <name>PermissionModel</name>
     <message>
-        <location filename="formchangepermissions.h" line="+55"/>
+        <location filename="formchangepermissions.h" line="+51"/>
         <source>admin</source>
         <translation>مدیر سامانه</translation>
     </message>
@@ -400,12 +400,17 @@
         <translation>کلمه عبور باید حداقل 6 حرف باشد و نباید فقط از عدد تشکل شده باشد.</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="+20"/>
+        <source>You must have at least one master user</source>
+        <translation>سامانه باید حداقل یک مدیر داشته باشد.</translation>
+    </message>
+    <message>
+        <location line="-28"/>
         <source>Password Changed.</source>
         <translation>کلمه عبور جدید ثبت شد.</translation>
     </message>
     <message>
-        <location filename="formchangepermissions.h" line="-30"/>
+        <location filename="formchangepermissions.h" line="-31"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>

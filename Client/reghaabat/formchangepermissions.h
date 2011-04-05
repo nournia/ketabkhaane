@@ -30,23 +30,19 @@ public:
 
         QString id = data(QSqlQueryModel::index(index.row(), 0)).toString();
 
+        QString msg = "";
+        if (index.column() == 2)
+            msg = MUsers::setPermission(id , value.toString());
+        else if (index.column() == 3)
+            msg = MUsers::setPassword(id, value.toString());
+
+        if (! msg.isEmpty())
+            QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
+
         clear();
 
         refresh();
-
-        bool ok = false;
-        QSqlQuery qry;
-        if (index.column() == 2)
-            ok = qry.exec(QString("update permissions set permission = '%1' where user_id = %2").arg(value.toString()).arg(id));
-        else if (index.column() == 3)
-        {
-            QString msg = MUsers::setPassword(id, value.toString());
-            if (! msg.isEmpty())
-                QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
-            ok = msg.isEmpty();
-        }
-
-        return ok;
+        return msg.isEmpty();
     }
 
     static QList<StrPair> getPermissions()
