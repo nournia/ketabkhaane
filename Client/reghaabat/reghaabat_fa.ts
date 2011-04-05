@@ -58,6 +58,21 @@
         <source>user</source>
         <translation type="obsolete">عضو</translation>
     </message>
+    <message>
+        <location filename="formchangepermissions.ui" line="+20"/>
+        <source>New User</source>
+        <translation>عضو جدید</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Username</source>
+        <translation>نام عضو</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Add</source>
+        <translation>افزودن</translation>
+    </message>
 </context>
 <context>
     <name>FormOperator</name>
@@ -133,7 +148,7 @@
         <translation type="obsolete">نام کاربر</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+59"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -183,7 +198,12 @@
         <translation>تغییر کلمه عبور</translation>
     </message>
     <message>
-        <location line="-45"/>
+        <location line="+5"/>
+        <source>changePermissions</source>
+        <translation>تغییر دسترسی‌ها</translation>
+    </message>
+    <message>
+        <location line="-50"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
@@ -330,7 +350,7 @@
         <translation>عضو</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+13"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>

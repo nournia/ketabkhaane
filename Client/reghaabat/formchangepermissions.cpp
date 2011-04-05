@@ -7,6 +7,12 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // add username edit
+    eUser = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users", this);
+    ui->lUser->addWidget(eUser);
+    connect(eUser, SIGNAL(select()), this, SLOT(selectUser()));
+    connect(eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
+
     // table configurations
     model = new PermissionModel(this);
     ui->tPermissions->setModel(model);
@@ -16,9 +22,33 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     ui->tPermissions->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
 
     ui->tPermissions->setItemDelegateForColumn(2, new DelegateComboBox(PermissionModel::getPermissions(), ui->tPermissions));
+
+    cancelUser();
 }
 
 FormChangePermissions::~FormChangePermissions()
 {
     delete ui;
+}
+
+void FormChangePermissions::selectUser()
+{
+    ui->bAdd->setEnabled(true);
+    ui->bAdd->setFocus();
+}
+
+void FormChangePermissions::cancelUser()
+{
+    ui->bAdd->setEnabled(false);
+}
+
+void FormChangePermissions::on_bAdd_clicked()
+{
+    if (! eUser->value().isEmpty())
+    {
+        QSqlQuery qry;
+        qry.exec(QString("insert into permissions (user_id, permission) values (%1, 'user')").arg(eUser->value()));
+
+        model->refresh();
+    }
 }

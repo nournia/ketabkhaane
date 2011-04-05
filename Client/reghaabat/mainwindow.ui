@@ -49,6 +49,7 @@
    <addaction name="actionLogin"/>
    <addaction name="actionLogout"/>
    <addaction name="actionChangePassword"/>
+   <addaction name="actionChangePermissions"/>
    <addaction name="actionNewUser"/>
    <addaction name="actionEditUser"/>
    <addaction name="actionNewMatch"/>
@@ -118,6 +119,11 @@
   <action name="actionChangePassword">
    <property name="text">
     <string>changePassword</string>
+   </property>
+  </action>
+  <action name="actionChangePermissions">
+   <property name="text">
+    <string>changePermissions</string>
    </property>
   </action>
  </widget>

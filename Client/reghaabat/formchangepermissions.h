@@ -52,7 +52,6 @@ public:
         return permissions;
     }
 
-private:
     void refresh()
     {
         QString trs = "case permission ";
@@ -61,13 +60,14 @@ private:
             trs += "when '" + permissions.at(i).second + "' then '" + permissions.at(i).first +"'";
         trs += "end";
 
-        setQuery("select users.id, firstname ||' '|| lastname, "+ trs +", '' as password from permissions inner join users on users.id = permissions.user_id");
+        setQuery("select users.id, firstname ||' '|| lastname, "+ trs +", case when upassword is null then '' else '******' end from permissions inner join users on users.id = permissions.user_id");
         setHeaderData(1, Qt::Horizontal, tr("Name"));
         setHeaderData(2, Qt::Horizontal, tr("Permission"));
         setHeaderData(3, Qt::Horizontal, tr("Password"));
     }
 };
 
+#include <mylineedit.h>
 
 namespace Ui {
     class FormChangePermissions;
@@ -83,8 +83,15 @@ public:
 
     PermissionModel* model;
     DelegateComboBox* permissionDelegate;
+
+    MyLineEdit* eUser;
 private:
     Ui::FormChangePermissions *ui;
+
+private slots:
+    void on_bAdd_clicked();
+    void selectUser();
+    void cancelUser();
 };
 
 

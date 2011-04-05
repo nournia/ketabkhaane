@@ -26,9 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     applyPermission();
 
-//    firstPage();
-    formChangePermissions = new FormChangePermissions(this);
-    showForm(formChangePermissions);
+    firstPage();
 }
 
 MainWindow::~MainWindow()
@@ -54,6 +52,7 @@ void MainWindow::applyPermission()
    ui->actionEditUser->setEnabled(false);
    ui->actionNewMatch->setEnabled(false);
    ui->actionEditMatch->setEnabled(false);
+   ui->actionChangePermissions->setEnabled(false);
 
    ui->actionLogin->setVisible(Reghaabat::instance()->userId.isEmpty());
    ui->actionLogout->setVisible(! ui->actionLogin->isVisible());
@@ -73,6 +72,11 @@ void MainWindow::applyPermission()
    {
        ui->actionNewMatch->setEnabled(true);
        ui->actionEditMatch->setEnabled(true);
+   }
+
+   if (Reghaabat::hasAccess("manager"))
+   {
+       ui->actionChangePermissions->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("master"))
@@ -204,4 +208,13 @@ void MainWindow::on_actionChangePassword_triggered()
 {
     DialogChangePassword dialog(this);
     dialog.exec();
+}
+
+void MainWindow::on_actionChangePermissions_triggered()
+{
+    if (! Reghaabat::hasAccess("manager")) return;
+
+    clear();
+    formChangePermissions = new FormChangePermissions(this);
+    showForm(formChangePermissions);
 }

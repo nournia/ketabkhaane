@@ -30,6 +30,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+    void on_actionChangePermissions_triggered();
     void on_actionChangePassword_triggered();
     void on_actionEditMatch_triggered();
     void on_actionEditUser_triggered();
