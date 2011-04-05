@@ -1,8 +1,11 @@
 #ifndef FORMCHANGEPERMISSIONS_H
 #define FORMCHANGEPERMISSIONS_H
 
+#include <QMessageBox>
+
+#include <helper.h>
 #include <QSqlQueryModel>
-#include <delegatecombobox.h>
+#include <musers.h>
 
 class PermissionModel : public QSqlQueryModel
 {
@@ -25,18 +28,24 @@ public:
         if (!(index.column() == 2 || index.column() == 3))
             return false;
 
-        int id = data(QSqlQueryModel::index(index.row(), 0)).toInt();
+        QString id = data(QSqlQueryModel::index(index.row(), 0)).toString();
 
         clear();
+
+        refresh();
 
         bool ok = false;
         QSqlQuery qry;
         if (index.column() == 2)
             ok = qry.exec(QString("update permissions set permission = '%1' where user_id = %2").arg(value.toString()).arg(id));
         else if (index.column() == 3)
-            ok = true;
+        {
+            QString msg = MUsers::setPassword(id, value.toString());
+            if (! msg.isEmpty())
+                QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
+            ok = msg.isEmpty();
+        }
 
-        refresh();
         return ok;
     }
 
@@ -67,6 +76,9 @@ public:
     }
 };
 
+
+#include <delegatecombobox.h>
+#include <delegatepassword.h>
 #include <mylineedit.h>
 
 namespace Ui {
@@ -82,7 +94,6 @@ public:
     ~FormChangePermissions();
 
     PermissionModel* model;
-    DelegateComboBox* permissionDelegate;
 
     MyLineEdit* eUser;
 private:

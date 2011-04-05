@@ -27,8 +27,7 @@ SOURCES += main.cpp\
     optionsform.cpp \
     formfirst.cpp \
     dialogchangepassword.cpp \
-    formchangepermissions.cpp \
-    delegatecombobox.cpp
+    formchangepermissions.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -50,7 +49,8 @@ HEADERS  += mainwindow.h \
     formfirst.h \
     dialogchangepassword.h \
     formchangepermissions.h \
-    delegatecombobox.h
+    delegatecombobox.h \
+    delegatepassword.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \

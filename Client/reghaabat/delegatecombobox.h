@@ -35,11 +35,6 @@ public:
         QString value = comboBox->itemData(comboBox->currentIndex()).toString();
         model->setData(index, value, Qt::EditRole);
     }
-
-    void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
-    {
-        editor->setGeometry(option.rect);
-    }
 };
 
 #endif // DELEGATECOMBOBOX_H

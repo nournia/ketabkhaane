@@ -56,6 +56,17 @@ public:
         if (newPass != rePass)
             return QObject::tr("New password must exact matches with retyped one.");
 
+        QString msg = setPassword(userId, newPass);
+        if (! msg.isEmpty())
+            return msg;
+
+        return QObject::tr("Password Changed.");
+    }
+
+    static QString setPassword(QString userId, QString newPass)
+    {
+        QSqlQuery qry;
+
         if (! validPassword(newPass))
             return QObject::tr("Password phrase length must be greater than 6 characters and mustn't be a pure number.");
 
@@ -63,12 +74,11 @@ public:
         if (! qry.exec(QString("update users set upassword = '%1' where id = %2").arg(password).arg(userId)))
             return qry.lastError().text();
 
-        return QObject::tr("Password Changed.");
+        return "";
     }
 
     static bool validPassword(QString pass)
     {
-        qDebug() << pass.toInt();
         if (pass.length() < 6)
             return false;
         else if (pass.toInt() != 0)

@@ -22,6 +22,7 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     ui->tPermissions->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
 
     ui->tPermissions->setItemDelegateForColumn(2, new DelegateComboBox(PermissionModel::getPermissions(), ui->tPermissions));
+    ui->tPermissions->setItemDelegateForColumn(3, new DelegatePassword(ui->tPermissions));
 
     cancelUser();
     eUser->setFocus();

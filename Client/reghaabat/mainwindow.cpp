@@ -10,6 +10,8 @@
 
 // init reghaabat global variables
 Reghaabat* Reghaabat::m_Instance = 0;
+
+// forms
 FormFirst* formFirst;
 FormOperator* formOperator;
 UserForm* userForm;
@@ -41,6 +43,7 @@ void MainWindow::clear()
     delete formOperator; formOperator = 0;
     delete matchForm; matchForm = 0;
     delete optionsForm; optionsForm = 0;
+    delete formChangePermissions; formChangePermissions = 0;
 }
 
 void MainWindow::applyPermission()

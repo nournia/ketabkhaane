@@ -320,7 +320,7 @@
 <context>
     <name>PermissionModel</name>
     <message>
-        <location filename="formchangepermissions.h" line="+46"/>
+        <location filename="formchangepermissions.h" line="+55"/>
         <source>admin</source>
         <translation>مدیر سامانه</translation>
     </message>
@@ -395,14 +395,19 @@
         <translation>کلمه عبور جدید باید با تکرار آن تطابق داشته باشد.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+14"/>
         <source>Password phrase length must be greater than 6 characters and mustn&apos;t be a pure number.</source>
         <translation>کلمه عبور باید حداقل 6 حرف باشد و نباید فقط از عدد تشکل شده باشد.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-8"/>
         <source>Password Changed.</source>
         <translation>کلمه عبور جدید ثبت شد.</translation>
+    </message>
+    <message>
+        <location filename="formchangepermissions.h" line="-30"/>
+        <source>Reghaabat</source>
+        <translation>رقابت</translation>
     </message>
 </context>
 <context>
