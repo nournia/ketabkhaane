@@ -8,7 +8,7 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     ui->setupUi(this);
 
     // add username edit
-    eUser = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users", this);
+    eUser = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users where id not in (select user_id from permissions)", this);
     ui->lUser->addWidget(eUser);
     connect(eUser, SIGNAL(select()), this, SLOT(selectUser()));
     connect(eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
@@ -24,6 +24,7 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     ui->tPermissions->setItemDelegateForColumn(2, new DelegateComboBox(PermissionModel::getPermissions(), ui->tPermissions));
 
     cancelUser();
+    eUser->setFocus();
 }
 
 FormChangePermissions::~FormChangePermissions()
@@ -50,5 +51,8 @@ void FormChangePermissions::on_bAdd_clicked()
         qry.exec(QString("insert into permissions (user_id, permission) values (%1, 'user')").arg(eUser->value()));
 
         model->refresh();
+
+        eUser->setText("");
+        eUser->setCompleter(new MyCompleter("select id, firstname || ' ' || lastname as ctitle from users  where id not in (select user_id from permissions)", eUser));
     }
 }

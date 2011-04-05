@@ -79,7 +79,7 @@ void MyLineEdit::setIdValue()
 
     // retrieve value id
     QSqlQuery qry;
-    qry.prepare(completer()->query + " where ctitle = ?");
+    qry.prepare(completer()->query + (completer()->query.contains("where") ? " and " : " where " ) +"ctitle = ?");
     qry.addBindValue(this->text());
     qry.exec();
     if (qry.next())
