@@ -17,7 +17,6 @@ public:
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
     {
         QComboBox* editor = new QComboBox(parent);
-
         for (int i = 0; i < list.size(); i++)
             editor->addItem(list.at(i).first, list.at(i).second);
         return editor;
@@ -27,7 +26,7 @@ public:
     {
         QString value = index.model()->data(index, Qt::EditRole).toString();
         QComboBox* comboBox = static_cast<QComboBox*>(editor);
-        comboBox->setCurrentIndex(comboBox->findData(value));
+        comboBox->setCurrentIndex(comboBox->findText(value));
     }
 
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const

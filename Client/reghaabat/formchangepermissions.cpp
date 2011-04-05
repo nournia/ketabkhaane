@@ -8,18 +8,14 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     ui->setupUi(this);
 
     // table configurations
+    model = new PermissionModel(this);
+    ui->tPermissions->setModel(model);
+
     ui->tPermissions->setFont(QFont("Tahoma"));
     ui->tPermissions->setColumnHidden(0, true);
     ui->tPermissions->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
 
-//    model = new PermissionModel(this);
-//    ui->tPermissions->setModel(model);
-
-    QList<StrPair> permissions;
-    permissions.append(qMakePair(tr("admin"), QString("admin")));
-    permissions.append(qMakePair(tr("manager"), QString("manager")));
-    permissionDelegate = new DelegateComboBox(permissions, ui->tPermissions);
-    ui->tPermissions->setItemDelegateForColumn(2, permissionDelegate);
+    ui->tPermissions->setItemDelegateForColumn(2, new DelegateComboBox(PermissionModel::getPermissions(), ui->tPermissions));
 }
 
 FormChangePermissions::~FormChangePermissions()

@@ -9,7 +9,7 @@
         <translation>تغییر کلمه عبور</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+12"/>
         <source>Old Password</source>
         <translation>کلمه عبور کنونی</translation>
     </message>
@@ -19,7 +19,7 @@
         <translation>کلمه عبور جدید</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+44"/>
         <source>Retyped Password</source>
         <translation>تکرار کلمه عبور</translation>
     </message>
@@ -30,6 +30,33 @@
     <message>
         <source>Invalid Password.</source>
         <translation type="obsolete">کلمه عبور نامعتبر است.</translation>
+    </message>
+</context>
+<context>
+    <name>FormChangePermissions</name>
+    <message>
+        <source>admin</source>
+        <translation type="obsolete">مدیر سامانه</translation>
+    </message>
+    <message>
+        <source>master</source>
+        <translation type="obsolete">مدیر</translation>
+    </message>
+    <message>
+        <source>manager</source>
+        <translation type="obsolete">طراح یار</translation>
+    </message>
+    <message>
+        <source>designer</source>
+        <translation type="obsolete">طراح</translation>
+    </message>
+    <message>
+        <source>operator</source>
+        <translation type="obsolete">عضو یار</translation>
+    </message>
+    <message>
+        <source>user</source>
+        <translation type="obsolete">عضو</translation>
     </message>
 </context>
 <context>
@@ -244,7 +271,7 @@
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+97"/>
+        <location filename="matchform.cpp" line="+104"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
@@ -271,12 +298,60 @@
     </message>
 </context>
 <context>
+    <name>PermissionModel</name>
+    <message>
+        <location filename="formchangepermissions.h" line="+46"/>
+        <source>admin</source>
+        <translation>مدیر سامانه</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>master</source>
+        <translation>مدیر</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>manager</source>
+        <translation>طراح یار</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>designer</source>
+        <translation>طراح</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>operator</source>
+        <translation>عضو یار</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>user</source>
+        <translation>عضو</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Name</source>
+        <translation>نام</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Permission</source>
+        <translation>دسترسی</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Password</source>
+        <translation>کلمه عبور</translation>
+    </message>
+</context>
+<context>
     <name>QApplication</name>
     <message>
         <location filename="dialogchangepassword.cpp" line="+26"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="main.cpp" line="+25"/>
-        <location filename="matchform.cpp" line="+60"/>
+        <location filename="matchform.cpp" line="+75"/>
         <location filename="userform.cpp" line="+60"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
@@ -318,7 +393,7 @@
         <translation>سوال</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+70"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -327,7 +402,7 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-16"/>
         <source>Answer</source>
         <translation>پاسخ</translation>
     </message>
