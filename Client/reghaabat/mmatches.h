@@ -30,9 +30,27 @@ public:
         QSqlQuery qry;
 
         // validation
-        if (data["title"].toString().isEmpty())
-            return QObject::tr("Title is required");
 
+        // basic
+        if (data["title"].toString().isEmpty())
+            return QObject::tr("Title is required.");
+        if (data["corrector"].toString().isEmpty())
+            return QObject::tr("Corrector is required.");
+        if (data["score"].toInt() <= 0)
+            return QObject::tr("Score is invalid.");
+
+        // used title
+        data["title"] = data["title"].toString().trimmed();
+        qry.exec(QString("select id from matches where title = '%1'").arg(data["title"].toString()));
+        if (qry.next())
+            if (qry.value(0).toString() != matchId)
+                return QObject::tr("There is another match with this title.");
+
+        data["author"] = data["author"].toString().trimmed();
+        data["publication"] = data["publication"].toString().trimmed();
+
+
+        // store
 
         QSqlDatabase db = Connector::connectDb();
         db.transaction();
@@ -42,6 +60,18 @@ public:
 
         if (data["category_id"].toString() == "")
         {
+            // new author & publication
+            if (! data["author"].toString().isEmpty() && data["author"].toInt() == 0)
+            {
+                qry.exec(QString("insert into authors (title) values ('%1')").arg(data["author"].toString()));
+                data["author"] = qry.lastInsertId();
+            }
+            if (! data["publication"].toString().isEmpty() && data["publication"].toInt() == 0)
+            {
+                qry.exec(QString("insert into publications (title) values ('%1')").arg(data["publication"].toString()));
+                data["publication"] = qry.lastInsertId();
+            }
+
             StrMap resource;
             resource["author_id"] = data["author"];
             resource["publication_id"] = data["publication"];

@@ -19,9 +19,9 @@ MatchForm::MatchForm(QWidget *parent) :
     ePublication = new MyLineEdit("select id, title as ctitle from publications", this);
     ui->lPublication->addWidget(ePublication);
 
-    QWidget::setTabOrder(ui->eTitle, eCorrector);
-    QWidget::setTabOrder(ui->cState, eAuthor);
+    QWidget::setTabOrder(ui->eTitle, eAuthor);
     QWidget::setTabOrder(eAuthor, ePublication);
+    QWidget::setTabOrder(ePublication, eCorrector);
 
     // fill cState
     ui->cState->addItem(tr("active"), "active");
@@ -186,8 +186,8 @@ void MatchForm::on_buttonBox_accepted()
     if (ui->cType->currentIndex() == 0)
     {
         match["kind"] = ui->cGroup->itemData(ui->cGroup->currentIndex());
-        match["author"] = eAuthor->value();
-        match["publication"] = ePublication->value();
+        match["author"] = ! eAuthor->value().isEmpty() ? eAuthor->value() : eAuthor->text();
+        match["publication"] = ! ePublication->value().isEmpty() ? ePublication->value() : ePublication->text();
 
         // questions
         for (int i = 0; i < qModules.size(); i++)

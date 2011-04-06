@@ -26,6 +26,7 @@ public:
 
         // validation
 
+        // basic
         if (user["firstname"].toString().isEmpty() || user["lastname"].toString().isEmpty())
             return QObject::tr("User name is required.");
         if (! user["national_id"].toString().isEmpty() && user["national_id"].toInt() == 0)

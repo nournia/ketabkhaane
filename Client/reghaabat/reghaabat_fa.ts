@@ -216,7 +216,7 @@
         <translation>عنوان مسابقه</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+32"/>
         <source>Type</source>
         <translation>نوع</translation>
     </message>
@@ -246,7 +246,7 @@
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+63"/>
         <source>Corrector</source>
         <translation>مصحح</translation>
     </message>
@@ -276,7 +276,7 @@
         <translation>غیر فعال</translation>
     </message>
     <message>
-        <location filename="matchform.ui" line="+54"/>
+        <location filename="matchform.ui" line="-69"/>
         <source>Author</source>
         <translation>نویسنده</translation>
     </message>
@@ -286,7 +286,7 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+126"/>
         <source>New Question</source>
         <translation>سوال جدید</translation>
     </message>
@@ -385,7 +385,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="musers.h" line="+26"/>
+        <location filename="musers.h" line="+31"/>
         <source>User name is required.</source>
         <translation>نام عضو وارد نشده است.</translation>
     </message>
@@ -400,12 +400,17 @@
         <translation>تاریخ تولد معتبر نیست.</translation>
     </message>
     <message>
+        <location line="+8"/>
+        <source>There is another user with this name.</source>
+        <translation>عضو دیگری با این نام ثبت شده است.</translation>
+    </message>
+    <message>
         <location line="+6"/>
         <source>%1 has exact same national id.</source>
         <translation>این شماره ملی برای %1 ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+33"/>
         <source>Invalid Old Password.</source>
         <translation>کلمه عبور وارد شده اشتباه است.</translation>
     </message>
@@ -437,6 +442,28 @@
         <location filename="formchangepermissions.h" line="-31"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
+    </message>
+    <message>
+        <location filename="mmatches.h" line="+36"/>
+        <source>Title is required.</source>
+        <oldsource>Title is required</oldsource>
+        <translation>عنوان نباید خالی باشد.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Corrector is required.</source>
+        <oldsource>Corrector is required</oldsource>
+        <translation>مصحح نباید خالی باشد.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Score is invalid.</source>
+        <translation>امتیاز مسابقه معتبر نیست.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>There is another match with this title.</source>
+        <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
 </context>
 <context>
@@ -569,6 +596,24 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Receive</source>
         <translation type="obsolete">دریافت</translation>
+    </message>
+</context>
+<context>
+    <name>ViewerForm</name>
+    <message>
+        <location filename="viewerform.ui" line="+14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Print</source>
+        <translation type="unfinished">چاپ</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>about:blank</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
