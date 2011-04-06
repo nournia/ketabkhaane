@@ -2,6 +2,7 @@
 #define MUSERS_H
 
 #include <QCryptographicHash>
+#include <QVariant>
 
 #include <mainwindow.h>
 #include <helper.h>
@@ -21,7 +22,19 @@ public:
 
     static QString set(QString userId, StrMap user)
     {
+        if (user["firstname"].toString().isEmpty() || user["lastname"].toString().isEmpty())
+            return QObject::tr("User name is required.");
+        if (user["national_id"].toString().isEmpty() || user["national_id"].toInt() == 0)
+            return QObject::tr("National id is not valid.");
+        if (! user["birth_date"].toDate().isValid())
+            return QObject::tr("Birth date is not valid.");
+
         QSqlQuery qry;
+        qry.exec("select id, firstname ||' '|| lastname from users where national_id = "+ user["national_id"].toString());
+        if (qry.next())
+            if (qry.value(0).toString() != userId)
+                return QObject::tr("%1 has exact same national id.").arg(qry.value(1).toString());
+
         if (! qry.exec(getReplaceQuery("users", user, userId)))
             return qry.lastError().text();
         return "";
@@ -32,7 +45,7 @@ public:
     {
         QSqlQuery qry;
         QString upassword = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1).toHex();
-        QString query = "select users.id, firstname || ' ' || lastname as name, permission from users inner join permissions where users.id = "+ userId +" and upassword = '"+ upassword +"'";
+        QString query = "select users.id, firstname ||' '|| lastname as name, permission from users inner join permissions where users.id = "+ userId +" and upassword = '"+ upassword +"'";
         qry.exec(query);
 
         if (qry.next())

@@ -372,7 +372,7 @@
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="main.cpp" line="+25"/>
         <location filename="matchform.cpp" line="+75"/>
-        <location filename="userform.cpp" line="+60"/>
+        <location filename="userform.cpp" line="+59"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -385,7 +385,27 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="musers.h" line="+54"/>
+        <location filename="musers.h" line="+26"/>
+        <source>User name is required.</source>
+        <translation>نام عضو وارد نشده است.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>National id is not valid.</source>
+        <translation>شماره ملی وارد نشده است.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Birth date is not valid.</source>
+        <translation>تاریخ تولد معتبر نیست.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>%1 has exact same national id.</source>
+        <translation>این شماره ملی برای %1 ثبت شده است.</translation>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>Invalid Old Password.</source>
         <translation>کلمه عبور وارد شده اشتباه است.</translation>
     </message>
@@ -401,8 +421,12 @@
     </message>
     <message>
         <location line="+20"/>
-        <source>You must have at least one master user</source>
+        <source>You must have at least one master user.</source>
         <translation>سامانه باید حداقل یک مدیر داشته باشد.</translation>
+    </message>
+    <message>
+        <source>You must have at least one master user</source>
+        <translation type="obsolete">سامانه باید حداقل یک مدیر داشته باشد.</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -440,7 +464,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UserForm</name>
     <message>
-        <location filename="userform.ui" line="+67"/>
+        <location filename="userform.ui" line="+70"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
@@ -470,12 +494,12 @@ p, li { white-space: pre-wrap; }
         <translation>شماره تماس</translation>
     </message>
     <message>
-        <location line="-134"/>
+        <location line="-137"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+130"/>
         <source>9999/99/99;_</source>
         <translation></translation>
     </message>
@@ -504,9 +528,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">دسترسی</translation>
     </message>
     <message>
-        <location line="+101"/>
         <source>Email</source>
-        <translation>ایمیل</translation>
+        <translation type="obsolete">ایمیل</translation>
     </message>
     <message>
         <source>Password</source>

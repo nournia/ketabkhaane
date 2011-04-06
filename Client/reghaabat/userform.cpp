@@ -47,7 +47,6 @@ void UserForm::on_buttonBox_accepted()
     user["address"] = ui->eAddress->text();
     user["phone"] = ui->ePhone->text();
     user["description"] = ui->eDescription->text();
-    user["email"] = ui->eEmail->text();
     user["birth_date"] = toGregorian(ui->eBirthDate->text());
     user["gender"] = ui->rMale->isChecked() ? "male" : "female";
 
@@ -57,7 +56,7 @@ void UserForm::on_buttonBox_accepted()
     if (msg == "")
         emit closeForm();
     else
-        QMessageBox::warning(this, QApplication::tr("Reghaabat"), msg);
+        QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
 }
 
 void UserForm::selectUser()
@@ -72,7 +71,6 @@ void UserForm::selectUser()
         ui->eAddress->setText(user["address"].toString());
         ui->ePhone->setText(user["phone"].toString());
         ui->eDescription->setText(user["description"].toString());
-        ui->eEmail->setText(user["email"].toString());
 
         ui->eBirthDate->setText(toJalali(user["birth_date"].toDate()));
 
@@ -97,7 +95,6 @@ void UserForm::cancelUser()
     ui->eAddress->setText("");
     ui->ePhone->setText("");
     ui->eDescription->setText("");
-    ui->eEmail->setText("");
     ui->eBirthDate->setText("");
     ui->rMale->setChecked(true);
 
