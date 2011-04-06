@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql network
+QT       += core gui sql network webkit
 
 TARGET = reghaabat
 TEMPLATE = app
@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     optionsform.cpp \
     formfirst.cpp \
     dialogchangepassword.cpp \
-    formchangepermissions.cpp
+    formchangepermissions.cpp \
+    viewerform.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -50,7 +51,8 @@ HEADERS  += mainwindow.h \
     dialogchangepassword.h \
     formchangepermissions.h \
     delegatecombobox.h \
-    delegatepassword.h
+    delegatepassword.h \
+    viewerform.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -62,6 +64,9 @@ FORMS    += mainwindow.ui \
     optionsform.ui \
     formfirst.ui \
     dialogchangepassword.ui \
-    formchangepermissions.ui
+    formchangepermissions.ui \
+    viewerform.ui
 
 TRANSLATIONS = reghaabat_fa.ts
+
+OTHER_FILES +=

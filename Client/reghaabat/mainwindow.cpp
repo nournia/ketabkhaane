@@ -5,6 +5,7 @@
 #include <logindialog.h>
 #include <dialogchangepassword.h>
 #include <formchangepermissions.h>
+#include <viewerform.h>
 
 #include <sender.h>
 
@@ -18,6 +19,7 @@ UserForm* userForm;
 MatchForm* matchForm;
 OptionsForm* optionsForm;
 FormChangePermissions* formChangePermissions;
+ViewerForm* viewerForm;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,7 +30,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     applyPermission();
 
-    firstPage();
+//    firstPage();
+    viewerForm = new ViewerForm(this);
+    showForm(viewerForm);
+    viewerForm->showList("select id, firstname from users", QStringList() << tr("Id") << tr("Name"));
 }
 
 MainWindow::~MainWindow()
