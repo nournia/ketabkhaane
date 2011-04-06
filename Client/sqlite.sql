@@ -203,12 +203,12 @@ create table open_scores (
 
 create trigger rate_update after update of rate on answers
 begin
-	update scores set score = score + (ifnull(new.rate,0) - ifnull(old.rate,0)) * (select score from supports where supports.match_id = new.match_id) where scores.user_id = new.user_id;
+	update scores set score = score + (ifnull(new.rate,0) - ifnull(old.rate,0)) * (select pay_coeff from library) * (select score from supports where supports.match_id = new.match_id) where scores.user_id = new.user_id;
 end;
 
 create trigger rate_insert after insert on answers 
 begin
-	update scores set score = score + ifnull(new.rate,0) * (select score from supports where supports.match_id = new.match_id) where scores.user_id = new.user_id;
+	update scores set score = score + ifnull(new.rate,0) * (select pay_coeff from library) * (select score from supports where supports.match_id = new.match_id) where scores.user_id = new.user_id;
 end; 
 
 
