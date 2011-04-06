@@ -140,7 +140,7 @@ create table library (
 	title varchar(255) not null,
 	description varchar(1000) null default null,
 	synced_at timestamp null default null,
-	license varchar(255) null default null
+	license varchar(255) null default null,
 
 	-- tournament info
 	tournament_title varchar(255) not null,
@@ -164,7 +164,7 @@ create table supports (
 	updated_at timestamp default current_timestamp
 );
 create table scores (
-	id integer not null primary key auto_increment,
+	id integer not null primary key autoincrement,
 	user_id integer not null,
 	score integer not null default "0",
 	participated_at datetime not null default current_timestamp,
@@ -199,6 +199,18 @@ create table open_scores (
 );
 
 
+-- triggers---------------------------------------------------------------------------
+
+create trigger rate_update after update of rate on answers
+begin
+	update scores set score = score + (ifnull(new.rate,0) - ifnull(old.rate,0)) * (select score from supports where supports.match_id = new.match_id) where scores.user_id = new.user_id;
+end;
+
+create trigger rate_insert after insert on answers 
+begin
+	update scores set score = score + ifnull(new.rate,0) * (select score from supports where supports.match_id = new.match_id) where scores.user_id = new.user_id;
+end; 
+
 
 -- data ------------------------------------------------------------------------------
 
@@ -218,6 +230,6 @@ insert into open_categories (id, title) values (0, 'خلاصه‌نویسی');
 insert into open_categories (id, title) values (1, 'شعر');
 insert into open_categories (id, title) values (2, 'داستان');
 
-insert into tournament (title, started_at) values ('مسابقه کتاب‌خوانی', current_timestamp);
-insert into library (group_id, title, license) values (1, 'کتابخانه‌ی شهید خرازی', 'aslwkelrfjsasdf');
+insert into library (group_id, title, license, tournament_title, started_at) values (1, 'کتابخانه‌ی شهید خرازی', 'aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', current_timestamp);
 insert into permissions (user_id, permission, accept) values (1111, "admin", 1);
+update users set upassword = '356a192b7913b04c54574d18c28d46e6395428ab' where id = 1111;

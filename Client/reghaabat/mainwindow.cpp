@@ -30,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     applyPermission();
 
+    optionsForm = new OptionsForm(this);
+    showForm(optionsForm);
+
 //    firstPage();
 //    viewerForm = new ViewerForm(this);
 //    showForm(viewerForm);

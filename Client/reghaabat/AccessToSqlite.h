@@ -42,6 +42,9 @@ bool buildSqliteDb()
             qDebug() << sqliteQry.lastError();
     }
 
+    foreach (QString trigger, QStringList() << "rate_update" << "rate_insert")
+        sqliteQry.exec("drop trigger if exists "+ trigger);
+
     QString trigger = "";
     foreach (QString q, QTextStream(&file).readAll().split(";"))
     {
@@ -236,7 +239,7 @@ void convertAccessDbToSqliteDb(QString accessFilename)
     if (! buildSqliteDb())
         return;
 
-    sqliteQry.exec("pragma foreign_keys = on");
+//    sqliteQry.exec("pragma foreign_keys = on");
 
     importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), description, registerdate, registerdate as udate from users",
                 QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description"  << "created_at"  << "updated_at");
@@ -249,11 +252,11 @@ void convertAccessDbToSqliteDb(QString accessFilename)
     importTable("questions", "select matchid, question, answer from questions",
                 QStringList() << "match_id" << "question" << "answer");
 
-    importTable("answers", "select userid, matchid, iif(deliverdate is null, '1300/01/01', receivedate) as rdate, iif(deliverdate is null, '1300/01/01', scoredate) as sdate, round(transactions.score/matches.maxscore, 2) as rate, iif(deliverdate is null, '1300/01/01', deliverdate) as ddate, iif(deliverdate is null, '1300/01/01', deliverdate) as udate from transactions left join matches on transactions.matchid = matches.id",
-                QStringList() << "user_id" << "match_id" << "received_at" << "corrected_at" << "rate" << "created_at" << "updated_at");
-
     importTable("supports", "select id, designerid, maxscore, iif(state = 0, 'active', iif(state = 1, 'disabled', iif(state = 2 , 'imported', NULL))) from matches",
                 QStringList() << "match_id" << "corrector_id" << "score" << "current_state");
+
+    importTable("answers", "select userid, matchid, iif(deliverdate is null, '1300/01/01', receivedate) as rdate, iif(deliverdate is null, '1300/01/01', scoredate) as sdate, round(transactions.score/matches.maxscore, 2) as rate, iif(deliverdate is null, '1300/01/01', deliverdate) as ddate, iif(deliverdate is null, '1300/01/01', deliverdate) as udate from transactions left join matches on transactions.matchid = matches.id",
+                QStringList() << "user_id" << "match_id" << "received_at" << "corrected_at" << "rate" << "created_at" << "updated_at");
 
     importTable("payments", "select userid, score, scoredate, scoredate as udate from payments",
                 QStringList() << "user_id" << "payment" << "created_at" << "updated_at");
