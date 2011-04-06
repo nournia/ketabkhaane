@@ -53,16 +53,6 @@ create table groups (
 	title varchar(255) not null,
 	description varchar(1000) default null
 );
-create table libraries (
-	id integer not null primary key auto_increment,
-	group_id integer not null,
-	tournament_id integer not null,
-	title varchar(255) not null,
-	address varchar(1000) default null,
-	description varchar(1000) null default null,
-	synced_at timestamp null default null,
-	license varchar(255) null default null
-);
 create table permissions (
 	id integer not null primary key auto_increment,
 	group_id integer not null,
@@ -177,6 +167,16 @@ create table answers (
 );
 */
 -- tournaments 
+create table libraries (
+	id integer not null primary key auto_increment,
+	group_id integer not null,
+	tournament_id integer not null,
+	title varchar(255) not null,
+	address varchar(1000) default null,
+	description varchar(1000) null default null,
+	synced_at timestamp null default null,
+	license varchar(255) null default null
+);
 create table tournaments (
 	id integer not null primary key auto_increment,
 	group_id integer not null,

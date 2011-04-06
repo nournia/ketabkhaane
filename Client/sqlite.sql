@@ -43,14 +43,6 @@ create table users (
 	unique (email) on conflict abort,
 	unique (national_id) on conflict abort
 );
-create table library (
-	id integer null default null,
-	group_id integer not null,
-	title varchar(255) not null,
-	description varchar(1000) null default null,
-	synced_at timestamp null default null,
-	license varchar(255) null default null
-);
 create table permissions (
 	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
@@ -142,8 +134,16 @@ create table answers (
 );
 
 -- tournaments 
-create table tournament (
+create table library (
+	id integer null default null,
+	group_id integer not null,
 	title varchar(255) not null,
+	description varchar(1000) null default null,
+	synced_at timestamp null default null,
+	license varchar(255) null default null
+
+	-- tournament info
+	tournament_title varchar(255) not null,
 	started_at datetime not null,
 	designer_coeff float not null default "0",
 	pay_coeff float not null default "1",
