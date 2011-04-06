@@ -58,6 +58,7 @@ create table libraries (
 	group_id integer not null,
 	tournament_id integer not null,
 	title varchar(255) not null,
+	address varchar(1000) default null,
 	description varchar(1000) null default null,
 	synced_at timestamp null default null,
 	license varchar(255) null default null
@@ -174,21 +175,21 @@ create table answers (
 	primary key (id),
 	foreign key (answerid) references answers(id)
 );
-
+*/
 -- tournaments 
 create table tournaments (
-	id integer not null auto_increment,
+	id integer not null primary key auto_increment,
+	group_id integer not null,
 	title varchar(255) not null,
-	starttime datetime not null,
-	active tinyint(1) not null,
-	creatorid integer not null,
-	userpaytransform float not null,
-	designerpaytransform float not null,
-	openuser tinyint(1) not null default "1",
-	address varchar(1000) default null,
-	payunit varchar(100) not null,
-	primary key (id)
-);
+	started_at datetime not null,
+	designer_coeff float not null default "0",
+	pay_coeff float not null default "1",
+	pay_unit varchar(100) not null default "امتیاز",
+	active tinyint(1) not null default "1",
+	open_user tinyint(1) not null default "1",
+	
+	updated_at timestamp null default null
+);/*
 create table follows (
 	id integer not null auto_increment,
 	tournamentid integer not null,
@@ -254,5 +255,6 @@ insert into ageclasses values (2, 'ج', 'سال‌های چهارم و پنجم 
 insert into ageclasses values (3, 'د', 'سال‌های راهنمایی', 12, 14); 
 insert into ageclasses values (4, 'ه', 'سال‌های دبیرستان', 15, 18);
 
-insert into libraries (id, group_id, tournament_id, title, license) values (1, 1, 1, 'کتابخانه‌ی شهید خرازی', 'aslwkelrfjsasdf');
-insert into groups (id, master_id, title) values (1, 1, 'شهید خرازی');
+insert into groups (master_id, title) values (1, 'شهید خرازی');
+insert into tournaments (group_id, title, started_at) values (1, 'مسابقه کتاب‌خوانی', now());
+insert into libraries (group_id, tournament_id, title, license) values (1, 1, 'کتابخانه‌ی شهید خرازی', 'aslwkelrfjsasdf');

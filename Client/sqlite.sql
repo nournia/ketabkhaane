@@ -130,7 +130,7 @@ create table questions (
 
 -- answers
 create table answers (
-	id integer not null primary key autoincrement, -- local
+	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
 	match_id integer not null references matches(id) on update cascade,
 	received_at datetime null default null,
@@ -142,8 +142,19 @@ create table answers (
 );
 
 -- tournaments 
-  create table supports (
-	id integer not null primary key autoincrement, -- local
+create table tournament (
+	title varchar(255) not null,
+	started_at datetime not null,
+	designer_coeff float not null default "0",
+	pay_coeff float not null default "1",
+	pay_unit varchar(100) not null default "امتیاز",
+	active tinyint(1) not null default "1",
+	open_user tinyint(1) not null default "1",
+	
+	updated_at timestamp null default null
+);
+create table supports (
+	id integer not null primary key autoincrement,
 	match_id integer not null references matches(id) on update cascade,
 	corrector_id integer not null references users(id) on update cascade,
 	current_state varchar(10) not null, -- enum("active", "disabled", "imported")
@@ -151,6 +162,16 @@ create table answers (
 
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp
+);
+create table scores (
+	id integer not null primary key auto_increment,
+	user_id integer not null,
+	score integer not null default "0",
+	participated_at datetime not null default current_timestamp,
+	confirm tinyint(1) not null default "1",
+
+	created_at timestamp null default current_timestamp, 
+	updated_at timestamp null default current_timestamp
 );
 create table payments (
 	id integer not null primary key autoincrement,
@@ -197,5 +218,6 @@ insert into open_categories (id, title) values (0, 'خلاصه‌نویسی');
 insert into open_categories (id, title) values (1, 'شعر');
 insert into open_categories (id, title) values (2, 'داستان');
 
-insert into library (id, group_id, title, license) values (1, 1, 'کتابخانه‌ی شهید خرازی', 'aslwkelrfjsasdf');
-insert into permissions (id, user_id, permission, accept) values (1, 1111, "admin", 1);
+insert into tournament (title, started_at) values ('مسابقه کتاب‌خوانی', current_timestamp);
+insert into library (group_id, title, license) values (1, 'کتابخانه‌ی شهید خرازی', 'aslwkelrfjsasdf');
+insert into permissions (user_id, permission, accept) values (1111, "admin", 1);
