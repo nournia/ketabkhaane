@@ -6,6 +6,8 @@
 #include <QWebFrame>
 #include <QWebElement>
 #include <QSqlQuery>
+#include <QPrinter>
+#include <QPrinterInfo>
 
 ViewerForm::ViewerForm(QWidget *parent) :
     QWidget(parent),
@@ -30,14 +32,13 @@ void ViewerForm::loadHtml(QString name)
     ui->webView->setHtml(QTextStream(&file).readAll());
 }
 
-void ViewerForm::showList(QString query, QStringList fields)
+void ViewerForm::showList(QString title, QStringList fields, QString query)
 {
     QSqlQuery qry;
     qry.exec(query);
 
     loadHtml("list");
     QWebFrame *frame = ui->webView->page()->mainFrame();
-    QWebElement tableDiv = frame->findFirstElement("#table");
 
     QString table = "<table>";
 
@@ -46,7 +47,7 @@ void ViewerForm::showList(QString query, QStringList fields)
         table += QString("<th>%1</th>").arg(fields[i]);
 
     // table body
-    while (qry.next())
+    for (int c = 0; qry.next(); c++)
     {
         table += "<tr>";
         for (int i = 0; i < fields.count(); i++)
@@ -56,5 +57,15 @@ void ViewerForm::showList(QString query, QStringList fields)
 
     table += "</table>";
 
-    tableDiv.setInnerXml(table);
+    frame->findFirstElement("#title").setPlainText(title);
+    frame->findFirstElement("#table").setInnerXml(table);
+}
+
+void ViewerForm::on_pushButton_clicked()
+{
+    QPrinter printer(QPrinterInfo::defaultPrinter());
+    printer.setCreator("Foo Bar");
+    printer.setDocName("Foo Bar");
+    printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
+    ui->webView->print(&printer);
 }

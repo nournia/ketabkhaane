@@ -31,9 +31,9 @@ MainWindow::MainWindow(QWidget *parent) :
     applyPermission();
 
 //    firstPage();
-    viewerForm = new ViewerForm(this);
-    showForm(viewerForm);
-    viewerForm->showList("select id, firstname from users", QStringList() << tr("Id") << tr("Name"));
+//    viewerForm = new ViewerForm(this);
+//    showForm(viewerForm);
+//    viewerForm->showList(ViewerForm::tr("User Scores List"), QStringList() << tr("Id") << tr("Name"), "select firstname ||' '|| lastname from users");
 }
 
 MainWindow::~MainWindow()
