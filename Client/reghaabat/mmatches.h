@@ -1,9 +1,12 @@
 #ifndef MMATCHES_H
 #define MMATCHES_H
 
-#include <helper.h>
+#include <QVariant>
 #include <QComboBox>
+
+#include <helper.h>
 #include <connector.h>
+
 
 class MMatches
 {
@@ -24,9 +27,15 @@ public:
 
     static QString set(QString matchId, StrMap data, QList<StrPair> questions)
     {
+        QSqlQuery qry;
+
+        // validation
+        if (data["title"].toString().isEmpty())
+            return QObject::tr("Title is required");
+
+
         QSqlDatabase db = Connector::connectDb();
         db.transaction();
-        QSqlQuery qry;
 
         StrMap match;
         match["resource_id"] = "";

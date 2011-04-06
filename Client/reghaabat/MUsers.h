@@ -22,19 +22,33 @@ public:
 
     static QString set(QString userId, StrMap user)
     {
+        QSqlQuery qry;
+
+        // validation
+
         if (user["firstname"].toString().isEmpty() || user["lastname"].toString().isEmpty())
             return QObject::tr("User name is required.");
-        if (user["national_id"].toString().isEmpty() || user["national_id"].toInt() == 0)
+        if (! user["national_id"].toString().isEmpty() && user["national_id"].toInt() == 0)
             return QObject::tr("National id is not valid.");
         if (! user["birth_date"].toDate().isValid())
             return QObject::tr("Birth date is not valid.");
 
-        QSqlQuery qry;
+        // used name
+        user["firstname"] = user["firstname"].toString().trimmed();
+        user["lastname"] = user["lastname"].toString().trimmed();
+        qry.exec(QString("select id, firstname ||' '|| lastname as name from users where name = '%1'").arg(user["firstname"].toString() +" "+ user["lastname"].toString()));
+        if (qry.next())
+            if (qry.value(0).toString() != userId)
+                return QObject::tr("There is another user with this name.");
+
+        // used national id
         qry.exec("select id, firstname ||' '|| lastname from users where national_id = "+ user["national_id"].toString());
         if (qry.next())
             if (qry.value(0).toString() != userId)
                 return QObject::tr("%1 has exact same national id.").arg(qry.value(1).toString());
 
+
+        // store
         if (! qry.exec(getReplaceQuery("users", user, userId)))
             return qry.lastError().text();
         return "";

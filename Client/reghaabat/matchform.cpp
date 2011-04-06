@@ -206,7 +206,7 @@ void MatchForm::on_buttonBox_accepted()
     if (msg == "")
         emit closeForm();
     else
-        QMessageBox::warning(this, QApplication::tr("Reghaabat"), msg);
+        QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
 }
 
 void MatchForm::on_buttonBox_rejected()
