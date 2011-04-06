@@ -42,14 +42,30 @@ bool buildSqliteDb()
             qDebug() << sqliteQry.lastError();
     }
 
+    QString trigger = "";
     foreach (QString q, QTextStream(&file).readAll().split(";"))
     {
-        if (q.contains("create", Qt::CaseInsensitive) || q.contains("insert", Qt::CaseInsensitive))
+        if (q.contains("trigger", Qt::CaseInsensitive))
+            trigger = q + ";";
+        else if (! trigger.isEmpty())
+        {
+            trigger += q + ";";
+            if (trigger.contains("end;"))
+            {
+                if (! sqliteQry.exec(trigger))
+                {
+                    qDebug() << "sql file error: " << sqliteQry.lastError();
+                    return false;
+                }
+                trigger = "";
+            }
+        }
+        else if (q.contains("create", Qt::CaseInsensitive) || q.contains("insert", Qt::CaseInsensitive) || q.contains("update", Qt::CaseInsensitive))
             if (! sqliteQry.exec(q))
             {
-            qDebug() << "sql file error: " << sqliteQry.lastError();
-            return false;
-        }
+                qDebug() << "sql file error: " << sqliteQry.lastError();
+                return false;
+            }
     }
     sqliteDb.commit();
 
@@ -224,6 +240,9 @@ void convertAccessDbToSqliteDb(QString accessFilename)
 
     importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), description, registerdate, registerdate as udate from users",
                 QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description"  << "created_at"  << "updated_at");
+
+    // fill scores table
+    sqliteQry.exec("insert into scores (user_id) select id from users");
 
     importMatches();
 
