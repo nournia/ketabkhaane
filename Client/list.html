@@ -1,8 +1,47 @@
 ﻿<!DOCTYPE html>
 <html lang="fa">
 <head><meta charset="utf-8" /></head>
-<style>body{text-align: right;direction:rtl;}</style>
+<style>body{text-align: right;direction:rtl; font-family: "B Mitra";}
+header {
+	text-align: center;
+	font-size: 1.3em;
+	font-weight: bold;
+	
+	/*text-shadow: #888 2px 2px 3px;*/
+	margin-bottom: 5px; 
+}
+table {
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+	
+	/*box-shadow: 0px 0px 7px #888;*/	
+}
+th, td {
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 60px;
+	text-align: center;	
+}
+th:nth-child(1), td:nth-child(1) {
+	width: 20px;
+}
+th:nth-child(2), td:nth-child(2) {
+	text-align: right;
+	width: auto;
+}
+th {
+	border-bottom: 4px solid grey;
+}
+td {
+	border-bottom: 1px solid grey;
+}
+tbody tr:nth-child(odd	) {
+   background-color: hsl(0, 0%, 90%);
+}
+</style>
 <body>
-<div id="title"></div>
-<div id="table"></div>
+<header></header>
+<article></article>
+<footer></footer>
 </body>

@@ -40,32 +40,49 @@ void ViewerForm::showList(QString title, QStringList fields, QString query)
     loadHtml("list");
     QWebFrame *frame = ui->webView->page()->mainFrame();
 
-    QString table = "<table>";
+    QString table = "<table cellspacing='0'>";
 
     // table head
+    table += "<thead><tr>";
     for (int i = 0; i < fields.count(); i++)
         table += QString("<th>%1</th>").arg(fields[i]);
+    table += "</tr></thead>";
 
     // table body
-    for (int c = 0; qry.next(); c++)
+    table += "<tbody>";
+    for (int c = 1; qry.next(); c++)
     {
         table += "<tr>";
-        for (int i = 0; i < fields.count(); i++)
+
+        if (fields[0] == ViewerForm::tr("Rank"))
+            table += QString("<td>%1</td>").arg(c);
+
+        for (int i = 0; i < fields.count()-1; i++)
             table += QString("<td>%1</td>").arg(qry.value(i).toString());
+
         table += "</tr>";
     }
+    table += "</tbody>";
 
     table += "</table>";
 
-    frame->findFirstElement("#title").setPlainText(title);
-    frame->findFirstElement("#table").setInnerXml(table);
+    frame->findFirstElement("header").setPlainText(title);
+    frame->findFirstElement("article").setInnerXml(table);
 }
 
 void ViewerForm::on_pushButton_clicked()
 {
+    QFile file("res.html");
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QTextStream out(&file);
+        out.setCodec( "UTF-8" );
+        out << ui->webView->page()->mainFrame()->toHtml();
+        file.close();
+    }
+
     QPrinter printer(QPrinterInfo::defaultPrinter());
-    printer.setCreator("Foo Bar");
-    printer.setDocName("Foo Bar");
+    printer.setDocName("List");
     printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
     ui->webView->print(&printer);
 }

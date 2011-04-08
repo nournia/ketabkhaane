@@ -30,13 +30,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     applyPermission();
 
-    optionsForm = new OptionsForm(this);
-    showForm(optionsForm);
+//    optionsForm = new OptionsForm(this);
+//    showForm(optionsForm);
 
-//    firstPage();
-//    viewerForm = new ViewerForm(this);
-//    showForm(viewerForm);
-//    viewerForm->showList(ViewerForm::tr("User Scores List"), QStringList() << tr("Id") << tr("Name"), "select firstname ||' '|| lastname from users");
+    firstPage();
 }
 
 MainWindow::~MainWindow()
@@ -228,4 +225,12 @@ void MainWindow::on_actionChangePermissions_triggered()
     clear();
     formChangePermissions = new FormChangePermissions(this);
     showForm(formChangePermissions);
+}
+
+void MainWindow::on_actionUserScoreList_triggered()
+{
+    clear();
+    viewerForm = new ViewerForm(this);
+    showForm(viewerForm);
+    viewerForm->showList(ViewerForm::tr("User Score List"), QStringList() << ViewerForm::tr("Rank") << ViewerForm::tr("Name") << ViewerForm::tr("Matches") << ViewerForm::tr("Score"), "select firstname ||' '|| lastname, corrected, round(scores.score) from scores inner join users on scores.user_id = users.id inner join ( select user_id, count(id) as corrected from answers where corrected_at > (select started_at from library) group by user_id) as t_corrected on scores.user_id = t_corrected.user_id where scores.score > 0 order by scores.score desc");
 }

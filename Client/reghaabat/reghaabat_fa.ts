@@ -148,7 +148,7 @@
         <translation type="obsolete">نام کاربر</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+60"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -203,9 +203,26 @@
         <translation>تغییر دسترسی‌ها</translation>
     </message>
     <message>
-        <location line="-50"/>
+        <location line="+5"/>
+        <source>userScoreList</source>
+        <translation>امتیاز بچه‌ها</translation>
+    </message>
+    <message>
+        <location line="-55"/>
         <source>Ctrl+S</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="obsolete">نام</translation>
+    </message>
+    <message>
+        <source>Score</source>
+        <translation type="obsolete">امتیاز</translation>
+    </message>
+    <message>
+        <source>Matches</source>
+        <translation type="obsolete">مسابقه‌ها</translation>
     </message>
 </context>
 <context>
@@ -611,9 +628,30 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">چاپ</translation>
     </message>
     <message>
-        <location line="+11"/>
-        <source>about:blank</source>
-        <translation type="unfinished"></translation>
+        <location filename="mainwindow.cpp" line="+235"/>
+        <source>User Score List</source>
+        <translation>لیست امتیاز بچه‌ها</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <location filename="viewerform.cpp" line="+57"/>
+        <source>Rank</source>
+        <translation>رتبه</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Name</source>
+        <translation>نام</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Matches</source>
+        <translation>مسابقه‌ها</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Score</source>
+        <translation>امتیاز</translation>
     </message>
 </context>
 </TS>
