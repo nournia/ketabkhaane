@@ -148,12 +148,32 @@
         <translation type="obsolete">نام کاربر</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+32"/>
+        <source>reghaabat</source>
+        <translation>رقابت</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>user</source>
+        <translation>عضو</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>match</source>
+        <translation>مسابقه</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>list</source>
+        <translation>لیست</translation>
+    </message>
+    <message>
+        <location line="+21"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+5"/>
         <source>login</source>
         <translation>ورود</translation>
     </message>
@@ -206,11 +226,6 @@
         <location line="+5"/>
         <source>userScoreList</source>
         <translation>امتیاز بچه‌ها</translation>
-    </message>
-    <message>
-        <location line="-55"/>
-        <source>Ctrl+S</source>
-        <translation></translation>
     </message>
     <message>
         <source>Name</source>
@@ -309,11 +324,13 @@
     </message>
     <message>
         <location filename="matchform.cpp" line="+104"/>
+        <location filename="viewerform.cpp" line="+137"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="viewerform.cpp" line="+0"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -618,40 +635,94 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ViewerForm</name>
     <message>
-        <location filename="viewerform.ui" line="+14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
+        <location filename="viewerform.ui" line="+44"/>
+        <location line="+23"/>
+        <source>All</source>
+        <translation>همه</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="-16"/>
+        <source>Gender Group</source>
+        <translation>با تفکیک آقا و خانم</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <location filename="viewerform.cpp" line="+0"/>
+        <source>Match List</source>
+        <translation>لیست مسابقه‌ها</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Age Group</source>
+        <translation>با تفکیک سنی</translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>Print</source>
-        <translation type="unfinished">چاپ</translation>
+        <translation>چاپ</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="+235"/>
+        <location line="-65"/>
         <source>User Score List</source>
         <translation>لیست امتیاز بچه‌ها</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location filename="viewerform.cpp" line="+57"/>
+        <location filename="viewerform.cpp" line="-79"/>
+        <location line="+18"/>
+        <location line="+3"/>
+        <location line="+35"/>
+        <location line="+11"/>
         <source>Rank</source>
         <translation>رتبه</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-11"/>
+        <location line="+11"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-11"/>
+        <location line="+11"/>
         <source>Matches</source>
         <translation>مسابقه‌ها</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-11"/>
+        <location line="+11"/>
+        <location line="+12"/>
         <source>Score</source>
         <translation>امتیاز</translation>
+    </message>
+    <message>
+        <location line="-23"/>
+        <source>Score List</source>
+        <translation>لیست امتیازها</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Men Score List</source>
+        <translation>لیست امتیاز آقایان</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Weman Score List</source>
+        <translation>لیست امتیاز خانمها</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Title</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>AgeClass</source>
+        <translation>رده سنی</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Kind</source>
+        <translation>نوع</translation>
     </message>
 </context>
 </TS>

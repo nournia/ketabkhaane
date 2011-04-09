@@ -17,7 +17,6 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     model = new PermissionModel(this);
     ui->tPermissions->setModel(model);
 
-    ui->tPermissions->setFont(QFont("Tahoma"));
     ui->tPermissions->setColumnHidden(0, true);
     ui->tPermissions->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
 

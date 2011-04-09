@@ -26,14 +26,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->statusBar->setFont(QFont("Tahoma"));
 
     applyPermission();
 
 //    optionsForm = new OptionsForm(this);
 //    showForm(optionsForm);
 
-    firstPage();
+
+
+//    firstPage();
 }
 
 MainWindow::~MainWindow()
@@ -49,6 +50,7 @@ void MainWindow::clear()
     delete matchForm; matchForm = 0;
     delete optionsForm; optionsForm = 0;
     delete formChangePermissions; formChangePermissions = 0;
+    delete viewerForm; viewerForm = 0;
 }
 
 void MainWindow::applyPermission()
@@ -232,5 +234,4 @@ void MainWindow::on_actionUserScoreList_triggered()
     clear();
     viewerForm = new ViewerForm(this);
     showForm(viewerForm);
-    viewerForm->showList(ViewerForm::tr("User Score List"), QStringList() << ViewerForm::tr("Rank") << ViewerForm::tr("Name") << ViewerForm::tr("Matches") << ViewerForm::tr("Score"), "select firstname ||' '|| lastname, corrected, round(scores.score) from scores inner join users on scores.user_id = users.id inner join ( select user_id, count(id) as corrected from answers where corrected_at > (select started_at from library) group by user_id) as t_corrected on scores.user_id = t_corrected.user_id where scores.score > 0 order by scores.score desc");
 }

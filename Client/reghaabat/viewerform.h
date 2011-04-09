@@ -15,14 +15,17 @@ public:
     explicit ViewerForm(QWidget *parent = 0);
     ~ViewerForm();
 
-    void showList(QString title, QStringList fields, QString query);
+    QString addTable(QString title, QStringList fields, QString query);
     void loadHtml(QString name);
 
 private:
     Ui::ViewerForm *ui;
 
 private slots:
-    void on_pushButton_clicked();
+    void on_bUserGenderGroup_clicked();
+    void on_bMatchAll_clicked();
+    void on_bUserAll_clicked();
+    void on_bPrint_clicked();
 };
 
 #endif // VIEWERFORM_H

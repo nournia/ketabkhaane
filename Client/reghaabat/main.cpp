@@ -20,13 +20,14 @@ int main(int argc, char *argv[])
     qTranslator.load("qt_fa");
     a.installTranslator(& qTranslator);
 
-    a.setStyle("plastique"); // plastique, cleanlooks
+    a.setStyle("cleanlooks"); // plastique, cleanlooks
 
     a.setApplicationName(QApplication::tr("Reghaabat"));
     a.setApplicationVersion("0.1");
     a.setOrganizationName(QApplication::tr("Rooyesh"));
     a.setOrganizationDomain("www.reghaabat.ir");
 
+    a.setStyleSheet(".QWidget{font-family: 'B Mitra';} QListView {}");
     MainWindow w;
     w.show();
 

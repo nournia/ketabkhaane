@@ -9,6 +9,8 @@
 #include <QPrinter>
 #include <QPrinterInfo>
 
+#include <matchform.h>
+
 ViewerForm::ViewerForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ViewerForm)
@@ -32,13 +34,12 @@ void ViewerForm::loadHtml(QString name)
     ui->webView->setHtml(QTextStream(&file).readAll());
 }
 
-void ViewerForm::showList(QString title, QStringList fields, QString query)
+QString ViewerForm::addTable(QString title, QStringList fields, QString query)
 {
+    QString content = QString("<header>%1</header>").arg(title);
+
     QSqlQuery qry;
     qry.exec(query);
-
-    loadHtml("list");
-    QWebFrame *frame = ui->webView->page()->mainFrame();
 
     QString table = "<table cellspacing='0'>";
 
@@ -55,10 +56,13 @@ void ViewerForm::showList(QString title, QStringList fields, QString query)
         table += "<tr>";
 
         if (fields[0] == ViewerForm::tr("Rank"))
+        {
             table += QString("<td>%1</td>").arg(c);
-
-        for (int i = 0; i < fields.count()-1; i++)
-            table += QString("<td>%1</td>").arg(qry.value(i).toString());
+            for (int i = 0; i < fields.count()-1; i++)
+                table += QString("<td>%1</td>").arg(qry.value(i).toString());
+        } else
+            for (int i = 0; i < fields.count(); i++)
+                table += QString("<td>%1</td>").arg(qry.value(i).toString());
 
         table += "</tr>";
     }
@@ -66,11 +70,22 @@ void ViewerForm::showList(QString title, QStringList fields, QString query)
 
     table += "</table>";
 
-    frame->findFirstElement("header").setPlainText(title);
-    frame->findFirstElement("article").setInnerXml(table);
+
+    table += "<style>";
+
+    int fill = fields[0] == ViewerForm::tr("Rank") ? 2 : 1;
+    table += QString("th:nth-child(%1), td:nth-child(%1) {text-align: right; width: auto;}").arg(fill);
+
+    if (fields[0] == ViewerForm::tr("Rank"))
+        table += "th:first-child, td:first-child {padding-left: 10px; width: 20px;}";
+    table += "</style>";
+
+    content += QString("<article>%1</article>").arg(table);
+
+    return content;
 }
 
-void ViewerForm::on_pushButton_clicked()
+void ViewerForm::on_bPrint_clicked()
 {
     QFile file("res.html");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -86,3 +101,42 @@ void ViewerForm::on_pushButton_clicked()
     printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
     ui->webView->print(&printer);
 }
+
+QString getScoreListQuery(QString condition)
+{
+    return QString("select firstname ||' '|| lastname, corrected, round(scores.score) from scores inner join users on scores.user_id = users.id inner join ( select user_id, count(id) as corrected from answers where corrected_at > (select started_at from library) group by user_id) as t_corrected on scores.user_id = t_corrected.user_id where scores.score > 0 %1 order by scores.score desc").arg(condition);
+}
+
+void ViewerForm::on_bUserAll_clicked()
+{
+    loadHtml("list");
+
+    QString content = addTable(tr("Score List"), QStringList() << tr("Rank") << tr("Name") << tr("Matches") << tr("Score"), getScoreListQuery(""));
+
+    QWebFrame *frame = ui->webView->page()->mainFrame();
+    frame->findFirstElement("body").setInnerXml(content);
+}
+
+void ViewerForm::on_bUserGenderGroup_clicked()
+{
+    loadHtml("list");
+
+    QString content;
+    QStringList fields = QStringList() << tr("Rank") << tr("Name") << tr("Matches") << tr("Score");
+    content += addTable(tr("Men Score List"), fields, getScoreListQuery("and users.gender = 'male'"));
+    content += addTable(tr("Weman Score List"), fields, getScoreListQuery("and users.gender = 'female'"));
+
+    QWebFrame *frame = ui->webView->page()->mainFrame();
+    frame->findFirstElement("body").setInnerXml(content);
+}
+
+void ViewerForm::on_bMatchAll_clicked()
+{
+    loadHtml("list");
+
+    QString content = addTable(tr("Match List"), QStringList() << tr("Title") << tr("AgeClass") << tr("Kind") << tr("Score"), "select matches.title, ageclasses.title, ifnull(categories.title, case resources.kind when 'book' then '"+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end), supports.score from matches inner join supports on matches.id = supports.match_id inner join ageclasses on matches.ageclass = ageclasses.id left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id where supports.current_state = 'active'");
+
+    QWebFrame *frame = ui->webView->page()->mainFrame();
+    frame->findFirstElement("body").setInnerXml(content);
+}
+
