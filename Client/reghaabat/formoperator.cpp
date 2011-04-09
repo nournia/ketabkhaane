@@ -22,7 +22,7 @@ FormOperator::FormOperator(QWidget *parent) :
     connect(eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
 
     // add matchname edit
-    eMatch = new MyLineEdit("select id, title as ctitle from matches", this);
+    eMatch = new MyLineEdit("", this);
     ui->lMatch->addWidget(eMatch);
     QWidget::setTabOrder(eMatch, ui->bDeliver);
     QWidget::setTabOrder(ui->bDeliver, ui->cPrint);
@@ -57,6 +57,8 @@ void FormOperator::cancelUser()
 void FormOperator::cancelMatch()
 {
     ui->newMatchButtons->setEnabled(false);
+    eMatch->setCompleter(new MyCompleter(QString("select id, title as ctitle from matches where id not in (select match_id from answers where user_id = %1)").arg(eUser->value()), this));
+
 }
 
 void FormOperator::selectUser()
