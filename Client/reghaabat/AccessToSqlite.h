@@ -246,7 +246,7 @@ bool importImages()
         QString filename = QString("data/files/%1.jpg").arg(accessQry.value(0).toString());
         QImage::fromData(accessQry.value(2).toByteArray(), "jpg").save(filename, "jpg");
 
-        sqliteQry.exec("update matches set content = content || '<img src=\""+ accessQry.value(0).toString() +".jpg\" />' where id = "+ accessQry.value(0).toString());
+        sqliteQry.exec("update matches set content = content || \"<img src='"+ accessQry.value(0).toString() +".jpg' />\" where id = "+ accessQry.value(0).toString());
     }
 }
 

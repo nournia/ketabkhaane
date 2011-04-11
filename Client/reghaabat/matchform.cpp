@@ -11,9 +11,9 @@ MatchForm::MatchForm(QWidget *parent) :
     ui(new Ui::MatchForm)
 {
     ui->setupUi(this);
-    ui->buttonBox->addButton(ViewerForm::tr("Preview"), QDialogButtonBox::ActionRole);
+    ui->buttonBox->addButton(ViewerForm::tr("Preview"), QDialogButtonBox::ResetRole);
 
-    eCorrector = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users", this);
+    eCorrector = new MyLineEdit("select id, firstname ||' '|| lastname as ctitle from users", this);
     ui->lCorrector->addWidget(eCorrector);
 
     eAuthor = new MyLineEdit("select id, title as ctitle from authors", this);

@@ -177,16 +177,30 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     QString content;
     if (questions.count() > 0)
         for (int i = 0; i < questions.count(); i++)
-            content += QString("<p>%1. %2<br/>%3</p>").arg(i+1).arg(questions[i].first).arg(questions[i].second);
+            content += QString("<p>%1. %2<br />%3</p>").arg(i+1).arg(questions[i].first).arg(questions[i].second);
     else
         content = match["content"].toString();
 
     frame->findFirstElement("article").setInnerXml(content);
 
 
-    QSqlQuery qry; qry.exec("select firstname ||' '|| lastname from users where id = "+ match["corrector"].toString());
+    QSqlQuery qry;
+
+    // corrector
+    qry.exec("select firstname ||' '|| lastname from users where id = "+ match["corrector"].toString());
     if (qry.next())
         frame->findFirstElement("#corrector").setPlainText(qry.value(0).toString());
+
+    // library
+    qry.exec("select title, image from library");
+    qry.next();
+    if (! qry.value(1).toString().isEmpty())
+    {
+        QString library;
+        library += QString("<img src='%1\\data\\files\\%2' />").arg(QDir::currentPath()).arg(qry.value(1).toString());
+        library += QString("<span>%1</span>").arg(qry.value(0).toString());
+        frame->findFirstElement("#library").setInnerXml(library);
+    }
 
     ui->gLists->setVisible(false);
 }
