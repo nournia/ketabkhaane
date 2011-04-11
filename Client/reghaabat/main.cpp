@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     qTranslator.load("qt_fa");
     a.installTranslator(& qTranslator);
 
-    a.setStyle("cleanlooks"); // plastique, cleanlooks
+    a.setStyle("plastique"); // plastique, cleanlooks
 
     a.setApplicationName(QApplication::tr("Reghaabat"));
     a.setApplicationVersion("0.1");

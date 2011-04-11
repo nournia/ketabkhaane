@@ -52,11 +52,9 @@ create table permissions (
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp
 );
-create table pictures (
+create table files (
 	id integer not null primary key autoincrement,
-	reference_id integer not null,
-	kind varchar(10) not null, -- enum("library", "user", "resource", "match")
-	picture blob null,
+	extension varchar(5) not null,
 
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp
@@ -141,6 +139,7 @@ create table library (
 	description varchar(1000) null default null,
 	synced_at timestamp null default null,
 	license varchar(255) null default null,
+	image varchar(50) null default null,
 
 	-- tournament info
 	tournament_title varchar(255) not null,
@@ -230,6 +229,6 @@ insert into open_categories (id, title) values (0, 'خلاصه‌نویسی');
 insert into open_categories (id, title) values (1, 'شعر');
 insert into open_categories (id, title) values (2, 'داستان');
 
-insert into library (group_id, title, license, tournament_title, started_at) values (1, 'کتابخانه‌ی شهید خرازی', 'aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', current_timestamp);
+insert into library (group_id, title, image, license, tournament_title, started_at) values (1, 'کتابخانه‌ی شهید خرازی', '1.jpg','aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', current_timestamp);
 insert into permissions (user_id, permission, accept) values (1111, "admin", 1);
 update users set upassword = '356a192b7913b04c54574d18c28d46e6395428ab' where id = 1111;

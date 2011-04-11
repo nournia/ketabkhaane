@@ -10,6 +10,8 @@
 #include <QVariant>
 #include <QFile>
 #include <QDebug>
+#include <QImage>
+#include <QDir>
 
 QSqlDatabase accessDb, sqliteDb;
 QSqlQuery accessQry, sqliteQry;
@@ -71,6 +73,10 @@ bool buildSqliteDb()
             }
     }
     sqliteDb.commit();
+
+    QDir d;
+    d.mkdir("data");
+    d.mkdir("data/files");
 
     return true;
 }
@@ -228,6 +234,22 @@ bool importMatches()
     return true;
 }
 
+bool importImages()
+{
+    QString sql = "select id, 'jpg', picture from pictures where id > 10000 or id < 1000";
+
+    importTable("files", sql, QStringList() << "id" << "extension");
+
+    accessQry.exec(sql);
+    while (accessQry.next())
+    {
+        QString filename = QString("data/files/%1.jpg").arg(accessQry.value(0).toString());
+        QImage::fromData(accessQry.value(2).toByteArray(), "jpg").save(filename, "jpg");
+
+        sqliteQry.exec("update matches set content = content || '<img src=\""+ accessQry.value(0).toString() +".jpg\" />' where id = "+ accessQry.value(0).toString());
+    }
+}
+
 void convertAccessDbToSqliteDb(QString accessFilename)
 {
     sqliteDb = Connector::connectDb();
@@ -249,6 +271,8 @@ void convertAccessDbToSqliteDb(QString accessFilename)
 
     importMatches();
 
+    importImages();
+
     importTable("supports", "select id, designerid, maxscore, iif(state = 0, 'active', iif(state = 1, 'disabled', iif(state = 2 , 'imported', NULL))) from matches",
                 QStringList() << "match_id" << "corrector_id" << "score" << "current_state");
 
@@ -263,9 +287,6 @@ void convertAccessDbToSqliteDb(QString accessFilename)
 
     importTable("open_scores", "select userid, 0, title, score, scoredate, scoredate as udate from freescores",
                 QStringList() << "user_id" << "category_id" << "title" << "score" << "created_at" << "updated_at");
-
-//    importTable("pictures", "select id, picture, iif(id > 100000, 'match', iif(id > 1000, 'user', 'library')) from pictures",
-//                QStringList() << "reference_id" << "picture" << "kind");
 
     sqliteQry.exec("pragma foreign_keys = off");
 
