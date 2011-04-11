@@ -3,10 +3,11 @@
 
 #include <QVariant>
 #include <QComboBox>
+#include <QDir>
 
 #include <helper.h>
 #include <connector.h>
-
+#include <QDebug>
 
 class MMatches
 {
@@ -19,6 +20,8 @@ public:
         if (! qry.next()) return false;
 
         match = getRecord(qry);
+        match["content"] = match["content"].toString().replace("src=\"", QString("src=\"%1\\data\\files\\").arg(QDir::currentPath()));
+
         qry.exec("select question, answer from questions where match_id = "+ matchId);
         while (qry.next())
             questions.append(qMakePair(qry.value(0).toString(), qry.value(1).toString()));
@@ -98,7 +101,7 @@ public:
         } else
         {
             match["category_id"] = data["category_id"];
-            match["content"] = data["content"];
+            match["content"] = data["content"].toString().replace(QString("src=\"%1\\data\\files\\").arg(QDir::currentPath()), "src=\"");
         }
 
         match["designer_id"] = data["corrector"];

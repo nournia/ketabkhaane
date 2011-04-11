@@ -297,7 +297,12 @@
         <translation>وضعیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+27"/>
+        <location filename="matchform.cpp" line="+14"/>
+        <source>Preview</source>
+        <translation>پیش نمایش</translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>active</source>
         <translation>فعال</translation>
     </message>
@@ -409,7 +414,7 @@
         <location filename="dialogchangepassword.cpp" line="+26"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="main.cpp" line="+25"/>
-        <location filename="matchform.cpp" line="+75"/>
+        <location filename="matchform.cpp" line="+96"/>
         <location filename="userform.cpp" line="+59"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
@@ -639,7 +644,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ViewerForm</name>
     <message>
-        <location filename="viewerform.ui" line="+44"/>
+        <location filename="viewerform.ui" line="+47"/>
         <location line="+23"/>
         <source>All</source>
         <translation>همه</translation>
@@ -736,6 +741,12 @@ p, li { white-space: pre-wrap; }
         <location line="+0"/>
         <source>Group</source>
         <translation>گروه</translation>
+    </message>
+    <message>
+        <location filename="matchform.cpp" line="+23"/>
+        <location filename="viewerform.cpp" line="+7"/>
+        <source>Preview</source>
+        <translation>پیش نمایش</translation>
     </message>
 </context>
 </TS>

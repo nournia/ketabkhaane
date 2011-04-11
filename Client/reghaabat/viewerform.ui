@@ -14,8 +14,11 @@
    <enum>Qt::RightToLeft</enum>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <property name="margin">
+    <number>0</number>
+   </property>
    <item>
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="gLists" native="true">
      <property name="minimumSize">
       <size>
        <width>130</width>

@@ -2,6 +2,7 @@
 #define MATCHFORM_H
 
 #include <QWidget>
+#include <QAbstractButton>
 
 #include <mmatches.h>
 #include <mylineedit.h>
@@ -24,6 +25,7 @@ public:
     MyLineEdit *eMatch, *eCorrector, *eAuthor, *ePublication;
     QList<QuestionModule*> qModules;
 
+    void fillMaps(StrMap& match, QList<StrPair>& questions);
     void clearQuestions();
 
 private:
@@ -33,6 +35,7 @@ signals:
     void closeForm();
 
 private slots:
+    void on_buttonBox_clicked(QAbstractButton* button);
     void selectMatch();
     void cancelMatch();
 

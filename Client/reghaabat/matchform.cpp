@@ -2,6 +2,8 @@
 #include "ui_matchform.h"
 
 #include <QMessageBox>
+
+#include <viewerform.h>
 #include <mainwindow.h>
 
 MatchForm::MatchForm(QWidget *parent) :
@@ -9,6 +11,7 @@ MatchForm::MatchForm(QWidget *parent) :
     ui(new Ui::MatchForm)
 {
     ui->setupUi(this);
+    ui->buttonBox->addButton(ViewerForm::tr("Preview"), QDialogButtonBox::ActionRole);
 
     eCorrector = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users", this);
     ui->lCorrector->addWidget(eCorrector);
@@ -92,7 +95,7 @@ void MatchForm::selectMatch()
         {
             ui->cType->setCurrentIndex(1); // Instructions
             ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["category_id"].toString()));
-            ui->eContent->setPlainText(match["content"].toString());
+            ui->eContent->setHtml(match["content"].toString());
         }
 
         ui->gData->setEnabled(true);
@@ -172,11 +175,25 @@ void MatchForm::on_bNewQuestion_clicked()
     }
 }
 
-void MatchForm::on_buttonBox_accepted()
+#include <QWebView>
+#include <QWebFrame>
+#include <QWebElementCollection>
+QString refineHtml(QString html)
 {
-    StrMap match;
-    QList<StrPair> questions;
+    QWebView* view = new QWebView();
+    view->setHtml(html);
+    QWebFrame* frame = view->page()->mainFrame();
 
+    QString result;
+    QWebElementCollection ps = frame->findAllElements("p");
+    foreach (QWebElement p, ps)
+        result += QString("<p>%1</p>").arg(p.toInnerXml());
+
+    return result;
+}
+
+void MatchForm::fillMaps(StrMap& match, QList<StrPair>& questions)
+{
     match["title"] = ui->eTitle->text();
     match["corrector"] = eCorrector->value();
     match["score"] = ui->sScore->value();
@@ -197,8 +214,15 @@ void MatchForm::on_buttonBox_accepted()
     else
     {
         match["category_id"] = ui->cGroup->itemData(ui->cGroup->currentIndex());
-        match["content"]  = ui->eContent->toPlainText();
+        match["content"]  = refineHtml(ui->eContent->toHtml());
     }
+}
+
+void MatchForm::on_buttonBox_accepted()
+{
+    StrMap match;
+    QList<StrPair> questions;
+    fillMaps(match, questions);
 
     QString msg = MMatches::set(eMatch->value(), match, questions);
 
@@ -227,4 +251,16 @@ void MatchForm::clearQuestions()
     ui->lQuestions->show();
 }
 
+void MatchForm::on_buttonBox_clicked(QAbstractButton* button)
+{
+    if (button->text() == ViewerForm::tr("Preview"))
+    {
+        StrMap match;
+        QList<StrPair> questions;
+        fillMaps(match, questions);
 
+        ViewerForm* viewer = new ViewerForm((MainWindow*) parent());
+        viewer->showMatch(match, questions);
+        viewer->exec();
+    }
+}

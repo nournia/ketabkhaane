@@ -1,13 +1,14 @@
 #ifndef VIEWERFORM_H
 #define VIEWERFORM_H
 
-#include <QWidget>
+#include <QDialog>
+#include <helper.h>
 
 namespace Ui {
     class ViewerForm;
 }
 
-class ViewerForm : public QWidget
+class ViewerForm : public QDialog
 {
     Q_OBJECT
 
@@ -17,6 +18,7 @@ public:
 
     QString addTable(QString title, QStringList fields, QString query);
     void loadHtml(QString name);
+    void showMatch(StrMap match, QList<StrPair> questions);
 
 private:
     Ui::ViewerForm *ui;
