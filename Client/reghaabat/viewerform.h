@@ -22,6 +22,7 @@ private:
     Ui::ViewerForm *ui;
 
 private slots:
+    void on_bMatchAgeGroup_clicked();
     void on_bUserGenderGroup_clicked();
     void on_bMatchAll_clicked();
     void on_bUserAll_clicked();

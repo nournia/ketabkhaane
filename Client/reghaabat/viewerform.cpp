@@ -107,6 +107,19 @@ QString getScoreListQuery(QString condition)
     return QString("select firstname ||' '|| lastname, corrected, round(scores.score) from scores inner join users on scores.user_id = users.id inner join ( select user_id, count(id) as corrected from answers where corrected_at > (select started_at from library) group by user_id) as t_corrected on scores.user_id = t_corrected.user_id where scores.score > 0 %1 order by scores.score desc").arg(condition);
 }
 
+QString getMatchListQuery(QString ageclass)
+{
+    QString tField, tTable, tCondition;
+    if (ageclass.isEmpty())
+    {
+        tField = "ageclasses.title,";
+        tTable = "inner join ageclasses on matches.ageclass = ageclasses.id";
+    } else
+        tCondition = "and matches.ageclass = " + ageclass;
+
+    return QString("select matches.title, %1 ifnull(categories.title, case resources.kind when 'book' then '"+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end), supports.score from matches inner join supports on matches.id = supports.match_id %2 left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id where supports.current_state = 'active' %3 order by supports.score desc").arg(tField).arg(tTable).arg(tCondition);
+}
+
 void ViewerForm::on_bUserAll_clicked()
 {
     loadHtml("list");
@@ -134,9 +147,22 @@ void ViewerForm::on_bMatchAll_clicked()
 {
     loadHtml("list");
 
-    QString content = addTable(tr("Match List"), QStringList() << tr("Title") << tr("AgeClass") << tr("Kind") << tr("Score"), "select matches.title, ageclasses.title, ifnull(categories.title, case resources.kind when 'book' then '"+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end), supports.score from matches inner join supports on matches.id = supports.match_id inner join ageclasses on matches.ageclass = ageclasses.id left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id where supports.current_state = 'active'");
+    QString content = addTable(tr("Match List"), QStringList() << tr("Title") << tr("AgeClass") << tr("Kind") << tr("Score"), getMatchListQuery(""));
 
     QWebFrame *frame = ui->webView->page()->mainFrame();
     frame->findFirstElement("body").setInnerXml(content);
 }
 
+
+void ViewerForm::on_bMatchAgeGroup_clicked()
+{
+    loadHtml("list");
+    QString content;
+
+    QSqlQuery qry; qry.exec("select id, description from ageclasses");
+    while (qry.next())
+        content += addTable(tr("Match List") + " - " + tr("Group") + " " + qry.value(1).toString(), QStringList() << tr("Title") << tr("Kind") << tr("Score"), getMatchListQuery(qry.value(0).toString()));
+
+    QWebFrame *frame = ui->webView->page()->mainFrame();
+    frame->findFirstElement("body").setInnerXml(content);
+}

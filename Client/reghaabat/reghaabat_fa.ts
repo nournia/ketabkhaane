@@ -325,12 +325,14 @@
     <message>
         <location filename="matchform.cpp" line="+104"/>
         <location filename="viewerform.cpp" line="+137"/>
+        <location line="+14"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="viewerform.cpp" line="+0"/>
+        <location filename="viewerform.cpp" line="-14"/>
+        <location line="+14"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -647,7 +649,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location filename="viewerform.cpp" line="+0"/>
+        <location filename="viewerform.cpp" line="-14"/>
+        <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
     </message>
@@ -667,7 +670,7 @@ p, li { white-space: pre-wrap; }
         <translation>لیست امتیاز بچه‌ها</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="-79"/>
+        <location filename="viewerform.cpp" line="-93"/>
         <location line="+18"/>
         <location line="+3"/>
         <location line="+35"/>
@@ -691,11 +694,12 @@ p, li { white-space: pre-wrap; }
         <location line="-11"/>
         <location line="+11"/>
         <location line="+12"/>
+        <location line="+14"/>
         <source>Score</source>
         <translation>امتیاز</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-37"/>
         <source>Score List</source>
         <translation>لیست امتیازها</translation>
     </message>
@@ -711,18 +715,25 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
+        <location line="+14"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-14"/>
         <source>AgeClass</source>
         <translation>رده سنی</translation>
     </message>
     <message>
         <location line="+0"/>
+        <location line="+14"/>
         <source>Kind</source>
         <translation>نوع</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Group</source>
+        <translation>گروه</translation>
     </message>
 </context>
 </TS>

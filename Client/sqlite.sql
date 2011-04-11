@@ -213,11 +213,11 @@ end;
 
 -- data ------------------------------------------------------------------------------
 
-insert into ageclasses values (0, 'الف', 'آمادگی و سال اول دبستان', 6, 7);
-insert into ageclasses values (1, 'ب', 'سال‌های دوم و سوم دبستان', 8, 9);
-insert into ageclasses values (2, 'ج', 'سال‌های چهارم و پنجم دبستان', 10, 11);
-insert into ageclasses values (3, 'د', 'سال‌های راهنمایی', 12, 14); 
-insert into ageclasses values (4, 'ه', 'سال‌های دبیرستان', 15, 18);
+insert into ageclasses values (0, 'الف', 'آمادگی و اول دبستان', 6, 7);
+insert into ageclasses values (1, 'ب', 'دوم و سوم دبستان', 8, 9);
+insert into ageclasses values (2, 'ج', 'چهارم و پنجم دبستان', 10, 11);
+insert into ageclasses values (3, 'د', 'راهنمایی', 12, 14); 
+insert into ageclasses values (4, 'ه', 'دبیرستان', 15, 18);
 
 insert into categories (id, title) values (0, 'نقاشی');
 insert into categories (id, title) values (1, 'رنگ‌آمیزی');
