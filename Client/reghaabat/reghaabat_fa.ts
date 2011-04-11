@@ -163,12 +163,11 @@
         <translation>مسابقه</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>list</source>
-        <translation>لیست</translation>
+        <translation type="obsolete">لیست</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+23"/>
         <source>sync</source>
         <translation>همزمانی</translation>
     </message>
@@ -224,8 +223,13 @@
     </message>
     <message>
         <location line="+5"/>
+        <location line="+3"/>
+        <source>lists</source>
+        <translation>لیستها</translation>
+    </message>
+    <message>
         <source>userScoreList</source>
-        <translation>امتیاز بچه‌ها</translation>
+        <translation type="obsolete">امتیاز بچه‌ها</translation>
     </message>
     <message>
         <source>Name</source>
@@ -324,15 +328,13 @@
     </message>
     <message>
         <location filename="matchform.cpp" line="+104"/>
-        <location filename="viewerform.cpp" line="+137"/>
-        <location line="+14"/>
+        <location filename="viewerform.cpp" line="+120"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="viewerform.cpp" line="-14"/>
-        <location line="+14"/>
+        <location filename="viewerform.cpp" line="+0"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -649,7 +651,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location filename="viewerform.cpp" line="-14"/>
+        <location filename="viewerform.cpp" line="+30"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -670,10 +672,10 @@ p, li { white-space: pre-wrap; }
         <translation>لیست امتیاز بچه‌ها</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="-93"/>
+        <location filename="viewerform.cpp" line="-106"/>
         <location line="+18"/>
         <location line="+3"/>
-        <location line="+35"/>
+        <location line="+48"/>
         <location line="+11"/>
         <source>Rank</source>
         <translation>رتبه</translation>

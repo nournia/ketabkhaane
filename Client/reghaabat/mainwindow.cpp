@@ -61,6 +61,7 @@ void MainWindow::applyPermission()
    ui->actionNewMatch->setEnabled(false);
    ui->actionEditMatch->setEnabled(false);
    ui->actionChangePermissions->setEnabled(false);
+   ui->actionLists->setEnabled(false);
 
    ui->actionLogin->setVisible(Reghaabat::instance()->userId.isEmpty());
    ui->actionLogout->setVisible(! ui->actionLogin->isVisible());
@@ -85,6 +86,7 @@ void MainWindow::applyPermission()
    if (Reghaabat::hasAccess("manager"))
    {
        ui->actionChangePermissions->setEnabled(true);
+       ui->actionLists->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("master"))
@@ -227,7 +229,7 @@ void MainWindow::on_actionChangePermissions_triggered()
     showForm(formChangePermissions);
 }
 
-void MainWindow::on_actionUserScoreList_triggered()
+void MainWindow::on_actionLists_triggered()
 {
     clear();
     viewerForm = new ViewerForm(this);

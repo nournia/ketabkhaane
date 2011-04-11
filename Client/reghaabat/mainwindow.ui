@@ -66,17 +66,11 @@
     <addaction name="actionDeliverMatch"/>
     <addaction name="actionNewMatch"/>
     <addaction name="actionEditMatch"/>
-   </widget>
-   <widget class="QMenu" name="menuList">
-    <property name="title">
-     <string>list</string>
-    </property>
-    <addaction name="actionUserScoreList"/>
+    <addaction name="actionLists"/>
    </widget>
    <addaction name="menuReghaabat"/>
    <addaction name="menuUser"/>
    <addaction name="menuMatch"/>
-   <addaction name="menuList"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="font">
@@ -143,9 +137,12 @@
     <string>changePermissions</string>
    </property>
   </action>
-  <action name="actionUserScoreList">
+  <action name="actionLists">
    <property name="text">
-    <string>userScoreList</string>
+    <string>lists</string>
+   </property>
+   <property name="toolTip">
+    <string>lists</string>
    </property>
   </action>
  </widget>
