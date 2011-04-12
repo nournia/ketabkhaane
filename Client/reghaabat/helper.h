@@ -11,6 +11,8 @@
 typedef QMap<QString, QVariant> StrMap;
 typedef QPair<QString, QString> StrPair;
 
+QString refineText(QString text);
+
 StrMap getRecord(QSqlQuery& query);
 
 QString getReplaceQuery(QString table, StrMap data, QString id);

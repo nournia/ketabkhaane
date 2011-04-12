@@ -134,8 +134,6 @@ public:
             return false;
         return true;
     }
-
 };
-
 
 #endif // MUSERS_H

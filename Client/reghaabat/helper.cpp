@@ -1,5 +1,14 @@
 #include <helper.h>
 
+QString c1 = QString::fromUtf8("ي"), r1 = QString::fromUtf8("ی");
+QString c2 = QString::fromUtf8("ك"), r2 = QString::fromUtf8("ک");
+
+QString refineText(QString text)
+{
+    // replace specific charcters
+    return text.replace(c1, r1).replace(c2, r2);
+}
+
 StrMap getRecord(QSqlQuery& query)
 {
     StrMap map;
@@ -31,6 +40,7 @@ QString getReplaceQuery(QString table, StrMap data, QString id)
         first = false;
     }
 
+    values = refineText(values);
     if (id == "")
         return QString("insert into %1 (%2) values (%3)").arg(table).arg(fields).arg(values);
     else

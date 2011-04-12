@@ -100,7 +100,6 @@ QVariant refineValue(QVariant value)
     QString tn = value.typeName();
     if (tn == "QString" &&  value.toString().contains(''))
         return value.toString().replace('', "");
-        //return value.toString().replace('ي', 'ی').replace('ك', 'ک').replace('', ""); // replace specific charcters
     else
         return value;
 }

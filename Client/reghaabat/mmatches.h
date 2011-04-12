@@ -64,14 +64,17 @@ public:
         if (data["category_id"].toString() == "")
         {
             // new author & publication
+            StrMap ndata;
             if (! data["author"].toString().isEmpty() && data["author"].toInt() == 0)
             {
-                qry.exec(QString("insert into authors (title) values ('%1')").arg(data["author"].toString()));
+                ndata["title"] = data["author"].toString();
+                qry.exec(getReplaceQuery("authors", ndata, ""));
                 data["author"] = qry.lastInsertId();
             }
             if (! data["publication"].toString().isEmpty() && data["publication"].toInt() == 0)
             {
-                qry.exec(QString("insert into publications (title) values ('%1')").arg(data["publication"].toString()));
+                ndata["title"] = data["publication"].toString();
+                qry.exec(getReplaceQuery("publications", ndata, ""));
                 data["publication"] = qry.lastInsertId();
             }
 
@@ -158,7 +161,6 @@ public:
         return "";
     }
 
-
     static void receive(QString userId, QString matchId)
     {
         QSqlQuery qry;
@@ -181,7 +183,7 @@ public:
     static void fillAgeClassCombo(QComboBox* cb)
     {
         QSqlQuery qry;
-        qry.exec("select id, title || ' - ' || description from ageclasses");
+        qry.exec("select id, title ||' - '|| description from ageclasses");
 
         cb->clear();
         while(qry.next())

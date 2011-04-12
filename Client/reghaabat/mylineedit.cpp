@@ -68,6 +68,9 @@ void MyLineEdit::keyPressEvent(QKeyEvent *e)
 
 void MyLineEdit::setIdValue()
 {
+    if (text() != refineText(text()))
+        setText(refineText(text()));
+
     if (! valueId.isEmpty())
         emit cancel();
 

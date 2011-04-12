@@ -14,6 +14,8 @@
 #include <QKeyEvent>
 #include <QSqlQuery>
 
+#include <helper.h>
+
 #include <QDebug>
 class MyCompleter : public QCompleter
 {
