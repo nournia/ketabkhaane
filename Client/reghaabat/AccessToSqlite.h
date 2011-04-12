@@ -159,6 +159,14 @@ QVariant getTitleId(QString table, QString title)
     }
 }
 
+QString refineContent(QString content)
+{
+    QString tmp = content.replace(QRegExp("[\r\n]+"), "</p><p>");
+    if (content.contains("<p>"))
+        tmp += "</p>";
+    tmp.replace("<p></p>", "");
+    return "<p>" + tmp + "</p>";
+}
 bool importMatches()
 {
     // init
@@ -222,7 +230,7 @@ bool importMatches()
             sqliteQry.bindValue(":resource_id", null);
 
             sqliteQry.bindValue(":category_id", groups[accessQry.value(4).toInt()]);
-            sqliteQry.bindValue(":content", accessQry.value(5));
+            sqliteQry.bindValue(":content", refineContent(accessQry.value(5).toString()));
         }
 
         if (! sqliteQry.exec())
@@ -246,7 +254,7 @@ bool importImages()
         QString filename = QString("data/files/%1.jpg").arg(accessQry.value(0).toString());
         QImage::fromData(accessQry.value(2).toByteArray(), "jpg").save(filename, "jpg");
 
-        sqliteQry.exec("update matches set content = content || \"<img src='"+ accessQry.value(0).toString() +".jpg' />\" where id = "+ accessQry.value(0).toString());
+        sqliteQry.exec("update matches set content = content || \"<p><img src='"+ accessQry.value(0).toString() +".jpg' /></p>\" where id = "+ accessQry.value(0).toString());
     }
 }
 

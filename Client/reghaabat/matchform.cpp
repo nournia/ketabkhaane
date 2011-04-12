@@ -95,7 +95,9 @@ void MatchForm::selectMatch()
         {
             ui->cType->setCurrentIndex(1); // Instructions
             ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["category_id"].toString()));
+
             ui->eContent->setHtml(match["content"].toString());
+            qDebug() << ui->eContent->toHtml();
         }
 
         ui->gData->setEnabled(true);

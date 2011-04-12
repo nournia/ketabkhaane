@@ -177,8 +177,6 @@
              </layout>
             </item>
            </layout>
-           <zorder>label_5</zorder>
-           <zorder>gResource</zorder>
            <zorder></zorder>
            <zorder></zorder>
           </widget>
