@@ -116,9 +116,15 @@ void FormOperator::previewMatch(bool print)
     MMatches::get(eMatch->value(), match, questions);
     match["user"] = eUser->value();
 
+    QSqlQuery qry;
+
+    // corrector
+    qry.exec(QString("select id from users where firstname ||' '|| lastname = '%1'").arg(match["corrector"].toString()));
+    if (qry.next())
+        match["corrector"] = qry.value(0).toString();
+
     // select random questions
     int qs = 4;
-    QSqlQuery qry;
     qry.exec("select questions from ageclasses where id = "+ match["ageclass"].toString());
     if (qry.next())
         qs = qry.value(0).toInt();

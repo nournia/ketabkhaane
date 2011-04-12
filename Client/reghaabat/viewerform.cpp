@@ -170,17 +170,16 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     QSqlQuery qry;
 
     // kind
-
-    QString kind;
+    QString kind = match["kind"].toString();
     if (! match["category_id"].toString().isEmpty())
     {
         qry.exec("select title from categories where id = "+ match["category_id"].toString());
         if (qry.next())
             kind = qry.value(0).toString();
     }
-    else if (match["kind"].toString() == "book")
+    else if (kind == "book")
         kind = MatchForm::tr("book");
-    else if (match["kind"].toString() == "multimedia")
+    else if (kind == "multimedia")
         kind = MatchForm::tr("multimedia");
 
     frame->findFirstElement("#kind").setPlainText(kind);
