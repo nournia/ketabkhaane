@@ -28,6 +28,8 @@ public:
     void fillMaps(StrMap& match, QList<StrPair>& questions);
     void clearQuestions();
 
+    QWidget* fillerItem;
+
 private:
     Ui::MatchForm *ui;
 

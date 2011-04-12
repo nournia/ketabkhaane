@@ -32,7 +32,11 @@ void QuestionModule::refresh(bool collapse)
 
     int h = ui->wQuestion->minimumHeight();
     if (ui->wAnswer->isVisible())
+    {
+        ui->bAnswer->setText("-");
         h += ui->wAnswer->minimumHeight();
+    } else
+        ui->bAnswer->setText("+");
 
     resize(width(), h);
 }

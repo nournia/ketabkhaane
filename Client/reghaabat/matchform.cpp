@@ -2,6 +2,11 @@
 #include "ui_matchform.h"
 
 #include <QMessageBox>
+#include <QFormLayout>
+#include <QWebView>
+#include <QWebFrame>
+#include <QWebElementCollection>
+#include <QPushButton>
 
 #include <viewerform.h>
 #include <mainwindow.h>
@@ -41,6 +46,14 @@ MatchForm::MatchForm(QWidget *parent) :
     ui->lMatch->addWidget(eMatch);
     connect(eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
     connect(eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
+
+    // init fillerItem for new question
+    fillerItem = new QWidget(this);
+    QFormLayout* lay = new QFormLayout(fillerItem);
+    QPushButton* button = new QPushButton(tr("New Question"), fillerItem);
+    connect(button, SIGNAL(clicked()), this, SLOT(on_bNewQuestion_clicked()));
+    lay->addRow("", button);
+    fillerItem->setLayout(lay);
 
     cancelMatch();
     editMode(false);
@@ -89,15 +102,13 @@ void MatchForm::selectMatch()
                 module->refresh(true);
                 ui->lQuestions->layout()->addWidget(module);
             }
-            ui->lQuestions->layout()->addWidget(new QWidget());
+            ui->lQuestions->layout()->addWidget(fillerItem);
         }
         else
         {
             ui->cType->setCurrentIndex(1); // Instructions
             ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["category_id"].toString()));
-
             ui->eContent->setHtml(match["content"].toString());
-            qDebug() << ui->eContent->toHtml();
         }
 
         ui->gData->setEnabled(true);
@@ -159,7 +170,6 @@ void MatchForm::on_bNewQuestion_clicked()
         {
             QLayoutItem* last = lay->takeAt(lay->count()-1);
             lay->removeItem(last);
-            delete last;
         }
 
         // collapse all questions
@@ -173,13 +183,10 @@ void MatchForm::on_bNewQuestion_clicked()
         module->select();
 
         // add filler
-        lay->addWidget(new QWidget);
+        lay->addWidget(fillerItem);
     }
 }
 
-#include <QWebView>
-#include <QWebFrame>
-#include <QWebElementCollection>
 QString refineHtml(QString html)
 {
     QWebView* view = new QWebView();
@@ -247,7 +254,8 @@ void MatchForm::clearQuestions()
     QLayoutItem *child;
     while ((child = ui->lQuestions->layout()->takeAt(0)) != 0)
     {
-        delete child->widget();
+        if (child->widget() != fillerItem)
+            delete child->widget();
         delete child;
     }
     ui->lQuestions->show();
