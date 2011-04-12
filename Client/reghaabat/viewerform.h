@@ -23,12 +23,13 @@ public:
 private:
     Ui::ViewerForm *ui;
 
+public slots:
+    void on_bPrint_clicked();
 private slots:
     void on_bMatchAgeGroup_clicked();
     void on_bUserGenderGroup_clicked();
     void on_bMatchAll_clicked();
     void on_bUserAll_clicked();
-    void on_bPrint_clicked();
 };
 
 #endif // VIEWERFORM_H

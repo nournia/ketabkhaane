@@ -20,10 +20,13 @@ public:
 
     MyLineEdit *eUser, *eMatch;
 
+    void previewMatch(bool print);
+
 private:
     Ui::FormOperator *ui;
 
 private slots:
+    void on_bPreview_clicked();
     void selectUser();
     void selectMatch();
     void cancelUser();

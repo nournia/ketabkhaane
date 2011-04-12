@@ -8,6 +8,7 @@
 #include <helper.h>
 #include <matchrow.h>
 #include <mainwindow.h>
+#include <viewerform.h>
 
 FormOperator::FormOperator(QWidget *parent) :
     QWidget(parent),
@@ -94,9 +95,58 @@ void FormOperator::selectMatch()
 
 void FormOperator::on_bDeliver_clicked()
 {
-    if (! eMatch->value().isEmpty())
+    if (! eUser->value().isEmpty() && ! eMatch->value().isEmpty())
     {
         MMatches::deliver(eUser->value(), eMatch->value());
+        if (ui->cPrint->isChecked())
+            previewMatch(true);
         selectUser();
     }
+}
+
+void FormOperator::on_bPreview_clicked()
+{
+    previewMatch(false);
+}
+
+void FormOperator::previewMatch(bool print)
+{
+    StrMap match;
+    QList<StrPair> questions, asks;
+    MMatches::get(eMatch->value(), match, questions);
+    match["user"] = eUser->value();
+
+    // select random questions
+    int qs = 4;
+    QSqlQuery qry;
+    qry.exec("select questions from ageclasses where id = "+ match["ageclass"].toString());
+    if (qry.next())
+        qs = qry.value(0).toInt();
+
+    if (questions.count() < qs)
+        qs = questions.count();
+
+    int* selected = new int[qs];
+    for (int i = 0; i < qs;)
+    {
+        int n = rand() % questions.count();
+
+        bool exists = false;
+        for (int j = 0; j < i; j++)
+            if (selected[j] == n) { exists = true; break; }
+
+        if (! exists)
+        {
+            asks.append(qMakePair(questions[n].first, QString("")));
+            selected[i] = n; i++;
+        }
+    }
+
+    ViewerForm* viewer = new ViewerForm((MainWindow*) parent());
+    viewer->showMatch(match, asks);
+
+    if (print)
+        viewer->on_bPrint_clicked();
+    else
+        viewer->exec();
 }

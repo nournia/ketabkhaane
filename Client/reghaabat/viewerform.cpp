@@ -186,6 +186,14 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 
     QSqlQuery qry;
 
+    // user
+    if (! match["user"].toString().isEmpty())
+    {
+        qry.exec("select firstname ||' '|| lastname from users where id = "+ match["user"].toString());
+        if (qry.next())
+            frame->findFirstElement("#user").setPlainText(qry.value(0).toString());
+    }
+
     // corrector
     qry.exec("select firstname ||' '|| lastname from users where id = "+ match["corrector"].toString());
     if (qry.next())

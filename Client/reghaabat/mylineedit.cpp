@@ -96,5 +96,6 @@ void MyLineEdit::setIdValue()
     {
         setStyleSheet("background-color:  hsv(120, 60, 255)");
         emit select();
+        emit editingFinished();
     }
 }
