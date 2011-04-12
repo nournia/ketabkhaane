@@ -26,6 +26,7 @@ private:
 public slots:
     void on_bPrint_clicked();
 private slots:
+    void on_bPdf_clicked();
     void on_bMatchAgeGroup_clicked();
     void on_bUserGenderGroup_clicked();
     void on_bMatchAll_clicked();

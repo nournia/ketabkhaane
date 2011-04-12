@@ -8,6 +8,7 @@
 #include <QSqlQuery>
 #include <QPrinter>
 #include <QPrinterInfo>
+#include <QFileDialog>
 
 #include <matchform.h>
 
@@ -83,23 +84,6 @@ QString ViewerForm::addTable(QString title, QStringList fields, QString query)
     content += QString("<article>%1</article>").arg(table);
 
     return content;
-}
-
-void ViewerForm::on_bPrint_clicked()
-{
-    QFile file("res.html");
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        QTextStream out(&file);
-        out.setCodec( "UTF-8" );
-        out << ui->webView->page()->mainFrame()->toHtml();
-        file.close();
-    }
-
-    QPrinter printer(QPrinterInfo::defaultPrinter());
-    printer.setDocName("List");
-    printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
-    ui->webView->print(&printer);
 }
 
 QString getScoreListQuery(QString condition)
@@ -211,4 +195,30 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     }
 
     ui->gLists->setVisible(false);
+}
+
+void ViewerForm::on_bPdf_clicked()
+{
+    QFile file("res.html");
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QTextStream out(&file);
+        out.setCodec( "UTF-8" );
+        out << ui->webView->page()->mainFrame()->toHtml();
+        file.close();
+    }
+
+    QPrinter printer(QPrinterInfo::defaultPrinter());
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
+
+    printer.setOutputFileName(QFileDialog::getSaveFileName(this, ""));
+    ui->webView->print(&printer);
+}
+
+void ViewerForm::on_bPrint_clicked()
+{
+    QPrinter printer(QPrinterInfo::defaultPrinter());
+    printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
+    ui->webView->print(&printer);
 }

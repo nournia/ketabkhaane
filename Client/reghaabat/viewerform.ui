@@ -131,6 +131,13 @@
          </spacer>
         </item>
         <item>
+         <widget class="QPushButton" name="bPdf">
+          <property name="text">
+           <string>Pdf</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="bPrint">
           <property name="text">
            <string>Print</string>
@@ -144,9 +151,6 @@
    </item>
   </layout>
   <zorder>gLists</zorder>
-  <zorder>webView</zorder>
-  <zorder>groupBox</zorder>
-  <zorder>groupBox_2</zorder>
   <zorder></zorder>
  </widget>
  <customwidgets>
