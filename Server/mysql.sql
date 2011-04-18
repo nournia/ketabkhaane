@@ -64,15 +64,6 @@ create table permissions (
 	created_at timestamp null default null, 
 	updated_at timestamp null default null
 );
-create table pictures (
-	id integer not null primary key auto_increment,
-	reference_id integer not null,
-	kind enum("library", "user", "resource", "match") not null,
-	picture mediumblob null,
-
-	created_at timestamp null default null, 
-	updated_at timestamp null default null
-);
 
 -- matches 
 create table authors (
@@ -89,6 +80,13 @@ create table publications (
 	title varchar(255) not null,
 
 	created_at timestamp null default null, 
+	updated_at timestamp null default null
+);
+create table files (
+	id integer not null primary key auto_increment,
+	extension varchar(5) not null,
+
+	created_at timestamp null default null,
 	updated_at timestamp null default null
 );
 create table resources (

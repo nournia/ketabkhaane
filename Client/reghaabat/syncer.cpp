@@ -3,7 +3,7 @@
 #include <QFile>
 
 // reverse priority of tables
-QStringList tables = QStringList() << "permissions" << "answers" << "questions" << "payments" << "supports" << "open_scores" << "matches" << "resources" << "authors" << "publications" << "users";
+QStringList tables = QStringList() << "scores" << "permissions" << "answers" << "questions" << "payments" << "supports" << "open_scores" << "matches" << "resources" << "files" << "authors" << "publications" << "users";
 
 bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
 {

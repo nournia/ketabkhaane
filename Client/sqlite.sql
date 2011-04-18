@@ -53,13 +53,6 @@ create table permissions (
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp
 );
-create table files (
-	id integer not null primary key autoincrement,
-	extension varchar(5) not null,
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
-);
 
 -- matches
 create table authors (
@@ -72,6 +65,13 @@ create table authors (
 create table publications (
 	id integer not null primary key autoincrement,
 	title varchar(255) not null,
+
+	created_at timestamp default current_timestamp,
+	updated_at timestamp default current_timestamp
+);
+create table files (
+	id integer not null primary key autoincrement,
+	extension varchar(5) not null,
 
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp
