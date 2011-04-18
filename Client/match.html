@@ -2,22 +2,74 @@
 <html lang="fa">
 <head><meta charset="utf-8" /></head>
 <style>
-body
-{
+body {
 	text-align: right;
 	direction:rtl; 
 	font-family: "B Mitra";
 }
+
+/* layout */	
+* {
+	margin: 0;
+}
+html, body {
+	height: 100%;
+}
+#wrapper {
+	min-height: 100%;
+	height: 100%;
+	margin: 0 auto -50px;
+}
+header {
+    height: 150px;
+}
+footer, #push {
+	height: 50px;
+}
+footer {
+    position: relative;
+}
+
+article {
+	padding: 10px 0;
+}
+
+#library {
+	text-align: center;
+	float: left;
+	width:120px;
+	margin: 10px;
+}
+#library img {
+	width: 100px;
+	height: 100px;
+}
+#matchInfo {
+	padding: 10px;
+}
 </style>
 <body>
+<div id="wrapper"> 
+
 <header>
-<div id="library"></div>
-<p><label>نام:</label><span id = "user"></span></p>
-<p><label>عنوان:</label><span id = "title"></span></p>
-<p><label>نوع:</label><span id = "kind"></span></p>
+<div id="library"><img src="1.jpg" /><span>کتابخانه‌ی شهید خرازی</span></div>
+<div id="matchInfo">
+<p><label>نام:</label><span id="user"></span></p>
+<p><label>عنوان:</label><span id="title"></span></p>
+<p><label>نوع:</label><span id="kind"></span></p>
+</div>
 </header>
+
 <article>
-<img src="file:///D:/Repo/Reghaabat/Client/reghaabat-build-desktop/data/files/1.jpg" />
 </article>
-<footer><p><label>مصحح:</label><span id = "corrector"></span></p></footer>
+
+<div><label>مصحح:</label><span id = "corrector"></span></div>
+
+<div id="push"></div> 
+</div> 
+<footer>
+<div id="date">1390/01/01</div>
+<div id="sentence">ز گهواره تا گور دانش بجوی</div>
+</footer>
 </body>
+</html>
