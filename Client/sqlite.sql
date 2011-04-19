@@ -199,19 +199,6 @@ create table open_scores (
 );
 
 
--- triggers---------------------------------------------------------------------------
-
-create trigger rate_update after update of rate on answers
-begin
-	update scores set score = score + (ifnull(new.rate,0) - ifnull(old.rate,0)) * (select pay_coeff from library) * (select score from supports where supports.match_id = new.match_id) where scores.user_id = new.user_id;
-end;
-
-create trigger rate_insert after insert on answers 
-begin
-	update scores set score = score + ifnull(new.rate,0) * (select pay_coeff from library) * (select score from supports where supports.match_id = new.match_id) where scores.user_id = new.user_id;
-end; 
-
-
 -- data ------------------------------------------------------------------------------
 
 insert into ageclasses values (0, 'الف', 'آمادگی و اول دبستان', 6, 7, 4);
@@ -233,3 +220,4 @@ insert into open_categories (id, title) values (2, 'داستان');
 insert into library (group_id, title, image, license, tournament_title, started_at) values (1, 'کتابخانه‌ی شهید خرازی', '1.jpg','aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', current_timestamp);
 insert into permissions (user_id, permission, accept) values (1111, "admin", 1);
 update users set upassword = '356a192b7913b04c54574d18c28d46e6395428ab' where id = 1111;
+update library set started_at = '2001-04-19 12:30:22';

@@ -28,6 +28,38 @@ QSqlDatabase connectAccess(QString filename)
     return db;
 }
 
+bool addTriggers()
+{
+    foreach (QString trigger, QStringList() << "rate_update" << "rate_insert")
+        sqliteQry.exec("drop trigger if exists "+ trigger);
+
+    sqliteQry.exec("select id, beginage, endage from ageclasses order by id");
+
+    QString field = "current_date - birth_date";
+    QString caseSt = "case";
+    while (sqliteQry.next())
+        caseSt += QString(" when %1 between %2 and %3 then %4").arg(field).arg(sqliteQry.value(1).toString()).arg(sqliteQry.value(2).toString()).arg(sqliteQry.value(0).toString());
+    caseSt += " else -10 end";
+
+    QString age_coeff = QString("case (select ageclass from matches where id = new.match_id) - (select %1 as ageclass from users where id = new.user_id) when 0 then 1 when 1 then 1.25 when -1 then 0.75 else 0 end").arg(caseSt);
+
+    // (new_rate - old_rate) * pay_coeff * age_coeff * match_score
+    QString updateSt = "update scores set score = score + (ifnull(new.rate,0)%2) * (select pay_coeff from library) * (%1) * (select score from supports where supports.match_id = new.match_id) where scores.user_id = new.user_id;";
+
+    if (! sqliteQry.exec(QString("create trigger rate_update after update of rate on answers begin %1 end;").arg(updateSt.arg(age_coeff).arg(" - ifnull(old.rate,0)"))))
+    {
+        qDebug() << sqliteQry.lastError();
+        return false;
+    }
+    if (! sqliteQry.exec(QString("create trigger rate_insert after insert on answers begin %1 end;").arg(updateSt.arg(age_coeff).arg(""))));
+    {
+        qDebug() << sqliteQry.lastError();
+        return false;
+    }
+
+    return true;
+}
+
 bool buildSqliteDb()
 {
     QFile file("../sqlite.sql");
@@ -43,9 +75,6 @@ bool buildSqliteDb()
         if (! table.startsWith("sqlite_") && ! sqliteQry.exec("drop table if exists " + table + ";"))
             qDebug() << sqliteQry.lastError();
     }
-
-    foreach (QString trigger, QStringList() << "rate_update" << "rate_insert")
-        sqliteQry.exec("drop trigger if exists "+ trigger);
 
     QString trigger = "";
     foreach (QString q, QTextStream(&file).readAll().split(";"))
@@ -73,6 +102,8 @@ bool buildSqliteDb()
             }
     }
     sqliteDb.commit();
+
+    addTriggers();
 
     QDir d;
     d.mkdir("data");
