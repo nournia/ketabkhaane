@@ -6,6 +6,7 @@ body {
 	text-align: right;
 	direction:rtl; 
 	font-family: "B Mitra";
+	font-size: 1.3em;
 }
 
 /* layout */	
@@ -21,7 +22,7 @@ html, body {
 	margin: 0 auto -10px;
 }
 header {
-    height: 130px;
+    height: 140px;
 }
 footer, #push {
 	height: 10px;
@@ -31,6 +32,8 @@ footer {
 }
 
 article {
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 header, article, footer{
@@ -50,7 +53,7 @@ span.bold {
 	text-align: center;
 	float: left;
 	width: 120px;
-	margin-top: 5px;
+	margin-top: 25px;
 }
 #library img {
 	width: 100px;
@@ -60,7 +63,7 @@ span.bold {
 	display: block;
 	margin: -10px;
 	font-weight: bold;
-	font-size: 0.8em;
+	font-size: 0.6em;
 }
 
 #matchInfo {
@@ -77,10 +80,16 @@ span.bold {
 }
 
 #help {
-	margin: 0px 10px 10px 10px;
+	margin: 10px 10px 25px 10px;
 	border-top: 1px solid black;
 	border-bottom: 3px double black;
 	padding: 1px 10px 1px 10px;
+	font-size: 0.9em;
+	background: hsl(0, 0%, 90%);
+}
+
+article p {
+	margin-bottom: 5px;
 }
 </style>
 </head>
@@ -105,9 +114,7 @@ span.bold {
 <article>
 </article>
 
-<div id="push"></div> 
-</div> 
-<footer>
-</footer>
+<div id="push"></div></div> 
+<footer></footer>
 </body>
 </html>
