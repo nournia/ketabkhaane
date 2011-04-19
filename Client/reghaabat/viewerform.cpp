@@ -9,6 +9,7 @@
 #include <QPrinter>
 #include <QPrinterInfo>
 #include <QFileDialog>
+#include <jalali.h>
 
 #include <matchform.h>
 
@@ -157,6 +158,7 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     loadHtml("match");
     QWebFrame* frame = ui->webView->page()->mainFrame();
     frame->findFirstElement("#title").setPlainText(match["title"].toString());
+    frame->findFirstElement("#date").setPlainText(toJalali(QDate::currentDate()));
 
     QString content;
     if (questions.count() > 0)
