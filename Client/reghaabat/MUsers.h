@@ -20,6 +20,28 @@ public:
         return true;
     }
 
+    static QString getAgeClassQuery(QString userId)
+    {
+        QSqlQuery qry;
+        qry.exec("select id, beginage, endage from ageclasses order by id");
+
+        QString field = "current_date - birth_date";
+        QString caseSt = "case";
+        while (qry.next())
+            caseSt += QString(" when %1 between %2 and %3 then %4").arg(field).arg(qry.value(1).toString()).arg(qry.value(2).toString()).arg(qry.value(0).toString());
+        caseSt += " else -10 end";
+
+        return QString("select %1 as ageclass from users where id = %2").arg(caseSt).arg(userId);
+    }
+
+    static QString getAgeClass(QString userId)
+    {
+        QSqlQuery qry;
+        qry.exec(getAgeClassQuery(userId));
+        qry.next();
+        return qry.value(0).toString();
+    }
+
     static QString set(QString userId, StrMap user)
     {
         QSqlQuery qry;

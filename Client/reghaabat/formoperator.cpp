@@ -58,8 +58,7 @@ void FormOperator::cancelUser()
 void FormOperator::cancelMatch()
 {
     ui->newMatchButtons->setEnabled(false);
-    eMatch->setCompleter(new MyCompleter(QString("select id, title as ctitle from matches where id not in (select match_id from answers where user_id = %1)").arg(eUser->value()), this));
-
+    eMatch->setCompleter(new MyCompleter(QString("select id, title as ctitle from matches where abs(ageclass - %1) <= 1 and id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(eUser->value())).arg(eUser->value()), this));
 }
 
 void FormOperator::selectUser()
