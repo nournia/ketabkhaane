@@ -219,5 +219,8 @@ insert into open_categories (id, title) values (2, 'داستان');
 
 insert into library (group_id, title, image, license, tournament_title, started_at) values (1, 'کتابخانه‌ی شهید خرازی', '1.jpg','aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', current_timestamp);
 insert into permissions (user_id, permission, accept) values (1111, "admin", 1);
+
+-- after import
 update users set upassword = '356a192b7913b04c54574d18c28d46e6395428ab' where id = 1111;
 update library set started_at = '2001-04-19 12:30:22';
+update matches set content = replace(content, 'src="', 'width="100%" src="') where id between 331000 and 331999;
