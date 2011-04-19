@@ -45,8 +45,11 @@ header, article, footer{
 label {
 	margin-left: 5px;
 }
-span.bold {
+#user, #title {
 	font-weight: bold;	
+}
+#user {
+	font-size: 0.9em;
 }
 
 #library {
@@ -75,8 +78,10 @@ span.bold {
 }
 #matchInfo p.row {
 	display: inline-block;
-	width: 180px;
+	min-width: 100px;
 	margin-top: 10px;
+	margin-left: 20px;
+	color: hsl(0, 0%, 30%);
 }
 
 #help {
@@ -99,8 +104,8 @@ article p {
 <header>
 <div id="library"><img src="1.jpg" /><span>کتابخانه‌ی شهید خرازی</span></div>
 <div id="matchInfo">
-<p><label>نام:</label><span id="user" class="bold"></span></p>
-<p><label>عنوان:</label><span id="title" class="bold"></span></p>
+<p><label>نام:</label><span id="user"></span></p>
+<p><label>عنوان:</label><span id="title"></span></p>
 <p class="row"><label>مصحح:</label><span id = "corrector"></span></p>
 <p class="row"><label>تاریخ:</label><span id = "date"></span></p>
 <p class="row"><label>نوع:</label><span id="kind"></span></p>

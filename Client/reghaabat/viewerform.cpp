@@ -154,6 +154,7 @@ void ViewerForm::on_bMatchAgeGroup_clicked()
 void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 {
     setWindowTitle(tr("Preview"));
+    setMinimumWidth(800);
 
     loadHtml("match");
     QWebFrame* frame = ui->webView->page()->mainFrame();
