@@ -102,7 +102,7 @@ QString getMatchListQuery(QString ageclass)
     } else
         tCondition = "and matches.ageclass = " + ageclass;
 
-    return QString("select matches.title, %1 ifnull(categories.title, case resources.kind when 'book' then '"+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end), supports.score from matches inner join supports on matches.id = supports.match_id %2 left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id where supports.current_state = 'active' %3 order by supports.score desc").arg(tField).arg(tTable).arg(tCondition);
+    return QString("select matches.title, %1 ifnull(categories.title, case resources.kind when 'book' then ' "+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end) as kind, supports.score from matches inner join supports on matches.id = supports.match_id %2 left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id where supports.current_state = 'active' %3 order by kind, supports.score desc").arg(tField).arg(tTable).arg(tCondition);
 }
 
 void ViewerForm::on_bUserAll_clicked()
