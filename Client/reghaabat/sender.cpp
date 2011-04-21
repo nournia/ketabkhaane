@@ -9,6 +9,8 @@
 #include <QPair>
 #include <QDateTime>
 #include <QCryptographicHash>
+#include <QFileInfo>
+#include <QUrl>`
 
 typedef QPair<QString, QString> TablePair;
 
@@ -147,18 +149,42 @@ Sender::Sender(QObject *parent)
     :QObject(parent)
 {}
 
-void Sender::send(QUrl url, QMap<QString, QString> & posts)
+void Sender::send(QUrl url, QMap<QString, QString>& posts, QStringList& files)
 {
-    bool first = true;
-    QByteArray postData;
+    QNetworkRequest req;
+    req.setUrl(QUrl(url));
+    QByteArray data;
+    QString bound="------AaB13x";
+
     QMapIterator<QString, QString> i(posts);
     while (i.hasNext()) {
         i.next();
-        postData.append((!first ? "&" : "") + i.key() + "=" + i.value());
-        first = false;
+        data += QString("--" + bound + "\r\n").toAscii();
+        data += QString("Content-Disposition: form-data; name=\"%1\"\r\n\r\n%2\r\n").arg(i.key()).arg(i.value());
     }
 
-    reply = qnam.post(QNetworkRequest(url), postData);
+    foreach (QString filename, files)
+    {
+        QFileInfo finfo(filename);
+        QFile file(finfo.absoluteFilePath());
+        if (file.open(QIODevice::ReadOnly))
+        {
+            data += QString("--" + bound + "\r\n").toAscii();
+            data += QString("Content-Disposition: form-data; name=\"%1\"; filename=\"%1\"\r\n").arg(finfo.fileName());
+            data += "Content-Type: image/"+ finfo.suffix().toLower() +"\r\n\r\n";
+            data += file.readAll();
+            data += "\r\n";
+        }
+    }
+
+    data += QString("--" + bound + "--\r\n").toAscii();
+
+    data += "\r\n";
+    req.setRawHeader(QString("Accept-Encoding").toAscii(), QString("gzip,deflate").toAscii());
+    req.setRawHeader(QString("Content-Type").toAscii(),QString("multipart/form-data; boundary=" + bound).toAscii());
+    req.setRawHeader(QString("Content-Length").toAscii(), QString::number(data.length()).toAscii());
+
+    reply = qnam.post(req,data);
 
     connect(reply, SIGNAL(finished()),
             this, SLOT(httpFinished()));
@@ -176,11 +202,11 @@ void Sender::httpFinished()
         file.close();
     }
 
-    Updater updater;
-    if (updater.updateClientIds(response)) // continue
-        sync();
-    else
-        qDebug() << "sync finished";
+//    Updater updater;
+//    if (updater.updateClientIds(response)) // continue
+//        sync();
+//    else
+//        qDebug() << "sync finished";
 }
 
 void Sender::sync()
@@ -198,5 +224,5 @@ void Sender::sync()
     posts["time"] = syncTime.toString("yyyy-MM-dd hh:mm:ss");
     if (finished) posts["finished"] = "true";
 
-    send(QUrl("http://localhost/server.php"), posts);
+    send(QUrl("http://localhost/server.php"), posts, QStringList() << "1.jpg" << "Reghaabat.jpg");
 }
