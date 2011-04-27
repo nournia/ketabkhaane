@@ -217,7 +217,7 @@ insert into open_categories (id, title) values (0, 'خلاصه‌نویسی');
 insert into open_categories (id, title) values (1, 'شعر');
 insert into open_categories (id, title) values (2, 'داستان');
 
-insert into library (group_id, title, image, license, tournament_title, started_at) values (1, 'کتابخانه‌ی شهید خرازی', '1.jpg','aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', current_timestamp);
+insert into library (id, group_id, title, image, license, tournament_title, started_at) values (1, 1, 'کتابخانه‌ی شهید خرازی', '1.jpg','aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', current_timestamp);
 insert into permissions (user_id, permission, accept) values (1111, "admin", 1);
 
 -- after import

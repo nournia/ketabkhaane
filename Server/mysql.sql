@@ -256,4 +256,4 @@ insert into ageclasses values (4, 'ه', 'دبیرستان', 15, 18, 7);
 
 insert into groups (master_id, title) values (1, 'شهید خرازی');
 insert into tournaments (group_id, title, started_at) values (1, 'مسابقه کتاب‌خوانی', now());
-insert into libraries (group_id, tournament_id, title, license) values (1, 1, 'کتابخانه‌ی شهید خرازی', 'aslwkelrfjsasdf');
+insert into libraries (id, group_id, tournament_id, title, license) values (1, 1, 1, 'کتابخانه‌ی شهید خرازی', 'aslwkelrfjsasdf');

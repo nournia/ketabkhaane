@@ -3,7 +3,7 @@
 #include <QDir>
 #include <QDebug>
 
-#include "mainwindow.h"
+#include <mainwindow.h>
 #include <connector.h>
 
 int main(int argc, char *argv[])

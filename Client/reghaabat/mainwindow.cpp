@@ -27,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    Reghaabat::instance()->files = QDir::currentPath() + "/data/files/";
+
     applyPermission();
 
     optionsForm = new OptionsForm(this);

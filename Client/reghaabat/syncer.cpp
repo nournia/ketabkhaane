@@ -1,5 +1,7 @@
 #include "syncer.h"
 
+#include <mainwindow.h>
+
 #include <QFile>
 
 // reverse priority of tables
@@ -73,7 +75,7 @@ inline QString getJsonValue(QVariant v)
     }
 }
 
-QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
+QString writeJson(QDateTime& lastSync, QDateTime& syncTime, QStringList& files)
 {
     QSqlQuery qry;
 
@@ -122,14 +124,20 @@ QString writeJson(QDateTime &lastSync, QDateTime &syncTime)
     json += '}'; // end of file
 
 
-    QFile file("tmp.json");
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        QTextStream out(&file);
-        out.setCodec( "UTF-8" );
-        out << json;
-        file.close();
-    }
+    // extract new filenames
+    qry.exec("select id ||'.'|| extension from files where updated_at > "+ dtLast +" and updated_at <= "+ dtSync);
+    while (qry.next())
+        files.append(Reghaabat::instance()->files + qry.value(0).toString());
+
+
+//    QFile file("tmp.json");
+//    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+//    {
+//        QTextStream out(&file);
+//        out.setCodec( "UTF-8" );
+//        out << json;
+//        file.close();
+//    }
 
     return json;
 }
@@ -138,13 +146,13 @@ Syncer::Syncer(QObject *parent)
     :QObject(parent)
 {}
 
-QByteArray Syncer::getChunk(QDateTime& syncTime, bool& finished)
+QByteArray Syncer::getChunk(QDateTime& syncTime, bool& finished, QStringList& files)
 {
     QDateTime lastSync;
 
     finished = setSyncBoundaries(1000000, lastSync, syncTime);
 
-    return writeJson(lastSync, syncTime).toUtf8();
+    return writeJson(lastSync, syncTime, files).toUtf8();
 }
 
 void Syncer::syncDb()

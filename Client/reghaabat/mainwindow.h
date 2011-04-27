@@ -46,7 +46,6 @@ private slots:
     void firstPage();
 };
 
-#include <QDebug>
 
 // rghaabat global variables
 // from: http://stackoverflow.com/questions/3747085/global-variables-in-qt
@@ -57,6 +56,7 @@ private:
 
 public:
     QString userId, userName, userPermission;
+    QString files;
 
     static Reghaabat* instance()
     {

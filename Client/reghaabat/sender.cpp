@@ -1,6 +1,8 @@
 #include "sender.h"
 
+#include <mainwindow.h>
 #include <syncer.h>
+
 #include <QDebug>
 #include <QFile>
 #include <QSqlQuery>
@@ -10,7 +12,7 @@
 #include <QDateTime>
 #include <QCryptographicHash>
 #include <QFileInfo>
-#include <QUrl>`
+#include <QUrl>
 
 typedef QPair<QString, QString> TablePair;
 
@@ -52,6 +54,21 @@ class Updater
                 updateId(table, lastId, newId);
             }
             else qDebug() << qry.lastError();
+        }
+
+        if (table == "files" && lastId != newId)
+        {
+            qry.exec("select extension from files where id = "+ newId);
+            if (qry.next())
+            {
+                QString ext = "." + qry.value(0).toString();
+
+                if (! QFile::rename(Reghaabat::instance()->files + lastId + ext, Reghaabat::instance()->files + newId + ext))
+                    qDebug() << QString("File rename error: %1%3 -> %2%3").arg(lastId).arg(newId).arg(ext);
+
+                if (! qry.exec(QString("update matches set content = replace(content, 'src=\"%1%3\"', 'src=\"%2%3\"') where content is not null").arg(lastId).arg(newId).arg(ext)))
+                    qDebug() << qry.lastError();
+            }
         }
     }
 
@@ -202,11 +219,11 @@ void Sender::httpFinished()
         file.close();
     }
 
-//    Updater updater;
-//    if (updater.updateClientIds(response)) // continue
-//        sync();
-//    else
-//        qDebug() << "sync finished";
+    Updater updater;
+    if (updater.updateClientIds(response)) // continue
+        sync();
+    else
+        qDebug() << "sync finished";
 }
 
 void Sender::sync()
@@ -217,12 +234,13 @@ void Sender::sync()
 
     Syncer syncer(this);
     QDateTime syncTime; bool finished;
+    QStringList files;
     QMap<QString, QString> posts;
     posts["id"] = qry.value(0).toString();
     posts["key"] = QCryptographicHash::hash(QString(qry.value(1).toString() + "-" + qry.value(2).toString()).toUtf8(), QCryptographicHash::Sha1).toHex();
-    posts["actions"] = syncer.getChunk(syncTime, finished);
+    posts["actions"] = syncer.getChunk(syncTime, finished, files);
     posts["time"] = syncTime.toString("yyyy-MM-dd hh:mm:ss");
     if (finished) posts["finished"] = "true";
 
-    send(QUrl("http://localhost/server.php"), posts, QStringList() << "1.jpg" << "Reghaabat.jpg");
+    send(QUrl("http://localhost/server.php"), posts, files);
 }
