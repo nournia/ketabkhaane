@@ -113,7 +113,14 @@ if (!empty($_POST['actions']))
 	{
 		$name = explode('.', $file['name']); 
 		if (isset($transitions['files'][$name[0]]))
+		{
+			$oldName = $name[0] .'.'. $name[1];
+			$newName = $transitions['files'][$name[0]] .'.'. $name[1];
 			move_uploaded_file($file['tmp_name'], $fileDir . $transitions['files'][$name[0]] .'.'. $name[1]);
+			
+			// update filename in content field
+			mysql_query("update matches set content = replace(content, 'src=\"{$oldName}\"', 'src=\"{$newName}\"') where content is not null");
+		}	
 	}
 	
 	if (isset($_POST['finished']))
