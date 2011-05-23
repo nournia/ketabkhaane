@@ -30,6 +30,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+    void on_actionSetScores_triggered();
     void on_actionLists_triggered();
     void on_actionChangePermissions_triggered();
     void on_actionChangePassword_triggered();

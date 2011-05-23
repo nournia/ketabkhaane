@@ -6,6 +6,7 @@
 #include <dialogchangepassword.h>
 #include <formchangepermissions.h>
 #include <viewerform.h>
+#include <scoreform.h>
 
 #include <sender.h>
 
@@ -15,11 +16,13 @@ Reghaabat* Reghaabat::m_Instance = 0;
 // forms
 FormFirst* formFirst;
 FormOperator* formOperator;
+FormChangePermissions* formChangePermissions;
+
 UserForm* userForm;
 MatchForm* matchForm;
 OptionsForm* optionsForm;
-FormChangePermissions* formChangePermissions;
 ViewerForm* viewerForm;
+ScoreForm* scoreForm;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -64,6 +67,7 @@ void MainWindow::applyPermission()
    ui->actionEditMatch->setEnabled(false);
    ui->actionChangePermissions->setEnabled(false);
    ui->actionLists->setEnabled(false);
+   ui->actionSetScores->setEnabled(false);
 
    ui->actionLogin->setVisible(Reghaabat::instance()->userId.isEmpty());
    ui->actionLogout->setVisible(! ui->actionLogin->isVisible());
@@ -89,6 +93,7 @@ void MainWindow::applyPermission()
    {
        ui->actionChangePermissions->setEnabled(true);
        ui->actionLists->setEnabled(true);
+       ui->actionSetScores->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("master"))
@@ -236,4 +241,13 @@ void MainWindow::on_actionLists_triggered()
     clear();
     viewerForm = new ViewerForm(this);
     showForm(viewerForm);
+}
+
+void MainWindow::on_actionSetScores_triggered()
+{
+    if (! Reghaabat::hasAccess("manager")) return;
+
+    clear();
+    scoreForm = new ScoreForm(this);
+    showForm(scoreForm);
 }

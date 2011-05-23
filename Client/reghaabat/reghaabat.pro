@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     formfirst.cpp \
     dialogchangepassword.cpp \
     formchangepermissions.cpp \
-    viewerform.cpp
+    viewerform.cpp \
+    scoreform.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -52,7 +53,8 @@ HEADERS  += mainwindow.h \
     formchangepermissions.h \
     delegatecombobox.h \
     delegatepassword.h \
-    viewerform.h
+    viewerform.h \
+    scoreform.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -65,7 +67,8 @@ FORMS    += mainwindow.ui \
     formfirst.ui \
     dialogchangepassword.ui \
     formchangepermissions.ui \
-    viewerform.ui
+    viewerform.ui \
+    scoreform.ui
 
 TRANSLATIONS = reghaabat_fa.ts
 
