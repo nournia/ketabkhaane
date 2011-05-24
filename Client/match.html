@@ -4,7 +4,7 @@
 <style>
 body {
 	text-align: right;
-	direction:rtl; 
+    direction: rtl;
 	font-family: "B Mitra";
 	font-size: 1.3em;
 }
@@ -96,6 +96,44 @@ label {
 article p {
 	margin-bottom: 5px;
 }
+
+
+/* evaluation */
+div#evaluations {
+	float: left;
+	margin: 0px 10px;
+}
+div.header {
+	clear: both;
+	padding-right: 20px;
+	margin-bottom: 1px;
+}
+div.header div {
+	-webkit-transform: rotate(-30deg);
+	display: inline-block;
+	font-size: 0.6em;
+	margin: 0px 1px;
+}
+
+div.choices {
+	height: 25px;
+}
+span.choice {
+	width: 10px;
+	height: 10px;
+	border-radius: 3px;
+	border: 1px solid grey;
+	display: inline-block;
+	margin: 0px 4px;	
+}
+span.number {
+	float: right;
+	width: 20px;
+	display: inline-block;
+	font-size: 0.8em;
+	margin-top: 1px;
+}
+
 </style>
 </head>
 <body>
@@ -117,6 +155,10 @@ article p {
 </div>
 
 <article>
+<div id="evaluations">
+	<div class="header"><div><span>متوسط</span></div><div><span>خوب</span></div><div><span>عالی</span></div></div>
+</div>
+<div id="questions"></div>
 </article>
 
 <div id="push"></div></div> 

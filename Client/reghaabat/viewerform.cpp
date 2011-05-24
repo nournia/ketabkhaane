@@ -161,14 +161,22 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     frame->findFirstElement("#title").setPlainText(match["title"].toString());
     frame->findFirstElement("#date").setPlainText(toJalali(QDate::currentDate()));
 
-    QString content;
+    QString content, evaluations;
     if (questions.count() > 0)
         for (int i = 0; i < questions.count(); i++)
+        {
             content += QString("<p>%1. %2<br />%3</p>").arg(i+1).arg(questions[i].first).arg(questions[i].second);
+            evaluations += QString("<div class='choices'><span class='number'>%1</span><span class='choice'></span><span class='choice'></span><span class='choice'></span></div>").arg(i+1);
+        }
     else
+    {
         content = match["content"].toString();
+        evaluations += "<div class='choices'><span class='number'></span><span class='choice'></span><span class='choice'></span><span class='choice'></span></div>";
+    }
 
-    frame->findFirstElement("article").setInnerXml(content);
+    frame->findFirstElement("#questions").setInnerXml(content);
+    frame->findFirstElement("#evaluations").appendInside(evaluations);
+
 
     QSqlQuery qry;
 
@@ -236,6 +244,7 @@ void ViewerForm::on_bPdf_clicked()
 void ViewerForm::on_bPrint_clicked()
 {
     QPrinter printer(QPrinterInfo::defaultPrinter());
+//    printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
     ui->webView->print(&printer);
 }
