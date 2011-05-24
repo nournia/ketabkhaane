@@ -387,14 +387,14 @@
     <message>
         <location line="+96"/>
         <location filename="viewerform.cpp" line="+105"/>
-        <location line="+79"/>
+        <location line="+91"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="viewerform.cpp" line="-79"/>
-        <location line="+81"/>
+        <location filename="viewerform.cpp" line="-91"/>
+        <location line="+93"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -574,7 +574,7 @@
     <message>
         <location line="+31"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+49"/>
@@ -742,7 +742,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location filename="viewerform.cpp" line="-51"/>
+        <location filename="viewerform.cpp" line="-63"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -834,9 +834,19 @@ p, li { white-space: pre-wrap; }
         <translation>گروه</translation>
     </message>
     <message>
+        <location line="+22"/>
+        <source>Question</source>
+        <translation>سوال</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Abstract</source>
+        <translation>چکیده</translation>
+    </message>
+    <message>
         <location filename="matchform.cpp" line="-223"/>
         <location line="+247"/>
-        <location filename="viewerform.cpp" line="+7"/>
+        <location filename="viewerform.cpp" line="-17"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
     </message>

@@ -163,10 +163,14 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 
     QString content, evaluations;
     if (questions.count() > 0)
-        for (int i = 0; i < questions.count(); i++)
+        for (int i = 0; i < questions.count() + 1; i++)
         {
-            content += QString("<p>%1. %2<br />%3</p>").arg(i+1).arg(questions[i].first).arg(questions[i].second);
-            evaluations += QString("<div class='choices'><span class='number'>%1</span><span class='choice'></span><span class='choice'></span><span class='choice'></span></div>").arg(i+1);
+            if (i < questions.count())
+            {
+                content += QString("<p>%1. %2<br />%3</p>").arg(i+1).arg(questions[i].first).arg(questions[i].second);
+                evaluations += QString("<div class='choices'><span class='number'>%1 %2</span><span class='choice'></span><span class='choice'></span><span class='choice'></span></div>").arg(tr("Question")).arg(i+1);
+            } else
+                evaluations += QString("<div class='choices'><span class='number'>%1</span><span class='choice'></span><span class='choice'></span><span class='choice'></span></div>").arg(tr("Abstract"));
         }
     else
     {
