@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>559</width>
-    <height>385</height>
+    <width>660</width>
+    <height>600</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>600</height>
+   </size>
   </property>
   <property name="layoutDirection">
    <enum>Qt::RightToLeft</enum>
@@ -107,6 +113,18 @@
      </item>
      <item>
       <widget class="QGroupBox" name="groupBox">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>27</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>27</height>
+        </size>
+       </property>
        <property name="styleSheet">
         <string notr="true">QGroupBox{ border: none;}</string>
        </property>
@@ -150,8 +168,6 @@
     </layout>
    </item>
   </layout>
-  <zorder>gLists</zorder>
-  <zorder></zorder>
  </widget>
  <customwidgets>
   <customwidget>

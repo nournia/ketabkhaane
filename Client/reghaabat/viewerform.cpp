@@ -181,7 +181,6 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     frame->findFirstElement("#questions").setInnerXml(content);
     frame->findFirstElement("#evaluations").appendInside(evaluations);
 
-
     QSqlQuery qry;
 
     // kind
