@@ -15,7 +15,7 @@ body {
 }
 
 body {
-	height: 1300px;
+	height: 1200px;
 }
 
 header {
@@ -71,8 +71,11 @@ label {
 	display: inline-block;
 	min-width: 100px;
 	margin-top: 10px;
-	margin-left: 20px;
+	margin-left: 40px;
 	color: hsl(0, 0%, 30%);
+}
+#matchInfo p.row:last-child {
+	margin-left: 0px;
 }
 
 #help {
@@ -97,37 +100,36 @@ article p {
 	left: 10px;
 	bottom: 10px;
 }
-div.header {
-	clear: both;
-	padding-right: 40px;
-	margin-bottom: 1px;
+div.question {
+	height: 22px;
+	margin-top: -1px;
 }
-div.header div {
-	-webkit-transform: rotate(-30deg);
+div.quality {
+	margin-top: 5px;
+}
+.quality span.index {
+	font-weight: bold;
+}
+span.index {
+	text-align: center;
 	display: inline-block;
-	font-size: 0.6em;
-	margin: 0px 1px;
-}
+	vertical-align: middle;
 
-div.choices {
-	height: 25px;
+	border-left: 2px solid grey;
+
+	width: 40px;
+	margin-left: 4px;
+	font-size: 0.7em;
 }
 span.choice {
-	width: 10px;
-	height: 10px;
-	border-radius: 3px;
-	border: 1px solid grey;
-	display: inline-block;
-	margin: 0px 4px;	
-}
-span.number {
-	float: right;
-	width: 40px;
-	display: inline-block;
-	font-size: 0.7em;
-	margin-top: 1px;
 	text-align: center;
-	padding-left: 2px;
+	display: inline-block;
+	vertical-align: middle;
+
+	width: 26px;
+	height: 14px;
+	margin: 0px 1px;
+	font-size: 0.55em;
 }
 
 </style>
@@ -153,9 +155,7 @@ span.number {
 <div id="questions"></div>
 </article>
 
-<div id="evaluations">
-	<div class="header"><div><span>متوسط</span></div><div><span>خوب</span></div><div><span>عالی</span></div></div>
-</div>
+<div id="evaluations"></div>
 
 <footer></footer>
 

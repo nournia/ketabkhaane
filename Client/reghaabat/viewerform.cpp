@@ -161,21 +161,23 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     frame->findFirstElement("#title").setPlainText(match["title"].toString());
     frame->findFirstElement("#date").setPlainText(toJalali(QDate::currentDate()));
 
-    QString content, evaluations;
+    QString content, evaluations, choices;
+    choices = QString("<span class='choice'>%1</span><span class='choice'>%2</span><span class='choice'>%3</span><span class='choice'>%4</span>").arg(tr("Grade1")).arg(tr("Grade2")).arg(tr("Grade3")).arg(tr("Grade4"));
+
     if (questions.count() > 0)
         for (int i = 0; i < questions.count() + 1; i++)
         {
             if (i < questions.count())
             {
                 content += QString("<p>%1. %2<br />%3</p>").arg(i+1).arg(questions[i].first).arg(questions[i].second);
-                evaluations += QString("<div class='choices'><span class='number'>%1 %2</span><span class='choice'></span><span class='choice'></span><span class='choice'></span></div>").arg(tr("Question")).arg(i+1);
+                evaluations += QString("<div class='question'><span class='index'>%1 %2</span>%3</div>").arg(tr("Question")).arg(i+1).arg(choices);
             } else
-                evaluations += QString("<div class='choices'><span class='number'>%1</span><span class='choice'></span><span class='choice'></span><span class='choice'></span></div>").arg(tr("Abstract"));
+                evaluations += QString("<div class='quality'><span class='index'>%1</span>%2</div>").arg(tr("Abstract")).arg(choices);
         }
     else
     {
         content = match["content"].toString();
-        evaluations += "<div class='choices'><span class='number'></span><span class='choice'></span><span class='choice'></span><span class='choice'></span></div>";
+        evaluations += QString("<div class='quality'><span class='index'>%1</span>%2</div>").arg(tr("Quality")).arg(choices);
     }
 
     frame->findFirstElement("#questions").setInnerXml(content);
@@ -247,7 +249,6 @@ void ViewerForm::on_bPdf_clicked()
 void ViewerForm::on_bPrint_clicked()
 {
     QPrinter printer(QPrinterInfo::defaultPrinter());
-//    printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
     ui->webView->print(&printer);
 }
