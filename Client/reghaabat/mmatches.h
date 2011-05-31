@@ -161,6 +161,9 @@ public:
         return "";
     }
 
+
+    /* answers */
+
     static void receive(QString userId, QString matchId)
     {
         QSqlQuery qry;
@@ -179,6 +182,25 @@ public:
         qry.addBindValue(matchId);
         qry.exec();
     }
+
+    static QString setScore(QString answerId, QString rate)
+    {
+        bool ok;
+        float fRate = rate.toFloat(&ok);
+        if (!ok || fRate < -1 || fRate > 2)
+            return QObject::tr("Invalid score value.");
+
+        QSqlQuery qry;
+        qry.prepare("update answers set rate = ?, corrected_at = current_timestamp where id = ?");
+        qry.addBindValue(rate);
+        qry.addBindValue(answerId);
+        qry.exec();
+
+        return "";
+    }
+
+
+    /* ui */
 
     static void fillAgeClassCombo(QComboBox* cb)
     {

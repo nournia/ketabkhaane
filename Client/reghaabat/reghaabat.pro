@@ -54,7 +54,8 @@ HEADERS  += mainwindow.h \
     delegatecombobox.h \
     delegatepassword.h \
     viewerform.h \
-    scoreform.h
+    scoreform.h \
+    scoredelegate.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \

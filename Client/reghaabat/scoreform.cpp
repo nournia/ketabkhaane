@@ -1,5 +1,6 @@
 #include "scoreform.h"
 #include "ui_scoreform.h"
+#include "scoredelegate.h"
 
 ScoreForm::ScoreForm(QWidget *parent) :
     QWidget(parent),
@@ -8,7 +9,7 @@ ScoreForm::ScoreForm(QWidget *parent) :
     ui->setupUi(this);
 
     // add corrector edit
-    eCorrector = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users where id in (select corrector_id from supports)", this);
+    eCorrector = new MyLineEdit("select id, firstname ||' '|| lastname as ctitle from users where id in (select corrector_id from supports)", this);
     ui->lCorrector->addWidget(eCorrector);
     connect(eCorrector, SIGNAL(select()), this, SLOT(selectCorrector()));
     connect(eCorrector, SIGNAL(cancel()), this, SLOT(cancelCorrector()));
@@ -21,8 +22,7 @@ ScoreForm::ScoreForm(QWidget *parent) :
     ui->tScores->horizontalHeader()->setResizeMode(2, QHeaderView::Stretch);
     ui->tScores->setColumnWidth(1, 150);
 
-//    ui->tPermissions->setItemDelegateForColumn(2, new DelegateComboBox(PermissionModel::getPermissions(), ui->tPermissions));
-//    ui->tPermissions->setItemDelegateForColumn(3, new DelegatePassword(ui->tPermissions));
+    ui->tScores->setItemDelegateForColumn(3, new ScoreDelegate(ui->tScores));
 
     cancelCorrector();
     eCorrector->setFocus();
@@ -42,5 +42,4 @@ void ScoreForm::selectCorrector()
 void ScoreForm::cancelCorrector()
 {
     ((SetScoreModel*) ui->tScores->model())->setCorrector(eCorrector->value());
-
 }

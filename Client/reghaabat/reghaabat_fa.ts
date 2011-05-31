@@ -387,14 +387,14 @@
     <message>
         <location line="+96"/>
         <location filename="viewerform.cpp" line="+105"/>
-        <location line="+92"/>
+        <location line="+94"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="viewerform.cpp" line="-92"/>
-        <location line="+94"/>
+        <location filename="viewerform.cpp" line="-94"/>
+        <location line="+96"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -538,6 +538,7 @@
     </message>
     <message>
         <location filename="formchangepermissions.h" line="-31"/>
+        <location filename="scoreform.h" line="+37"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -562,6 +563,11 @@
         <location line="+7"/>
         <source>There is another match with this title.</source>
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
+    </message>
+    <message>
+        <location line="+141"/>
+        <source>Invalid score value.</source>
+        <translation>امتیاز وارد شده معتبر نیست.</translation>
     </message>
 </context>
 <context>
@@ -602,7 +608,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SetScoreModel</name>
     <message>
-        <location filename="scoreform.h" line="+58"/>
+        <location filename="scoreform.h" line="+21"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>
@@ -614,7 +620,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+1"/>
         <source>Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>امتیاز</translation>
     </message>
 </context>
 <context>
@@ -742,7 +748,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location filename="viewerform.cpp" line="-64"/>
+        <location filename="viewerform.cpp" line="-66"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -854,24 +860,21 @@ p, li { white-space: pre-wrap; }
         <translation>عالی</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Question</source>
-        <translation>سوال</translation>
+        <translation type="obsolete">سوال</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Abstract</source>
-        <translation>چکیده</translation>
+        <translation type="obsolete">چکیده</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Quality</source>
-        <translation>کیفیت</translation>
+        <translation type="obsolete">کیفیت</translation>
     </message>
     <message>
         <location filename="matchform.cpp" line="-223"/>
         <location line="+247"/>
-        <location filename="viewerform.cpp" line="-24"/>
+        <location filename="viewerform.cpp" line="-9"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
     </message>

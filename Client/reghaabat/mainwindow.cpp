@@ -54,6 +54,7 @@ void MainWindow::clear()
     delete optionsForm; optionsForm = 0;
     delete formChangePermissions; formChangePermissions = 0;
     delete viewerForm; viewerForm = 0;
+    delete scoreForm; scoreForm = 0;
 }
 
 void MainWindow::applyPermission()

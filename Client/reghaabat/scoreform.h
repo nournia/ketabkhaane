@@ -1,6 +1,7 @@
 #ifndef SCOREFORM_H
 #define SCOREFORM_H
 
+#include <QMessageBox>
 #include <QSqlQueryModel>
 #include <mmatches.h>
 
@@ -22,24 +23,23 @@ public:
 
     bool setData(const QModelIndex &index, const QVariant &value, int role)
     {
-//        if (!(index.column() == 2 || index.column() == 3))
-//            return false;
+        if (!(index.column() == 3))
+            return false;
 
-//        QString id = data(QSqlQueryModel::index(index.row(), 0)).toString();
+        QString id = data(QSqlQueryModel::index(index.row(), 0)).toString();
 
-//        QString msg = "";
-//        if (index.column() == 2)
-//            msg = MUsers::setPermission(id , value.toString());
-//        else if (index.column() == 3)
-//            msg = MUsers::setPassword(id, value.toString());
+        QString msg = "";
 
-//        if (! msg.isEmpty())
-//            QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
+        if (index.column() == 3)
+            msg = MMatches::setScore(id, value.toString());
 
-//        clear();
+        if (! msg.isEmpty())
+            QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
 
-//        refresh();
-//        return msg.isEmpty();
+        clear();
+
+        refresh();
+        return msg.isEmpty();
     }
 
     QString corrector;
@@ -54,7 +54,7 @@ public:
         QString tmp = "-1";
         if (! corrector.isEmpty())
             tmp = corrector;
-        setQuery(QString("select answers.id, firstname||' '||lastname as name, matches.title, answers.rate from answers inner join supports on answers.match_id = supports.match_id inner join users on answers.user_id = users.id inner join matches on answers.match_id = matches.id where received_at is not null and (corrected_at is null || corrected_at >= date('now', '-1 days')) and corrector_id = %1 order by matches.title, name").arg(tmp));
+        setQuery(QString("select answers.id, firstname||' '||lastname as name, matches.title, cast(answers.rate * 100 as integer)||'%' as rate from answers inner join supports on answers.match_id = supports.match_id inner join users on answers.user_id = users.id inner join matches on answers.match_id = matches.id where received_at is not null and (corrected_at is null or corrected_at >= date('now', '-1 days')) and corrector_id = %1 order by matches.title, name").arg(tmp));
         setHeaderData(1, Qt::Horizontal, tr("Name"));
         setHeaderData(2, Qt::Horizontal, tr("Title"));
         setHeaderData(3, Qt::Horizontal, tr("Rate"));
