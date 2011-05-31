@@ -170,20 +170,22 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
             if (i < questions.count())
             {
                 content += QString("<p>%1. %2<br />%3</p>").arg(i+1).arg(questions[i].first).arg(questions[i].second);
-                evaluations += QString("<div class='question'><span class='index'>%1 %2</span>%3</div>").arg(tr("Question")).arg(i+1).arg(choices);
+                //evaluations += QString("<div class='question'><span class='index'>%1 %2</span>%3</div>").arg(tr("Question")).arg(i+1).arg(choices);
             } else
-                evaluations += QString("<div class='quality'><span class='index'>%1</span>%2</div>").arg(tr("Abstract")).arg(choices);
+            {
+                //evaluations += QString("<div class='quality'><span class='index'>%1</span>%2</div>").arg(tr("Abstract")).arg(choices);
+            }
         }
     else
     {
         content = match["content"].toString();
-        evaluations += QString("<div class='quality'><span class='index'>%1</span>%2</div>").arg(tr("Quality")).arg(choices);
+        //evaluations += QString("<div class='quality'><span class='index'>%1</span>%2</div>").arg(tr("Quality")).arg(choices);
     }
 
     frame->findFirstElement("#questions").setInnerXml(content);
-    frame->findFirstElement("#evaluations").appendInside(evaluations);
+    //frame->findFirstElement("#evaluations").appendInside(evaluations);
 
-    QSqlQuery qry;
+        QSqlQuery qry;
 
     // kind
     QString kind = match["kind"].toString();
@@ -212,6 +214,9 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     qry.exec("select firstname ||' '|| lastname from users where id = "+ match["corrector"].toString());
     if (qry.next())
         frame->findFirstElement("#corrector").setPlainText(qry.value(0).toString());
+
+    // score
+    frame->findFirstElement("#score").setPlainText(match["score"].toString());
 
     // library
     qry.exec("select title, image from library");

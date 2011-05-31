@@ -27,7 +27,7 @@ article {
 	margin-right: 10px;
 }
 
-header, article, footer{
+header, article, footer {
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -92,8 +92,19 @@ article p {
 }
 
 
+/* footer */
+footer {
+	display: none;
+	width: 90%;
+	height: 20px;
+	position: absolute;
+	bottom: 10px;
+}
+
+
 /* evaluations */
 #evaluations {
+	display: none;
 	float: left;
 	margin: 0px 10px;
 	position: absolute;
@@ -143,6 +154,7 @@ span.choice {
 <p><label>عنوان:</label><span id="title"></span></p>
 <p class="row"><label>مصحح:</label><span id = "corrector"></span></p>
 <p class="row"><label>تاریخ:</label><span id = "date"></span></p>
+<p class="row"><label>حداکثر امتیاز:</label><span id="score"></span></p>
 <p class="row"><label>نوع:</label><span id="kind"></span></p>
 </div>
 </header>

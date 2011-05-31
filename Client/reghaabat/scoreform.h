@@ -54,11 +54,10 @@ public:
         QString tmp = "-1";
         if (! corrector.isEmpty())
             tmp = corrector;
-        setQuery(QString("select answers.id, firstname||' '||lastname as name, matches.title, answers.rate from answers inner join supports on answers.match_id = supports.match_id inner join users on answers.user_id = users.id inner join matches on answers.match_id = matches.id where received_at is not null and corrected_at is null and corrector_id = %1 order by answers.match_id").arg(tmp));
+        setQuery(QString("select answers.id, firstname||' '||lastname as name, matches.title, answers.rate from answers inner join supports on answers.match_id = supports.match_id inner join users on answers.user_id = users.id inner join matches on answers.match_id = matches.id where received_at is not null and (corrected_at is null || corrected_at >= date('now', '-1 days')) and corrector_id = %1 order by matches.title, name").arg(tmp));
         setHeaderData(1, Qt::Horizontal, tr("Name"));
         setHeaderData(2, Qt::Horizontal, tr("Title"));
         setHeaderData(3, Qt::Horizontal, tr("Rate"));
-
     }
 };
 
