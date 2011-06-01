@@ -538,7 +538,7 @@
     </message>
     <message>
         <location filename="formchangepermissions.h" line="-31"/>
-        <location filename="scoreform.h" line="+37"/>
+        <location filename="scoreform.h" line="+45"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -565,9 +565,18 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+144"/>
+        <source>Invalid record selected.</source>
+        <translation>ردیف مناسبی انتخاب نشده است.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Score must be less than 2 * max score.</source>
+        <translation>امتیاز باید از دو برابر حداکثر امتیاز کوچکتر باشد.</translation>
+    </message>
+    <message>
         <source>Invalid score value.</source>
-        <translation>امتیاز وارد شده معتبر نیست.</translation>
+        <translation type="obsolete">امتیاز وارد شده معتبر نیست.</translation>
     </message>
 </context>
 <context>
@@ -619,8 +628,17 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+1"/>
-        <source>Rate</source>
+        <source>Max Score</source>
+        <translation>حداکثر امتیاز</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Score</source>
         <translation>امتیاز</translation>
+    </message>
+    <message>
+        <source>Rate</source>
+        <translation type="obsolete">امتیاز</translation>
     </message>
 </context>
 <context>
@@ -761,7 +779,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+71"/>
         <source>Pdf</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+7"/>

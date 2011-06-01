@@ -183,14 +183,21 @@ public:
         qry.exec();
     }
 
-    static QString setScore(QString answerId, QString rate)
+    static QString setScore(QString answerId, QString Score)
     {
-        bool ok;
-        float fRate = rate.toFloat(&ok);
-        if (!ok || fRate < -1 || fRate > 2)
-            return QObject::tr("Invalid score value.");
-
         QSqlQuery qry;
+
+        qry.prepare("select score from supports inner join answers on supports.match_id = answers.match_id where answers.id = ?");
+        qry.addBindValue(answerId);
+        qry.exec();
+        if (! qry.next())
+            return QObject::tr("Invalid record selected.");
+
+        float rate = Score.toFloat() / qry.value(0).toInt();
+
+        if (rate < -1 || rate > 2)
+            return QObject::tr("Score must be less than 2 * max score.");
+
         qry.prepare("update answers set rate = ?, corrected_at = current_timestamp where id = ?");
         qry.addBindValue(rate);
         qry.addBindValue(answerId);

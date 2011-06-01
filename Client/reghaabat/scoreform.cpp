@@ -18,14 +18,15 @@ ScoreForm::ScoreForm(QWidget *parent) :
     model = new SetScoreModel(this);
     ui->tScores->setModel(model);
 
+    QWidget::setTabOrder(eCorrector, ui->tScores);
+
     ui->tScores->setColumnHidden(0, true);
     ui->tScores->horizontalHeader()->setResizeMode(2, QHeaderView::Stretch);
     ui->tScores->setColumnWidth(1, 150);
 
-    ui->tScores->setItemDelegateForColumn(3, new ScoreDelegate(ui->tScores));
+    ui->tScores->setItemDelegateForColumn(4, new ScoreDelegate(ui->tScores));
 
     cancelCorrector();
-    eCorrector->setFocus();
 }
 
 ScoreForm::~ScoreForm()
@@ -41,5 +42,6 @@ void ScoreForm::selectCorrector()
 
 void ScoreForm::cancelCorrector()
 {
-    ((SetScoreModel*) ui->tScores->model())->setCorrector(eCorrector->value());
+    ((SetScoreModel*) ui->tScores->model())->setCorrector("");
+    eCorrector->setFocus();
 }
