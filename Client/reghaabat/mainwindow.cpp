@@ -2,12 +2,13 @@
 #include "ui_mainwindow.h"
 
 #include <QLabel>
+#include <QSettings>
+
 #include <logindialog.h>
 #include <dialogchangepassword.h>
 #include <formchangepermissions.h>
 #include <viewerform.h>
 #include <scoreform.h>
-
 #include <sender.h>
 
 // init reghaabat global variables
@@ -30,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // files
     Reghaabat::instance()->files = QDir::currentPath() + "/data/files/";
 
     applyPermission();

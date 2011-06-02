@@ -1,7 +1,6 @@
 #include <QtGui/QApplication>
 #include <QTranslator>
 #include <QDir>
-#include <QDebug>
 
 #include <mainwindow.h>
 #include <connector.h>
@@ -12,6 +11,13 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
+    // application info
+    a.setApplicationName(QApplication::tr("Reghaabat"));
+    a.setApplicationVersion("0.1");
+    a.setOrganizationName(QApplication::tr("Rooyesh"));
+    a.setOrganizationDomain("www.reghaabat.ir");
+
+    // translation
     QTranslator rTranslator;
     rTranslator.load("reghaabat_fa");
     a.installTranslator(& rTranslator);
@@ -20,14 +26,10 @@ int main(int argc, char *argv[])
     qTranslator.load("qt_fa");
     a.installTranslator(& qTranslator);
 
+    // style
     a.setStyle("plastique"); // plastique, cleanlooks
+    //a.setStyleSheet(".QWidget{font-family: 'B Mitra';} QListView {}");
 
-    a.setApplicationName(QApplication::tr("Reghaabat"));
-    a.setApplicationVersion("0.1");
-    a.setOrganizationName(QApplication::tr("Rooyesh"));
-    a.setOrganizationDomain("www.reghaabat.ir");
-
-    a.setStyleSheet(".QWidget{font-family: 'B Mitra';} QListView {}");
     MainWindow w;
     w.show();
 

@@ -9,7 +9,8 @@
 class Connector
 {
 public:
-    static QSqlDatabase connectDb(QString filename = "reghaabat.db");
+    static QSqlDatabase connectDb();
+    static QSqlDatabase connectLibrary(bool& ok);
 };
 
 #endif // CONNECTOR_H
