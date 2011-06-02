@@ -211,7 +211,7 @@ bool importMatches()
     groups.insert(32, 0);
 
     // access select query
-    if (! accessQry.exec("select id, designerid, title, "+ ageField +" as ageclass, groupid, content, pictureconfiguration, author, publication, librarybookid from matches"))
+    if (! accessQry.exec("select id, designerid, title, "+ ageField +" as ageclass, groupid, content, pictureconfiguration, author, publication from matches"))
         qDebug() << accessQry.lastError();
 
     // resource and match insertion
@@ -246,7 +246,6 @@ bool importMatches()
             if (! resourceQry.exec())
                 qDebug() << resourceQry.lastError();
 
-            sqliteQry.bindValue(":content", accessQry.value(9).toString());
             sqliteQry.bindValue(":resource_id", resourceQry.lastInsertId());
         }
         else {
