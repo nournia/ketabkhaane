@@ -410,9 +410,19 @@
 <context>
     <name>OptionsForm</name>
     <message>
-        <location filename="optionsform.ui" line="+29"/>
+        <location filename="optionsform.ui" line="+48"/>
         <source>Convert Old Database</source>
         <translation>تبدیل پایگاه داده قبلی</translation>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>Library Connection</source>
+        <translation>ارتباط با کتابخانه</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Db Address</source>
+        <translation>آدرس پایگاه داده</translation>
     </message>
 </context>
 <context>
@@ -468,9 +478,12 @@
     <message>
         <location filename="dialogchangepassword.cpp" line="+26"/>
         <location filename="logindialog.cpp" line="+0"/>
-        <location filename="main.cpp" line="+25"/>
+        <location filename="main.cpp" line="+15"/>
         <location filename="matchform.cpp" line="+92"/>
-        <location filename="userform.cpp" line="+59"/>
+        <location filename="optionsform.cpp" line="+45"/>
+        <location filename="userform.cpp" line="+60"/>
+        <location line="+55"/>
+        <location line="+9"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -644,7 +657,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UserForm</name>
     <message>
-        <location filename="userform.ui" line="+70"/>
+        <location filename="userform.ui" line="+108"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
@@ -674,7 +687,22 @@ p, li { white-space: pre-wrap; }
         <translation>شماره تماس</translation>
     </message>
     <message>
-        <location line="-137"/>
+        <location line="-195"/>
+        <source>Library Import</source>
+        <translation>ورود اطلاعات از کتابخانه</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Id</source>
+        <translation>کد عضویت</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Import</source>
+        <translation>تایید</translation>
+    </message>
+    <message>
+        <location line="+36"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
@@ -718,6 +746,16 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Permission</source>
         <translation type="obsolete">نوع</translation>
+    </message>
+    <message>
+        <location filename="userform.cpp" line="-9"/>
+        <source>Library connection error.</source>
+        <translation>خطا در ارتباط با پایگاه داده کتابخانه.</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Invalid library id.</source>
+        <translation>کد عضویت نامعتبر است.</translation>
     </message>
 </context>
 <context>

@@ -4,6 +4,7 @@
 #include <QMessageBox>
 
 #include <jalali.h>
+#include <connector.h>
 
 UserForm::UserForm(QWidget *parent) :
     QWidget(parent),
@@ -102,4 +103,43 @@ void UserForm::cancelUser()
     ui->buttonBox->setEnabled(false);
 
     eUser->setFocus();
+}
+
+void UserForm::on_bImport_clicked()
+{
+    bool ok;
+    QSqlDatabase library = Connector::connectLibrary(ok);
+
+    if (!ok)
+    {
+        QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Library connection error."));
+        return;
+    }
+
+    QSqlQuery qry(library);
+    qry.exec(QString("select Name, Family, Adress, Phon, T_T, [Is Men] from users where id = '%1'").arg(ui->eLibraryId->text()));
+
+    if (!qry.next())
+    {
+        QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Invalid library id."));
+        return;
+    }
+
+    // TODO permission validation
+
+    ui->eFirstname->setText(qry.value(0).toString());
+    ui->eLastname->setText(qry.value(1).toString());
+    ui->eAddress->setText(qry.value(2).toString());
+    ui->ePhone->setText(qry.value(3).toString());
+
+    ui->eBirthDate->setText(qry.value(4).toString());
+
+    if (qry.value(5).toBool())
+        ui->rMale->setChecked(true);
+    else
+        ui->rFemale->setChecked(true);
+
+    ui->gData->setEnabled(true);
+    ui->buttonBox->setEnabled(true);
+    ui->eFirstname->setFocus();
 }

@@ -27,6 +27,7 @@ signals:
     void closeForm();
 
 private slots:
+    void on_bImport_clicked();
     void selectUser();
     void cancelUser();
 
