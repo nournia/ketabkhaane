@@ -184,11 +184,10 @@ QVariant getTitleId(QString table, QString title)
 
 QString refineContent(QString content)
 {
-    QString tmp = content.replace(QRegExp("[\r\n]+"), "</p><p>");
-    if (content.contains("<p>"))
-        tmp += "</p>";
-    tmp.replace("<p></p>", "");
-    return "<p>" + tmp + "</p>";
+    content.replace(QRegExp("[\r\n]+"), "</p><p>");
+    content = "<p>" + content + "</p>";
+    content.replace("<p></p>", "");
+    return content;
 }
 bool importMatches()
 {
@@ -212,7 +211,7 @@ bool importMatches()
     groups.insert(32, 0);
 
     // access select query
-    if (! accessQry.exec("select id, designerid, title, "+ ageField +" as ageclass, groupid, content, pictureconfiguration, author, publication from matches"))
+    if (! accessQry.exec("select id, designerid, title, "+ ageField +" as ageclass, groupid, content, pictureconfiguration, author, publication, librarybookid from matches"))
         qDebug() << accessQry.lastError();
 
     // resource and match insertion
@@ -247,13 +246,13 @@ bool importMatches()
             if (! resourceQry.exec())
                 qDebug() << resourceQry.lastError();
 
+            sqliteQry.bindValue(":content", accessQry.value(9).toString());
             sqliteQry.bindValue(":resource_id", resourceQry.lastInsertId());
         }
         else {
-            sqliteQry.bindValue(":resource_id", null);
-
             sqliteQry.bindValue(":category_id", groups[accessQry.value(4).toInt()]);
             sqliteQry.bindValue(":content", refineContent(accessQry.value(5).toString()));
+            sqliteQry.bindValue(":resource_id", null);
         }
 
         if (! sqliteQry.exec())
