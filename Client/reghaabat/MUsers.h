@@ -57,8 +57,8 @@ public:
             return QObject::tr("Birth date is not valid.");
 
         // used name
-        user["firstname"] = user["firstname"].toString().trimmed();
-        user["lastname"] = user["lastname"].toString().trimmed();
+        user["firstname"] = refineText(user["firstname"].toString().trimmed());
+        user["lastname"] = refineText(user["lastname"].toString().trimmed());
         qry.exec(QString("select id, firstname ||' '|| lastname as name from users where name = '%1'").arg(user["firstname"].toString() +" "+ user["lastname"].toString()));
         if (qry.next())
             if (qry.value(0).toString() != userId)

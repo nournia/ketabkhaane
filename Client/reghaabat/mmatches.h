@@ -43,7 +43,7 @@ public:
             return QObject::tr("Score is invalid.");
 
         // used title
-        data["title"] = data["title"].toString().trimmed();
+        data["title"] = refineText(data["title"].toString().trimmed());
         qry.exec(QString("select id from matches where title = '%1'").arg(data["title"].toString()));
         if (qry.next())
             if (qry.value(0).toString() != matchId)
