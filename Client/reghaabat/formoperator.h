@@ -5,6 +5,7 @@
 
 #include <mylineedit.h>
 #include <mmatches.h>
+#include <viewerform.h>
 
 namespace Ui {
     class FormOperator;
@@ -20,10 +21,11 @@ public:
 
     MyLineEdit *eUser, *eMatch;
 
-    void previewMatch(bool print);
+    void prepareViewer();
 
 private:
     Ui::FormOperator *ui;
+    ViewerForm* viewer;
 
 private slots:
     void on_bPreview_clicked();

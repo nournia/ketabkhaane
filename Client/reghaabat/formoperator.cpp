@@ -8,13 +8,14 @@
 #include <helper.h>
 #include <matchrow.h>
 #include <mainwindow.h>
-#include <viewerform.h>
 
 FormOperator::FormOperator(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FormOperator)
 {
     ui->setupUi(this);
+
+    viewer = new ViewerForm((MainWindow*) parent);
 
     // add username edit
     QString condition;
@@ -92,7 +93,10 @@ void FormOperator::selectMatch()
     ui->newMatchButtons->setEnabled(! eMatch->value().isEmpty());
 
     if (! eMatch->value().isEmpty())
+    {
         ui->bDeliver->setFocus();
+        prepareViewer();
+    }
 }
 
 void FormOperator::on_bDeliver_clicked()
@@ -101,17 +105,17 @@ void FormOperator::on_bDeliver_clicked()
     {
         MMatches::deliver(eUser->value(), eMatch->value());
         if (ui->cPrint->isChecked())
-            previewMatch(true);
+            viewer->on_bPrint_clicked();
         selectUser();
     }
 }
 
 void FormOperator::on_bPreview_clicked()
 {
-    previewMatch(false);
+    viewer->exec();
 }
 
-void FormOperator::previewMatch(bool print)
+void FormOperator::prepareViewer()
 {
     StrMap match;
     QList<StrPair> questions, asks;
@@ -150,11 +154,5 @@ void FormOperator::previewMatch(bool print)
         }
     }
 
-    ViewerForm* viewer = new ViewerForm((MainWindow*) parent());
     viewer->showMatch(match, asks);
-
-    if (print)
-        viewer->on_bPrint_clicked();
-    else
-        viewer->exec();
 }
