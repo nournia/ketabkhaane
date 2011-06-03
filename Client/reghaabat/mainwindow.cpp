@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 
 #include <QLabel>
-#include <QSettings>
 
 #include <logindialog.h>
 #include <dialogchangepassword.h>

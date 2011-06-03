@@ -1,6 +1,5 @@
 #include <QtGui/QApplication>
 #include <QTranslator>
-#include <QDir>
 
 #include <mainwindow.h>
 #include <connector.h>
@@ -27,7 +26,7 @@ int main(int argc, char *argv[])
     a.installTranslator(& qTranslator);
 
     // style
-    a.setStyle("plastique"); // plastique, cleanlooks
+    //a.setStyle("plastique"); // plastique, cleanlooks
     //a.setStyleSheet(".QWidget{font-family: 'B Mitra';} QListView {}");
 
     MainWindow w;

@@ -387,7 +387,7 @@
     </message>
     <message>
         <location line="+96"/>
-        <location filename="viewerform.cpp" line="+105"/>
+        <location filename="viewerform.cpp" line="+107"/>
         <location line="+94"/>
         <source>book</source>
         <translation>کتاب</translation>
@@ -411,17 +411,27 @@
 <context>
     <name>OptionsForm</name>
     <message>
-        <location filename="optionsform.ui" line="+48"/>
+        <location filename="optionsform.ui" line="+53"/>
         <source>Convert Old Database</source>
         <translation>تبدیل پایگاه داده قبلی</translation>
     </message>
     <message>
-        <location line="-19"/>
+        <location line="-22"/>
         <source>Library Connection</source>
         <translation>ارتباط با کتابخانه</translation>
     </message>
     <message>
+        <location line="-19"/>
+        <source>Printer</source>
+        <translation>چاپگر</translation>
+    </message>
+    <message>
         <location line="+6"/>
+        <source>Title</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>Db Address</source>
         <translation>آدرس پایگاه داده</translation>
     </message>
@@ -479,11 +489,11 @@
     <message>
         <location filename="dialogchangepassword.cpp" line="+26"/>
         <location filename="logindialog.cpp" line="+0"/>
-        <location filename="main.cpp" line="+15"/>
+        <location filename="main.cpp" line="+14"/>
         <location filename="matchform.cpp" line="+92"/>
-        <location filename="optionsform.cpp" line="+45"/>
+        <location filename="optionsform.cpp" line="+52"/>
         <location filename="userform.cpp" line="+60"/>
-        <location line="+55"/>
+        <location line="+58"/>
         <location line="+9"/>
         <location line="+9"/>
         <source>Reghaabat</source>

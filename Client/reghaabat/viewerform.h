@@ -19,12 +19,14 @@ public:
     QString addTable(QString title, QStringList fields, QString query);
     void loadHtml(QString name);
     void showMatch(StrMap match, QList<StrPair> questions);
+    void savePdf(QString filename);
 
 private:
     Ui::ViewerForm *ui;
 
 public slots:
     void on_bPrint_clicked();
+
 private slots:
     void on_bPdf_clicked();
     void on_bMatchAgeGroup_clicked();

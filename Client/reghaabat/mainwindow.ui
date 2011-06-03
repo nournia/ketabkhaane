@@ -47,8 +47,8 @@
     </property>
     <addaction name="actionLogin"/>
     <addaction name="actionLogout"/>
-    <addaction name="actionSync"/>
     <addaction name="actionOptions"/>
+    <addaction name="actionSync"/>
    </widget>
    <widget class="QMenu" name="menuUser">
     <property name="title">

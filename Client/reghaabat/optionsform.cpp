@@ -3,6 +3,7 @@
 
 #include <QSettings>
 #include <QMessageBox>
+#include <QPrinterInfo>
 
 #include <accesstosqlite.h>
 
@@ -12,8 +13,13 @@ OptionsForm::OptionsForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->cPrinters->clear();
+    foreach(QPrinterInfo printer, QPrinterInfo::availablePrinters())
+        ui->cPrinters->addItem(printer.printerName());
+
     QSettings settings("Rooyesh", "Reghaabat");
     ui->eLibraryAddress->setText(settings.value("LibraryAddress", "").toString());
+    ui->cPrinters->setCurrentIndex(ui->cPrinters->findText(settings.value("Printer", "").toString()));
 }
 
 OptionsForm::~OptionsForm()
@@ -35,6 +41,7 @@ void OptionsForm::on_buttonBox_accepted()
 {
     QSettings settings("Rooyesh", "Reghaabat");
     settings.setValue("LibraryAddress", ui->eLibraryAddress->text());
+    settings.setValue("Printer", ui->cPrinters->currentText());
 
     QString msg = "";
 
@@ -43,5 +50,4 @@ void OptionsForm::on_buttonBox_accepted()
         emit closeForm();
     else
         QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
-
 }

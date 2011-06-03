@@ -9,8 +9,10 @@
 #include <QPrinter>
 #include <QPrinterInfo>
 #include <QFileDialog>
-#include <jalali.h>
+#include <QSettings>
+#include <QProcess>
 
+#include <jalali.h>
 #include <matchform.h>
 
 ViewerForm::ViewerForm(QWidget *parent) :
@@ -169,7 +171,7 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
         {
             if (i < questions.count())
             {
-                content += QString("<p>%1. %2<br />%3</p>").arg(i+1).arg(questions[i].first).arg(questions[i].second);
+                content += QString("<p><span>%1.<span> %2<br />%3</p>").arg(i+1).arg(questions[i].first).arg(questions[i].second);
                 //evaluations += QString("<div class='question'><span class='index'>%1 %2</span>%3</div>").arg(tr("Question")).arg(i+1).arg(choices);
             } else
             {
@@ -232,9 +234,18 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     ui->gLists->setVisible(false);
 }
 
+void ViewerForm::savePdf(QString filename)
+{
+    QPrinter printer(QPrinterInfo::defaultPrinter());
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
+    printer.setOutputFileName(filename);
+    ui->webView->print(&printer);
+}
+
 void ViewerForm::on_bPdf_clicked()
 {
-    QFile file("res.html");
+    QFile file("print.html");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream out(&file);
@@ -243,17 +254,23 @@ void ViewerForm::on_bPdf_clicked()
         file.close();
     }
 
-    QPrinter printer(QPrinterInfo::defaultPrinter());
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
-
-    printer.setOutputFileName(QFileDialog::getSaveFileName(this, ""));
-    ui->webView->print(&printer);
+    savePdf(QFileDialog::getSaveFileName(this, ""));
 }
 
 void ViewerForm::on_bPrint_clicked()
 {
-    QPrinter printer(QPrinterInfo::defaultPrinter());
-    printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
-    ui->webView->print(&printer);
+    QString tmpFile = "pr";
+
+    savePdf(tmpFile);
+
+    QSettings settings("Rooyesh", "Reghaabat");
+    QString printer = settings.value("Printer", "").toString();
+
+    if (printer.isEmpty())
+        printer = "-print-to-default";
+    else
+        printer = QString("-print-to \"%1\"").arg(printer);
+
+    QProcess* p = new QProcess(this);
+    p->start(QString("sumatra.exe %1 %2").arg(printer).arg(tmpFile));
 }
