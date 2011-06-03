@@ -125,7 +125,14 @@ void UserForm::on_bImport_clicked()
         return;
     }
 
-    // TODO permission validation
+    // permission validation
+    if (!Reghaabat::hasAccess("manager"))
+        if (!Reghaabat::hasAccess("operator") ||
+            !((qry.value(5).toBool() && Reghaabat::instance()->userGender == "male") || (!qry.value(5).toBool() && Reghaabat::instance()->userGender == "female")))
+        {
+            QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Permission denied."));
+            return;
+        }
 
     ui->eFirstname->setText(qry.value(0).toString());
     ui->eLastname->setText(qry.value(1).toString());

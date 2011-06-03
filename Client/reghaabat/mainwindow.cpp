@@ -36,8 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     applyPermission();
 
-    optionsForm = new OptionsForm(this);
-    showForm(optionsForm);
+//    optionsForm = new OptionsForm(this);
+//    showForm(optionsForm);
 
 //    firstPage();
 }
@@ -77,10 +77,10 @@ void MainWindow::applyPermission()
    ui->actionChangePassword->setEnabled(! ui->actionLogin->isVisible());
 
    // enables
-   ui->actionSync->setEnabled(true);
 
    if (Reghaabat::hasAccess("operator"))
    {
+//       ui->actionSync->setEnabled(true);
        ui->actionNewUser->setEnabled(true);
        ui->actionEditUser->setEnabled(true);
        ui->actionDeliverMatch->setEnabled(true);

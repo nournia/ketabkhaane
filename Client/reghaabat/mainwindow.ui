@@ -43,25 +43,25 @@
    </property>
    <widget class="QMenu" name="menuReghaabat">
     <property name="title">
-     <string>reghaabat</string>
+     <string>Reghaabat</string>
     </property>
     <addaction name="actionLogin"/>
     <addaction name="actionLogout"/>
-    <addaction name="actionChangePassword"/>
-    <addaction name="actionChangePermissions"/>
     <addaction name="actionSync"/>
     <addaction name="actionOptions"/>
    </widget>
    <widget class="QMenu" name="menuUser">
     <property name="title">
-     <string>user</string>
+     <string>User</string>
     </property>
     <addaction name="actionNewUser"/>
     <addaction name="actionEditUser"/>
+    <addaction name="actionChangePassword"/>
+    <addaction name="actionChangePermissions"/>
    </widget>
    <widget class="QMenu" name="menuMatch">
     <property name="title">
-     <string>match</string>
+     <string>Match</string>
     </property>
     <addaction name="actionDeliverMatch"/>
     <addaction name="actionNewMatch"/>

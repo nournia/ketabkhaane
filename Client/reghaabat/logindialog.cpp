@@ -41,6 +41,7 @@ void LoginDialog::on_buttonBox_accepted()
     {
         Reghaabat::instance()->userId = user["id"].toString();
         Reghaabat::instance()->userName = user["name"].toString();
+        Reghaabat::instance()->userGender = user["gender"].toString();
         Reghaabat::instance()->userPermission = user["permission"].toString();
     }
     else QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Invalid Username or Password."));

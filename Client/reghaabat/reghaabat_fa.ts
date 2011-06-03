@@ -131,7 +131,7 @@
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location filename="logindialog.cpp" line="+46"/>
+        <location filename="logindialog.cpp" line="+47"/>
         <source>Invalid Username or Password.</source>
         <translation>نام کاربری و یا کلمه‌ی عبور اشتباه است.</translation>
     </message>
@@ -140,6 +140,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="mainwindow.ui" line="+14"/>
+        <location line="+32"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -148,18 +149,18 @@
         <translation type="obsolete">نام کاربر</translation>
     </message>
     <message>
-        <location line="+32"/>
-        <source>reghaabat</source>
-        <translation>رقابت</translation>
+        <source>user</source>
+        <translation type="obsolete">عضو</translation>
     </message>
     <message>
-        <location line="+11"/>
-        <source>user</source>
+        <location line="+9"/>
+        <source>User</source>
         <translation>عضو</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>match</source>
+        <location line="+9"/>
+        <source>Match</source>
+        <oldsource>match</oldsource>
         <translation>مسابقه</translation>
     </message>
     <message>
@@ -484,6 +485,7 @@
         <location filename="userform.cpp" line="+60"/>
         <location line="+55"/>
         <location line="+9"/>
+        <location line="+9"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -748,7 +750,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">نوع</translation>
     </message>
     <message>
-        <location filename="userform.cpp" line="-9"/>
+        <location filename="userform.cpp" line="-18"/>
         <source>Library connection error.</source>
         <translation>خطا در ارتباط با پایگاه داده کتابخانه.</translation>
     </message>
@@ -756,6 +758,11 @@ p, li { white-space: pre-wrap; }
         <location line="+9"/>
         <source>Invalid library id.</source>
         <translation>کد عضویت نامعتبر است.</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Permission denied.</source>
+        <translation>محدودیت دسترسی</translation>
     </message>
 </context>
 <context>
