@@ -88,7 +88,10 @@ void UserForm::selectUser()
 
 void UserForm::cancelUser()
 {
-    eUser->setCompleter(new MyCompleter("select id, firstname || ' ' || lastname as ctitle from users", eUser));
+    QString condition;
+    if (!Reghaabat::hasAccess("manager"))
+        condition = QString(" where gender = '%1'").arg(Reghaabat::instance()->userGender);
+    eUser->setCompleter(new MyCompleter("select id, firstname||' '||lastname as ctitle from users" + condition, eUser));
 
     ui->eFirstname->setText("");
     ui->eLastname->setText("");

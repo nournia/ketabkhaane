@@ -17,7 +17,10 @@ FormOperator::FormOperator(QWidget *parent) :
     ui->setupUi(this);
 
     // add username edit
-    eUser = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users", this);
+    QString condition;
+    if (!Reghaabat::hasAccess("manager"))
+        condition = QString(" where gender = '%1'").arg(Reghaabat::instance()->userGender);
+    eUser = new MyLineEdit("select id, firstname||' '||lastname as ctitle from users" + condition, this);
     ui->lUser->addWidget(eUser);
     connect(eUser, SIGNAL(select()), this, SLOT(selectUser()));
     connect(eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
