@@ -25,6 +25,9 @@
    </property>
    <item>
     <widget class="QLabel" name="label">
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
      <property name="text">
       <string/>
      </property>

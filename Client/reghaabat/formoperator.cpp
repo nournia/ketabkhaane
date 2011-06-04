@@ -54,8 +54,7 @@ void FormOperator::cancelUser()
 
     // clean gDelivered
     QLayoutItem *child;
-    if (ui->gDelivered->layout())
-    while ((child = ui->gDelivered->layout()->takeAt(0)) != 0)
+    while ((child = ui->lDelivered->layout()->takeAt(0)) != 0)
          delete child->widget();
 }
 
@@ -80,11 +79,11 @@ void FormOperator::selectUser()
         for (int i = 1; qry.next(); i++)
         {
             MatchRow* row = new MatchRow(eUser->value(), qry.value(0).toString(), qry.value(1).toString(), ui->gDelivered);
-            ui->gDelivered->layout()->addWidget(row);
+            ui->lDelivered->layout()->addWidget(row);
         }
 
         // space filler
-        ui->gDelivered->layout()->addWidget(new QWidget);
+        ui->lDelivered->layout()->addWidget(new QWidget);
     }
 }
 

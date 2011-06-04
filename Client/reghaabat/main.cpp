@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     a.setStyle("plastique"); // plastique, cleanlooks
     QFile qss(":/resources/default.qss");
     qss.open(QFile::ReadOnly);
-//    a.setStyleSheet(qss.readAll());
+    a.setStyleSheet(qss.readAll());
     qss.close();
 
     MainWindow w;

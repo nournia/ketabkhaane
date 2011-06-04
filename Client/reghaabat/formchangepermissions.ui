@@ -42,7 +42,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QTableView" name="tPermissions"/>
+    <widget class="QTableView" name="tPermissions">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
