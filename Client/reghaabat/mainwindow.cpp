@@ -38,7 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //    optionsForm = new OptionsForm(this);
 //    showForm(optionsForm);
 
-//    firstPage();
+    firstPage();
+    on_actionLogin_triggered();
 }
 
 MainWindow::~MainWindow()
@@ -131,7 +132,7 @@ void MainWindow::on_actionLogin_triggered()
         QLabel* label = new QLabel(Reghaabat::instance()->userName, this);
 
         QVBoxLayout* lay =  new QVBoxLayout();
-        lay->setContentsMargins(3, 3, 3, 3);
+        lay->setContentsMargins(9, 3, 9, 3);
         lay->addWidget(label);
         delete ui->statusBar->layout();
         ui->statusBar->setLayout(lay);
@@ -149,6 +150,10 @@ void MainWindow::on_actionLogout_triggered()
     Reghaabat::instance()->userName = "";
     Reghaabat::instance()->userPermission = "";
 
+    // clean status bar
+    QLayoutItem *child;
+    while ((child = ui->statusBar->layout()->takeAt(0)) != 0)
+         delete child->widget();
     delete ui->statusBar->layout();
 
     clear();
@@ -202,6 +207,7 @@ void MainWindow::on_actionOptions_triggered()
 
     clear();
     optionsForm = new OptionsForm(this);
+    connect(optionsForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
     showForm(optionsForm);
 }
 
