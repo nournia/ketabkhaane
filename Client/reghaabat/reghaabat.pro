@@ -73,4 +73,4 @@ FORMS    += mainwindow.ui \
 
 TRANSLATIONS = reghaabat_fa.ts
 
-OTHER_FILES +=
+RESOURCES = reghaabat.qrc

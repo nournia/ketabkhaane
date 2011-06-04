@@ -26,8 +26,11 @@ int main(int argc, char *argv[])
     a.installTranslator(& qTranslator);
 
     // style
-    //a.setStyle("plastique"); // plastique, cleanlooks
-    //a.setStyleSheet(".QWidget{font-family: 'B Mitra';} QListView {}");
+    a.setStyle("plastique"); // plastique, cleanlooks
+    QFile qss(":/resources/default.qss");
+    qss.open(QFile::ReadOnly);
+//    a.setStyleSheet(qss.readAll());
+    qss.close();
 
     MainWindow w;
     w.show();

@@ -55,7 +55,7 @@ bool addTriggers()
 
 bool buildSqliteDb()
 {
-    QFile file("../sqlite.sql");
+    QFile file(":/resources/sqlite.sql");
     if (! file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qDebug() << "sql file not found";

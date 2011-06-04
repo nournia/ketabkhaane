@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/list.html</file>
+        <file>resources/match.html</file>
+        <file>resources/sqlite.sql</file>
+        <file>resources/default.qss</file>
+    </qresource>
+</RCC>
