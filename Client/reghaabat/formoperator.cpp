@@ -61,7 +61,7 @@ void FormOperator::cancelUser()
 void FormOperator::cancelMatch()
 {
     ui->newMatchButtons->setEnabled(false);
-    eMatch->setCompleter(new MyCompleter(QString("select id, title as ctitle from matches where abs(ageclass - %1) <= 1 and id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(eUser->value())).arg(eUser->value()), this));
+    eMatch->setCompleter(new MyCompleter(QString("select matches.id, matches.title as ctitle from matches inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(eUser->value())).arg(eUser->value()), this));
 }
 
 void FormOperator::selectUser()
