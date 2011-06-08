@@ -30,12 +30,8 @@ ViewerForm::~ViewerForm()
 void ViewerForm::loadHtml(QString name)
 {
     QFile file(QString(":/resources/%1.html").arg(name));
-    if (! file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-//        qDebug() << "sql file not found";
-//        return false;
-    }
-    ui->webView->setHtml(QTextStream(&file).readAll());
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+        ui->webView->setHtml(QTextStream(&file).readAll());
 }
 
 QString ViewerForm::addTable(QString title, QStringList fields, QString query)

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style>
+body {
+	margin: 0;
+}
+.wysiwyg-input { width: 100%; height: 90%; }
+</style>
+</head>
+<body>
+
+<script type="text/javascript" src="jwysiwyg/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="jwysiwyg/jquery/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="jwysiwyg/jquery.wysiwyg.css" type="text/css"/>
+<script type="text/javascript" src="jwysiwyg/jquery.wysiwyg.js"></script>
+<script type="text/javascript" src="jwysiwyg/controls/wysiwyg.image.js"></script>
+<script type="text/javascript" src="jwysiwyg/controls/wysiwyg.link.js"></script>
+<script type="text/javascript" src="jwysiwyg/plugins/wysiwyg.fileManager.js"></script> 
+
+
+<script type="text/javascript">
+
+$(function() {
+	$(document).ready(function() {
+		$('#wysiwyg').wysiwyg({
+		  controls: {
+			strikeThrough : { visible : false },
+			redo : { visible : false },
+			undo : { visible : false },
+			indent : { visible : false },
+			outdent : { visible : false },
+			subscript : { visible : false },
+			superscript : { visible : false },
+			code : { visible : false },
+			h1 : { visible : false },
+			h2 : { visible : false },
+			h3 : { visible : false },
+			removeFormat : { visible : false },
+			insertTable : { visible : false },
+
+			insertImage : { visible : false },
+			createLink : { visible : false },
+		  },
+		  
+		  css: "jwysiwyg/reghaabat.css",
+		  iFrameClass: "wysiwyg-input",
+		  dialog:"jqueryui"
+		});
+		
+		$('#wysiwyg').wysiwyg('setContent', '');
+	});
+});
+</script>
+
+<textarea id="wysiwyg"></textarea>
+
+</body>
+</html>

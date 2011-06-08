@@ -1,0 +1,9 @@
+body {
+	direction: rtl;
+	text-align: right;
+	margin: 8px !important; 
+}
+
+p {
+	margin: 0px !important;
+}

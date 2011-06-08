@@ -108,7 +108,7 @@ void MatchForm::selectMatch()
         {
             ui->cType->setCurrentIndex(1); // Instructions
             ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["category_id"].toString()));
-            ui->eContent->setHtml(match["content"].toString());
+            ui->eContent->page()->mainFrame()->evaluateJavaScript(QString("$('#wysiwyg').wysiwyg('setContent', '%1');").arg(match["content"].toString()));
         }
 
         ui->gData->setEnabled(true);
@@ -129,7 +129,14 @@ void MatchForm::cancelMatch()
     ui->cGroup->setCurrentIndex(0);
     eAuthor->setText("");
     ePublication->setText("");
-    ui->eContent->setPlainText("");
+
+    QFile file("jwysiwyg.html");
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QString html = QTextStream(&file).readAll();
+        html = html.replace("\"jwysiwyg/", QString("\"%1/jwysiwyg/").arg(QDir::currentPath()));
+        ui->eContent->setHtml(html);
+    }
 
     clearQuestions();
 
@@ -186,7 +193,7 @@ void MatchForm::on_bNewQuestion_clicked()
         lay->addWidget(fillerItem);
     }
 }
-
+/*
 QString refineHtml(QString html)
 {
     QWebView* view = new QWebView();
@@ -199,7 +206,7 @@ QString refineHtml(QString html)
         result += QString("<p>%1</p>").arg(p.toInnerXml());
 
     return result;
-}
+}*/
 
 void MatchForm::fillMaps(StrMap& match, QList<StrPair>& questions)
 {
@@ -223,7 +230,8 @@ void MatchForm::fillMaps(StrMap& match, QList<StrPair>& questions)
     else
     {
         match["category_id"] = ui->cGroup->itemData(ui->cGroup->currentIndex());
-        match["content"]  = refineHtml(ui->eContent->toHtml());
+        QString html = ui->eContent->page()->mainFrame()->evaluateJavaScript("document.getElementById('wysiwyg').value").toString();
+        match["content"]  = html;
     }
 }
 

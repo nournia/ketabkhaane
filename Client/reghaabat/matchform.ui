@@ -250,9 +250,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="eContent">
-        <property name="tabChangesFocus">
-         <bool>true</bool>
+       <widget class="QWebView" name="eContent">
+        <property name="url">
+         <url>
+          <string>about:blank</string>
+         </url>
         </property>
        </widget>
       </item>
@@ -305,6 +307,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>cType</tabstop>
   <tabstop>cGroup</tabstop>
@@ -312,7 +321,6 @@
   <tabstop>eTitle</tabstop>
   <tabstop>sScore</tabstop>
   <tabstop>cState</tabstop>
-  <tabstop>eContent</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources/>
