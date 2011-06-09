@@ -19,6 +19,8 @@ body {
 <script type="text/javascript" src="jwysiwyg/controls/wysiwyg.image.js"></script>
 <script type="text/javascript" src="jwysiwyg/controls/wysiwyg.link.js"></script>
 <script type="text/javascript" src="jwysiwyg/plugins/wysiwyg.fileManager.js"></script> 
+<script type="text/javascript" src="jwysiwyg/plugins/wysiwyg.i18n.js"></script>
+<script type="text/javascript" src="jwysiwyg/i18n/lang.fa.js"></script>
 
 
 <script type="text/javascript">
@@ -26,6 +28,10 @@ body {
 $(function() {
 	$(document).ready(function() {
 		$('#wysiwyg').wysiwyg({
+		  plugins: {
+		 	i18n: { lang: "fa" },
+		  }, 
+
 		  controls: {
 			strikeThrough : { visible : false },
 			redo : { visible : false },
