@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MatchTable</class>
+ <widget class="QDialog" name="MatchTable">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>572</width>
+    <height>384</height>
+   </rect>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::RightToLeft</enum>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTableView" name="tMatches">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -67,6 +67,7 @@
     <addaction name="actionNewMatch"/>
     <addaction name="actionEditMatch"/>
     <addaction name="actionLists"/>
+    <addaction name="actionMatchTable"/>
     <addaction name="actionSetScores"/>
    </widget>
    <addaction name="menuReghaabat"/>
@@ -161,6 +162,11 @@
    </property>
    <property name="toolTip">
     <string>Set Scores</string>
+   </property>
+  </action>
+  <action name="actionMatchTable">
+   <property name="text">
+    <string>MatchTable</string>
    </property>
   </action>
  </widget>

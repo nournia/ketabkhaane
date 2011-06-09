@@ -137,6 +137,29 @@
     </message>
 </context>
 <context>
+    <name>MMatches</name>
+    <message>
+        <source>book</source>
+        <translation type="obsolete">کتاب</translation>
+    </message>
+    <message>
+        <source>multimedia</source>
+        <translation type="obsolete">چند رسانه‌ای</translation>
+    </message>
+    <message>
+        <source>active</source>
+        <translation type="obsolete">فعال</translation>
+    </message>
+    <message>
+        <source>imported</source>
+        <translation type="obsolete">نیازمند بررسی</translation>
+    </message>
+    <message>
+        <source>disabled</source>
+        <translation type="obsolete">غیر فعال</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <location filename="mainwindow.ui" line="+14"/>
@@ -164,7 +187,7 @@
         <translation>مسابقه</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+25"/>
         <location line="+3"/>
         <source>Sync</source>
         <translation>همزمانی</translation>
@@ -228,6 +251,11 @@
         <translation>ثبت امتیازها</translation>
     </message>
     <message>
+        <location line="+5"/>
+        <source>MatchTable</source>
+        <translation>جدول مسابقه‌ها</translation>
+    </message>
+    <message>
         <source>list</source>
         <translation type="obsolete">لیست</translation>
     </message>
@@ -256,7 +284,7 @@
         <translation type="obsolete">تنظیمات</translation>
     </message>
     <message>
-        <location line="-46"/>
+        <location line="-51"/>
         <location line="+3"/>
         <source>New Match</source>
         <oldsource>deliverMatch</oldsource>
@@ -362,11 +390,13 @@
     </message>
     <message>
         <location line="+1"/>
+        <location filename="matchtable.h" line="+60"/>
         <source>imported</source>
         <translation>نیازمند بررسی</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="matchtable.h" line="+0"/>
         <source>disabled</source>
         <translation>غیر فعال</translation>
     </message>
@@ -386,14 +416,16 @@
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location line="+96"/>
-        <location filename="viewerform.cpp" line="+107"/>
+        <location line="+103"/>
+        <location filename="matchtable.h" line="-1"/>
+        <location filename="viewerform.cpp" line="+103"/>
         <location line="+94"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="matchtable.h" line="+0"/>
         <location filename="viewerform.cpp" line="-94"/>
         <location line="+96"/>
         <source>multimedia</source>
@@ -401,9 +433,41 @@
     </message>
 </context>
 <context>
+    <name>MatchListModel</name>
+    <message>
+        <location filename="matchtable.h" line="+6"/>
+        <source>Title</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Age Class</source>
+        <translation>رده سنی</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Score</source>
+        <translation>امتیاز</translation>
+    </message>
+    <message>
+        <source>Max Score</source>
+        <translation type="obsolete">حداکثر امتیاز</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Kind</source>
+        <translation>نوع</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>State</source>
+        <translation>وضعیت</translation>
+    </message>
+</context>
+<context>
     <name>MatchRow</name>
     <message>
-        <location filename="matchrow.ui" line="+42"/>
+        <location filename="matchrow.ui" line="+45"/>
         <source>Receive</source>
         <translation>دریافت</translation>
     </message>
@@ -411,7 +475,7 @@
 <context>
     <name>OptionsForm</name>
     <message>
-        <location filename="optionsform.ui" line="+53"/>
+        <location filename="optionsform.ui" line="+61"/>
         <source>Convert Old Database</source>
         <translation>تبدیل پایگاه داده قبلی</translation>
     </message>
@@ -490,7 +554,7 @@
         <location filename="dialogchangepassword.cpp" line="+26"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="main.cpp" line="+14"/>
-        <location filename="matchform.cpp" line="+92"/>
+        <location filename="matchform.cpp" line="+93"/>
         <location filename="optionsform.cpp" line="+52"/>
         <location filename="userform.cpp" line="+60"/>
         <location line="+58"/>
@@ -600,6 +664,27 @@
         <translation>امتیاز باید از دو برابر حداکثر امتیاز کوچکتر باشد.</translation>
     </message>
     <message>
+        <source>book</source>
+        <translation type="obsolete">کتاب</translation>
+    </message>
+    <message>
+        <source>multimedia</source>
+        <translation type="obsolete">چند رسانه‌ای</translation>
+    </message>
+    <message>
+        <location filename="matchtable.h" line="-9"/>
+        <source>active</source>
+        <translation>فعال</translation>
+    </message>
+    <message>
+        <source>imported</source>
+        <translation type="obsolete">نیازمند بررسی</translation>
+    </message>
+    <message>
+        <source>disabled</source>
+        <translation type="obsolete">غیر فعال</translation>
+    </message>
+    <message>
         <source>Invalid score value.</source>
         <translation type="obsolete">امتیاز وارد شده معتبر نیست.</translation>
     </message>
@@ -613,7 +698,8 @@
     </message>
     <message>
         <location line="+31"/>
-        <source>+</source>
+        <source>-</source>
+        <oldsource>+</oldsource>
         <translation></translation>
     </message>
     <message>
@@ -945,8 +1031,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">کیفیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="-223"/>
-        <location line="+247"/>
+        <location filename="matchform.cpp" line="-231"/>
+        <location line="+255"/>
         <location filename="viewerform.cpp" line="-9"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>

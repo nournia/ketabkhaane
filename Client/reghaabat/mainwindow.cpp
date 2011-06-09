@@ -2,12 +2,14 @@
 #include "ui_mainwindow.h"
 
 #include <QLabel>
+#include <QDesktopWidget>
 
 #include <logindialog.h>
 #include <dialogchangepassword.h>
 #include <formchangepermissions.h>
 #include <viewerform.h>
 #include <scoreform.h>
+#include <matchtable.h>
 #include <sender.h>
 
 // init reghaabat global variables
@@ -23,12 +25,15 @@ MatchForm* matchForm;
 OptionsForm* optionsForm;
 ViewerForm* viewerForm;
 ScoreForm* scoreForm;
+MatchTable* matchListForm;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    this->move(QApplication::desktop()->screen()->rect().center()-this->rect().center());
 
     // files
     Reghaabat::instance()->files = QDir::currentPath() + "/data/files/";
@@ -57,6 +62,7 @@ void MainWindow::clear()
     delete formChangePermissions; formChangePermissions = 0;
     delete viewerForm; viewerForm = 0;
     delete scoreForm; scoreForm = 0;
+    delete matchListForm; matchListForm = 0;
 }
 
 void MainWindow::applyPermission()
@@ -258,4 +264,13 @@ void MainWindow::on_actionSetScores_triggered()
     clear();
     scoreForm = new ScoreForm(this);
     showForm(scoreForm);
+}
+
+void MainWindow::on_actionMatchTable_triggered()
+{
+    if (! Reghaabat::hasAccess("manager")) return;
+
+    clear();
+    matchListForm = new MatchTable(this);
+    showForm(matchListForm);
 }

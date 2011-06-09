@@ -250,13 +250,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QWebView" name="eContent">
-        <property name="url">
-         <url>
-          <string>about:blank</string>
-         </url>
-        </property>
-       </widget>
+       <widget class="QWebView" name="eContent"/>
       </item>
       <item>
        <widget class="QScrollArea" name="sQuestions">
