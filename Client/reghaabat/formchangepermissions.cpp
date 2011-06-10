@@ -19,6 +19,8 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
 
     ui->tPermissions->setColumnHidden(0, true);
     ui->tPermissions->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
+    ui->tPermissions->verticalHeader()->setDefaultSectionSize(22);
+    ui->tPermissions->verticalHeader()->setVisible(false);
 
     ui->tPermissions->setItemDelegateForColumn(2, new DelegateComboBox(PermissionModel::getPermissions(), ui->tPermissions));
     ui->tPermissions->setItemDelegateForColumn(3, new DelegatePassword(ui->tPermissions));

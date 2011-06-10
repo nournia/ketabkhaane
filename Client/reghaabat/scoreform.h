@@ -44,8 +44,6 @@ public:
         if (! msg.isEmpty())
             QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
 
-        clear();
-
         refresh();
         return msg.isEmpty();
     }

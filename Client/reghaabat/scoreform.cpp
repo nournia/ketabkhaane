@@ -23,6 +23,8 @@ ScoreForm::ScoreForm(QWidget *parent) :
     ui->tScores->setColumnHidden(0, true);
     ui->tScores->horizontalHeader()->setResizeMode(2, QHeaderView::Stretch);
     ui->tScores->setColumnWidth(1, 150);
+    ui->tScores->verticalHeader()->setDefaultSectionSize(22);
+    ui->tScores->verticalHeader()->setVisible(false);
 
     ui->tScores->setItemDelegateForColumn(4, new ScoreDelegate(ui->tScores));
 

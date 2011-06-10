@@ -23,6 +23,14 @@ public:
         return flags;
     }
 
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const
+    {
+        if ((index.column() != 1) && role == Qt::TextAlignmentRole)
+            return Qt::AlignCenter;
+        else
+            return QSqlQueryModel::data(index, role);
+    }
+
     bool setData(const QModelIndex &index, const QVariant &value, int role)
     {
         if (!(index.column() == 2 || index.column() == 3))
@@ -38,8 +46,6 @@ public:
 
         if (! msg.isEmpty())
             QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
-
-        clear();
 
         refresh();
         return msg.isEmpty();
