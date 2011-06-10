@@ -117,8 +117,8 @@ public:
     {
         QSqlQuery qry;
 
-        if (! validPassword(newPass))
-            return QObject::tr("Password phrase length must be greater than 6 characters and mustn't be a pure number.");
+//        if (! validPassword(newPass))
+//            return QObject::tr("Password phrase length must be greater than 6 characters and mustn't be a pure number.");
 
         QString password = QCryptographicHash::hash(newPass.toUtf8(), QCryptographicHash::Sha1).toHex();
         if (! qry.exec(QString("update users set upassword = '%1' where id = %2").arg(password).arg(userId)))
