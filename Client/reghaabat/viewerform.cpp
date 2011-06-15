@@ -183,22 +183,35 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     frame->findFirstElement("#questions").setInnerXml(content);
     //frame->findFirstElement("#evaluations").appendInside(evaluations);
 
-        QSqlQuery qry;
+
+    QSqlQuery qry;
+
 
     // kind
     QString kind = match["kind"].toString();
+    QString advice;
+
     if (! match["category_id"].toString().isEmpty())
     {
         qry.exec("select title from categories where id = "+ match["category_id"].toString());
         if (qry.next())
             kind = qry.value(0).toString();
+        advice = tr("Your score depends on your mood, attention and genuis.");
     }
     else if (kind == "book")
+    {
         kind = MatchForm::tr("book");
+        advice = tr("You can achive up to twice score for writing an abstract of book.");
+    }
     else if (kind == "multimedia")
+    {
         kind = MatchForm::tr("multimedia");
+        advice = tr("You can achive up to twice score for writing an abstract of match content.");
+    }
 
     frame->findFirstElement("#kind").setPlainText(kind);
+    frame->findFirstElement("#help").setPlainText(advice);
+
 
     // user
     if (! match["user"].toString().isEmpty())
@@ -208,13 +221,16 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
             frame->findFirstElement("#user").setPlainText(qry.value(0).toString());
     }
 
+
     // corrector
     qry.exec("select firstname ||' '|| lastname from users where id = "+ match["corrector"].toString());
     if (qry.next())
         frame->findFirstElement("#corrector").setPlainText(qry.value(0).toString());
 
+
     // score
     frame->findFirstElement("#score").setPlainText(match["score"].toString());
+
 
     // library
     qry.exec("select title, image from library");

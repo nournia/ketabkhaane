@@ -131,7 +131,7 @@
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location filename="logindialog.cpp" line="+47"/>
+        <location filename="logindialog.cpp" line="+45"/>
         <source>Invalid Username or Password.</source>
         <translation>نام کاربری و یا کلمه‌ی عبور اشتباه است.</translation>
     </message>
@@ -419,15 +419,15 @@
         <location line="+103"/>
         <location filename="matchtable.h" line="-1"/>
         <location filename="viewerform.cpp" line="+103"/>
-        <location line="+94"/>
+        <location line="+100"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
         <location line="+1"/>
         <location filename="matchtable.h" line="+0"/>
-        <location filename="viewerform.cpp" line="-94"/>
-        <location line="+96"/>
+        <location filename="viewerform.cpp" line="-100"/>
+        <location line="+105"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -503,7 +503,7 @@
 <context>
     <name>PermissionModel</name>
     <message>
-        <location filename="formchangepermissions.h" line="+51"/>
+        <location filename="formchangepermissions.h" line="+57"/>
         <source>admin</source>
         <translation>مدیر سامانه</translation>
     </message>
@@ -607,12 +607,11 @@
         <translation>کلمه عبور جدید باید با تکرار آن تطابق داشته باشد.</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Password phrase length must be greater than 6 characters and mustn&apos;t be a pure number.</source>
-        <translation>کلمه عبور باید حداقل 6 حرف باشد و نباید فقط از عدد تشکل شده باشد.</translation>
+        <translation type="obsolete">کلمه عبور باید حداقل 6 حرف باشد و نباید فقط از عدد تشکل شده باشد.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+34"/>
         <source>You must have at least one master user.</source>
         <translation>سامانه باید حداقل یک مدیر داشته باشد.</translation>
     </message>
@@ -626,13 +625,13 @@
         <translation>کلمه عبور جدید ثبت شد.</translation>
     </message>
     <message>
-        <location filename="formchangepermissions.h" line="-31"/>
+        <location filename="formchangepermissions.h" line="-29"/>
         <location filename="scoreform.h" line="+45"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
     <message>
-        <location filename="mmatches.h" line="+39"/>
+        <location filename="mmatches.h" line="+40"/>
         <source>Title is required.</source>
         <oldsource>Title is required</oldsource>
         <translation>عنوان نباید خالی باشد.</translation>
@@ -728,7 +727,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SetScoreModel</name>
     <message>
-        <location filename="scoreform.h" line="+21"/>
+        <location filename="scoreform.h" line="+19"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>
@@ -907,7 +906,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location filename="viewerform.cpp" line="-66"/>
+        <location filename="viewerform.cpp" line="-75"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -1019,6 +1018,21 @@ p, li { white-space: pre-wrap; }
         <translation>عالی</translation>
     </message>
     <message>
+        <location line="+36"/>
+        <source>Your score depends on your mood, attention and genuis.</source>
+        <translation>امتیاز مسابقه به حوصله، دقت و استعداد شما داده می‌شود.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>You can achive up to twice score for writing an abstract of book.</source>
+        <translation>نوشتن خلاصه‌ای از کتاب به اندازه پاسخ دادن به سوالها امتیاز دارد.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>You can achive up to twice score for writing an abstract of match content.</source>
+        <translation>نوشتن خلاصه‌ای از محتوی مسابقه به اندازه پاسخ دادن به سوالها امتیاز دارد.</translation>
+    </message>
+    <message>
         <source>Question</source>
         <translation type="obsolete">سوال</translation>
     </message>
@@ -1033,7 +1047,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="matchform.cpp" line="-231"/>
         <location line="+255"/>
-        <location filename="viewerform.cpp" line="-9"/>
+        <location filename="viewerform.cpp" line="-55"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
     </message>
