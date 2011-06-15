@@ -20,6 +20,7 @@ UserForm::UserForm(QWidget *parent) :
 
     cancelUser();
     editMode(false);
+    ui->eFirstname->setFocus();
 }
 
 UserForm::~UserForm()
@@ -152,4 +153,12 @@ void UserForm::on_bImport_clicked()
     ui->gData->setEnabled(true);
     ui->buttonBox->setEnabled(true);
     ui->eFirstname->setFocus();
+}
+
+void UserForm::on_gImport_clicked()
+{
+    ui->gImport->setMaximumHeight(ui->gImport->isChecked() ? 54 : 14);
+
+    if (ui->gImport->isChecked())
+        ui->eLibraryId->setFocus();
 }

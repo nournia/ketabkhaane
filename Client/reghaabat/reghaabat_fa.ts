@@ -556,7 +556,7 @@
         <location filename="main.cpp" line="+14"/>
         <location filename="matchform.cpp" line="+93"/>
         <location filename="optionsform.cpp" line="+52"/>
-        <location filename="userform.cpp" line="+60"/>
+        <location filename="userform.cpp" line="+61"/>
         <location line="+58"/>
         <location line="+9"/>
         <location line="+9"/>
@@ -754,7 +754,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UserForm</name>
     <message>
-        <location filename="userform.ui" line="+108"/>
+        <location filename="userform.ui" line="+70"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
@@ -784,22 +784,22 @@ p, li { white-space: pre-wrap; }
         <translation>شماره تماس</translation>
     </message>
     <message>
-        <location line="-195"/>
+        <location line="+60"/>
         <source>Library Import</source>
         <translation>ورود اطلاعات از کتابخانه</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+15"/>
         <source>Id</source>
         <translation>کد عضویت</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Import</source>
-        <translation>تایید</translation>
+        <translation>وارد کردن</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="-222"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
