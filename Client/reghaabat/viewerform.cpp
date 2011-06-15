@@ -152,7 +152,7 @@ void ViewerForm::on_bMatchAgeGroup_clicked()
 void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 {
     setWindowTitle(tr("Preview"));
-    setMinimumWidth(800);
+    setMinimumWidth(900);
 
     loadHtml("match");
     QWebFrame* frame = ui->webView->page()->mainFrame();
@@ -222,7 +222,7 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     if (! qry.value(1).toString().isEmpty())
     {
         QString library;
-        library += QString("<img src='%1\\data\\files\\%2' />").arg(QDir::currentPath()).arg(qry.value(1).toString());
+        library += QString("<img src='%1\\data\\files\\%2' />").arg(QCoreApplication::applicationDirPath()).arg(qry.value(1).toString());
         library += QString("<span>%1</span>").arg(qry.value(0).toString());
         frame->findFirstElement("#library").setInnerXml(library);
     }

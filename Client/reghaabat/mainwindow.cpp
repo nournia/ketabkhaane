@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->move(QApplication::desktop()->screen()->rect().center()-this->rect().center());
 
     // files
-    Reghaabat::instance()->files = QDir::currentPath() + "/data/files/";
+    Reghaabat::instance()->files = getAbsoluteAddress("data/files/");
 
     applyPermission();
 
@@ -77,6 +77,7 @@ void MainWindow::applyPermission()
    ui->actionChangePermissions->setEnabled(false);
    ui->actionLists->setEnabled(false);
    ui->actionSetScores->setEnabled(false);
+   ui->actionMatchTable->setEnabled(false);
 
    ui->actionLogin->setVisible(Reghaabat::instance()->userId.isEmpty());
    ui->actionLogout->setVisible(! ui->actionLogin->isVisible());
@@ -103,6 +104,7 @@ void MainWindow::applyPermission()
        ui->actionChangePermissions->setEnabled(true);
        ui->actionLists->setEnabled(true);
        ui->actionSetScores->setEnabled(true);
+       ui->actionMatchTable->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("master"))

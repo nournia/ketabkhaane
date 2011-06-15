@@ -130,11 +130,11 @@ void MatchForm::cancelMatch()
     eAuthor->setText("");
     ePublication->setText("");
 
-    QFile file("jwysiwyg.html");
+    QFile file(getAbsoluteAddress("jwysiwyg.html"));
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QString html = QTextStream(&file).readAll();
-        html = html.replace("\"jwysiwyg/", QString("\"%1/jwysiwyg/").arg(QDir::currentPath()));
+        html = html.replace("\"jwysiwyg/", QString("\"%1/jwysiwyg/").arg(QCoreApplication::applicationDirPath()));
         ui->eContent->setHtml(html);
     }
 

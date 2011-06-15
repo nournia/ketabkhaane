@@ -4,14 +4,19 @@
 #include <QSettings>
 #include <QFile>
 
+#include "helper.h"
+
 QSqlDatabase Connector::connectDb()
 {
     QSettings settings("Rooyesh", "Reghaabat");
 
     if (! QSqlDatabase::contains())
     {
+        QString dbAddr = getAbsoluteAddress("data/reghaabat.dat");
+        qDebug() << dbAddr;
+
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(settings.value("DbAddress", "reghaabat.db").toString());
+        db.setDatabaseName(settings.value("DbAddress", dbAddr).toString());
 
         if (! db.open())
             qDebug() << "reghaabat db connection error : " << db.lastError();

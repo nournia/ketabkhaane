@@ -6,9 +6,9 @@
 
 int main(int argc, char *argv[])
 {
-    Connector::connectDb();
-
     QApplication a(argc, argv);
+
+    Connector::connectDb();
 
     // application info
     a.setApplicationName(QApplication::tr("Reghaabat"));

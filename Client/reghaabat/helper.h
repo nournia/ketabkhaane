@@ -17,4 +17,6 @@ StrMap getRecord(QSqlQuery& query);
 
 QString getReplaceQuery(QString table, StrMap data, QString id);
 
+QString getAbsoluteAddress(QString address);
+
 #endif // SQLMAP_H

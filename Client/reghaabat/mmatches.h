@@ -4,6 +4,7 @@
 #include <QVariant>
 #include <QComboBox>
 #include <QDir>
+#include <QCoreApplication>
 
 #include <helper.h>
 #include <connector.h>
@@ -20,7 +21,7 @@ public:
         if (! qry.next()) return false;
 
         match = getRecord(qry);
-        match["content"] = match["content"].toString().replace("src=\"", QString("src=\"%1/data/files/").arg(QDir::currentPath()));
+        match["content"] = match["content"].toString().replace("src=\"", QString("src=\"%1/data/files/").arg(QCoreApplication::applicationDirPath()));
 
         qry.exec("select question, answer from questions where match_id = "+ matchId);
         while (qry.next())
@@ -104,7 +105,7 @@ public:
         } else
         {
             match["category_id"] = data["category_id"];
-            match["content"] = data["content"].toString().replace(QString("src=\"%1/data/files/").arg(QDir::currentPath()), "src=\"");
+            match["content"] = data["content"].toString().replace(QString("src=\"%1/data/files/").arg(QCoreApplication::applicationDirPath()), "src=\"");
         }
 
         match["designer_id"] = data["corrector"];

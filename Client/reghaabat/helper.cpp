@@ -1,5 +1,12 @@
 #include <helper.h>
 
+#include <QCoreApplication>
+
+QString getAbsoluteAddress(QString address)
+{
+    return QString(QCoreApplication::applicationDirPath() + "/" + address).replace("/", "\\");
+}
+
 QString c1 = QString::fromUtf8("ي"), r1 = QString::fromUtf8("ی");
 QString c2 = QString::fromUtf8("ك"), r2 = QString::fromUtf8("ک");
 
