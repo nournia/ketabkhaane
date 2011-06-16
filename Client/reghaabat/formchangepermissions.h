@@ -79,7 +79,7 @@ public:
 };
 
 
-#include <delegatecombobox.h>
+#include <comboboxdelegate.h>
 #include <delegatepassword.h>
 #include <mylineedit.h>
 

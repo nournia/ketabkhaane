@@ -22,7 +22,7 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     ui->tPermissions->verticalHeader()->setDefaultSectionSize(22);
     ui->tPermissions->verticalHeader()->setVisible(false);
 
-    ui->tPermissions->setItemDelegateForColumn(2, new DelegateComboBox(PermissionModel::getPermissions(), ui->tPermissions));
+    ui->tPermissions->setItemDelegateForColumn(2, new ComboBoxDelegate(PermissionModel::getPermissions(), ui->tPermissions));
     ui->tPermissions->setItemDelegateForColumn(3, new DelegatePassword(ui->tPermissions));
 
     cancelUser();

@@ -1,18 +1,18 @@
-#ifndef DELEGATECOMBOBOX_H
-#define DELEGATECOMBOBOX_H
+#ifndef COMBOBOXDELEGATE_H
+#define COMBOBOXDELEGATE_H
 
 #include <helper.h>
 #include <QItemDelegate>
 #include <QComboBox>
 
-class DelegateComboBox : public QItemDelegate
+class ComboBoxDelegate : public QItemDelegate
 {
     Q_OBJECT
 
 public:
     QList<StrPair> list;
 
-    DelegateComboBox(QList<StrPair> data, QObject *parent = 0) : QItemDelegate(parent), list(data) {}
+    ComboBoxDelegate(QList<StrPair> data, QObject *parent = 0) : QItemDelegate(parent), list(data) {}
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
     {
@@ -37,4 +37,4 @@ public:
     }
 };
 
-#endif // DELEGATECOMBOBOX_H
+#endif // COMBOBOXDELEGATE_H
