@@ -199,6 +199,14 @@ create table open_scores (
 );
 
 
+-- library
+create table objects (
+	id integer not null primary key autoincrement,
+	resource_id integer not null references resources(id) on update cascade,
+	label varchar(255) not null
+);
+
+
 -- data ------------------------------------------------------------------------------
 
 insert into ageclasses values (0, 'الف', 'آمادگی و اول دبستان', 6, 7, 4);

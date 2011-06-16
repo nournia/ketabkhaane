@@ -8,6 +8,7 @@
 #include <helper.h>
 #include <matchrow.h>
 #include <mainwindow.h>
+#include <jalali.h>
 
 FormOperator::FormOperator(QWidget *parent) :
     QWidget(parent),
@@ -107,6 +108,26 @@ void FormOperator::on_bDeliver_clicked()
         MMatches::deliver(eUser->value(), eMatch->value());
         if (ui->cPrint->isChecked())
             viewer->on_bPrint_clicked();
+
+        // deliver book in library
+        bool ok; QSqlDatabase library = Connector::connectLibrary(ok);
+        if (ok)
+        {
+            QSqlQuery qryObj;
+            qryObj.exec("select label from matches inner join objects on matches.resource_id = objects.resource_id where matches.id = "+ eMatch->value());
+
+            if (qryObj.next())
+            {
+                QSqlQuery qry(library);
+                qry.prepare("insert into cash values (?, ?, ?, null, ?, null)");
+                qry.addBindValue(eUser->value());
+                qry.addBindValue(qryObj.value(0).toString());
+                qry.addBindValue(toJalali(QDate::currentDate()));
+                qry.addBindValue(Reghaabat::instance()->userId);
+                qry.exec();
+            }
+        }
+
         selectUser();
     }
 }

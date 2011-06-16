@@ -211,7 +211,7 @@ bool importMatches()
     groups.insert(32, 0);
 
     // access select query
-    if (! accessQry.exec("select id, designerid, title, "+ ageField +" as ageclass, groupid, content, pictureconfiguration, author, publication from matches"))
+    if (! accessQry.exec("select id, designerid, title, "+ ageField +" as ageclass, groupid, content, pictureconfiguration, author, publication, librarybookid from matches"))
         qDebug() << accessQry.lastError();
 
     // resource and match insertion
@@ -219,6 +219,9 @@ bool importMatches()
 
     QSqlQuery resourceQry(sqliteDb);
     resourceQry.prepare(getInsertQuery("resources", QStringList() << "kind" << "author_id" << "publication_id" << "title" << "ageclass"));
+
+    QSqlQuery objectQry(sqliteDb);
+    objectQry.prepare(getInsertQuery("objects", QStringList() << "resource_id" << "label"));
 
     sqliteDb.transaction();
     while (accessQry.next())
@@ -247,6 +250,11 @@ bool importMatches()
                 qDebug() << resourceQry.lastError();
 
             sqliteQry.bindValue(":resource_id", resourceQry.lastInsertId());
+
+            objectQry.bindValue(0, resourceQry.lastInsertId());
+            objectQry.bindValue(1, accessQry.value(9));
+            if (! objectQry.exec())
+                qDebug() << objectQry.lastError();
         }
         else {
             sqliteQry.bindValue(":category_id", groups[accessQry.value(4).toInt()]);
