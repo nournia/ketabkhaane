@@ -151,6 +151,7 @@ void ViewerForm::on_bMatchAgeGroup_clicked()
 
 void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 {
+    QSettings settings("Rooyesh", "Reghaabat");
     setWindowTitle(tr("Preview"));
     setMinimumWidth(900);
 
@@ -223,10 +224,21 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 
 
     // corrector
-    qry.exec("select firstname ||' '|| lastname from users where id = "+ match["corrector"].toString());
+    qry.exec("select firstname, lastname from users where id = "+ match["corrector"].toString());
     if (qry.next())
-        frame->findFirstElement("#corrector").setPlainText(qry.value(0).toString());
+    {
+        QString corrector;
+        QString correctorPrint = settings.value("CorrectorPrint", "NameFamily").toString();
 
+        if (correctorPrint == "NameFamily")
+            corrector = qry.value(0).toString() + " " + qry.value(1).toString();
+        else if (correctorPrint == "Family")
+            corrector = qry.value(1).toString();
+        else if (correctorPrint == "Id")
+            corrector = match["corrector"].toString();
+
+        frame->findFirstElement("#corrector").setPlainText(corrector);
+    }
 
     // score
     frame->findFirstElement("#score").setPlainText(match["score"].toString());
@@ -271,11 +283,11 @@ void ViewerForm::on_bPdf_clicked()
 
 void ViewerForm::on_bPrint_clicked()
 {
+    QSettings settings("Rooyesh", "Reghaabat");
     QString tmpFile = "pr";
 
     savePdf(tmpFile);
 
-    QSettings settings("Rooyesh", "Reghaabat");
     QString printer = settings.value("Printer", "").toString();
 
     if (printer.isEmpty())

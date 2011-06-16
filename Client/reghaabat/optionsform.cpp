@@ -18,10 +18,15 @@ OptionsForm::OptionsForm(QWidget *parent) :
     foreach(QPrinterInfo printer, QPrinterInfo::availablePrinters())
         ui->cPrinters->addItem(printer.printerName());
 
+    ui->cCorrectorPrint->addItem(tr("NameFamily"), "NameFamily");
+    ui->cCorrectorPrint->addItem(tr("Family"), "Family");
+    ui->cCorrectorPrint->addItem(tr("Id"), "Id");
+
     QSettings settings("Rooyesh", "Reghaabat");
     ui->eLibraryAddress->setText(settings.value("LibraryAddress", "").toString());
     ui->eDataFolder->setText(settings.value("DataFolder", "").toString());
     ui->cPrinters->setCurrentIndex(ui->cPrinters->findText(settings.value("Printer", "").toString()));
+    ui->cCorrectorPrint->setCurrentIndex(ui->cCorrectorPrint->findData(settings.value("CorrectorPrint", "NameFamily").toString()));
 }
 
 OptionsForm::~OptionsForm()
@@ -45,6 +50,7 @@ void OptionsForm::on_buttonBox_accepted()
     settings.setValue("LibraryAddress", ui->eLibraryAddress->text());
     settings.setValue("DataFolder", ui->eDataFolder->text());
     settings.setValue("Printer", ui->cPrinters->currentText());
+    settings.setValue("CorrectorPrint", ui->cCorrectorPrint->itemData(ui->cCorrectorPrint->currentIndex()).toString());
 
     QString msg = "";
 

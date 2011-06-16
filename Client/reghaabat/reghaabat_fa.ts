@@ -419,15 +419,15 @@
         <location line="+103"/>
         <location filename="matchtable.h" line="-1"/>
         <location filename="viewerform.cpp" line="+103"/>
-        <location line="+100"/>
+        <location line="+101"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
         <location line="+1"/>
         <location filename="matchtable.h" line="+0"/>
-        <location filename="viewerform.cpp" line="-100"/>
-        <location line="+105"/>
+        <location filename="viewerform.cpp" line="-101"/>
+        <location line="+106"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -475,7 +475,7 @@
 <context>
     <name>OptionsForm</name>
     <message>
-        <location filename="optionsform.ui" line="+94"/>
+        <location filename="optionsform.ui" line="+104"/>
         <source>Convert Old Database</source>
         <translation>تبدیل پایگاه داده قبلی</translation>
     </message>
@@ -485,14 +485,23 @@
         <translation>ارتباط با کتابخانه</translation>
     </message>
     <message>
-        <location line="-19"/>
+        <location line="-29"/>
+        <source>General</source>
+        <translation>عمومی</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Title</source>
-        <translation>عنوان</translation>
+        <translation type="obsolete">عنوان</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Corrector Show</source>
+        <translation>نمایش مصحح</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -516,7 +525,22 @@
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="+60"/>
+        <location filename="optionsform.cpp" line="+21"/>
+        <source>NameFamily</source>
+        <translation>نام و نام خانوادگی</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Family</source>
+        <translation>نام خانوادگی</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Id</source>
+        <translation>کد عضویت</translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>Select Library Database</source>
         <translation>انتخاب پایگاه داده کتابخانه</translation>
     </message>
@@ -579,7 +603,7 @@
     <message>
         <location filename="dialogchangepassword.cpp" line="+26"/>
         <location filename="logindialog.cpp" line="+0"/>
-        <location filename="main.cpp" line="+15"/>
+        <location filename="main.cpp" line="+32"/>
         <location filename="matchform.cpp" line="+93"/>
         <location filename="optionsform.cpp" line="-12"/>
         <location filename="userform.cpp" line="+61"/>
@@ -657,7 +681,7 @@
         <translation>رقابت</translation>
     </message>
     <message>
-        <location filename="mmatches.h" line="+38"/>
+        <location filename="mmatches.h" line="+47"/>
         <source>Title is required.</source>
         <oldsource>Title is required</oldsource>
         <translation>عنوان نباید خالی باشد.</translation>
@@ -932,7 +956,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location filename="viewerform.cpp" line="-75"/>
+        <location filename="viewerform.cpp" line="-76"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -1024,7 +1048,7 @@ p, li { white-space: pre-wrap; }
         <translation>گروه</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>Grade1</source>
         <translation>ضعیف</translation>
     </message>
