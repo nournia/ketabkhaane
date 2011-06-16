@@ -82,7 +82,7 @@ public:
     {
         QSqlQuery qry;
         QString upassword = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1).toHex();
-        QString query = "select users.id, firstname ||' '|| lastname as name, gender, permission from users inner join permissions where users.id = "+ userId +" and upassword = '"+ upassword +"'";
+        QString query = QString("select users.id, firstname||' '||lastname as name, gender, permission from users inner join permissions on users.id = permissions.user_id where users.id = %1 and upassword = '%2'").arg(userId).arg(upassword);
         qry.exec(query);
 
         if (qry.next())

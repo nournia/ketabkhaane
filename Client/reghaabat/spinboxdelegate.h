@@ -1,23 +1,23 @@
-#ifndef SCOREDELEGATE_H
-#define SCOREDELEGATE_H
+#ifndef SPINBOXDELEGATE_H
+#define SPINBOXDELEGATE_H
 
 #include <helper.h>
 #include <QItemDelegate>
 #include <QSpinBox>
 
-class ScoreDelegate : public QItemDelegate
+class SpinBoxDelegate : public QItemDelegate
 {
 public:
-    ScoreDelegate();
+    int min, max, step;
 
-    ScoreDelegate(QObject *parent = 0) : QItemDelegate(parent) {}
+    SpinBoxDelegate(int _min, int _max, int _step, QObject *parent = 0) : QItemDelegate(parent), min(_min), max(_max), step(_step) {}
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
     {
         QSpinBox* editor = new QSpinBox(parent);
-        editor->setMaximum(10000);
-        editor->setMinimum(-100);
-        editor->setSingleStep(50);
+        editor->setMaximum(max);
+        editor->setMinimum(min);
+        editor->setSingleStep(step);
         return editor;
     }
 
@@ -35,4 +35,4 @@ public:
     }
 };
 
-#endif // SCOREDELEGATE_H
+#endif // SPINBOXDELEGATE_H

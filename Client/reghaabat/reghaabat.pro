@@ -52,11 +52,11 @@ HEADERS  += mainwindow.h \
     formfirst.h \
     dialogchangepassword.h \
     formchangepermissions.h \
-    delegatecombobox.h \
-    delegatepassword.h \
+    comboboxdelegate.h \
+    lineeditdelegate.h \
+    spinboxdelegate.h \
     viewerform.h \
     scoreform.h \
-    scoredelegate.h \
     matchtable.h
 
 FORMS    += mainwindow.ui \

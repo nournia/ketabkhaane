@@ -2,9 +2,9 @@
 #define FORMCHANGEPERMISSIONS_H
 
 #include <QMessageBox>
+#include <QSqlQueryModel>
 
 #include <helper.h>
-#include <QSqlQueryModel>
 #include <musers.h>
 
 class PermissionModel : public QSqlQueryModel
@@ -79,8 +79,6 @@ public:
 };
 
 
-#include <delegatecombobox.h>
-#include <delegatepassword.h>
 #include <mylineedit.h>
 
 namespace Ui {

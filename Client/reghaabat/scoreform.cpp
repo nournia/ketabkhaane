@@ -1,6 +1,7 @@
 #include "scoreform.h"
 #include "ui_scoreform.h"
-#include "scoredelegate.h"
+
+#include <spinboxdelegate.h>
 
 ScoreForm::ScoreForm(QWidget *parent) :
     QWidget(parent),
@@ -26,7 +27,7 @@ ScoreForm::ScoreForm(QWidget *parent) :
     ui->tScores->verticalHeader()->setDefaultSectionSize(22);
     ui->tScores->verticalHeader()->setVisible(false);
 
-    ui->tScores->setItemDelegateForColumn(4, new ScoreDelegate(ui->tScores));
+    ui->tScores->setItemDelegateForColumn(4, new SpinBoxDelegate(-100, 10000, 50, ui->tScores));
 
     cancelCorrector();
 }
