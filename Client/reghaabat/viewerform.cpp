@@ -250,7 +250,7 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     if (! qry.value(1).toString().isEmpty())
     {
         QString library;
-        library += QString("<img src='%1\\data\\files\\%2' />").arg(QCoreApplication::applicationDirPath()).arg(qry.value(1).toString());
+        library += QString("<img src='%1/%2' />").arg(MMatches::filesUrl()).arg(qry.value(1).toString());
         library += QString("<span>%1</span>").arg(qry.value(0).toString());
         frame->findFirstElement("#library").setInnerXml(library);
     }
