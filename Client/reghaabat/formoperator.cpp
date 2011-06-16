@@ -102,6 +102,8 @@ void FormOperator::on_bDeliver_clicked()
 {
     if (! eUser->value().isEmpty() && ! eMatch->value().isEmpty())
     {
+        // TODO check for match per user and match per user in day limits
+
         MMatches::deliver(eUser->value(), eMatch->value());
         if (ui->cPrint->isChecked())
             viewer->on_bPrint_clicked();
@@ -116,6 +118,11 @@ void FormOperator::on_bPreview_clicked()
 
 void FormOperator::prepareViewer()
 {
+    // don't perpare match again
+    static QString prepared;
+    if (prepared == eMatch->value())
+        return;
+
     StrMap match;
     QList<StrPair> questions, asks;
     MMatches::get(eMatch->value(), match, questions);
@@ -154,4 +161,6 @@ void FormOperator::prepareViewer()
     }
 
     viewer->showMatch(match, asks);
+
+    prepared = eMatch->value();
 }
