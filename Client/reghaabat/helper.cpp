@@ -60,3 +60,10 @@ QString getReplaceQuery(QString table, StrMap data, QString id)
     else
         return QString("update %1 set %2 where id = %3").arg(table).arg(values).arg(id);
 }
+
+void fillComboBox(QComboBox* combobox, QList<StrPair> data)
+{
+    combobox->clear();
+    for (int i = 0; i < data.size(); i++)
+        combobox->addItem(data.at(i).first, data.at(i).second);
+}

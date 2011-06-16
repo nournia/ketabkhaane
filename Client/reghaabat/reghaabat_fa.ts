@@ -384,19 +384,16 @@
         <translation type="obsolete">پیش نمایش</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+36"/>
         <source>active</source>
-        <translation>فعال</translation>
+        <translation type="obsolete">فعال</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <location filename="matchtable.h" line="+60"/>
+        <location filename="matchtable.h" line="+77"/>
         <source>imported</source>
         <translation>نیازمند بررسی</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <location filename="matchtable.h" line="+0"/>
+        <location line="+0"/>
         <source>disabled</source>
         <translation>غیر فعال</translation>
     </message>
@@ -411,13 +408,13 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+16"/>
+        <location filename="matchform.cpp" line="+51"/>
         <source>New Question</source>
         <translation>سوال جدید</translation>
     </message>
     <message>
         <location line="+103"/>
-        <location filename="matchtable.h" line="-1"/>
+        <location filename="matchtable.h" line="-4"/>
         <location filename="viewerform.cpp" line="+103"/>
         <location line="+101"/>
         <source>book</source>
@@ -435,12 +432,12 @@
 <context>
     <name>MatchListModel</name>
     <message>
-        <location filename="matchtable.h" line="+6"/>
+        <location filename="matchtable.h" line="+10"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Age Class</source>
         <translation>رده سنی</translation>
     </message>
@@ -454,9 +451,14 @@
         <translation type="obsolete">حداکثر امتیاز</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-2"/>
         <source>Kind</source>
         <translation>نوع</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Answers</source>
+        <translation>پاسخها</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -475,7 +477,7 @@
 <context>
     <name>OptionsForm</name>
     <message>
-        <location filename="optionsform.ui" line="+104"/>
+        <location filename="optionsform.ui" line="+107"/>
         <source>Convert Old Database</source>
         <translation>تبدیل پایگاه داده قبلی</translation>
     </message>
@@ -485,12 +487,12 @@
         <translation>ارتباط با کتابخانه</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-32"/>
         <source>General</source>
         <translation>عمومی</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+9"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
@@ -676,12 +678,13 @@
     </message>
     <message>
         <location filename="formchangepermissions.h" line="-29"/>
+        <location filename="matchtable.h" line="-25"/>
         <location filename="scoreform.h" line="+45"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
     <message>
-        <location filename="mmatches.h" line="+47"/>
+        <location filename="mmatches.h" line="+39"/>
         <source>Title is required.</source>
         <oldsource>Title is required</oldsource>
         <translation>عنوان نباید خالی باشد.</translation>
@@ -703,7 +706,7 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+144"/>
+        <location line="+143"/>
         <source>Invalid record selected.</source>
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
@@ -721,17 +724,20 @@
         <translation type="obsolete">چند رسانه‌ای</translation>
     </message>
     <message>
-        <location filename="matchtable.h" line="-9"/>
+        <location filename="matchtable.h" line="+14"/>
+        <location filename="mmatches.h" line="+45"/>
         <source>active</source>
         <translation>فعال</translation>
     </message>
     <message>
+        <location filename="mmatches.h" line="+1"/>
         <source>imported</source>
-        <translation type="obsolete">نیازمند بررسی</translation>
+        <translation>وارد شده</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>disabled</source>
-        <translation type="obsolete">غیر فعال</translation>
+        <translation>غیر فعال</translation>
     </message>
     <message>
         <source>Invalid score value.</source>
@@ -1095,8 +1101,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">کیفیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="-231"/>
-        <location line="+255"/>
+        <location filename="matchform.cpp" line="-228"/>
+        <location line="+252"/>
         <location filename="viewerform.cpp" line="-55"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>

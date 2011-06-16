@@ -32,13 +32,8 @@ MatchForm::MatchForm(QWidget *parent) :
     QWidget::setTabOrder(eAuthor, ePublication);
     QWidget::setTabOrder(ePublication, eCorrector);
 
-    // fill cState
-    ui->cState->addItem(tr("active"), "active");
-    ui->cState->addItem(tr("imported"), "imported");
-    ui->cState->addItem(tr("disabled"), "disabled");
-
-    // fill cAgeClass
-    MMatches::fillAgeClassCombo(ui->cAgeClass);
+    fillComboBox(ui->cState, MMatches::states());
+    fillComboBox(ui->cAgeClass, MMatches::ageclasses());
 
     on_cType_currentIndexChanged(0);
 
@@ -52,7 +47,7 @@ MatchForm::MatchForm(QWidget *parent) :
     fillerItem = new QWidget(this);
     QFormLayout* lay = new QFormLayout(fillerItem);
     QPushButton* button = new QPushButton(tr("New Question"), fillerItem);
-    connect(button, SIGNAL(clicked()), this, SLOT(on_bNewQuestion_clicked()));
+    connect(button, SIGNAL(clicked()), this, SLOT(bNewQuestion_clicked()));
     lay->addRow("", button);
     fillerItem->setLayout(lay);
 
@@ -141,7 +136,7 @@ void MatchForm::cancelMatch()
 
     clearQuestions();
 
-    on_bNewQuestion_clicked();
+    bNewQuestion_clicked();
 
     ui->gData->setEnabled(false);
 
@@ -157,14 +152,14 @@ void MatchForm::on_cType_currentIndexChanged(int index)
         ui->cGroup->addItem(tr("book"), "book");
         ui->cGroup->addItem(tr("multimedia"), "multimedia");
     } else
-        MMatches::fillCategoryCombo(ui->cGroup);
+        fillComboBox(ui->cGroup, MMatches::categories());
 
     ui->gResource->setVisible(intructions);
     ui->sQuestions->setVisible(intructions);
     ui->eContent->setVisible(! intructions);
 }
 
-void MatchForm::on_bNewQuestion_clicked()
+void MatchForm::bNewQuestion_clicked()
 {
     // check for last question for
     if (qModules.size() >= 1 && qModules.at(qModules.size()-1)->question() == "")
@@ -212,7 +207,7 @@ QString refineHtml(QString html)
 void MatchForm::fillMaps(StrMap& match, QList<StrPair>& questions)
 {
     match["title"] = ui->eTitle->text();
-    match["corrector"] = eCorrector->value();
+    match["corrector_id"] = eCorrector->value();
     match["score"] = ui->sScore->value();
     match["ageclass"] = ui->cAgeClass->itemData(ui->cAgeClass->currentIndex());
     match["current_state"] = ui->cState->itemData(ui->cState->currentIndex());

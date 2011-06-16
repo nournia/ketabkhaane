@@ -40,10 +40,10 @@ private slots:
     void on_buttonBox_clicked(QAbstractButton* button);
     void selectMatch();
     void cancelMatch();
+    void bNewQuestion_clicked();
 
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
-    void on_bNewQuestion_clicked();
     void on_cType_currentIndexChanged(int index);
 };
 

@@ -3,6 +3,8 @@
 
 #include <QHeaderView>
 
+#include <delegatecombobox.h>
+
 MatchTable::MatchTable(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MatchTable)
@@ -21,8 +23,8 @@ MatchTable::MatchTable(QWidget *parent) :
     ui->tMatches->verticalHeader()->setDefaultSectionSize(22);
     ui->tMatches->verticalHeader()->setVisible(false);
 
-//    ui->tScores->setItemDelegateForColumn(4, new ScoreDelegate(ui->tScores));
-
+    ui->tMatches->setItemDelegateForColumn(3, new DelegateComboBox(MMatches::ageclasses(true), ui->tMatches));
+    ui->tMatches->setItemDelegateForColumn(6, new DelegateComboBox(MMatches::states(), ui->tMatches));
 }
 
 MatchTable::~MatchTable()

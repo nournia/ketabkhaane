@@ -1,9 +1,9 @@
 #ifndef MATCHTABLE_H
 #define MATCHTABLE_H
 
-#include <QDialog>
-
+#include <QMessageBox>
 #include <QSqlQueryModel>
+
 #include <mmatches.h>
 #include <matchform.h>
 
@@ -12,14 +12,13 @@ class MatchListModel : public QSqlQueryModel
     Q_OBJECT
 
 public:
-//    QString sql;
     MatchListModel(QObject *parent = 0) : QSqlQueryModel(parent) { refresh(); }
 
     Qt::ItemFlags flags(const QModelIndex &index) const
     {
         Qt::ItemFlags flags = QSqlQueryModel::flags(index);
-//        if (index.column() == 4)
-//            flags |= Qt::ItemIsEditable;
+        if (index.column() == 1 || index.column() == 3 || index.column() == 4 || index.column() == 6)
+            flags |= Qt::ItemIsEditable;
         return flags;
     }
 
@@ -33,40 +32,60 @@ public:
 
     bool setData(const QModelIndex &index, const QVariant &value, int role)
     {
-//        if (!(index.column() == 4))
-//            return false;
+        if (!(index.column() == 1 || index.column() == 3 || index.column() == 4 || index.column() == 6))
+            return false;
 
-//        QString id = data(QSqlQueryModel::index(index.row(), 0)).toString();
+        QString id = data(QSqlQueryModel::index(index.row(), 0)).toString();
 
-        QString msg = "";
+        StrMap match;
+        QList<StrPair> questions;
+        MMatches::get(id, match, questions);
 
-//        if (index.column() == 4)
-//            msg = MMatches::setScore(id, value.toString());
+        switch (index.column())
+        {
+        case 1:
+            match["title"] = value.toString();
+        break;
+        case 3:
+            match["ageclass"] = value.toString();
+        break;
+        case 4:
+            match["score"] = value.toString();
+        break;
+        case 6:
+            match["current_state"] = value.toString();
+        break;
+        }
 
-//        if (! msg.isEmpty())
-//            QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
+        QString msg = MMatches::set(id, match, questions);
 
-//        clear();
+        if (! msg.isEmpty())
+            QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
 
-//        refresh();
+        refresh();
         return msg.isEmpty();
     }
 
     void refresh()
     {
         QString sql = QString() +
-            "select matches.id, matches.title as title, ageclasses.title as ageclass, supports.score,"+
+            "select matches.id, matches.title as title, "+
             "ifnull(categories.title, case resources.kind when 'book' then '"+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end) as kind, "+
-            "case supports.current_state when 'active' then '"+ QObject::tr("active") +"' when 'imported' then '"+ MatchForm::tr("imported") +"' when 'disabled' then '"+ MatchForm::tr("disabled") +"' end as state "+
+            "ageclasses.title as ageclass, "+
+            "supports.score, "+
+            "ifnull(answer_ratio, '-'), "+
+            "case supports.current_state when 'active' then '"+ QObject::tr("active") +"' when 'imported' then '"+ QObject::tr("imported") +"' when 'disabled' then '"+ QObject::tr("disabled") +"' end as state "+
             "from matches inner join supports on matches.id = supports.match_id inner join ageclasses on matches.ageclass = ageclasses.id left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id "+
-            "order by kind, supports.score desc";
+            "left join (select match_id, count(question)||' / '||count(answer) as answer_ratio from questions group by match_id) as t_questions on matches.id = t_questions.match_id "+
+            "order by title";
 
         setQuery(sql);
         setHeaderData(1, Qt::Horizontal, tr("Title"));
-        setHeaderData(2, Qt::Horizontal, tr("Age Class"));
-        setHeaderData(3, Qt::Horizontal, tr("Score"));
-        setHeaderData(4, Qt::Horizontal, tr("Kind"));
-        setHeaderData(5, Qt::Horizontal, tr("State"));
+        setHeaderData(2, Qt::Horizontal, tr("Kind"));
+        setHeaderData(3, Qt::Horizontal, tr("Age Class"));
+        setHeaderData(4, Qt::Horizontal, tr("Score"));
+        setHeaderData(5, Qt::Horizontal, tr("Answers"));
+        setHeaderData(6, Qt::Horizontal, tr("State"));
     }
 };
 

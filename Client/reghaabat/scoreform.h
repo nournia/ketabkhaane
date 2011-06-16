@@ -39,7 +39,7 @@ public:
         QString msg = "";
 
         if (index.column() == 4)
-            msg = MMatches::setScore(id, value.toString());
+            msg = MMatches::correct(id, value.toString());
 
         if (! msg.isEmpty())
             QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);

@@ -12,18 +12,10 @@ class MMatches
 {
 public:
 
-    static QString filesUrl()
-    {
-        QString folder = dataFolder();
-        if (!folder.startsWith("//"))
-            folder = "///" + folder;
-        return QString("file:%1/files").arg(folder);
-    }
-
     static bool get(QString matchId, StrMap& match, QList<StrPair>& questions)
     {
         QSqlQuery qry;
-        qry.exec("select matches.title, matches.ageclass, matches.category_id, matches.content, resources.kind, authors.title as author, publications.title as publication, supports.current_state, supports.score, users.firstname || ' ' || users.lastname as corrector "
+        qry.exec("select matches.title, matches.ageclass, matches.category_id, matches.content, resources.kind, authors.title as author, publications.title as publication, supports.current_state, supports.score, supports.corrector_id, users.firstname || ' ' || users.lastname as corrector "
                  "from matches left join resources on matches.resource_id = resources.id left join authors on resources.author_id = authors.id left join publications on resources.publication_id = publications.id left join supports on matches.id = supports.match_id left join users on supports.corrector_id = users.id where matches.id = " + matchId);
         if (! qry.next()) return false;
 
@@ -45,7 +37,7 @@ public:
         // basic
         if (data["title"].toString().isEmpty())
             return QObject::tr("Title is required.");
-        if (data["corrector"].toString().isEmpty())
+        if (data["corrector_id"].toString().isEmpty())
             return QObject::tr("Corrector is required.");
         if (data["score"].toInt() <= 0)
             return QObject::tr("Score is invalid.");
@@ -115,7 +107,7 @@ public:
             match["content"] = data["content"].toString().replace(QString("src=\"%1/").arg(filesUrl()), "src=\"");
         }
 
-        match["designer_id"] = data["corrector"];
+        match["designer_id"] = data["corrector_id"];
         match["title"] = data["title"];
         match["ageclass"] = data["ageclass"];
 
@@ -131,7 +123,7 @@ public:
         QString supportId;
         StrMap support;
         support["match_id"] = matchId;
-        support["corrector_id"] = data["corrector"];
+        support["corrector_id"] = data["corrector_id"];
         support["current_state"] = data["current_state"];
         support["score"] = data["score"];
 
@@ -169,7 +161,6 @@ public:
         return "";
     }
 
-
     /* answers */
 
     static void receive(QString userId, QString matchId)
@@ -191,7 +182,7 @@ public:
         qry.exec();
     }
 
-    static QString setScore(QString answerId, QString Score)
+    static QString correct(QString answerId, QString Score)
     {
         QSqlQuery qry;
 
@@ -215,26 +206,46 @@ public:
     }
 
 
-    /* ui */
+    /* data */
 
-    static void fillAgeClassCombo(QComboBox* cb)
+    static QString filesUrl()
     {
-        QSqlQuery qry;
-        qry.exec("select id, title ||' - '|| description from ageclasses");
-
-        cb->clear();
-        while(qry.next())
-            cb->addItem(qry.value(1).toString(), qry.value(0));
+        QString folder = dataFolder();
+        if (!folder.startsWith("//"))
+            folder = "///" + folder;
+        return QString("file:%1/files").arg(folder);
     }
 
-    static void fillCategoryCombo(QComboBox* cb)
+    static QList<StrPair> ageclasses(bool shortFormat = false)
+    {
+        QSqlQuery qry;
+        QString description = !shortFormat ? "||' - '|| description" : "";
+        qry.exec(QString("select id, title %1 from ageclasses").arg(description));
+
+        QList<StrPair> tmp;
+        while(qry.next())
+            tmp.append(qMakePair(qry.value(1).toString(), qry.value(0).toString()));
+        return tmp;
+    }
+
+    static QList<StrPair> categories()
     {
         QSqlQuery qry;
         qry.exec("select id, title from categories");
 
-        cb->clear();
+        QList<StrPair> tmp;
         while(qry.next())
-            cb->addItem(qry.value(1).toString(), qry.value(0));
+            tmp.append(qMakePair(qry.value(1).toString(), qry.value(0).toString()));
+        return tmp;
+    }
+
+    static QList<StrPair> states()
+    {
+        QList<StrPair> tmp;
+        tmp.append(qMakePair(QObject::tr("active"), QString("active")));
+        tmp.append(qMakePair(QObject::tr("imported"), QString("imported")));
+        tmp.append(qMakePair(QObject::tr("disabled"), QString("disabled")));
+        return tmp;
     }
 };
 

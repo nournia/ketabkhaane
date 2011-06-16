@@ -7,9 +7,12 @@
 #include <QVariant>
 #include <QSqlError>
 #include <QDateTime>
+#include <QComboBox>
 
 typedef QMap<QString, QVariant> StrMap;
 typedef QPair<QString, QString> StrPair;
+
+void fillComboBox(QComboBox* combobox, QList<StrPair> data);
 
 QString refineText(QString text);
 
