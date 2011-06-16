@@ -7,6 +7,7 @@
 #include <QWebFrame>
 #include <QWebElementCollection>
 #include <QPushButton>
+#include <QFile>
 
 #include <viewerform.h>
 #include <mainwindow.h>

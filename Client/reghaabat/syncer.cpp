@@ -1,8 +1,9 @@
 #include "syncer.h"
 
-#include <mainwindow.h>
+#include <helper.h>
 
 #include <QFile>
+#include <QSettings>
 
 // reverse priority of tables
 QStringList tables = QStringList() << "scores" << "permissions" << "answers" << "questions" << "payments" << "supports" << "open_scores" << "matches" << "resources" << "files" << "authors" << "publications" << "users";
@@ -127,7 +128,7 @@ QString writeJson(QDateTime& lastSync, QDateTime& syncTime, QStringList& files)
     // extract new filenames
     qry.exec("select id ||'.'|| extension from files where updated_at > "+ dtLast +" and updated_at <= "+ dtSync);
     while (qry.next())
-        files.append(Reghaabat::instance()->files + qry.value(0).toString());
+        files.append(QString("%1/files/").arg(dataFolder()) + qry.value(0).toString());
 
 
 //    QFile file("tmp.json");

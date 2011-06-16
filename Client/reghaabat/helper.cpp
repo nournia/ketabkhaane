@@ -1,10 +1,17 @@
 #include <helper.h>
 
 #include <QCoreApplication>
+#include <QSettings>
 
 QString getAbsoluteAddress(QString address)
 {
-    return QString(QCoreApplication::applicationDirPath() + "/" + address).replace("/", "\\");
+    return QCoreApplication::applicationDirPath() + "/" + address;
+}
+
+QString dataFolder()
+{
+    QSettings settings("Rooyesh", "Reghaabat");
+    return settings.value("DataFolder", getAbsoluteAddress("data")).toString();
 }
 
 QString c1 = QString::fromUtf8("ي"), r1 = QString::fromUtf8("ی");

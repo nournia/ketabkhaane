@@ -58,7 +58,6 @@ private:
 
 public:
     QString userId, userName, userGender, userPermission;
-    QString files;
 
     static Reghaabat* instance()
     {

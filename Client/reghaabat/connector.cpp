@@ -8,15 +8,10 @@
 
 QSqlDatabase Connector::connectDb()
 {
-    QSettings settings("Rooyesh", "Reghaabat");
-
     if (! QSqlDatabase::contains())
     {
-        QString dbAddr = getAbsoluteAddress("data/reghaabat.dat");
-        qDebug() << dbAddr;
-
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(settings.value("DbAddress", dbAddr).toString());
+        db.setDatabaseName(dataFolder() + "/reghaabat.dat");
 
         if (! db.open())
             qDebug() << "reghaabat db connection error : " << db.lastError();

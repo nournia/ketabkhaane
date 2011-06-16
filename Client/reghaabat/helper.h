@@ -14,9 +14,9 @@ typedef QPair<QString, QString> StrPair;
 QString refineText(QString text);
 
 StrMap getRecord(QSqlQuery& query);
-
 QString getReplaceQuery(QString table, StrMap data, QString id);
 
 QString getAbsoluteAddress(QString address);
+QString dataFolder();
 
 #endif // SQLMAP_H

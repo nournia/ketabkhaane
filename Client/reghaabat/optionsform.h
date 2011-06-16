@@ -22,6 +22,8 @@ signals:
     void closeForm();
 
 private slots:
+    void on_bSelectLibraryDb_clicked();
+    void on_bSelectDataFolder_clicked();
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
     void on_bConvertDb_clicked();

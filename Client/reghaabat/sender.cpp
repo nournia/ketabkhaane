@@ -63,7 +63,8 @@ class Updater
             {
                 QString ext = "." + qry.value(0).toString();
 
-                if (! QFile::rename(Reghaabat::instance()->files + lastId + ext, Reghaabat::instance()->files + newId + ext))
+                QString files = QString("%1/files/").arg(dataFolder());
+                if (! QFile::rename(files + lastId + ext, files + newId + ext))
                     qDebug() << QString("File rename error: %1%3 -> %2%3").arg(lastId).arg(newId).arg(ext);
 
                 if (! qry.exec(QString("update matches set content = replace(content, 'src=\"%1%3\"', 'src=\"%2%3\"') where content is not null").arg(lastId).arg(newId).arg(ext)))

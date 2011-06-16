@@ -3,16 +3,23 @@
 
 #include <QVariant>
 #include <QComboBox>
-#include <QDir>
-#include <QCoreApplication>
+#include <QDebug>
 
 #include <helper.h>
 #include <connector.h>
-#include <QDebug>
 
 class MMatches
 {
 public:
+
+    static QString filesUrl()
+    {
+        QString folder = dataFolder();
+        if (!folder.startsWith("//"))
+            folder = "///" + folder;
+        return QString("file:%1/files").arg(folder);
+    }
+
     static bool get(QString matchId, StrMap& match, QList<StrPair>& questions)
     {
         QSqlQuery qry;
@@ -21,7 +28,7 @@ public:
         if (! qry.next()) return false;
 
         match = getRecord(qry);
-        match["content"] = match["content"].toString().replace("src=\"", QString("src=\"%1/data/files/").arg(QCoreApplication::applicationDirPath()));
+        match["content"] = match["content"].toString().replace("src=\"", QString("src=\"%1/").arg(filesUrl()));
 
         qry.exec("select question, answer from questions where match_id = "+ matchId);
         while (qry.next())
@@ -105,7 +112,7 @@ public:
         } else
         {
             match["category_id"] = data["category_id"];
-            match["content"] = data["content"].toString().replace(QString("src=\"%1/data/files/").arg(QCoreApplication::applicationDirPath()), "src=\"");
+            match["content"] = data["content"].toString().replace(QString("src=\"%1/").arg(filesUrl()), "src=\"");
         }
 
         match["designer_id"] = data["corrector"];

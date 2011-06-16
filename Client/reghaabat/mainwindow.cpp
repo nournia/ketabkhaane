@@ -35,9 +35,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->move(QApplication::desktop()->screen()->rect().center()-this->rect().center());
 
-    // files
-    Reghaabat::instance()->files = getAbsoluteAddress("data/files/");
-
     applyPermission();
 
 //    optionsForm = new OptionsForm(this);

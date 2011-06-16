@@ -384,7 +384,7 @@
         <translation type="obsolete">پیش نمایش</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+35"/>
+        <location filename="matchform.cpp" line="+36"/>
         <source>active</source>
         <translation>فعال</translation>
     </message>
@@ -475,12 +475,12 @@
 <context>
     <name>OptionsForm</name>
     <message>
-        <location filename="optionsform.ui" line="+61"/>
+        <location filename="optionsform.ui" line="+94"/>
         <source>Convert Old Database</source>
         <translation>تبدیل پایگاه داده قبلی</translation>
     </message>
     <message>
-        <location line="-22"/>
+        <location line="-55"/>
         <source>Library Connection</source>
         <translation>ارتباط با کتابخانه</translation>
     </message>
@@ -498,6 +498,32 @@
         <location line="+19"/>
         <source>Db Address</source>
         <translation>آدرس پایگاه داده</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <location line="+26"/>
+        <source>Select</source>
+        <translation>انتخاب</translation>
+    </message>
+    <message>
+        <location line="-16"/>
+        <source>Reghaabat Network</source>
+        <translation>شبکه رقابت</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Data Folder</source>
+        <translation>آدرس پوشه داده‌ها</translation>
+    </message>
+    <message>
+        <location filename="optionsform.cpp" line="+60"/>
+        <source>Select Library Database</source>
+        <translation>انتخاب پایگاه داده کتابخانه</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Select Reghaabat Data Folder</source>
+        <translation>انتخاب پوشه داده‌ها</translation>
     </message>
 </context>
 <context>
@@ -553,9 +579,9 @@
     <message>
         <location filename="dialogchangepassword.cpp" line="+26"/>
         <location filename="logindialog.cpp" line="+0"/>
-        <location filename="main.cpp" line="+14"/>
+        <location filename="main.cpp" line="+15"/>
         <location filename="matchform.cpp" line="+93"/>
-        <location filename="optionsform.cpp" line="+52"/>
+        <location filename="optionsform.cpp" line="-12"/>
         <location filename="userform.cpp" line="+61"/>
         <location line="+58"/>
         <location line="+9"/>
@@ -631,7 +657,7 @@
         <translation>رقابت</translation>
     </message>
     <message>
-        <location filename="mmatches.h" line="+40"/>
+        <location filename="mmatches.h" line="+38"/>
         <source>Title is required.</source>
         <oldsource>Title is required</oldsource>
         <translation>عنوان نباید خالی باشد.</translation>
@@ -794,12 +820,12 @@ p, li { white-space: pre-wrap; }
         <translation>کد عضویت</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+17"/>
         <source>Import</source>
         <translation>وارد کردن</translation>
     </message>
     <message>
-        <location line="-222"/>
+        <location line="-229"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
