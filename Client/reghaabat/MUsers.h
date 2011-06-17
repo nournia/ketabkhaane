@@ -74,6 +74,13 @@ public:
         // store
         if (! qry.exec(getReplaceQuery("users", user, userId)))
             return qry.lastError().text();
+
+        if (userId.isEmpty())
+        {
+            userId = qry.lastInsertId().toString();
+            qry.exec(QString("insert into scores (user_id) values (%1)").arg(userId));
+        }
+
         return "";
     }
 

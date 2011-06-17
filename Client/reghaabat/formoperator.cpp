@@ -75,7 +75,7 @@ void FormOperator::selectUser()
         eMatch->setFocus();
 
         QSqlQuery qry;
-        qry.exec(QString("select match_id, matches.title from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null;").arg(eUser->value()));
+        qry.exec(QString("select match_id, matches.title from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null and answers.created_at > (select started_at from library)").arg(eUser->value()));
 
         for (int i = 1; qry.next(); i++)
         {

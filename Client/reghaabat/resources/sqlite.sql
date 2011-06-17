@@ -230,6 +230,7 @@ insert into permissions (user_id, permission, accept) values (1111, "admin", 1);
 
 -- after import
 update users set upassword = '356a192b7913b04c54574d18c28d46e6395428ab' where id = 1111;
-update library set started_at = '2001-04-19 12:30:22';
+update library set started_at = '2011-06-01 00:00:00';
 update matches set content = replace(content, 'src="', 'width="100%" src="') where id between 331000 and 331999;
 update supports set current_state = 'disabled' where score = 0;
+update scores set score = 0;
