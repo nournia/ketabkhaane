@@ -24,6 +24,7 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     ui->tPermissions->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
     ui->tPermissions->verticalHeader()->setDefaultSectionSize(22);
     ui->tPermissions->verticalHeader()->setVisible(false);
+    ui->tPermissions->setSortingEnabled(true);
 
     ui->tPermissions->setItemDelegateForColumn(2, new ComboBoxDelegate(PermissionModel::getPermissions(), ui->tPermissions));
     ui->tPermissions->setItemDelegateForColumn(3, new LineEditDelegate(true, ui->tPermissions));
@@ -55,7 +56,7 @@ void FormChangePermissions::on_bAdd_clicked()
         QSqlQuery qry;
         qry.exec(QString("insert into permissions (user_id, permission) values (%1, 'user')").arg(eUser->value()));
 
-        model->refresh();
+        model->sort(1);
 
         eUser->setText("");
         eUser->setCompleter(new MyCompleter("select id, firstname || ' ' || lastname as ctitle from users  where id not in (select user_id from permissions)", eUser));

@@ -26,6 +26,7 @@ ScoreForm::ScoreForm(QWidget *parent) :
     ui->tScores->setColumnWidth(1, 150);
     ui->tScores->verticalHeader()->setDefaultSectionSize(22);
     ui->tScores->verticalHeader()->setVisible(false);
+    ui->tScores->setSortingEnabled(true);
 
     ui->tScores->setItemDelegateForColumn(4, new SpinBoxDelegate(-100, 10000, 50, ui->tScores));
 

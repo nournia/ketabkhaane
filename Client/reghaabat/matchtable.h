@@ -12,12 +12,26 @@ class MatchListModel : public QSqlQueryModel
     Q_OBJECT
 
 public:
-    MatchListModel(QObject *parent = 0) : QSqlQueryModel(parent) { refresh(); }
+    int _column;
+    Qt::SortOrder _order;
+
+    MatchListModel(QObject *parent = 0) : QSqlQueryModel(parent)
+    {
+        sort(1);
+
+        setHeaderData(1, Qt::Horizontal, tr("Title"));
+        setHeaderData(2, Qt::Horizontal, tr("Kind"));
+        setHeaderData(3, Qt::Horizontal, tr("Age Class"));
+        setHeaderData(4, Qt::Horizontal, tr("Score"));
+        setHeaderData(5, Qt::Horizontal, tr("Answers"));
+        setHeaderData(6, Qt::Horizontal, tr("State"));
+
+    }
 
     Qt::ItemFlags flags(const QModelIndex &index) const
     {
         Qt::ItemFlags flags = QSqlQueryModel::flags(index);
-        if (index.column() == 1 || index.column() == 3 || index.column() == 4 || index.column() == 6)
+        if (/*index.column() == 1 || */index.column() == 3 || index.column() == 4 || index.column() == 6)
             flags |= Qt::ItemIsEditable;
         return flags;
     }
@@ -62,33 +76,32 @@ public:
         if (! msg.isEmpty())
             QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
 
-        refresh();
+        sort(_column, _order);
         return msg.isEmpty();
     }
 
-    void refresh()
+    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder)
     {
+        if (column == 0) return; _column = column; _order = order;
+        QStringList fields = QStringList() << "title" << "kind" << "ageclass" << "score" << "answer_ratio" << "state";
+
         QString sql = QString() +
             "select matches.id, matches.title as title, "+
             "ifnull(categories.title, case resources.kind when 'book' then '"+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end) as kind, "+
             "ageclasses.title as ageclass, "+
             "supports.score, "+
-            "ifnull(answer_ratio, '-'), "+
+            "ifnull(answer_ratio, '-') as answer_ratio, "+
             "case supports.current_state when 'active' then '"+ QObject::tr("active") +"' when 'imported' then '"+ QObject::tr("imported") +"' when 'disabled' then '"+ QObject::tr("disabled") +"' end as state "+
             "from matches inner join supports on matches.id = supports.match_id inner join ageclasses on matches.ageclass = ageclasses.id left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id "+
             "left join (select match_id, count(question)||' / '||count(answer) as answer_ratio from questions group by match_id) as t_questions on matches.id = t_questions.match_id "+
-            "order by title";
+            "order by " + fields[column-1];
+
+        if (order == Qt::DescendingOrder)
+            sql += " desc";
 
         setQuery(sql);
-        setHeaderData(1, Qt::Horizontal, tr("Title"));
-        setHeaderData(2, Qt::Horizontal, tr("Kind"));
-        setHeaderData(3, Qt::Horizontal, tr("Age Class"));
-        setHeaderData(4, Qt::Horizontal, tr("Score"));
-        setHeaderData(5, Qt::Horizontal, tr("Answers"));
-        setHeaderData(6, Qt::Horizontal, tr("State"));
     }
 };
-
 
 namespace Ui {
     class MatchTable;

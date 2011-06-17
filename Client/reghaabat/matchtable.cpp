@@ -24,6 +24,7 @@ MatchTable::MatchTable(QWidget *parent) :
     ui->tMatches->setColumnWidth(5, 60);
     ui->tMatches->verticalHeader()->setDefaultSectionSize(22);
     ui->tMatches->verticalHeader()->setVisible(false);
+    ui->tMatches->setSortingEnabled(true);
 
     ui->tMatches->setItemDelegateForColumn(1, new LineEditDelegate(false, ui->tMatches));
     ui->tMatches->setItemDelegateForColumn(3, new ComboBoxDelegate(MMatches::ageclasses(true), ui->tMatches));

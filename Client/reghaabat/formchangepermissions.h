@@ -12,8 +12,17 @@ class PermissionModel : public QSqlQueryModel
     Q_OBJECT
 
 public:
-    QString sql;
-    PermissionModel(QObject *parent = 0) : QSqlQueryModel(parent) { refresh(); }
+    int _column;
+    Qt::SortOrder _order;
+
+    PermissionModel(QObject *parent = 0) : QSqlQueryModel(parent)
+    {
+        sort(1);
+
+        setHeaderData(1, Qt::Horizontal, tr("Name"));
+        setHeaderData(2, Qt::Horizontal, tr("Permission"));
+        setHeaderData(3, Qt::Horizontal, tr("Password"));
+    }
 
     Qt::ItemFlags flags(const QModelIndex &index) const
    {
@@ -47,7 +56,7 @@ public:
         if (! msg.isEmpty())
             QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
 
-        refresh();
+        sort(_column, _order);
         return msg.isEmpty();
     }
 
@@ -63,18 +72,23 @@ public:
         return permissions;
     }
 
-    void refresh()
+    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder)
     {
+        if (column == 0) return; _column = column; _order = order;
+        QStringList fields = QStringList() << "name" << "permission" << "password";
+
         QString trs = "case permission ";
         QList<StrPair> permissions = getPermissions();
         for (int i = 0; i < permissions.size(); i++)
             trs += "when '" + permissions.at(i).second + "' then '" + permissions.at(i).first +"'";
         trs += "end";
 
-        setQuery("select users.id, firstname ||' '|| lastname, "+ trs +", case when upassword is null then '' else '******' end from permissions inner join users on users.id = permissions.user_id");
-        setHeaderData(1, Qt::Horizontal, tr("Name"));
-        setHeaderData(2, Qt::Horizontal, tr("Permission"));
-        setHeaderData(3, Qt::Horizontal, tr("Password"));
+        QString sql = QString("select users.id, firstname ||' '|| lastname as name, %1 as permission, case when upassword is null then '' else '******' end as password from permissions inner join users on users.id = permissions.user_id order by %2").arg(trs).arg(fields[column-1]);
+
+        if (order == Qt::DescendingOrder)
+            sql += " desc";
+
+        setQuery(sql);
     }
 };
 
