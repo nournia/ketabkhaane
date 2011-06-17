@@ -388,17 +388,15 @@
         <translation type="obsolete">فعال</translation>
     </message>
     <message>
-        <location filename="matchtable.h" line="+77"/>
         <source>imported</source>
-        <translation>نیازمند بررسی</translation>
+        <translation type="obsolete">نیازمند بررسی</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>disabled</source>
-        <translation>غیر فعال</translation>
+        <translation type="obsolete">غیر فعال</translation>
     </message>
     <message>
-        <location filename="matchform.ui" line="-65"/>
+        <location line="-65"/>
         <source>Author</source>
         <translation>نویسنده</translation>
     </message>
@@ -408,13 +406,13 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+51"/>
+        <location filename="matchform.cpp" line="+49"/>
         <source>New Question</source>
         <translation>سوال جدید</translation>
     </message>
     <message>
         <location line="+103"/>
-        <location filename="matchtable.h" line="-4"/>
+        <location filename="matchtable.h" line="+73"/>
         <location filename="viewerform.cpp" line="+103"/>
         <location line="+101"/>
         <source>book</source>
@@ -469,7 +467,7 @@
 <context>
     <name>MatchRow</name>
     <message>
-        <location filename="matchrow.ui" line="+45"/>
+        <location filename="matchrow.ui" line="+40"/>
         <source>Receive</source>
         <translation>دریافت</translation>
     </message>
@@ -649,7 +647,7 @@
         <translation>این شماره ملی برای %1 ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+40"/>
         <source>Invalid Old Password.</source>
         <translation>کلمه عبور وارد شده اشتباه است.</translation>
     </message>
@@ -725,17 +723,19 @@
     </message>
     <message>
         <location filename="matchtable.h" line="+14"/>
-        <location filename="mmatches.h" line="+45"/>
+        <location filename="mmatches.h" line="+47"/>
         <source>active</source>
         <translation>فعال</translation>
     </message>
     <message>
+        <location line="+0"/>
         <location filename="mmatches.h" line="+1"/>
         <source>imported</source>
         <translation>وارد شده</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
+        <location filename="mmatches.h" line="+1"/>
         <source>disabled</source>
         <translation>غیر فعال</translation>
     </message>
@@ -1101,8 +1101,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">کیفیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="-228"/>
-        <location line="+252"/>
+        <location filename="matchform.cpp" line="-226"/>
+        <location line="+250"/>
         <location filename="viewerform.cpp" line="-55"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
