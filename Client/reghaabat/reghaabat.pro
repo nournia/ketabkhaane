@@ -8,6 +8,9 @@ QT       += core sql gui network webkit
 
 TARGET = reghaabat
 TEMPLATE = app
+TRANSLATIONS = reghaabat_fa.ts
+RESOURCES = reghaabat.qrc
+RC_FILE = reghaabat.rc
 
 
 SOURCES += main.cpp\
@@ -73,7 +76,3 @@ FORMS    += mainwindow.ui \
     viewerform.ui \
     scoreform.ui \
     matchtable.ui
-
-TRANSLATIONS = reghaabat_fa.ts
-
-RESOURCES = reghaabat.qrc

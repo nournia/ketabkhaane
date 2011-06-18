@@ -28,12 +28,6 @@ int main(int argc, char *argv[])
 
     Connector::connectDb();
 
-    // application info
-    a.setApplicationName(QApplication::tr("Reghaabat"));
-    a.setApplicationVersion("0.1");
-    a.setOrganizationName(QApplication::tr("Rooyesh"));
-    a.setOrganizationDomain("www.reghaabat.ir");
-
     // translation
     QTranslator rTranslator;
     rTranslator.load("reghaabat_fa");

@@ -1,0 +1,46 @@
+IDI_ICON1   ICON    DISCARDABLE "resources/reghaabat.ico"
+
+
+#include <windows.h>
+
+#define VER_PRODUCTVERSION          0,8,0,0
+#define VER_PRODUCTVERSION_STR      "0.8\0"
+
+#define VER_COMPANYNAME_STR         "Rooyesh"
+#define VER_FILEDESCRIPTION_STR     ""
+#define VER_INTERNALNAME_STR        "Reghaabat"
+#define VER_LEGALCOPYRIGHT_STR      "Copyright © 2011 Rooyesh"
+#define VER_LEGALTRADEMARKS1_STR    "All Rights Reserved"
+#define VER_LEGALTRADEMARKS2_STR    VER_LEGALTRADEMARKS1_STR
+#define VER_ORIGINALFILENAME_STR    "reghaabat.exe"
+#define VER_PRODUCTNAME_STR         "Reghaabat"
+
+#define VER_COMPANYDOMAIN_STR       "reghaabat.ir"
+
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     VER_PRODUCTVERSION
+PRODUCTVERSION  VER_PRODUCTVERSION
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN
+            VALUE "CompanyName",        VER_COMPANYNAME_STR
+            VALUE "FileDescription",    VER_FILEDESCRIPTION_STR
+            VALUE "FileVersion",        VER_PRODUCTVERSION_STR
+            VALUE "InternalName",       VER_INTERNALNAME_STR
+            VALUE "LegalCopyright",     VER_LEGALCOPYRIGHT_STR
+            VALUE "LegalTrademarks1",   VER_LEGALTRADEMARKS1_STR
+            VALUE "LegalTrademarks2",   VER_LEGALTRADEMARKS2_STR
+            VALUE "OriginalFilename",   VER_ORIGINALFILENAME_STR
+            VALUE "ProductName",        VER_PRODUCTNAME_STR
+            VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
+        END
+    END
+
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
