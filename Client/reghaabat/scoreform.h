@@ -12,6 +12,7 @@ class SetScoreModel : public QSqlQueryModel
 public:
     int _column;
     Qt::SortOrder _order;
+    QMap<QModelIndex, QVariant> edited;
 
     SetScoreModel(QObject *parent = 0) : QSqlQueryModel(parent)
     {
@@ -33,10 +34,15 @@ public:
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const
     {
-        if ((index.column() == 3 || index.column() == 4) && role == Qt::TextAlignmentRole)
+        if (role == Qt::TextAlignmentRole && (index.column() == 3 || index.column() == 4))
             return Qt::AlignCenter;
         else
+        {
+            if (edited.contains(index) && (role == Qt::DisplayRole || role == Qt::EditRole))
+                return edited[index];
+
             return QSqlQueryModel::data(index, role);
+        }
     }
 
     bool setData(const QModelIndex &index, const QVariant &value, int role)
@@ -53,8 +59,9 @@ public:
 
         if (! msg.isEmpty())
             QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
+        else
+            edited[index] = value;
 
-        sort(_column, _order);
         return msg.isEmpty();
     }
 
@@ -67,7 +74,7 @@ public:
 
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder)
     {
-        if (column == 0) return; _column = column; _order = order;
+        edited.clear(); if (column == 0) return; _column = column; _order = order;
         QStringList fields = QStringList() << "name" << "title" << "maxscore" << "score";
 
         QString tmp = "-1";

@@ -12,8 +12,7 @@ class MatchListModel : public QSqlQueryModel
     Q_OBJECT
 
 public:
-    int _column;
-    Qt::SortOrder _order;
+    QMap<QModelIndex, QVariant> edited;
 
     MatchListModel(QObject *parent = 0) : QSqlQueryModel(parent)
     {
@@ -25,7 +24,6 @@ public:
         setHeaderData(4, Qt::Horizontal, tr("Score"));
         setHeaderData(5, Qt::Horizontal, tr("Answers"));
         setHeaderData(6, Qt::Horizontal, tr("State"));
-
     }
 
     Qt::ItemFlags flags(const QModelIndex &index) const
@@ -38,10 +36,15 @@ public:
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const
     {
-        if ((index.column() != 1) && role == Qt::TextAlignmentRole)
+        if (role == Qt::TextAlignmentRole && (index.column() != 1))
             return Qt::AlignCenter;
         else
+        {
+            if (edited.contains(index) && (role == Qt::DisplayRole || role == Qt::EditRole))
+                return edited[index];
+
             return QSqlQueryModel::data(index, role);
+        }
     }
 
     bool setData(const QModelIndex &index, const QVariant &value, int role)
@@ -75,14 +78,15 @@ public:
 
         if (! msg.isEmpty())
             QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
+        else
+            edited[index] = value;
 
-        sort(_column, _order);
         return msg.isEmpty();
     }
 
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder)
     {
-        if (column == 0) return; _column = column; _order = order;
+        edited.clear(); if (column == 0) return;
         QStringList fields = QStringList() << "title" << "kind" << "ageclass" << "score" << "answer_ratio" << "state";
 
         QString sql = QString() +
