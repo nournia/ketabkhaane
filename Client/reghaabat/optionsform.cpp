@@ -14,6 +14,8 @@ OptionsForm::OptionsForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->bConvertDb->setVisible(false);
+
     ui->cPrinters->clear();
     foreach(QPrinterInfo printer, QPrinterInfo::availablePrinters())
         ui->cPrinters->addItem(printer.printerName());
