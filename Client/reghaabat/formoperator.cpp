@@ -37,7 +37,7 @@ FormOperator::FormOperator(QWidget *parent) :
     connect(eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
     connect(eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
 
-    eMatch->setCompleter(new MyCompleter(QString("select matches.id, matches.title as ctitle from matches"), this));
+    eMatch->setCompleter(new MyCompleter("select matches.id, matches.title as ctitle from matches", this));
 
     cancelUser();
 }
@@ -63,7 +63,8 @@ void FormOperator::cancelUser()
 
 void FormOperator::cancelMatch()
 {
-    ui->newMatchButtons->setEnabled(false);
+    ui->bDeliver->setEnabled(false);
+    ui->bPreview->setEnabled(false);
 }
 
 void FormOperator::selectUser()
@@ -85,14 +86,21 @@ void FormOperator::selectUser()
 
         ui->gDelivered->setEnabled(true);
         ui->gMatch->setEnabled(true);
-        eMatch->completer()->setQuery(QString("select matches.id, matches.title as ctitle from matches inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(eUser->value())).arg(eUser->value()));
+
+        QString query;
+        if (ui->cQuickSearch->isChecked())
+            query = QString("select matches.id, matches.title as ctitle from matches inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(eUser->value())).arg(eUser->value());
+        else
+            query = "select matches.id, matches.title as ctitle from matches";
+        eMatch->completer()->setQuery(query);
         eMatch->setFocus();
     }
 }
 
 void FormOperator::selectMatch()
 {
-    ui->newMatchButtons->setEnabled(! eMatch->value().isEmpty());
+    ui->bDeliver->setEnabled(! eMatch->value().isEmpty());
+    ui->bPreview->setEnabled(! eMatch->value().isEmpty());
 
     if (! eMatch->value().isEmpty())
     {
@@ -186,4 +194,9 @@ void FormOperator::prepareViewer()
     viewer->showMatch(match, asks);
 
     prepared = eMatch->value();
+}
+
+void FormOperator::on_cQuickSearch_clicked()
+{
+    selectUser();
 }

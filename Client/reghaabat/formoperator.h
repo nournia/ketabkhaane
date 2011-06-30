@@ -28,6 +28,7 @@ private:
     ViewerForm* viewer;
 
 private slots:
+    void on_cQuickSearch_clicked();
     void on_bPreview_clicked();
     void selectUser();
     void selectMatch();

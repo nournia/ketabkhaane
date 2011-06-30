@@ -1,7 +1,7 @@
 #include "mylineedit.h"
 
 MyLineEdit::MyLineEdit(QString query, QWidget *parent)
-    : QLineEdit(parent), c(0), valueId("")
+    : QLineEdit(parent), c(0), valueId(""), qry(new QSqlQuery)
 {
     if (! query.isEmpty())
         setCompleter(new MyCompleter(query, this));
@@ -85,14 +85,11 @@ void MyLineEdit::setIdValue()
     }
 
     // retrieve value id
-    QSqlQuery qry;
-    qry.prepare(completer()->query + (completer()->query.contains("where") ? " and " : " where " ) +"ctitle = ?");
-    qry.addBindValue(this->text());
-    qry.exec();
-    if (qry.next())
+    qry->exec(completer()->query + (completer()->query.contains("where") ? " and " : " where " ) + QString("ctitle = '%1'").arg(this->text()));
+    if (qry->next())
     {
-        valueId = qry.value(0).toString();
-        if (qry.next()) // return empty if there is more than one exact match case
+        valueId = qry->value(0).toString();
+        if (qry->next()) // return empty if there is more than one exact match case
             valueId = "";
     } else
         valueId = "";

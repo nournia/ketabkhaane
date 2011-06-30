@@ -43,7 +43,7 @@ public:
         m_list.clear();
 
         QSqlQuery qry;
-        qry.exec(query);
+        qry.exec(query + " order by ctitle");
         while (qry.next())
             m_list << qry.value(1).toString();
     }
@@ -99,6 +99,7 @@ signals:
 private:
     MyCompleter *c;
     QString valueId; // from completer query
+    QSqlQuery* qry;
 };
 
 #endif // MYLINEEDIT_H

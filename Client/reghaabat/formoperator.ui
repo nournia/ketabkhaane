@@ -117,6 +117,16 @@
           </spacer>
          </item>
          <item>
+          <widget class="QCheckBox" name="cQuickSearch">
+           <property name="text">
+            <string>Quick Search</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QCheckBox" name="cPrint">
            <property name="maximumSize">
             <size>
@@ -166,7 +176,6 @@
  </widget>
  <tabstops>
   <tabstop>bDeliver</tabstop>
-  <tabstop>cPrint</tabstop>
   <tabstop>bPreview</tabstop>
  </tabstops>
  <resources/>
