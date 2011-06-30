@@ -37,6 +37,8 @@ FormOperator::FormOperator(QWidget *parent) :
     connect(eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
     connect(eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
 
+    eMatch->setCompleter(new MyCompleter(QString("select matches.id, matches.title as ctitle from matches"), this));
+
     cancelUser();
 }
 
@@ -62,7 +64,6 @@ void FormOperator::cancelUser()
 void FormOperator::cancelMatch()
 {
     ui->newMatchButtons->setEnabled(false);
-    eMatch->setCompleter(new MyCompleter(QString("select matches.id, matches.title as ctitle from matches inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(eUser->value())).arg(eUser->value()), this));
 }
 
 void FormOperator::selectUser()
@@ -70,10 +71,6 @@ void FormOperator::selectUser()
     cancelUser();
     if (! eUser->value().isEmpty())
     {
-        ui->gDelivered->setEnabled(true);
-        ui->gMatch->setEnabled(true);
-        eMatch->setFocus();
-
         QSqlQuery qry;
         qry.exec(QString("select match_id, matches.title from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null and answers.created_at > (select started_at from library)").arg(eUser->value()));
 
@@ -85,6 +82,11 @@ void FormOperator::selectUser()
 
         // space filler
         ui->lDelivered->layout()->addWidget(new QWidget);
+
+        ui->gDelivered->setEnabled(true);
+        ui->gMatch->setEnabled(true);
+        eMatch->completer()->setQuery(QString("select matches.id, matches.title as ctitle from matches inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(eUser->value())).arg(eUser->value()));
+        eMatch->setFocus();
     }
 }
 

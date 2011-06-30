@@ -11,7 +11,11 @@ MyLineEdit::~MyLineEdit() {}
 
 void MyLineEdit::setCompleter(MyCompleter *completer)
 {
-    if (c) QObject::disconnect(c, 0, this, 0);
+    if (c)
+    {
+        QObject::disconnect(c, 0, this, 0);
+        delete c;
+    }
     c = completer;
     if (!c) return;
 

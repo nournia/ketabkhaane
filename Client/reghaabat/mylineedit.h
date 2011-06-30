@@ -24,27 +24,28 @@ class MyCompleter : public QCompleter
 public:
     QString query;
 
-    inline MyCompleter(const QStringList& words, QObject* parent)
-        : QCompleter(parent), m_list(words), m_model()
-    {
-        setModel(&m_model);
-    }
-
     MyCompleter (QString q, QObject* parent)
-        : QCompleter(parent), query(q)
+        : QCompleter(parent), query(q), m_model()
     {
-        QSqlQuery qry;
-        qry.exec(query);
-        while (qry.next())
-            m_list << qry.value(1).toString();
-
         setModel(&m_model);
 
         // configurations
         QFont font("Tahoma");
         popup()->setFont(font);
-
         popup()->setLayoutDirection(Qt::RightToLeft);
+
+        setQuery(q);
+    }
+
+    void setQuery(QString q)
+    {
+        query = q;
+        m_list.clear();
+
+        QSqlQuery qry;
+        qry.exec(query);
+        while (qry.next())
+            m_list << qry.value(1).toString();
     }
 
     inline void update(QString word)
