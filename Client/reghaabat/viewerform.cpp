@@ -100,7 +100,7 @@ QString getMatchListQuery(QString ageclass)
     } else
         tCondition = "and matches.ageclass = " + ageclass;
 
-    return QString("select matches.title, %1 ifnull(categories.title, case resources.kind when 'book' then ' "+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end) as kind, supports.score from matches inner join supports on matches.id = supports.match_id %2 left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id where supports.current_state = 'active' %3 order by kind, supports.score desc").arg(tField).arg(tTable).arg(tCondition);
+    return QString("select matches.title, %1 ifnull(categories.title, case resources.kind when 'book' then ' "+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end) as kind, supports.score from matches inner join supports on matches.id = supports.match_id %2 left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id where supports.current_state = 'active' %3 order by kind, supports.score desc, matches.title").arg(tField).arg(tTable).arg(tCondition);
 }
 
 void ViewerForm::on_bUserAll_clicked()
@@ -284,7 +284,7 @@ void ViewerForm::on_bPdf_clicked()
 void ViewerForm::on_bPrint_clicked()
 {
     QSettings settings("Rooyesh", "Reghaabat");
-    QString tmpFile = "pr";
+    QString tmpFile = "p";
 
     savePdf(tmpFile);
 
@@ -296,5 +296,5 @@ void ViewerForm::on_bPrint_clicked()
         printer = QString("-print-to \"%1\"").arg(printer);
 
     QProcess* p = new QProcess(this);
-    p->start(QString("sumatra.exe %1 %2").arg(printer).arg(tmpFile));
+    p->start(QString("sumatra.exe -reuse-instance %1 %2").arg(printer).arg(tmpFile));
 }
