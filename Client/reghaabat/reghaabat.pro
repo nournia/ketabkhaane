@@ -33,7 +33,9 @@ SOURCES += main.cpp\
     formchangepermissions.cpp \
     viewerform.cpp \
     scoreform.cpp \
-    matchtable.cpp
+    matchtable.cpp \
+    musers.cpp \
+    mmatches.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \

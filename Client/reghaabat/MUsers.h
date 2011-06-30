@@ -2,7 +2,6 @@
 #define MUSERS_H
 
 #include <QCryptographicHash>
-#include <QVariant>
 
 #include <mainwindow.h>
 #include <helper.h>

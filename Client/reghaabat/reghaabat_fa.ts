@@ -625,7 +625,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="musers.h" line="+53"/>
+        <location filename="musers.h" line="+52"/>
         <source>User name is required.</source>
         <translation>نام عضو وارد نشده است.</translation>
     </message>
@@ -684,6 +684,7 @@
     </message>
     <message>
         <location filename="formchangepermissions.h" line="+33"/>
+        <location filename="formoperator.cpp" line="+123"/>
         <location filename="matchtable.h" line="+54"/>
         <location filename="scoreform.h" line="+61"/>
         <source>Reghaabat</source>
@@ -712,7 +713,7 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+176"/>
         <source>Invalid record selected.</source>
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
@@ -750,6 +751,31 @@
     <message>
         <source>Invalid score value.</source>
         <translation type="obsolete">امتیاز وارد شده معتبر نیست.</translation>
+    </message>
+    <message>
+        <location filename="mmatches.cpp" line="+15"/>
+        <source>You received this match before</source>
+        <translation>شما این مسابقه را قبلا تحویل گرفته‌اید.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>This match is not supported.</source>
+        <translation>این مسابقه در رقابت پشتیبانی نمی‌شود.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>This match is not in active state.</source>
+        <translation>این مسابقه در وضعیت فعال نیست.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Error in user or match</source>
+        <translation>خطا در داده‌های کاربر یا مسابقه</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>This matches&apos; ageclass deffers more than one level with yours.</source>
+        <translation>رده سنی این مسابقه بیش از یک سطح با شما اختلاف دارد.</translation>
     </message>
 </context>
 <context>

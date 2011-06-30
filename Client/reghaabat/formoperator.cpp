@@ -4,6 +4,7 @@
 #include <QFormLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QMessageBox>
 
 #include <helper.h>
 #include <matchrow.h>
@@ -115,7 +116,14 @@ void FormOperator::on_bDeliver_clicked()
     {
         // TODO check for match per user and match per user in day limits
 
-        MMatches::deliver(eUser->value(), eMatch->value());
+        QString msg = MMatches::deliver(eUser->value(), eMatch->value());
+
+        if (! msg.isEmpty())
+        {
+            QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
+            return;
+        }
+
         if (ui->cPrint->isChecked())
             viewer->on_bPrint_clicked();
 

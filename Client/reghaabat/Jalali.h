@@ -11,4 +11,4 @@ QVariant getGregorianVariant(QString jalali);
 
 QString toJalali(QDate input);
 
-#endif JALALI_H
+#endif // JALALI_H
