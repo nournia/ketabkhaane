@@ -123,7 +123,7 @@ QVariant refineValue(QVariant value)
 {
     QString tn = value.typeName();
     if (tn == "QString" &&  value.toString().contains(''))
-        return value.toString().replace('', "");
+        return refineText(value.toString()).replace('', "");
     else
         return value;
 }
@@ -167,6 +167,7 @@ bool importTable(QString table, QString query, QStringList fields)
 
 QVariant getTitleId(QString table, QString title)
 {
+    title = refineText(title);
     QVariant null; null.clear();
     if (title == "") return null;
 
@@ -187,7 +188,7 @@ QString refineContent(QString content)
     content.replace(QRegExp("[\r\n]+"), "</p><p>");
     content = "<p>" + content + "</p>";
     content.replace("<p></p>", "");
-    return content;
+    return refineText(content);
 }
 bool importMatches()
 {
@@ -228,7 +229,7 @@ bool importMatches()
     {
         sqliteQry.bindValue(":id", accessQry.value(0));
         sqliteQry.bindValue(":designer_id", accessQry.value(1));
-        sqliteQry.bindValue(":title", accessQry.value(2));
+        sqliteQry.bindValue(":title", refineText(accessQry.value(2).toString()));
         sqliteQry.bindValue(":ageclass", accessQry.value(3));
 
         if (accessQry.value(0).toString().startsWith("31") || accessQry.value(0).toString().startsWith("34"))
@@ -243,8 +244,8 @@ bool importMatches()
 
             resourceQry.bindValue(1, getTitleId("authors", accessQry.value(7).toString()));
             resourceQry.bindValue(2, getTitleId("publications", accessQry.value(8).toString()));
-            resourceQry.bindValue(3, accessQry.value(2));
-            resourceQry.bindValue(4, accessQry.value(3));
+            resourceQry.bindValue(3, refineText(accessQry.value(2).toString()));
+            resourceQry.bindValue(4, refineText(accessQry.value(3).toString()));
 
             if (! resourceQry.exec())
                 qDebug() << resourceQry.lastError();

@@ -91,12 +91,17 @@
         <translation>مسابقه جدید</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+41"/>
+        <source>Quick Search</source>
+        <translation>جستجوی سریع</translation>
+    </message>
+    <message>
+        <location line="-20"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+36"/>
         <source>Print</source>
         <translation>چاپ</translation>
     </message>
@@ -412,7 +417,7 @@
     </message>
     <message>
         <location line="+103"/>
-        <location filename="matchtable.h" line="+73"/>
+        <location filename="matchtable.h" line="+94"/>
         <location filename="viewerform.cpp" line="+103"/>
         <location line="+101"/>
         <source>book</source>
@@ -430,7 +435,7 @@
 <context>
     <name>MatchListModel</name>
     <message>
-        <location filename="matchtable.h" line="+10"/>
+        <location filename="matchtable.h" line="-73"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
@@ -467,7 +472,7 @@
 <context>
     <name>MatchRow</name>
     <message>
-        <location filename="matchrow.ui" line="+40"/>
+        <location filename="matchrow.ui" line="+57"/>
         <source>Receive</source>
         <translation>دریافت</translation>
     </message>
@@ -525,7 +530,7 @@
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="+21"/>
+        <location filename="optionsform.cpp" line="+23"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -553,7 +558,7 @@
 <context>
     <name>PermissionModel</name>
     <message>
-        <location filename="formchangepermissions.h" line="+57"/>
+        <location filename="formchangepermissions.h" line="+66"/>
         <source>admin</source>
         <translation>مدیر سامانه</translation>
     </message>
@@ -583,7 +588,7 @@
         <translation>عضو</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-49"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>
@@ -603,7 +608,6 @@
     <message>
         <location filename="dialogchangepassword.cpp" line="+26"/>
         <location filename="logindialog.cpp" line="+0"/>
-        <location filename="main.cpp" line="+32"/>
         <location filename="matchform.cpp" line="+93"/>
         <location filename="optionsform.cpp" line="-12"/>
         <location filename="userform.cpp" line="+61"/>
@@ -614,9 +618,8 @@
         <translation>رقابت</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+2"/>
         <source>Rooyesh</source>
-        <translation>رویش</translation>
+        <translation type="obsolete">رویش</translation>
     </message>
 </context>
 <context>
@@ -657,11 +660,16 @@
         <translation>کلمه عبور جدید باید با تکرار آن تطابق داشته باشد.</translation>
     </message>
     <message>
+        <location line="+14"/>
+        <source>Password is required.</source>
+        <translation>پسورد نباید خالی باشد.</translation>
+    </message>
+    <message>
         <source>Password phrase length must be greater than 6 characters and mustn&apos;t be a pure number.</source>
         <translation type="obsolete">کلمه عبور باید حداقل 6 حرف باشد و نباید فقط از عدد تشکل شده باشد.</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+23"/>
         <source>You must have at least one master user.</source>
         <translation>سامانه باید حداقل یک مدیر داشته باشد.</translation>
     </message>
@@ -670,14 +678,14 @@
         <translation type="obsolete">سامانه باید حداقل یک مدیر داشته باشد.</translation>
     </message>
     <message>
-        <location line="-28"/>
+        <location line="-31"/>
         <source>Password Changed.</source>
         <translation>کلمه عبور جدید ثبت شد.</translation>
     </message>
     <message>
-        <location filename="formchangepermissions.h" line="-29"/>
-        <location filename="matchtable.h" line="-25"/>
-        <location filename="scoreform.h" line="+45"/>
+        <location filename="formchangepermissions.h" line="+33"/>
+        <location filename="matchtable.h" line="+54"/>
+        <location filename="scoreform.h" line="+61"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -722,7 +730,7 @@
         <translation type="obsolete">چند رسانه‌ای</translation>
     </message>
     <message>
-        <location filename="matchtable.h" line="+14"/>
+        <location filename="matchtable.h" line="+18"/>
         <location filename="mmatches.h" line="+47"/>
         <source>active</source>
         <translation>فعال</translation>
@@ -783,7 +791,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SetScoreModel</name>
     <message>
-        <location filename="scoreform.h" line="+19"/>
+        <location filename="scoreform.h" line="-40"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>

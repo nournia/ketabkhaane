@@ -124,6 +124,9 @@ public:
     {
         QSqlQuery qry;
 
+        if (newPass.trimmed().isEmpty())
+            return QObject::tr("Password is required.");
+
 //        if (! validPassword(newPass))
 //            return QObject::tr("Password phrase length must be greater than 6 characters and mustn't be a pure number.");
 

@@ -14,7 +14,7 @@ OptionsForm::OptionsForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->bConvertDb->setVisible(false);
+    ui->bConvertDb->setVisible(ui->bConvertDb->isEnabled());
 
     ui->cPrinters->clear();
     foreach(QPrinterInfo printer, QPrinterInfo::availablePrinters())
@@ -38,7 +38,7 @@ OptionsForm::~OptionsForm()
 
 void OptionsForm::on_bConvertDb_clicked()
 {
-    convertAccessDbToSqliteDb("D:\\Flash\\Project\\Match\\Match\\ForConvert.mdb");
+    convertAccessDbToSqliteDb("C:\\Users\\Noorian\\Desktop\\Reghaabat.mdb");
 }
 
 void OptionsForm::on_buttonBox_rejected()
