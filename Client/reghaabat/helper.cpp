@@ -2,6 +2,10 @@
 
 #include <QCoreApplication>
 #include <QSettings>
+#include <QDebug>
+
+// init reghaabat global variables
+Reghaabat* Reghaabat::m_Instance = 0;
 
 QString getAbsoluteAddress(QString address)
 {
@@ -12,15 +16,6 @@ QString dataFolder()
 {
     QSettings settings("Rooyesh", "Reghaabat");
     return settings.value("DataFolder", getAbsoluteAddress("data")).toString();
-}
-
-QString c1 = QString::fromUtf8("ي"), r1 = QString::fromUtf8("ی");
-QString c2 = QString::fromUtf8("ك"), r2 = QString::fromUtf8("ک");
-
-QString refineText(QString text)
-{
-    // replace specific charcters
-    return text.replace(c1, r1).replace(c2, r2);
 }
 
 StrMap getRecord(QSqlQuery& query)
@@ -66,4 +61,30 @@ void fillComboBox(QComboBox* combobox, QList<StrPair> data)
     combobox->clear();
     for (int i = 0; i < data.size(); i++)
         combobox->addItem(data.at(i).first, data.at(i).second);
+}
+
+void insertLog(QString table, QString operation, QVariant id, QString userId, QDateTime time)
+{
+    QString data;
+
+    QSqlQuery qry;
+    qry.exec(QString("select * from %1 where id = %2").arg(table).arg(id.toString()));
+    if (qry.next())
+        data = getRecordJSON(qry);
+
+    if (! time.isValid())
+        time = QDateTime::currentDateTime();
+
+    if (userId.isEmpty())
+        userId = Reghaabat::instance()->userId;
+
+    qry.prepare("insert into logs values (?, ?, ?, ?, ?, ?)");
+    qry.addBindValue(table);
+    qry.addBindValue(operation);
+    qry.addBindValue(id);
+    qry.addBindValue(data);
+    qry.addBindValue(userId);
+    qry.addBindValue(time);
+    if (! qry.exec())
+        qDebug() << qry.lastError();
 }

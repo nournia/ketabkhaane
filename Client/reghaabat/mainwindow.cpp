@@ -12,9 +12,6 @@
 #include <matchtable.h>
 #include <sender.h>
 
-// init reghaabat global variables
-Reghaabat* Reghaabat::m_Instance = 0;
-
 // forms
 FormFirst* formFirst;
 FormOperator* formOperator;
@@ -64,6 +61,8 @@ void MainWindow::clear()
 
 void MainWindow::applyPermission()
 {
+   ui->actionSync->setVisible(false);
+
    ui->actionSync->setEnabled(false);
    ui->actionOptions->setEnabled(false);
    ui->actionDeliverMatch->setEnabled(false);

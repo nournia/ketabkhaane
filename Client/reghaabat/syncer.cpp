@@ -50,32 +50,6 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     return true;
 }
 
-// from qjson library
-inline QString sanitizeString( QString str )
-{
-    str.replace('&', ','); // must change !!!
-    str.replace( QLatin1String( "\\" ), QLatin1String( "\\\\" ) );
-    str.replace( QLatin1String( "\"" ), QLatin1String( "\\\"" ) );
-    str.replace( QLatin1String( "\b" ), QLatin1String( "\\b" ) );
-    str.replace( QLatin1String( "\f" ), QLatin1String( "\\f" ) );
-    str.replace( QLatin1String( "\n" ), QLatin1String( "\\n" ) );
-    str.replace( QLatin1String( "\r" ), QLatin1String( "\\r" ) );
-    str.replace( QLatin1String( "\t" ), QLatin1String( "\\t" ) );
-    return QString( QLatin1String( "\"%1\"" ) ).arg( str );
-}
-inline QString getJsonValue(QVariant v)
-{
-    if (v.isNull())
-        return "null";
-    else {
-        bool ok; int i = v.toInt(&ok);
-        if (ok)
-            return QString::number(i);
-        else
-            return sanitizeString(v.toString());
-    }
-}
-
 QString writeJson(QDateTime& lastSync, QDateTime& syncTime, QStringList& files)
 {
     QSqlQuery qry;

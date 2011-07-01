@@ -48,34 +48,4 @@ private slots:
     void firstPage();
 };
 
-
-// rghaabat global variables
-// from: http://stackoverflow.com/questions/3747085/global-variables-in-qt
-class Reghaabat
-{
-private:
-    static Reghaabat* m_Instance;
-
-public:
-    QString userId, userName, userGender, userPermission;
-
-    static Reghaabat* instance()
-    {
-        if (! m_Instance)
-            m_Instance = new Reghaabat;
-        return m_Instance;
-    }
-
-    static bool hasAccess(QString limit)
-    {
-        QString permission = Reghaabat::instance()->userPermission;
-        QStringList permissions = QStringList() << "user" << "operator" << "designer" << "manager" << "master" << "admin";
-
-        if (permission == "designer" && limit == "operator")
-            return false;
-
-        return permissions.indexOf(permission) >= permissions.indexOf(limit);
-    }
-};
-
 #endif // MAINWINDOW_H
