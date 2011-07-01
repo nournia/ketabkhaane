@@ -53,8 +53,7 @@ void FormChangePermissions::on_bAdd_clicked()
 {
     if (! eUser->value().isEmpty())
     {
-        QSqlQuery qry;
-        qry.exec(QString("insert into permissions (user_id, permission) values (%1, 'user')").arg(eUser->value()));
+        MUsers::setPermission(eUser->value(), "user");
 
         model->sort(1);
 

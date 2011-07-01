@@ -77,8 +77,13 @@ public:
         if (userId.isEmpty())
         {
             userId = qry.lastInsertId().toString();
-            qry.exec(QString("insert into scores (user_id) values (%1)").arg(userId));
+            insertLog("users", "insert", userId);
+
+            if (qry.exec(QString("insert into scores (user_id) values (%1)").arg(userId)))
+                insertLog("scores", "insert", userId);
         }
+        else
+            insertLog("users", "update", userId);
 
         return "";
     }
@@ -133,6 +138,8 @@ public:
         if (! qry.exec(QString("update users set upassword = '%1' where id = %2").arg(password).arg(userId)))
             return qry.lastError().text();
 
+        insertLog("users", "update", userId);
+
         return "";
     }
 
@@ -140,19 +147,34 @@ public:
     {
         QSqlQuery qry;
 
-        qry.exec("select permission from permissions where user_id = "+ userId);
+        qry.exec("select id, permission from permissions where user_id = "+ userId);
         if (qry.next())
         {
-            if (qry.value(0).toString() == "master")
+            // validation
+            QString id = qry.value(0).toString();
+
+            if (qry.value(1).toString() == "master")
             {
                 qry.exec("select user_id from permissions where permission = 'master' and user_id != "+ userId);
                 if (! qry.next())
                     return QObject::tr("You must have at least one master user.");
             }
-        }
 
-        if (! qry.exec(QString("update permissions set permission = '%1' where user_id = %2").arg(permission).arg(userId)))
-            return qry.lastError().text();
+
+            // store
+
+            if (! qry.exec(QString("update permissions set permission = '%1' where id = %2").arg(permission).arg(id)))
+                return qry.lastError().text();
+
+            insertLog("permissions", "update", id);
+        }
+        else
+        {
+            if (! qry.exec(QString("insert into permissions (user_id, permission) values (%1, 'user')").arg(userId)))
+                return qry.lastError().text();
+
+            insertLog("permissions", "insert", qry.lastInsertId());
+        }
 
         return "";
     }
