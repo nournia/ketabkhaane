@@ -39,8 +39,6 @@ create table users (
 	score integer not null default "0",
 	correction_time integer not null default "0",
 
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp, 
 	unique (email) on conflict abort,
 	unique (national_id) on conflict abort
 );
@@ -48,33 +46,21 @@ create table permissions (
 	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
 	permission varchar(10) not null, -- enum("user", "operator", "designer", "manager", "master", "admin")
-	accept tinyint(1) not null default "0",
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
+	accept tinyint(1) not null default "0"
 );
 
 -- matches
 create table authors (
 	id integer not null primary key autoincrement,
-	title varchar(255) not null,
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
+	title varchar(255) not null
 );
 create table publications (
 	id integer not null primary key autoincrement,
-	title varchar(255) not null,
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
+	title varchar(255) not null
 );
 create table files (
 	id integer not null primary key autoincrement,
-	extension varchar(5) not null,
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
+	extension varchar(5) not null
 );
 create table resources (
 	id integer not null primary key autoincrement,
@@ -86,10 +72,7 @@ create table resources (
 	ageclass tinyint(4) null default null,
 	content text null default null, -- html for all types
 	link varchar(1000) null default null, -- book:, multimedia: fileaddress, webpage: url
-	volume int null default null, -- book: pages, multimedia: seconds, webpage: words
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
+	volume int null default null -- book: pages, multimedia: seconds, webpage: words
 );
 create table matches (
 	id integer not null primary key autoincrement,
@@ -103,20 +86,14 @@ create table matches (
 	
 	-- instruction
 	category_id tinyint(4) null default null references categories(id) on update cascade,
-	content text null default null,
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
+	content text null default null
 );
 create table questions (
 	id integer not null primary key autoincrement,
 	match_id integer not null references matches(id) on update cascade,
 	question varchar(1000) not null,
-	answer varchar(1000) null default null,
+	answer varchar(1000) null default null
 	--choice tinyint(4) null default null -- null: no choice
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
 );
 
 -- answers
@@ -126,10 +103,7 @@ create table answers (
 	match_id integer not null references matches(id) on update cascade,
 	received_at datetime null default null,
 	corrected_at datetime null default null,
-	rate float null default null,
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
+	rate float null default null
 );
 
 -- tournaments 
@@ -149,37 +123,26 @@ create table library (
 	pay_coeff float not null default "1",
 	pay_unit varchar(100) not null default "امتیاز",
 	active tinyint(1) not null default "1",
-	open_user tinyint(1) not null default "1",
-	
-	updated_at timestamp null default null
+	open_user tinyint(1) not null default "1"
 );
 create table supports (
 	id integer not null primary key autoincrement,
 	match_id integer not null references matches(id) on update cascade,
 	corrector_id integer not null references users(id) on update cascade,
 	current_state varchar(10) not null, -- enum("active", "disabled", "imported")
-	score smallint,
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
+	score smallint
 );
 create table scores (
 	id integer not null primary key autoincrement,
 	user_id integer not null,
 	score integer not null default "0",
 	participated_at datetime not null default current_timestamp,
-	confirm tinyint(1) not null default "1",
-
-	created_at timestamp null default current_timestamp, 
-	updated_at timestamp null default current_timestamp
+	confirm tinyint(1) not null default "1"
 );
 create table payments (
 	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
-	payment smallint not null,
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
+	payment smallint not null
 );
 
 -- open_scores 
@@ -192,10 +155,7 @@ create table open_scores (
 	user_id integer not null references users(id) on update cascade,
 	category_id tinyint(4) not null references categories(id) on update cascade,
 	title varchar(255) not null,
-	score smallint(6) not null,
-
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp
+	score smallint(6) not null
 );
 
 
@@ -204,6 +164,17 @@ create table objects (
 	id integer not null primary key autoincrement,
 	resource_id integer not null references resources(id) on update cascade,
 	label varchar(255) not null
+);
+
+
+-- log
+create table logs (
+	table_name varchar(20) not null,
+	row_op varchar(10) not null, -- enum("insert","update", "delete")
+	row_id integer not null,
+	row_data text null,
+	user_id integer null references users(id) on update cascade,
+	created_at timestamp default current_timestamp
 );
 
 
@@ -225,12 +196,9 @@ insert into open_categories (id, title) values (0, 'خلاصه‌نویسی');
 insert into open_categories (id, title) values (1, 'شعر');
 insert into open_categories (id, title) values (2, 'داستان');
 
-insert into library (id, group_id, title, image, license, tournament_title, started_at) values (1, 1, 'کتابخانه‌ی شهید خرازی', '1.jpg','aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', current_timestamp);
-insert into permissions (user_id, permission, accept) values (1111, "admin", 1);
+insert into library (id, group_id, title, image, license, tournament_title, started_at) values (1, 1, 'کتابخانه‌ی شهید خرازی', '1.jpg','aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', '2011-06-01 00:00:00');
+insert into permissions (user_id, permission, accept) values (1770, "master", 1);
 
 -- after import
-update users set upassword = '356a192b7913b04c54574d18c28d46e6395428ab' where id = 1111;
-update library set started_at = '2011-06-01 00:00:00';
-update matches set content = replace(content, 'src="', 'width="100%" src="') where id between 331000 and 331999;
-update supports set current_state = 'disabled' where score = 0;
+update users set upassword = '356a192b7913b04c54574d18c28d46e6395428ab' where id = 1770;
 update scores set score = 0;

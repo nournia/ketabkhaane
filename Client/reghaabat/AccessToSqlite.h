@@ -128,6 +128,7 @@ QVariant refineValue(QVariant value)
         return value;
 }
 
+// fields.size() : operatorId, fields.size()+1 : time
 bool importTable(QString table, QString query, QStringList fields)
 {
     if (! accessQry.exec(query))
@@ -158,6 +159,8 @@ bool importTable(QString table, QString query, QStringList fields)
 
         if (! sqliteQry.exec())
             qDebug() << table << " import error : " << sqliteQry.lastError() << accessQry.value(0).toString() << accessQry.value(1).toString();
+        else
+            insertLog(table, "insert", sqliteQry.lastInsertId().toString(), accessQry.value(fields.size()).toString(), QDateTime(toGregorian(accessQry.value(fields.size()+1).toString())));
     }
     sqliteDb.commit();
 
@@ -179,6 +182,7 @@ QVariant getTitleId(QString table, QString title)
     else
     {
         tmp.exec("insert into " + table + " (title) values ('" + title + "')");
+        insertLog(table, "insert", tmp.lastInsertId());
         return tmp.lastInsertId();
     }
 }
@@ -249,6 +253,8 @@ bool importMatches()
 
             if (! resourceQry.exec())
                 qDebug() << resourceQry.lastError();
+            else
+                insertLog("resources", "insert", resourceQry.lastInsertId());
 
             sqliteQry.bindValue(":resource_id", resourceQry.lastInsertId());
 
@@ -256,6 +262,8 @@ bool importMatches()
             objectQry.bindValue(1, accessQry.value(9));
             if (! objectQry.exec())
                 qDebug() << objectQry.lastError();
+            else
+                insertLog("objects", "insert", objectQry.lastInsertId());
         }
         else {
             sqliteQry.bindValue(":category_id", groups[accessQry.value(4).toInt()]);
@@ -265,6 +273,8 @@ bool importMatches()
 
         if (! sqliteQry.exec())
             qDebug() << sqliteQry.lastError() << accessQry.value(1).toString();
+        else
+            insertLog("matches", "insert", sqliteQry.lastInsertId());
     }
     sqliteDb.commit();
     qDebug() << "+ " << QString("matches");
@@ -272,19 +282,21 @@ bool importMatches()
     return true;
 }
 
-bool importImages()
+void importImages()
 {
-    QString sql = "select id, 'jpg', picture from pictures where id > 10000 or id < 1000";
+    QString sql = "select id, 'jpg', picture, '', '' from pictures where id > 10000 or id < 1000";
 
     importTable("files", sql, QStringList() << "id" << "extension");
 
     accessQry.exec(sql);
     while (accessQry.next())
     {
-        QString filename = QString("data/files/%1.jpg").arg(accessQry.value(0).toString());
+        QString id = accessQry.value(0).toString();
+        QString filename = QString("data/files/%1.jpg").arg(id);
         QImage::fromData(accessQry.value(2).toByteArray(), "jpg").save(filename, "jpg");
 
-        sqliteQry.exec("update matches set content = content || '<p><img src=\""+ accessQry.value(0).toString() +".jpg\"></p>' where id = "+ accessQry.value(0).toString());
+        sqliteQry.exec("update matches set content = content || '<p><img "+ QString(id.startsWith("331") ? "width=\"100%\" " : "") +"src=\""+ id +".jpg\"></p>' where id = "+ id);
+        insertLog("matches", "update", id);
     }
 }
 
@@ -301,36 +313,39 @@ void convertAccessDbToSqliteDb(QString accessFilename)
 
 //    sqliteQry.exec("pragma foreign_keys = on");
 
-    importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), description, registerdate, registerdate as udate from users",
-                QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description"  << "created_at"  << "updated_at");
+    importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), description, '', registerdate from users",
+                QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description");
 
-    // fill scores table
-    sqliteQry.exec("insert into scores (user_id) select id from users");
+    insertLog("permissions", "insert", "1");
+    insertLog("library", "insert", "1");
+
+    importTable("scores", "select id, registerdate, 1, '', '' from users",
+                QStringList() << "user_id" << "participated_at" << "confirm");
 
     importMatches();
 
     importImages();
 
-    importTable("supports", "select id, designerid, maxscore, iif(state = 0, 'active', iif(state = 1, 'disabled', iif(state = 2 , 'imported', NULL))) from matches",
+    importTable("supports", "select id, designerid, maxscore, iif(maxscore = 0, 'disabled', iif(state = 0, 'active', iif(state = 1, 'disabled', iif(state = 2 , 'imported', NULL)))), '', '' from matches",
                 QStringList() << "match_id" << "corrector_id" << "score" << "current_state");
 
-    importTable("questions", "select matchid, question, answer from questions",
+    importTable("questions", "select matchid, question, answer, '', '' from questions",
                 QStringList() << "match_id" << "question" << "answer");
 
-    importTable("answers", "select userid, matchid, iif(deliverdate is null, '1300/01/01', receivedate) as rdate, iif(deliverdate is null, '1300/01/01', scoredate) as sdate, iif(scoredate is null, null, transactions.score/matches.maxscore) as rate, iif(deliverdate is null, '1300/01/01', deliverdate) as ddate, iif(deliverdate is null, '1300/01/01', deliverdate) as udate from transactions inner join matches on transactions.matchid = matches.id",
-                QStringList() << "user_id" << "match_id" << "received_at" << "corrected_at" << "rate" << "created_at" << "updated_at");
+    importTable("answers", "select userid, matchid, iif(deliverdate is null, '1300/01/01', receivedate) as rdate, iif(deliverdate is null, '1300/01/01', scoredate) as sdate, iif(scoredate is null, null, transactions.score/matches.maxscore) as rate, operatorid, iif(deliverdate is null, '1300/01/01', deliverdate) as ddate from transactions inner join matches on transactions.matchid = matches.id",
+                QStringList() << "user_id" << "match_id" << "received_at" << "corrected_at" << "rate");
 
-    importTable("payments", "select userid, score, scoredate, scoredate as udate from payments",
-                QStringList() << "user_id" << "payment" << "created_at" << "updated_at");
+    importTable("payments", "select userid, score, operatorid, scoredate from payments",
+                QStringList() << "user_id" << "payment");
 
-    importTable("open_scores", "select userid, 0, title, score, scoredate, scoredate as udate from freescores",
-                QStringList() << "user_id" << "category_id" << "title" << "score" << "created_at" << "updated_at");
+    importTable("open_scores", "select userid, 0, title, score, operatorid, scoredate from freescores",
+                QStringList() << "user_id" << "category_id" << "title" << "score");
+
+    sqliteQry.exec("update logs set user_id = null where user_id = 0");
 
     sqliteQry.exec("pragma foreign_keys = off");
 
     qDebug() << "import finished";
 }
-
-
 
 #endif // ACCESSTOSQLITE_H
