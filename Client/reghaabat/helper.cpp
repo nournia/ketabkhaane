@@ -77,6 +77,8 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
 
     if (userId.isEmpty())
         userId = Reghaabat::instance()->userId;
+    else if (userId.toInt() == 0)
+        userId.clear();
 
     qry.prepare("insert into logs values (?, ?, ?, ?, ?, ?)");
     qry.addBindValue(table);
@@ -86,5 +88,5 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
     qry.addBindValue(userId);
     qry.addBindValue(time);
     if (! qry.exec())
-        qDebug() << qry.lastError();
+        qDebug() << "log " << qry.lastError();
 }

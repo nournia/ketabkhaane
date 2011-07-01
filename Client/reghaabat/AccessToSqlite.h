@@ -181,9 +181,12 @@ QVariant getTitleId(QString table, QString title)
         return tmp.value(0);
     else
     {
-        tmp.exec("insert into " + table + " (title) values ('" + title + "')");
-        insertLog(table, "insert", tmp.lastInsertId());
-        return tmp.lastInsertId();
+        if (tmp.exec("insert into " + table + " (title) values ('" + title + "')"))
+        {
+            QString id = tmp.lastInsertId().toString();
+            insertLog(table, "insert", id);
+            return id;
+        }
     }
 }
 
@@ -222,6 +225,7 @@ bool importMatches()
     // resource and match insertion
     sqliteQry.prepare(getInsertQuery("matches", QStringList() << "id" << "designer_id" << "title" << "ageclass" << "resource_id" << "category_id" << "content"));
 
+    QVariant resourceId;
     QSqlQuery resourceQry(sqliteDb);
     resourceQry.prepare(getInsertQuery("resources", QStringList() << "kind" << "author_id" << "publication_id" << "title" << "ageclass"));
 
@@ -246,22 +250,25 @@ bool importMatches()
             else
                 resourceQry.bindValue(":kind", "multimedia");
 
-            resourceQry.bindValue(1, getTitleId("authors", accessQry.value(7).toString()));
-            resourceQry.bindValue(2, getTitleId("publications", accessQry.value(8).toString()));
-            resourceQry.bindValue(3, refineText(accessQry.value(2).toString()));
-            resourceQry.bindValue(4, refineText(accessQry.value(3).toString()));
+            resourceQry.bindValue(":author_id", getTitleId("authors", accessQry.value(7).toString()));
+            resourceQry.bindValue(":publication_id", getTitleId("publications", accessQry.value(8).toString()));
+            resourceQry.bindValue(":title", refineText(accessQry.value(2).toString()));
+            resourceQry.bindValue(":ageclass", refineText(accessQry.value(3).toString()));
 
             if (! resourceQry.exec())
-                qDebug() << resourceQry.lastError();
+                qDebug() << "resource " << resourceQry.lastError() << accessQry.value(0).toString();
             else
-                insertLog("resources", "insert", resourceQry.lastInsertId());
+            {
+                resourceId = resourceQry.lastInsertId();
+                insertLog("resources", "insert", resourceId);
+            }
 
-            sqliteQry.bindValue(":resource_id", resourceQry.lastInsertId());
+            sqliteQry.bindValue(":resource_id", resourceId);
 
-            objectQry.bindValue(0, resourceQry.lastInsertId());
-            objectQry.bindValue(1, accessQry.value(9));
+            objectQry.bindValue(":resource_id", resourceId);
+            objectQry.bindValue(":label", accessQry.value(9));
             if (! objectQry.exec())
-                qDebug() << objectQry.lastError();
+                qDebug() << "object " << objectQry.lastError();
             else
                 insertLog("objects", "insert", objectQry.lastInsertId());
         }
@@ -272,7 +279,7 @@ bool importMatches()
         }
 
         if (! sqliteQry.exec())
-            qDebug() << sqliteQry.lastError() << accessQry.value(1).toString();
+            qDebug() << "match " << sqliteQry.lastError() << accessQry.value(1).toString();
         else
             insertLog("matches", "insert", sqliteQry.lastInsertId());
     }
@@ -311,7 +318,7 @@ void convertAccessDbToSqliteDb(QString accessFilename)
     if (! buildSqliteDb())
         return;
 
-//    sqliteQry.exec("pragma foreign_keys = on");
+    sqliteQry.exec("pragma foreign_keys = on");
 
     importTable("users", "select id, firstname, lastname, birthdate, address, phone, iif(man = true, 'male', 'female'), description, '', registerdate from users",
                 QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description");
@@ -340,8 +347,6 @@ void convertAccessDbToSqliteDb(QString accessFilename)
 
     importTable("open_scores", "select userid, 0, title, score, operatorid, scoredate from freescores",
                 QStringList() << "user_id" << "category_id" << "title" << "score");
-
-    sqliteQry.exec("update logs set user_id = null where user_id = 0");
 
     sqliteQry.exec("pragma foreign_keys = off");
 
