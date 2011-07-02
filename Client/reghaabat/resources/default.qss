@@ -1,18 +1,16 @@
-/* Colors
-
-light gradient:
-    qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(245, 250, 255, 255), stop:0.533333 rgba(200, 216, 230, 255), stop:1 rgba(230, 234, 236, 255));
-
-dark gradient:
-    qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(224, 239, 255, 255), stop:0.533333 rgba(199, 215, 230, 255), stop:1 rgba(184, 214, 236, 255));
-*/
 
 QMainWindow, QDialog {
-    background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(245, 250, 255, 255), stop:0.533333 rgba(200, 216, 230, 255), stop:1 rgba(230, 234, 236, 255));
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, 
+  		stop:0 rgba(245, 250, 255, 255), 
+		stop:0.533333 rgba(200, 216, 255, 255), 
+  		stop:1 rgba(230, 234, 255, 255));
 }
 
 QStatusBar {
-    background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(224, 239, 255, 255), stop:0.533333 rgba(199, 215, 230, 255), stop:1 rgba(184, 214, 236, 255));
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, 
+  		stop:0 rgba(224, 239, 255, 255),
+  		stop:0.533333 rgba(199, 215, 230, 255), 
+  		stop:1 rgba(184, 214, 236, 255));
 }
 
 
