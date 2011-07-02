@@ -38,7 +38,7 @@ FormOperator::FormOperator(QWidget *parent) :
     connect(eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
     connect(eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
 
-    eMatch->setCompleter(new MyCompleter("select matches.id, matches.title as ctitle from matches", this));
+    eMatch->setCompleter(new MyCompleter("select matches.id, matches.title as ctitle from matches", eMatch));
 
     cancelUser();
 }

@@ -32,7 +32,6 @@ MyCompleter *MyLineEdit::completer() const
 void MyLineEdit::insertCompletion(const QString& completion)
 {
     setText(completion);
-    selectAll();
 }
 
 void MyLineEdit::keyPressEvent(QKeyEvent *e)
