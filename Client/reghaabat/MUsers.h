@@ -41,7 +41,7 @@ public:
         return qry.value(0).toString();
     }
 
-    static QString set(QString userId, StrMap user)
+    static QString set(QString userId, StrMap user, QString importedId)
     {
         QSqlQuery qry;
 
@@ -74,9 +74,14 @@ public:
         if (! qry.exec(getReplaceQuery("users", user, userId)))
             return qry.lastError().text();
 
+        QString tmpUID = qry.lastInsertId().toString();
+
+        if (! importedId.isEmpty())
+            qry.exec(QString("update users set id = %1 where id = %2").arg(importedId).arg(tmpUID));
+
         if (userId.isEmpty())
         {
-            userId = qry.lastInsertId().toString();
+            userId = tmpUID;
             insertLog("users", "insert", userId);
 
             if (qry.exec(QString("insert into scores (user_id) values (%1)").arg(userId)))

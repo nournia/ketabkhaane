@@ -19,6 +19,7 @@ public:
 
     void editMode(bool edit);
 
+    QString importedId;
     MyLineEdit* eUser;
 private:
     Ui::UserForm *ui;

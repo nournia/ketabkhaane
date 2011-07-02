@@ -33,6 +33,7 @@ void UserForm::editMode(bool edit)
     ui->gUser->setVisible(edit);
     ui->gData->setEnabled(! edit);
     ui->buttonBox->setEnabled(! edit);
+    ui->gImport->setVisible(! edit);
 }
 
 void UserForm::on_buttonBox_rejected()
@@ -52,7 +53,9 @@ void UserForm::on_buttonBox_accepted()
     user["birth_date"] = toGregorian(ui->eBirthDate->text());
     user["gender"] = ui->rMale->isChecked() ? "male" : "female";
 
-    QString msg = MUsers::set(eUser->value(), user);
+    QString msg = MUsers::set(eUser->value(), user, importedId);
+
+    importedId = "";
 
     // there isn't any error
     if (msg == "")
@@ -121,7 +124,7 @@ void UserForm::on_bImport_clicked()
     }
 
     QSqlQuery qry(library);
-    qry.exec(QString("select Name, Family, Adress, Phon, T_T, [Is Men] from users where id = '%1'").arg(ui->eLibraryId->text()));
+    qry.exec(QString("select Name, Family, Adress, Phon, T_T, [Is Men], Id from users where id = '%1'").arg(ui->eLibraryId->text()));
 
     if (!qry.next())
     {
@@ -149,6 +152,8 @@ void UserForm::on_bImport_clicked()
         ui->rMale->setChecked(true);
     else
         ui->rFemale->setChecked(true);
+
+    importedId = qry.value(6).toString();
 
     ui->gData->setEnabled(true);
     ui->buttonBox->setEnabled(true);
