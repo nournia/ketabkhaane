@@ -32,6 +32,9 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::on_buttonBox_accepted()
 {
+    if (ui->ePassword->text().isEmpty())
+        return;
+
     this->close();
 
     StrMap user;
