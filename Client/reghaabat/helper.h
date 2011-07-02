@@ -8,6 +8,7 @@
 #include <QSqlError>
 #include <QDateTime>
 #include <QComboBox>
+#include <QDebug>
 
 // types
 

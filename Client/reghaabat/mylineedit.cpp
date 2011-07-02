@@ -1,97 +1,180 @@
-#include "mylineedit.h"
 
-MyLineEdit::MyLineEdit(QString query, QWidget *parent)
-    : QLineEdit(parent), c(0), valueId(""), qry(new QSqlQuery)
+#include <mylineedit.h>
+#include <helper.h>
+
+#include <QHeaderView>
+#include <QEvent>
+#include <QKeyEvent>
+
+MyCompleter::MyCompleter(MyLineEdit *parent): QObject(parent), editor(parent)
 {
-    if (! query.isEmpty())
-        setCompleter(new MyCompleter(query, this));
+    qry = new QSqlQuery;
+
+    popup = new QTreeWidget;
+    popup->setWindowFlags(Qt::Popup);
+    popup->setFocusPolicy(Qt::NoFocus);
+    popup->setFocusProxy(parent);
+    popup->setMouseTracking(true);
+
+    popup->setColumnCount(2);
+    popup->setUniformRowHeights(true);
+    popup->setRootIsDecorated(false);
+    popup->setEditTriggers(QTreeWidget::NoEditTriggers);
+    popup->setSelectionBehavior(QTreeWidget::SelectRows);
+    popup->setFrameStyle(QFrame::Box | QFrame::Plain);
+    popup->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    popup->header()->hide();
+
+    popup->installEventFilter(this);
+
+    connect(popup, SIGNAL(itemClicked(QTreeWidgetItem*,int)), SLOT(doneCompletion()));
+    connect(editor, SIGNAL(textChanged(QString)), this, SLOT(updateSuggestions()));
 }
 
-MyLineEdit::~MyLineEdit() {}
-
-void MyLineEdit::setCompleter(MyCompleter *completer)
+MyCompleter::~MyCompleter()
 {
-    if (c)
-    {
-        QObject::disconnect(c, 0, this, 0);
-        delete c;
+    delete popup;
+}
+
+bool MyCompleter::eventFilter(QObject *obj, QEvent *ev)
+{
+    if (obj != popup)
+        return false;
+
+    if (ev->type() == QEvent::MouseButtonPress) {
+        popup->hide();
+        return true;
     }
-    c = completer;
-    if (!c) return;
 
-    c->setWidget(this);
-    connect(completer, SIGNAL(activated(const QString&)), this, SLOT(insertCompletion(const QString&)));
-    connect(this, SIGNAL(textChanged(QString)), SLOT(setIdValue()));
-}
+    if (ev->type() == QEvent::KeyPress) {
 
-MyCompleter *MyLineEdit::completer() const
-{
-    return c;
-}
-
-void MyLineEdit::insertCompletion(const QString& completion)
-{
-    setText(completion);
-}
-
-void MyLineEdit::keyPressEvent(QKeyEvent *e)
-{
-    if (c && c->popup()->isVisible())
-    {
-        // The following keys are forwarded by the completer to the widget
-        switch (e->key())
-        {
+        bool consumed = false;
+        int key = static_cast<QKeyEvent*>(ev)->key();
+        switch (key) {
         case Qt::Key_Enter:
         case Qt::Key_Return:
+            doneCompletion();
+            consumed = true;
+
         case Qt::Key_Escape:
-        case Qt::Key_Tab:
-        case Qt::Key_Backtab:
-            e->ignore();
-            return; // Let the completer do default behavior
+            editor->setFocus();
+            popup->hide();
+            consumed = true;
+
+        case Qt::Key_Up:
+        case Qt::Key_Down:
+        case Qt::Key_Home:
+        case Qt::Key_End:
+        case Qt::Key_PageUp:
+        case Qt::Key_PageDown:
+            break;
+
+        default:
+            //editor->setFocus();
+            editor->event(ev);
+            //popup->hide();
+            break;
         }
+
+        return consumed;
     }
 
-    bool isShortcut = (e->modifiers() & Qt::ControlModifier) && e->key() == Qt::Key_E;
-    if (!isShortcut)
-        QLineEdit::keyPressEvent(e); // Don't send the shortcut (CTRL-E) to the text edit.
-
-    if (!c)
-        return;
-
-    bool ctrlOrShift = e->modifiers() & (Qt::ControlModifier | Qt::ShiftModifier);
-    if (!isShortcut && !ctrlOrShift && e->modifiers() != Qt::NoModifier)
-    {
-        c->popup()->hide();
-        return;
-    }
-
-    c->update(text());
-    c->popup()->setCurrentIndex(c->completionModel()->index(0, 0));
+    return false;
 }
 
-void MyLineEdit::setIdValue()
+void MyCompleter::showCompletion(const QStringList &choices, const QStringList &hits)
 {
-    if (text() != refineText(text()))
-        setText(refineText(text()));
+    if (choices.isEmpty() || choices.count() != hits.count())
+        return;
 
-    if (! valueId.isEmpty())
+    const QPalette &pal = editor->palette();
+    QColor color = pal.color(QPalette::Disabled, QPalette::WindowText);
+
+    popup->setUpdatesEnabled(false);
+    popup->clear();
+    for (int i = 0; i < choices.count(); ++i) {
+        QTreeWidgetItem * item;
+        item = new QTreeWidgetItem(popup);
+        item->setText(0, choices[i]);
+        item->setText(1, hits[i]);
+        item->setTextAlignment(1, Qt::AlignRight);
+        item->setTextColor(1, color);
+    }
+    popup->setCurrentItem(popup->topLevelItem(0));
+    popup->resizeColumnToContents(0);
+    popup->resizeColumnToContents(1);
+    popup->adjustSize();
+    popup->setUpdatesEnabled(true);
+
+    int h = popup->sizeHintForRow(0) * qMin(7, choices.count()) + 3;
+    popup->resize(editor->width(), h);
+
+    popup->move(editor->mapToGlobal(QPoint(0, editor->height())));
+    popup->setFocus();
+    popup->show();
+}
+
+void MyCompleter::doneCompletion()
+{
+    popup->hide();
+//    editor->setFocus();
+    QTreeWidgetItem *item = popup->currentItem();
+    if (item)
+        editor->setText(item->text(0));
+}
+
+void MyCompleter::updateSuggestions()
+{
+    qDebug() << "1";
+    QString text = editor->text();
+
+    if (text != refineText(text))
+        editor->setText(refineText(text));
+
+    QStringList labels, names;
+    if (! text.isEmpty())
+    qry->exec(query + (query.contains("where") ? " and " : " where " ) + QString("(ctitle like '%"+ text +"%' or clabel like '%"+ text +"%') order by ctitle"));
+
+    int i = 0;
+    QString valueId = "";
+    for ( ; qry->next(); i++)
+    {
+        if (i == 0 && (text == qry->value(2).toString() || text == qry->value(1).toString()))
+            valueId = qry->value(0).toString();
+
+        labels.append(qry->value(1).toString());
+        names.append(qry->value(2).toString());
+    }
+    showCompletion(names, labels);
+
+    if (i > 1) valueId = "";
+
+    editor->setValue(valueId);
+}
+
+MyLineEdit::MyLineEdit(QString q, QWidget *parent): QLineEdit(parent)
+{
+    completer = new MyCompleter(this);
+    completer->setQuery(q);
+
+    connect(this, SIGNAL(returnPressed()), completer, SLOT(updateSuggestions()));
+
+    adjustSize();
+    resize(400, height());
+}
+
+void MyLineEdit::setValue(QString val)
+{
+    if (! valueId.isEmpty() && val.isEmpty())
         emit cancel();
+
+    valueId = val;
 
     if (text().isEmpty())
     {
         setStyleSheet("");
         return;
     }
-
-    // retrieve value id
-    qry->exec(completer()->query + (completer()->query.contains("where") ? " and " : " where " ) + QString("ctitle = '%1'").arg(this->text()));
-    if (qry->next())
-    {
-        valueId = qry->value(0).toString();
-        if (qry->next()) // return empty if there is more than one exact match case
-            valueId = "";
-    } else
-        valueId = "";
 
     if (valueId.isEmpty())
         setStyleSheet("background-color:  hsv(0, 60, 255)");

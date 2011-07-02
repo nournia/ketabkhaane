@@ -19,13 +19,13 @@ MatchForm::MatchForm(QWidget *parent) :
     ui->setupUi(this);
     ui->buttonBox->addButton(ViewerForm::tr("Preview"), QDialogButtonBox::ResetRole);
 
-    eCorrector = new MyLineEdit("select id, firstname ||' '|| lastname as ctitle from users", this);
+    eCorrector = new MyLineEdit("select id as cid, id as clabel, firstname ||' '|| lastname as ctitle from users", this);
     ui->lCorrector->addWidget(eCorrector);
 
-    eAuthor = new MyLineEdit("select id, title as ctitle from authors", this);
+    eAuthor = new MyLineEdit("select id as cid, '' as clabel, title as ctitle from authors", this);
     ui->lAuthor->addWidget(eAuthor);
 
-    ePublication = new MyLineEdit("select id, title as ctitle from publications", this);
+    ePublication = new MyLineEdit("select id as cid, '' as clabel, title as ctitle from publications", this);
     ui->lPublication->addWidget(ePublication);
 
     QWidget::setTabOrder(ui->eTitle, eAuthor);
@@ -114,7 +114,7 @@ void MatchForm::selectMatch()
 
 void MatchForm::cancelMatch()
 {
-    eMatch->setCompleter(new MyCompleter("select id, title as ctitle from matches", eMatch));
+    eMatch->setQuery("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id");
 
     ui->eTitle->setText("");
     eCorrector->setText("");

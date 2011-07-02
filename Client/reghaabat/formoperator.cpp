@@ -23,7 +23,7 @@ FormOperator::FormOperator(QWidget *parent) :
     QString condition;
     if (!Reghaabat::hasAccess("manager"))
         condition = QString(" where gender = '%1'").arg(Reghaabat::instance()->userGender);
-    eUser = new MyLineEdit("select id, firstname||' '||lastname as ctitle from users" + condition, this);
+    eUser = new MyLineEdit("select id as cid, id as clabel, firstname||' '||lastname as ctitle from users" + condition, this);
     ui->lUser->addWidget(eUser);
     connect(eUser, SIGNAL(select()), this, SLOT(selectUser()));
     connect(eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
@@ -37,8 +37,6 @@ FormOperator::FormOperator(QWidget *parent) :
 
     connect(eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
     connect(eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
-
-    eMatch->setCompleter(new MyCompleter("select matches.id, matches.title as ctitle from matches", eMatch));
 
     cancelUser();
 }
@@ -90,10 +88,10 @@ void FormOperator::selectUser()
 
         QString query;
         if (ui->cQuickSearch->isChecked())
-            query = QString("select matches.id, matches.title as ctitle from matches inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(eUser->value())).arg(eUser->value());
+            query = QString("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(eUser->value())).arg(eUser->value());
         else
-            query = "select matches.id, matches.title as ctitle from matches";
-        eMatch->completer()->setQuery(query);
+            query = "select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id";
+        eMatch->setQuery(query);
         eMatch->setFocus();
     }
 }

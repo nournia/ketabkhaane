@@ -1,105 +1,68 @@
-/*
- based on:
- http://www.qtcentre.org/threads/23518-How-to-change-completion-rule-of-QCompleter
- */
-
-#ifndef MYLINEEDIT_H
-#define MYLINEEDIT_H
+#ifndef MyLineEdit_H
+#define MyLineEdit_H
 
 #include <QLineEdit>
-#include <QStringList>
-#include <QStringListModel>
-#include <QString>
-#include <QCompleter>
-#include <QKeyEvent>
+#include <QTreeWidget>
 #include <QSqlQuery>
 
-#include <helper.h>
+class MyLineEdit;
 
-#include <QDebug>
-class MyCompleter : public QCompleter
+class MyCompleter : public QObject
 {
     Q_OBJECT
 
 public:
-    QString query;
+    MyCompleter(MyLineEdit *parent = 0);
+    ~MyCompleter();
+    bool eventFilter(QObject *obj, QEvent *ev);
+    void showCompletion(const QStringList &choices, const QStringList &hits);
 
-    MyCompleter (QString q, QObject* parent)
-        : QCompleter(parent), query(q), m_model()
-    {
-        setModel(&m_model);
-
-        // configurations
-        QFont font("Tahoma");
-        popup()->setFont(font);
-        popup()->setLayoutDirection(Qt::RightToLeft);
-
-        setQuery(q);
-    }
+public slots:
+    void doneCompletion();
+    void updateSuggestions();
 
     void setQuery(QString q)
     {
         query = q;
-        m_list.clear();
-
-        QSqlQuery qry;
-        qry.exec(query + " order by ctitle");
-        while (qry.next())
-            m_list << qry.value(1).toString();
-    }
-
-    inline void update(QString word)
-    {
-        // Do any filtering you like.
-        // Here we just include all items that contain word.
-        QStringList filtered = m_list.filter(word, caseSensitivity());
-        m_model.setStringList(filtered);
-        m_word = word;
-
-        // for only one exact match choice
-        if (!word.isEmpty() && !(filtered.size() == 1 && filtered.first() == m_word))
-            complete();
-    }
-
-    inline QString word()
-    {
-        return m_word;
     }
 
 private:
-    QStringList m_list;
-    QStringListModel m_model;
-    QString m_word;
+    QString query; // cid, clabel, ctitle
+
+    MyLineEdit *editor;
+    QTreeWidget *popup;
+    QSqlQuery *qry;
 };
 
-class MyLineEdit : public QLineEdit
+
+class MyLineEdit: public QLineEdit
 {
     Q_OBJECT
 
 public:
-    MyLineEdit(QString query, QWidget *parent = 0);
-    ~MyLineEdit();
+    MyLineEdit(QString q, QWidget *parent = 0);
 
-    void setCompleter(MyCompleter *c);
-    MyCompleter *completer() const;
+    void setValue(QString val);
 
-    QString value() { return valueId; }
+    QString value()
+    {
+        return valueId;
+    }
 
-protected:
-    void keyPressEvent(QKeyEvent *e);
-
-private slots:
-    void insertCompletion(const QString &completion);
-    void setIdValue();
+    void setQuery(QString q)
+    {
+        completer->setQuery(q);
+    }
 
 signals:
     void select();
     void cancel();
 
 private:
-    MyCompleter *c;
-    QString valueId; // from completer query
-    QSqlQuery* qry;
+    QString valueId;
+    MyCompleter *completer;
 };
 
-#endif // MYLINEEDIT_H
+
+#endif // MyLineEdit_H
+

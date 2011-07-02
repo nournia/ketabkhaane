@@ -10,7 +10,7 @@ ScoreForm::ScoreForm(QWidget *parent) :
     ui->setupUi(this);
 
     // add corrector edit
-    eCorrector = new MyLineEdit("select id, firstname ||' '|| lastname as ctitle from users where id in (select corrector_id from supports)", this);
+    eCorrector = new MyLineEdit("select id as cid, id as clabel, firstname ||' '|| lastname as ctitle from users where id in (select corrector_id from supports)", this);
     ui->lCorrector->addWidget(eCorrector);
     connect(eCorrector, SIGNAL(select()), this, SLOT(selectCorrector()));
     connect(eCorrector, SIGNAL(cancel()), this, SLOT(cancelCorrector()));

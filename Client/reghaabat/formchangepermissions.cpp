@@ -11,7 +11,7 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     ui->setupUi(this);
 
     // add username edit
-    eUser = new MyLineEdit("select id, firstname || ' ' || lastname as ctitle from users where id not in (select user_id from permissions)", this);
+    eUser = new MyLineEdit("select id as cid, id as clabel, firstname || ' ' || lastname as ctitle from users where id not in (select user_id from permissions)", this);
     ui->lUser->addWidget(eUser);
     connect(eUser, SIGNAL(select()), this, SLOT(selectUser()));
     connect(eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
@@ -58,6 +58,6 @@ void FormChangePermissions::on_bAdd_clicked()
         model->sort(1);
 
         eUser->setText("");
-        eUser->setCompleter(new MyCompleter("select id, firstname || ' ' || lastname as ctitle from users  where id not in (select user_id from permissions)", eUser));
+        eUser->setQuery("select id, firstname || ' ' || lastname as ctitle from users  where id not in (select user_id from permissions)");
     }
 }

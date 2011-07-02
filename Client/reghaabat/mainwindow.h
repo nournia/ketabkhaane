@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 
-#include <mylineedit.h>
 #include <formoperator.h>
 #include <userform.h>
 #include <matchform.h>

@@ -11,7 +11,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    eUsername = new MyLineEdit("select users.id, firstname || ' ' || lastname as ctitle from users inner join permissions on users.id = permissions.user_id where permission != 'user' and upassword is not null", this);
+    eUsername = new MyLineEdit("select users.id as cid, users.id as clabel, firstname || ' ' || lastname as ctitle from users inner join permissions on users.id = permissions.user_id where permission != 'user' and upassword is not null", this);
     eUsername->setObjectName("eUsername");
     ui->formLayout->setWidget(1, QFormLayout::FieldRole, eUsername);
     QWidget::setTabOrder(eUsername, ui->ePassword);
