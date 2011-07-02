@@ -65,4 +65,3 @@ private:
 
 
 #endif // MyLineEdit_H
-

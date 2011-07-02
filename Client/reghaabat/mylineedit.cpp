@@ -57,7 +57,6 @@ bool MyCompleter::eventFilter(QObject *obj, QEvent *ev)
             consumed = true;
 
         case Qt::Key_Escape:
-            editor->setFocus();
             popup->hide();
             consumed = true;
 
@@ -70,7 +69,6 @@ bool MyCompleter::eventFilter(QObject *obj, QEvent *ev)
             break;
 
         default:
-            //editor->setFocus();
             editor->event(ev);
             //popup->hide();
             break;
@@ -89,6 +87,10 @@ void MyCompleter::showCompletion(const QStringList &choices, const QStringList &
 
     const QPalette &pal = editor->palette();
     QColor color = pal.color(QPalette::Disabled, QPalette::WindowText);
+
+    popup->setLayoutDirection(Qt::RightToLeft);
+    QFont font("Tahoma");
+    popup->setFont(font);
 
     popup->setUpdatesEnabled(false);
     popup->clear();
@@ -110,14 +112,12 @@ void MyCompleter::showCompletion(const QStringList &choices, const QStringList &
     popup->resize(editor->width(), h);
 
     popup->move(editor->mapToGlobal(QPoint(0, editor->height())));
-    popup->setFocus();
     popup->show();
 }
 
 void MyCompleter::doneCompletion()
 {
     popup->hide();
-//    editor->setFocus();
     QTreeWidgetItem *item = popup->currentItem();
     if (item)
         editor->setText(item->text(0));
@@ -125,7 +125,6 @@ void MyCompleter::doneCompletion()
 
 void MyCompleter::updateSuggestions()
 {
-    qDebug() << "1";
     QString text = editor->text();
 
     if (text != refineText(text))
@@ -181,6 +180,7 @@ void MyLineEdit::setValue(QString val)
     else
     {
         setStyleSheet("background-color:  hsv(120, 60, 255)");
+        completer->doneCompletion();
         emit select();
     }
 }
