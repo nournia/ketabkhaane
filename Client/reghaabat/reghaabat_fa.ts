@@ -136,7 +136,7 @@
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location filename="logindialog.cpp" line="+45"/>
+        <location filename="logindialog.cpp" line="+48"/>
         <source>Invalid Username or Password.</source>
         <translation>نام کاربری و یا کلمه‌ی عبور اشتباه است.</translation>
     </message>
@@ -608,9 +608,10 @@
     <message>
         <location filename="dialogchangepassword.cpp" line="+26"/>
         <location filename="logindialog.cpp" line="+0"/>
+        <location filename="main.cpp" line="+17"/>
         <location filename="matchform.cpp" line="+93"/>
         <location filename="optionsform.cpp" line="-12"/>
-        <location filename="userform.cpp" line="+61"/>
+        <location filename="userform.cpp" line="+64"/>
         <location line="+58"/>
         <location line="+9"/>
         <location line="+9"/>
@@ -618,8 +619,9 @@
         <translation>رقابت</translation>
     </message>
     <message>
+        <location filename="main.cpp" line="+1"/>
         <source>Rooyesh</source>
-        <translation type="obsolete">رویش</translation>
+        <translation>رویش</translation>
     </message>
 </context>
 <context>
@@ -650,7 +652,7 @@
         <translation>این شماره ملی برای %1 ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+50"/>
         <source>Invalid Old Password.</source>
         <translation>کلمه عبور وارد شده اشتباه است.</translation>
     </message>
@@ -669,7 +671,7 @@
         <translation type="obsolete">کلمه عبور باید حداقل 6 حرف باشد و نباید فقط از عدد تشکل شده باشد.</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+28"/>
         <source>You must have at least one master user.</source>
         <translation>سامانه باید حداقل یک مدیر داشته باشد.</translation>
     </message>
@@ -678,20 +680,20 @@
         <translation type="obsolete">سامانه باید حداقل یک مدیر داشته باشد.</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-36"/>
         <source>Password Changed.</source>
         <translation>کلمه عبور جدید ثبت شد.</translation>
     </message>
     <message>
         <location filename="formchangepermissions.h" line="+33"/>
-        <location filename="formoperator.cpp" line="+123"/>
+        <location filename="formoperator.cpp" line="+127"/>
         <location filename="matchtable.h" line="+54"/>
         <location filename="scoreform.h" line="+61"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
     <message>
-        <location filename="mmatches.h" line="+39"/>
+        <location filename="mmatches.cpp" line="+30"/>
         <source>Title is required.</source>
         <oldsource>Title is required</oldsource>
         <translation>عنوان نباید خالی باشد.</translation>
@@ -713,7 +715,7 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+176"/>
+        <location line="+201"/>
         <source>Invalid record selected.</source>
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
@@ -732,7 +734,7 @@
     </message>
     <message>
         <location filename="matchtable.h" line="+18"/>
-        <location filename="mmatches.h" line="+47"/>
+        <location filename="mmatches.h" line="+60"/>
         <source>active</source>
         <translation>فعال</translation>
     </message>
@@ -753,7 +755,7 @@
         <translation type="obsolete">امتیاز وارد شده معتبر نیست.</translation>
     </message>
     <message>
-        <location filename="mmatches.cpp" line="+15"/>
+        <location filename="mmatches.cpp" line="-62"/>
         <source>You received this match before</source>
         <translation>شما این مسابقه را قبلا تحویل گرفته‌اید.</translation>
     </message>
@@ -777,22 +779,26 @@
         <source>This matches&apos; ageclass deffers more than one level with yours.</source>
         <translation>رده سنی این مسابقه بیش از یک سطح با شما اختلاف دارد.</translation>
     </message>
+    <message>
+        <location filename="formoperator.cpp" line="-7"/>
+        <source>You received enough matches at the moment.</source>
+        <translation>در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
+    </message>
 </context>
 <context>
     <name>QuestionModule</name>
     <message>
-        <location filename="questionmodule.ui" line="+59"/>
         <source>Question</source>
-        <translation>سوال</translation>
+        <translation type="obsolete">سوال</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location filename="questionmodule.ui" line="+77"/>
         <source>-</source>
         <oldsource>+</oldsource>
         <translation></translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+36"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -801,9 +807,8 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location line="-16"/>
         <source>Answer</source>
-        <translation>پاسخ</translation>
+        <translation type="obsolete">پاسخ</translation>
     </message>
 </context>
 <context>
@@ -844,7 +849,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UserForm</name>
     <message>
-        <location filename="userform.ui" line="+70"/>
+        <location filename="userform.ui" line="+131"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
@@ -874,7 +879,7 @@ p, li { white-space: pre-wrap; }
         <translation>شماره تماس</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="-218"/>
         <source>Library Import</source>
         <translation>ورود اطلاعات از کتابخانه</translation>
     </message>
@@ -889,7 +894,7 @@ p, li { white-space: pre-wrap; }
         <translation>وارد کردن</translation>
     </message>
     <message>
-        <location line="-229"/>
+        <location line="+49"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>

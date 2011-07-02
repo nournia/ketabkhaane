@@ -112,9 +112,15 @@ void FormOperator::on_bDeliver_clicked()
 {
     if (! eUser->value().isEmpty() && ! eMatch->value().isEmpty())
     {
-        // TODO check for match per user and match per user in day limits
+        QString msg;
 
-        QString msg = MMatches::deliver(eUser->value(), eMatch->value());
+        QSqlQuery qry;
+        qry.exec(QString("select count(match_id) from answers where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(eUser->value()));
+        if (qry.next() && qry.value(0).toInt() >= 3)
+            msg = QObject::tr("You received enough matches at the moment.");
+
+        if (msg.isEmpty())
+            msg = MMatches::deliver(eUser->value(), eMatch->value());
 
         if (! msg.isEmpty())
         {
