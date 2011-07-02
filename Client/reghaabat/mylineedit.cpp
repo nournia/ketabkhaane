@@ -136,10 +136,13 @@ void MyCompleter::updateSuggestions()
 
     int i = 0;
     QString valueId = "";
-    for ( ; qry->next(); i++)
+    while (qry->next())
     {
-        if (i == 0 && (text == qry->value(2).toString() || text == qry->value(1).toString()))
+        if (text == qry->value(2).toString() || text == qry->value(1).toString())
+        {
             valueId = qry->value(0).toString();
+            i++;
+        }
 
         labels.append(qry->value(1).toString());
         names.append(qry->value(2).toString());

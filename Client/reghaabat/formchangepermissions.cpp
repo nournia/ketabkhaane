@@ -58,6 +58,6 @@ void FormChangePermissions::on_bAdd_clicked()
         model->sort(1);
 
         eUser->setText("");
-        eUser->setQuery("select id, firstname || ' ' || lastname as ctitle from users  where id not in (select user_id from permissions)");
+        eUser->setQuery("select id as cid, id as clabel, firstname || ' ' || lastname as ctitle from users where id not in (select user_id from permissions)");
     }
 }
