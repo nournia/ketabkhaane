@@ -22,7 +22,7 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     QString sql = "select updated_at, sum(cid) from (";
     for (int i = 0; i < tables.size(); i++)
     {
-        sql += "select updated_at, count(id) as cid from "+ tables[i] + " where updated_at > '" + lastSync.toString("yyyy-MM-dd hh:mm:ss") + "' group by updated_at ";
+        sql += "select updated_at, count(id) as cid from "+ tables[i] + " where updated_at > '" + formatDateTime(lastSync) + "' group by updated_at ";
 
         if (i != tables.size() - 1)
             sql += "union ";
@@ -54,7 +54,7 @@ QString writeJson(QDateTime& lastSync, QDateTime& syncTime, QStringList& files)
 {
     QSqlQuery qry;
 
-    QString dtLast = "'" + lastSync.toString("yyyy-MM-dd hh:mm:ss") + "'", dtSync = "'" + syncTime.toString("yyyy-MM-dd hh:mm:ss") + "'";
+    QString dtLast = "'" + formatDateTime(lastSync) + "'", dtSync = "'" + formatDateTime(syncTime) + "'";
 
     QString json = "{";
     for (int k = 0; k < 2; k++)

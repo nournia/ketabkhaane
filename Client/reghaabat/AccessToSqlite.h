@@ -168,28 +168,6 @@ bool importTable(QString table, QString query, QStringList fields)
     return true;
 }
 
-QVariant getTitleId(QString table, QString title)
-{
-    title = refineText(title);
-    QVariant null; null.clear();
-    if (title == "") return null;
-
-    QSqlQuery tmp(sqliteDb);
-    tmp.exec("select id from " + table + " where title = '"+ title +"'");
-
-    if (tmp.next())
-        return tmp.value(0);
-    else
-    {
-        if (tmp.exec("insert into " + table + " (title) values ('" + title + "')"))
-        {
-            QString id = tmp.lastInsertId().toString();
-            insertLog(table, "insert", id);
-            return id;
-        }
-    }
-}
-
 QString refineContent(QString content)
 {
     content.replace(QRegExp("[\r\n]+"), "</p><p>");
@@ -250,8 +228,8 @@ bool importMatches()
             else
                 resourceQry.bindValue(":kind", "multimedia");
 
-            resourceQry.bindValue(":author_id", getTitleId("authors", accessQry.value(7).toString()));
-            resourceQry.bindValue(":publication_id", getTitleId("publications", accessQry.value(8).toString()));
+            resourceQry.bindValue(":author_id", insertTitleEntry("authors", accessQry.value(7).toString()));
+            resourceQry.bindValue(":publication_id", insertTitleEntry("publications", accessQry.value(8).toString()));
             resourceQry.bindValue(":title", refineText(accessQry.value(2).toString()));
             resourceQry.bindValue(":ageclass", refineText(accessQry.value(3).toString()));
 
@@ -339,8 +317,8 @@ void convertAccessDbToSqliteDb(QString accessFilename)
     importTable("questions", "select matchid, question, answer, '', '' from questions",
                 QStringList() << "match_id" << "question" << "answer");
 
-    importTable("answers", "select userid, matchid, iif(deliverdate is null, '1300/01/01', receivedate) as rdate, iif(deliverdate is null, '1300/01/01', scoredate) as sdate, iif(scoredate is null, null, transactions.score/matches.maxscore) as rate, operatorid, iif(deliverdate is null, '1300/01/01', deliverdate) as ddate from transactions inner join matches on transactions.matchid = matches.id",
-                QStringList() << "user_id" << "match_id" << "received_at" << "corrected_at" << "rate");
+    importTable("answers", "select userid, matchid, iif(deliverdate is null, '1300/01/01', deliverdate) as ddate, iif(deliverdate is null, '1300/01/01', receivedate) as rdate, iif(deliverdate is null, '1300/01/01', scoredate) as sdate, iif(scoredate is null, null, transactions.score/matches.maxscore) as rate, operatorid, iif(deliverdate is null, '1300/01/01', deliverdate) from transactions inner join matches on transactions.matchid = matches.id",
+                QStringList() << "user_id" << "match_id" << "delivered_at" << "received_at" << "corrected_at" << "rate");
 
     importTable("payments", "select userid, score, operatorid, scoredate from payments",
                 QStringList() << "user_id" << "payment");

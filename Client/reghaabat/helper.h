@@ -23,6 +23,8 @@ QString getAbsoluteAddress(QString address);
 QString dataFolder();
 
 void fillComboBox(QComboBox* combobox, QList<StrPair> data);
+
+QVariant insertTitleEntry(QString table, QString title);
 void insertLog(QString table, QString operation, QVariant id, QString userId = "", QDateTime time = QDateTime::currentDateTime());
 
 // inlines
@@ -31,6 +33,11 @@ inline QString refineText(QString text)
 {
     return text.replace(QString::fromUtf8("ي"), QString::fromUtf8("ی"))
                .replace(QString::fromUtf8("ك"), QString::fromUtf8("ک"));
+}
+
+inline QString formatDateTime(QDateTime time)
+{
+    return time.toString("yyyy-MM-dd hh:mm:ss");
 }
 
 // from qjson library

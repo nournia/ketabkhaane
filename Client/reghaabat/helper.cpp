@@ -63,8 +63,31 @@ void fillComboBox(QComboBox* combobox, QList<StrPair> data)
         combobox->addItem(data.at(i).first, data.at(i).second);
 }
 
+QVariant insertTitleEntry(QString table, QString title)
+{
+    title = refineText(title);
+    QVariant null; null.clear();
+    if (title == "") return null;
+
+    QSqlQuery tmp;
+    tmp.exec("select id from " + table + " where title = '"+ title +"'");
+
+    if (tmp.next())
+        return tmp.value(0);
+
+    if (tmp.exec("insert into " + table + " (title) values ('" + title + "')"))
+    {
+        QString id = tmp.lastInsertId().toString();
+        insertLog(table, "insert", id);
+        return id;
+    }
+}
+
 void insertLog(QString table, QString operation, QVariant id, QString userId, QDateTime time)
 {
+    if (operation != "insert" && operation != "update" && operation != "delete")
+        qDebug() << "log operation error: " << operation;
+
     QString data;
 
     QSqlQuery qry;
@@ -86,7 +109,7 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
     qry.addBindValue(id);
     qry.addBindValue(data);
     qry.addBindValue(userId);
-    qry.addBindValue(time);
+    qry.addBindValue(formatDateTime(time));
     if (! qry.exec())
         qDebug() << "log " << qry.lastError();
 }

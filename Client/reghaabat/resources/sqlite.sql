@@ -101,6 +101,7 @@ create table answers (
 	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
 	match_id integer not null references matches(id) on update cascade,
+	delivered_at datetime not null default current_timestamp,
 	received_at datetime null default null,
 	corrected_at datetime null default null,
 	rate float null default null

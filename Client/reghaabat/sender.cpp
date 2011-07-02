@@ -240,7 +240,7 @@ void Sender::sync()
     posts["id"] = qry.value(0).toString();
     posts["key"] = QCryptographicHash::hash(QString(qry.value(1).toString() + "-" + qry.value(2).toString()).toUtf8(), QCryptographicHash::Sha1).toHex();
     posts["actions"] = syncer.getChunk(syncTime, finished, files);
-    posts["time"] = syncTime.toString("yyyy-MM-dd hh:mm:ss");
+    posts["time"] = formatDateTime(syncTime);
     if (finished) posts["finished"] = "true";
 
     send(QUrl("http://localhost/server.php"), posts, files);

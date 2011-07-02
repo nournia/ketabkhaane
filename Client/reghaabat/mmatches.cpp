@@ -55,19 +55,11 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
     if (data["category_id"].toString() == "")
     {
         // new author & publication
-        StrMap ndata;
         if (! data["author"].toString().isEmpty() && data["author"].toInt() == 0)
-        {
-            ndata["title"] = data["author"].toString();
-            qry.exec(getReplaceQuery("authors", ndata, ""));
-            data["author"] = qry.lastInsertId();
-        }
+            data["author"] = insertTitleEntry("authors", data["author"].toString());
+
         if (! data["publication"].toString().isEmpty() && data["publication"].toInt() == 0)
-        {
-            ndata["title"] = data["publication"].toString();
-            qry.exec(getReplaceQuery("publications", ndata, ""));
-            data["publication"] = qry.lastInsertId();
-        }
+            data["publication"] = insertTitleEntry("publications", data["publication"].toString());
 
         StrMap resource;
         resource["author_id"] = data["author"];
@@ -89,8 +81,12 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
             db.rollback();
             return qry.lastError().text();
         }
-        if (match["resource_id"].toString() == "")
+        if (match["resource_id"].toString().isEmpty())
+        {
             match["resource_id"] = qry.lastInsertId().toString();
+            insertLog("resources", "insert", match["resource_id"]);
+        } else
+            insertLog("resources", "update", match["resource_id"]);
 
     } else
     {
@@ -108,8 +104,12 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
         db.rollback();
         return qry.lastError().text();
     }
-    if (matchId == "")
-       matchId = qry.lastInsertId().toString();
+    if (matchId.isEmpty())
+    {
+        matchId = qry.lastInsertId().toString();
+        insertLog("matches", "insert", matchId);
+    } else
+        insertLog("matches", "update", matchId);
 
     QString supportId;
     StrMap support;
@@ -127,11 +127,28 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
         db.rollback();
         return qry.lastError().text();
     }
+    if (supportId.isEmpty())
+    {
+        supportId = qry.lastInsertId().toString();
+        insertLog("supports", "insert", supportId);
+    } else
+        insertLog("supports", "update", supportId);
 
     // questions table
     if (data["category_id"].toString() == "")
     {
-        qry.exec("delete from questions where match_id = "+ matchId);
+        QSqlQuery qryQ;
+        qryQ.exec("select id from questions where match_id = "+ matchId);
+        while (qryQ.next())
+        {
+            if (! qry.exec("delete from questions where id = "+ qryQ.value(0).toString()))
+            {
+                db.rollback();
+                return qry.lastError().text();
+            }
+            insertLog("questions", "delete", qryQ.value(0));
+        }
+
         for (int i = 0; i < questions.size(); i++)
         {
             StrMap question;
@@ -144,6 +161,8 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
                 db.rollback();
                 return qry.lastError().text();
             }
+
+            insertLog("questions", "insert", qry.lastInsertId());
         }
     }
 
@@ -187,19 +206,29 @@ QString MMatches::deliver(QString userId, QString matchId)
     qry.prepare("insert into answers (user_id, match_id) values (?, ?)");
     qry.addBindValue(userId);
     qry.addBindValue(matchId);
-    qry.exec();
+    if (! qry.exec())
+        return qry.lastError().text();
+
+    insertLog("answers", "insert", qry.lastInsertId());
 
     return "";
 }
 
-void MMatches::receive(QString userId, QString matchId)
+QString MMatches::receive(QString userId, QString matchId)
 {
     QSqlQuery qry;
     qry.prepare("update answers set received_at = ? where user_id = ? and match_id = ?");
-    qry.addBindValue(QDateTime::currentDateTime());
+    qry.addBindValue(formatDateTime(QDateTime::currentDateTime()));
     qry.addBindValue(userId);
     qry.addBindValue(matchId);
-    qry.exec();
+    if (! qry.exec())
+        return qry.lastError().text();
+
+    qry.exec(QString("select id from answers where user_id = %1 and match_id = %2").arg(userId).arg(matchId));
+    if (qry.next())
+        insertLog("answers", "update", qry.value(0));
+
+    return "";
 }
 
 QString MMatches::correct(QString answerId, QString Score)
@@ -220,7 +249,10 @@ QString MMatches::correct(QString answerId, QString Score)
     qry.prepare("update answers set rate = ?, corrected_at = current_timestamp where id = ?");
     qry.addBindValue(rate);
     qry.addBindValue(answerId);
-    qry.exec();
+    if (! qry.exec())
+        return qry.lastError().text();
+
+    insertLog("answers", "update", answerId);
 
     return "";
 }
