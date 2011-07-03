@@ -3,3 +3,4 @@ Client/lib-build-desktop/*
 Client/reghaabat-build-desktop/*
 *.qm
 Client/deploy/
+Client/data

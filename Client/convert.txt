@@ -22,3 +22,5 @@ delete from transactions where userid not in (select id from users)
 delete from questions where matchid not in (select id from matches)
 
 
+---
+replace special characters
