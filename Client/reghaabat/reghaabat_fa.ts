@@ -416,7 +416,7 @@
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+104"/>
         <location filename="matchtable.h" line="+94"/>
         <location filename="viewerform.cpp" line="+103"/>
         <location line="+101"/>
@@ -611,7 +611,7 @@
         <location filename="main.cpp" line="+17"/>
         <location filename="matchform.cpp" line="+93"/>
         <location filename="optionsform.cpp" line="-12"/>
-        <location filename="userform.cpp" line="+64"/>
+        <location filename="userform.cpp" line="+65"/>
         <location line="+58"/>
         <location line="+9"/>
         <location line="+9"/>
@@ -642,12 +642,16 @@
         <translation>تاریخ تولد معتبر نیست.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>There is another user with this name.</source>
-        <translation>عضو دیگری با این نام ثبت شده است.</translation>
+        <translation type="obsolete">عضو دیگری با این نام ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+17"/>
+        <source>You imported this user before.</source>
+        <translation>این عضو قبلا وارد شده است.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>%1 has exact same national id.</source>
         <translation>این شماره ملی برای %1 ثبت شده است.</translation>
     </message>
@@ -1140,8 +1144,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">کیفیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="-226"/>
-        <location line="+250"/>
+        <location filename="matchform.cpp" line="-227"/>
+        <location line="+251"/>
         <location filename="viewerform.cpp" line="-55"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>

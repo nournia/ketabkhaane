@@ -15,7 +15,9 @@ public:
     MyCompleter(MyLineEdit *parent = 0);
     ~MyCompleter();
     bool eventFilter(QObject *obj, QEvent *ev);
-    void showCompletion(const QStringList &choices, const QStringList &hits);
+    void showCompletion(const QStringList &ids, const QStringList &labels, const QStringList &names);
+
+    QTreeWidget *popup;
 
 public slots:
     void doneCompletion();
@@ -28,9 +30,7 @@ public slots:
 
 private:
     QString query; // cid, clabel, ctitle
-
     MyLineEdit *editor;
-    QTreeWidget *popup;
     QSqlQuery *qry;
 };
 

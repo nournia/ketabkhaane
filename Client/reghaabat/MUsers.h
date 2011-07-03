@@ -55,6 +55,7 @@ public:
         if (! user["birth_date"].toDate().isValid())
             return QObject::tr("Birth date is not valid.");
 
+        /*
         // used name
         user["firstname"] = refineText(user["firstname"].toString().trimmed());
         user["lastname"] = refineText(user["lastname"].toString().trimmed());
@@ -62,6 +63,15 @@ public:
         if (qry.next())
             if (qry.value(0).toString() != userId)
                 return QObject::tr("There is another user with this name.");
+        */
+
+        // imported
+        if (! importedId.isEmpty())
+        {
+            qry.exec(QString("select * from users where id = %1").arg(importedId));
+            if (qry.next())
+                return QObject::tr("You imported this user before.");
+        }
 
         // used national id
         qry.exec("select id, firstname ||' '|| lastname from users where national_id = "+ user["national_id"].toString());

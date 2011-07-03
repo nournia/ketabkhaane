@@ -16,7 +16,8 @@ MyCompleter::MyCompleter(MyLineEdit *parent): QObject(parent), editor(parent)
     popup->setFocusProxy(parent);
     popup->setMouseTracking(true);
 
-    popup->setColumnCount(2);
+    popup->setColumnCount(3);
+    popup->setColumnHidden(2, true);
     popup->setUniformRowHeights(true);
     popup->setRootIsDecorated(false);
     popup->setEditTriggers(QTreeWidget::NoEditTriggers);
@@ -80,10 +81,9 @@ bool MyCompleter::eventFilter(QObject *obj, QEvent *ev)
     return false;
 }
 
-void MyCompleter::showCompletion(const QStringList &choices, const QStringList &hits)
+void MyCompleter::showCompletion(const QStringList &ids, const QStringList &labels, const QStringList &names)
 {
-    if (choices.isEmpty() || choices.count() != hits.count())
-        return;
+    if (names.isEmpty()) return;
 
     const QPalette &pal = editor->palette();
     QColor color = pal.color(QPalette::Disabled, QPalette::WindowText);
@@ -94,11 +94,12 @@ void MyCompleter::showCompletion(const QStringList &choices, const QStringList &
 
     popup->setUpdatesEnabled(false);
     popup->clear();
-    for (int i = 0; i < choices.count(); ++i) {
+    for (int i = 0; i < names.count(); ++i) {
         QTreeWidgetItem * item;
         item = new QTreeWidgetItem(popup);
-        item->setText(0, choices[i]);
-        item->setText(1, hits[i]);
+        item->setText(0, names[i]);
+        item->setText(1, labels[i]);
+        item->setText(2, ids[i]);
         item->setTextAlignment(1, Qt::AlignRight);
         item->setTextColor(1, color);
     }
@@ -108,7 +109,7 @@ void MyCompleter::showCompletion(const QStringList &choices, const QStringList &
     popup->adjustSize();
     popup->setUpdatesEnabled(true);
 
-    int h = popup->sizeHintForRow(0) * qMin(7, choices.count()) + 3;
+    int h = popup->sizeHintForRow(0) * qMin(7, names.count()) + 3;
     popup->resize(editor->width(), h);
 
     popup->move(editor->mapToGlobal(QPoint(0, editor->height())));
@@ -120,36 +121,44 @@ void MyCompleter::doneCompletion()
     popup->hide();
     QTreeWidgetItem *item = popup->currentItem();
     if (item)
+    {
+        QString tmp = item->text(2);
         editor->setText(item->text(0));
+        if (editor->value().isEmpty())
+            editor->setValue(tmp);
+    }
 }
 
 void MyCompleter::updateSuggestions()
 {
     QString text = editor->text();
+    QString valueId = "";
 
     if (text != refineText(text))
         editor->setText(refineText(text));
 
-    QStringList labels, names;
+    QStringList ids, labels, names;
     if (! text.isEmpty())
-    qry->exec(query + (query.contains("where") ? " and " : " where " ) + QString("(ctitle like '%"+ text +"%' or clabel like '%"+ text +"%') order by ctitle"));
-
-    int i = 0;
-    QString valueId = "";
-    while (qry->next())
     {
-        if (text == qry->value(2).toString() || text == qry->value(1).toString())
+        int i;
+        QString qtmp = query + (query.contains("where") ? " and " : " where ");
+
+        qry->exec(qtmp + QString("(ctitle like '%"+ text +"%' or clabel like '%"+ text +"%') order by ctitle"));
+        for (i = 0; qry->next(); i++)
         {
-            valueId = qry->value(0).toString();
-            i++;
+            ids.append(qry->value(0).toString());
+            labels.append(qry->value(1).toString());
+            names.append(qry->value(2).toString());
         }
 
-        labels.append(qry->value(1).toString());
-        names.append(qry->value(2).toString());
-    }
-    showCompletion(names, labels);
-
-    if (i > 1) valueId = "";
+        if (i == 1 && (text == names.first() || text == labels.first()))
+            valueId = ids.first();
+        else if (names.count() > 0)
+            showCompletion(ids, labels, names);
+        else
+            popup->hide();
+    } else
+        popup->hide();
 
     editor->setValue(valueId);
 }
@@ -160,9 +169,6 @@ MyLineEdit::MyLineEdit(QString q, QWidget *parent): QLineEdit(parent)
     completer->setQuery(q);
 
     connect(this, SIGNAL(returnPressed()), completer, SLOT(updateSuggestions()));
-
-    adjustSize();
-    resize(400, height());
 }
 
 void MyLineEdit::setValue(QString val)
@@ -180,10 +186,9 @@ void MyLineEdit::setValue(QString val)
 
     if (valueId.isEmpty())
         setStyleSheet("background-color:  hsv(0, 60, 255)");
-    else
-    {
+    else {
         setStyleSheet("background-color:  hsv(120, 60, 255)");
-        completer->doneCompletion();
+        completer->popup->hide();
         emit select();
     }
 }

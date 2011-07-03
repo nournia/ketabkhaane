@@ -55,11 +55,12 @@ void UserForm::on_buttonBox_accepted()
 
     QString msg = MUsers::set(eUser->value(), user, importedId);
 
-    importedId = "";
-
     // there isn't any error
     if (msg == "")
+    {
+        importedId = "";
         emit closeForm();
+    }
     else
         QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
 }
