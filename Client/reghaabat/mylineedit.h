@@ -15,7 +15,6 @@ public:
     MyCompleter(MyLineEdit *parent = 0);
     ~MyCompleter();
     bool eventFilter(QObject *obj, QEvent *ev);
-    void showCompletion(const QStringList &ids, const QStringList &labels, const QStringList &names);
 
     QTreeWidget *popup;
 
@@ -32,6 +31,7 @@ private:
     QString query; // cid, clabel, ctitle
     MyLineEdit *editor;
     QSqlQuery *qry;
+    QColor grayColor;
 };
 
 
