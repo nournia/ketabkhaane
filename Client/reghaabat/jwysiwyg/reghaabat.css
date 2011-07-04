@@ -1,7 +1,10 @@
 body {
 	direction: rtl;
 	text-align: right;
-	margin: 8px !important; 
+	margin: 8px !important;
+	
+	font-family: 'B Mitra' !important;
+	font-size: 1.3em;
 }
 
 p {

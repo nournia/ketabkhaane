@@ -62,11 +62,11 @@
 
 			image: {
 				"Insert Image": "تصویر",
-				"Preview": "پیش‌نمایش",
+				"Preview": "پیش نمایش",
 				"URL": "آدرس",
 				"Title": "عنوان",
 				"Description": "توضیح",
-				"Width": "عرض",
+				"Width": "پهنا",
 				"Height": "ارتفاع",
 				"Original W x H": "ابعاد واقعی",
 				"Float": "چیدمان",

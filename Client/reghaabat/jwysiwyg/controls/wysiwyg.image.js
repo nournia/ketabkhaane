@@ -30,7 +30,7 @@
 				img = {
 					alt: "",
 					self: Wysiwyg.dom ? Wysiwyg.dom.getElement("img") : null, // link to element node
-					src: "http://",
+					src: "",
 					title: ""
 				};
 
@@ -47,7 +47,7 @@
 				floatNone : "None",
 				floatLeft : "Left",
 				floatRight : "Right",
-				submit  : "Insert Image",
+				submit  : "Apply",
 				reset   : "Cancel",
 				fileManagerIcon : "Select file from server"
 			};
@@ -60,11 +60,10 @@
 					formImageHtml +=	'<div class="wysiwyg-fileManager" title="{fileManagerIcon}"/>';
 				}
 				formImageHtml += 	'</div></div>' +
-									'<div class="form-row"><label for="name">{title}:</label><div class="form-row-value"><input type="text" name="imgtitle" value=""/></div></div>' +
-									'<div class="form-row"><label for="name">{description}:</label><div class="form-row-value"><input type="text" name="description" value=""/></div></div>' +
-									'<div class="form-row"><label for="name">{width} x {height}:</label><div class="form-row-value"><input type="text" name="width" value="" class="width-small"/> x <input type="text" name="height" value="" class="width-small"/></div></div>' +
-									'<div class="form-row"><label for="name">{original}:</label><div class="form-row-value"><input type="text" name="naturalWidth" value="" class="width-small" disabled="disabled"/> x ' +
-									'<input type="text" name="naturalHeight" value="" class="width-small" disabled="disabled"/></div></div>' +
+									// '<div class="form-row"><label for="name">{title}:</label><div class="form-row-value"><input type="text" name="imgtitle" value=""/></div></div>' +
+									// '<div class="form-row"><label for="name">{description}:</label><div class="form-row-value"><input type="text" name="description" value=""/></div></div>' +
+									'<div class="form-row"><label for="name">{width} × {height}:</label><div class="form-row-value"><input type="text" name="width" value="" class="width-small"/> x <input type="text" name="height" value="" class="width-small"/></div></div>' +
+									// '<div class="form-row"><label for="name">{original}:</label><div class="form-row-value"><input type="text" name="naturalWidth" value="" class="width-small" disabled="disabled"/> x ' + '<input type="text" name="naturalHeight" value="" class="width-small" disabled="disabled"/></div></div>' +
 									'<div class="form-row"><label for="name">{float}:</label><div class="form-row-value"><select name="float">' + 
 									'<option value="">{floatNone}</option>' +
 									'<option value="left">{floatLeft}</option>' +
@@ -201,7 +200,10 @@
 					style = ' style="' + style.join(" ") + '"';
 				}
 
-				image = "<img src='" + url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
+				if (title && title.length > 0) title = ' title="' + title + '"';
+				if (description && description.length > 0) description = ' alt="' + description + '"';
+
+				image = '<img src="' + url + '"' + title + description + style + "/>";
 				Wysiwyg.insertHtml(image);
 			}
 		},
