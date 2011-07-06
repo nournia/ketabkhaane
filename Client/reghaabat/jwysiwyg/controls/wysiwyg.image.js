@@ -64,10 +64,7 @@
 									// '<div class="form-row"><label for="name">{description}:</label><div class="form-row-value"><input type="text" name="description" value=""/></div></div>' +
 									'<div class="form-row"><label for="name">{width} × {height}:</label><div class="form-row-value"><input type="text" name="width" value="" class="width-small"/> x <input type="text" name="height" value="" class="width-small"/></div></div>' +
 									// '<div class="form-row"><label for="name">{original}:</label><div class="form-row-value"><input type="text" name="naturalWidth" value="" class="width-small" disabled="disabled"/> x ' + '<input type="text" name="naturalHeight" value="" class="width-small" disabled="disabled"/></div></div>' +
-									'<div class="form-row"><label for="name">{float}:</label><div class="form-row-value"><select name="float">' + 
-									'<option value="">{floatNone}</option>' +
-									'<option value="left">{floatLeft}</option>' +
-									'<option value="right">{floatRight}</option></select></div></div>' +
+									// '<div class="form-row"><label for="name">{float}:</label><div class="form-row-value"><select name="float">' + '<option value="">{floatNone}</option>' + '<option value="left">{floatLeft}</option>' + '<option value="right">{floatRight}</option></select></div></div>' +
 									'<div class="form-row form-row-last"><label for="name"></label><div class="form-row-value"><input type="submit" class="button" value="{submit}"/> ' +
 									'<input type="reset" value="{reset}"/></div></div></fieldset></form>';
 
@@ -88,8 +85,8 @@
 
 			if (img.self) {
 				img.src = img.self.src ? img.self.src : "";
-				img.alt = img.self.alt ? img.self.alt : "";
-				img.title = img.self.title ? img.self.title : "";
+				// img.alt = img.self.alt ? img.self.alt : "";
+				// img.title = img.self.title ? img.self.title : "";
 				img.width = img.self.width ? img.self.width : "";
 				img.height = img.self.height ? img.self.height : "";
 			}
@@ -137,11 +134,11 @@
 		processInsert: function (context, Wysiwyg, img) {
 			var image,
 				url = $('input[name="src"]', context).val(),
-				title = $('input[name="imgtitle"]', context).val(),
-				description = $('input[name="description"]', context).val(),
+				// title = $('input[name="imgtitle"]', context).val(),
+				// description = $('input[name="description"]', context).val(),
 				width = $('input[name="width"]', context).val(),
 				height = $('input[name="height"]', context).val(),
-				styleFloat = $('select[name="float"]', context).val(),
+				// styleFloat = $('select[name="float"]', context).val(),
 				style = [],
 				found,
 				baseUrl;
@@ -156,9 +153,10 @@
 			if (img.self) {
 				// to preserve all img attributes
 				$(img.self).attr("src", url)
-					.attr("title", title)
-					.attr("alt", description)
-					.css("float", styleFloat);
+					// .attr("title", title)
+					// .attr("alt", description)
+					// .css("float", styleFloat)
+					;
 
 				if (width.toString().match(/^[0-9]+(px|%)?$/)) {
 					$(img.self).css("width", width);
@@ -192,18 +190,18 @@
 					}
 				}
 
-				if (styleFloat.length > 0) {
-					style.push("float: " + styleFloat + ";");
-				}
+				// if (styleFloat.length > 0) {
+					// style.push("float: " + styleFloat + ";");
+				// }
 
 				if (style.length > 0) {
 					style = ' style="' + style.join(" ") + '"';
 				}
 
-				if (title && title.length > 0) title = ' title="' + title + '"';
-				if (description && description.length > 0) description = ' alt="' + description + '"';
+				// if (title && title.length > 0) title = ' title="' + title + '"';
+				// if (description && description.length > 0) description = ' alt="' + description + '"';
 
-				image = '<img src="' + url + '"' + title + description + style + "/>";
+				image = '<img src="' + url + '"' + /*title + description + */ style + "/>";
 				Wysiwyg.insertHtml(image);
 			}
 		},
@@ -217,10 +215,10 @@
 			form.find('img').attr("src", img.src);
 
 			form.find('img').bind("load", function () {
-				if (form.find('img').attr("naturalWidth")) {
-					form.find('input[name="naturalWidth"]').val(form.find('img').attr("naturalWidth"));
-					form.find('input[name="naturalHeight"]').val(form.find('img').attr("naturalHeight"));
-				}
+				// if (form.find('img').attr("naturalWidth")) {
+					// form.find('input[name="naturalWidth"]').val(form.find('img').attr("naturalWidth"));
+					// form.find('input[name="naturalHeight"]').val(form.find('img').attr("naturalHeight"));
+				// }
 			});
 
 			form.find("input[name=src]").bind("change", function () {
