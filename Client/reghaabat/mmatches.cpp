@@ -145,8 +145,8 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
         {
             StrMap question;
             question["match_id"] = matchId;
-            question["question"] = refineText(questions.at(i).first);
-            question["answer"] = refineText(questions.at(i).second);
+            question["question"] = questions.at(i).first;
+            question["answer"] = questions.at(i).second;
 
             qry.prepare("select id from questions where match_id = ? and question = ? and answer = ?");
             qry.addBindValue(matchId);
