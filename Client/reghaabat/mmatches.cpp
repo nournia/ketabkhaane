@@ -134,11 +134,46 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
     } else
         insertLog("supports", "update", supportId);
 
+
     // questions table
     if (data["category_id"].toString() == "")
     {
+        QString persistent;
+
+        // insert new questions
+        for (int i = 0; i < questions.size(); i++)
+        {
+            StrMap question;
+            question["match_id"] = matchId;
+            question["question"] = refineText(questions.at(i).first);
+            question["answer"] = refineText(questions.at(i).second);
+
+            qry.prepare("select id from questions where match_id = ? and question = ? and answer = ?");
+            qry.addBindValue(matchId);
+            qry.addBindValue(question["question"].toString());
+            qry.addBindValue(question["answer"].toString());
+            qry.exec();
+
+            if (qry.next())
+                persistent += (i == 0 ? "" : ",") + qry.value(0).toString();
+            else
+            {
+                if (! qry.exec(getReplaceQuery("questions", question, "")))
+                {
+                    db.rollback();
+                    return qry.lastError().text();
+                }
+
+                QVariant questionId = qry.lastInsertId();
+                persistent += (i == 0 ? "" : ",") + questionId.toString();
+
+                insertLog("questions", "insert", questionId);
+            }
+        }
+
+        // delete removed questions
         QSqlQuery qryQ;
-        qryQ.exec("select id from questions where match_id = "+ matchId);
+        qryQ.exec(QString("select id from questions where match_id = %1 and id not in (%2)").arg(matchId).arg(persistent));
         while (qryQ.next())
         {
             if (! qry.exec("delete from questions where id = "+ qryQ.value(0).toString()))
@@ -147,22 +182,6 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
                 return qry.lastError().text();
             }
             insertLog("questions", "delete", qryQ.value(0));
-        }
-
-        for (int i = 0; i < questions.size(); i++)
-        {
-            StrMap question;
-            question["match_id"] = matchId;
-            question["question"] = questions.at(i).first;
-            question["answer"] = questions.at(i).second;
-
-            if (! qry.exec(getReplaceQuery("questions", question, "")))
-            {
-                db.rollback();
-                return qry.lastError().text();
-            }
-
-            insertLog("questions", "insert", qry.lastInsertId());
         }
     }
 
