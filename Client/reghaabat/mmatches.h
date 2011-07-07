@@ -23,14 +23,6 @@ public:
 
     /* data */
 
-    static QString filesUrl()
-    {
-        QString folder = dataFolder();
-        if (!folder.startsWith("//"))
-            folder = "///" + folder;
-        return QString("file:%1/files").arg(folder);
-    }
-
     static QList<StrPair> ageclasses(bool shortFormat = false)
     {
         QSqlQuery qry;

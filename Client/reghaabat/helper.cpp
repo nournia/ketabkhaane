@@ -2,6 +2,7 @@
 
 #include <QCoreApplication>
 #include <QSettings>
+#include <QFileInfo>
 #include <QDebug>
 
 // init reghaabat global variables
@@ -16,6 +17,14 @@ QString dataFolder()
 {
     QSettings settings("Rooyesh", "Reghaabat");
     return settings.value("DataFolder", getAbsoluteAddress("data")).toString();
+}
+
+QString filesUrl()
+{
+    QString folder = dataFolder();
+    if (!folder.startsWith("//"))
+        folder = "///" + folder;
+    return QString("file:%1/files").arg(folder);
 }
 
 StrMap getRecord(QSqlQuery& query)
@@ -81,6 +90,53 @@ QVariant insertTitleEntry(QString table, QString title)
         insertLog(table, "insert", id);
         return id;
     }
+}
+
+QString getInAppFilename(QString filename)
+{
+    if (! filename.startsWith(filesUrl()))
+    {
+        QString ext = filename.mid(filename.indexOf('.') + 1);
+
+        QSqlQuery qry;
+        if (qry.exec(QString("insert into files (extension) values ('%1')").arg(ext)))
+        {
+            QString id = qry.lastInsertId().toString();
+            insertLog("files", "insert", id);
+
+            QString newfile = QString("%1/files/%2.%3").arg(dataFolder()).arg(id).arg(ext);
+
+            if (QFile::exists(newfile))
+                QFile::remove(newfile);
+
+            if (QFile::copy(filename, newfile))
+                filename = newfile;
+            else
+            {
+                qDebug() << "file copy error: " << newfile;
+                return "";
+            }
+        } else {
+            qDebug() << qry.lastError().text();
+            return "";
+        }
+    }
+
+    return QFileInfo(filename).fileName();
+}
+
+void removeInAppFile(QString filename)
+{
+    QString id = QFileInfo(filename).baseName();
+    QSqlQuery qry;
+    if (! qry.exec("delete from files where id = " + id))
+        qDebug() << qry.lastError();
+
+    insertLog("files", "delete", id);
+
+    filename = QString("%1/files/%2").arg(dataFolder()).arg(filename);
+    if (! QFile::remove(filename))
+        qDebug() << "remove file error: " << filename;
 }
 
 void insertLog(QString table, QString operation, QVariant id, QString userId, QDateTime time)

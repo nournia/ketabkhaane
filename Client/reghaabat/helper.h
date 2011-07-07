@@ -22,11 +22,15 @@ QString getReplaceQuery(QString table, StrMap data, QString id);
 
 QString getAbsoluteAddress(QString address);
 QString dataFolder();
+QString filesUrl();
 
 void fillComboBox(QComboBox* combobox, QList<StrPair> data);
 
 QVariant insertTitleEntry(QString table, QString title);
 void insertLog(QString table, QString operation, QVariant id, QString userId = "", QDateTime time = QDateTime::currentDateTime());
+
+QString getInAppFilename(QString filename);
+void removeInAppFile(QString filename);
 
 // inlines
 
@@ -78,6 +82,7 @@ inline QString getRecordJSON(QSqlQuery& qry)
     }
     return json;
 }
+
 
 // rghaabat global variables
 // from: http://stackoverflow.com/questions/3747085/global-variables-in-qt

@@ -2,7 +2,6 @@
 #include <mmatches.h>
 #include <musers.h>
 
-
 bool MMatches::get(QString matchId, StrMap& match, QList<StrPair>& questions)
 {
     QSqlQuery qry;
@@ -17,6 +16,17 @@ bool MMatches::get(QString matchId, StrMap& match, QList<StrPair>& questions)
     while (qry.next())
         questions.append(qMakePair(qry.value(0).toString(), qry.value(1).toString()));
     return true;
+}
+
+QStringList extractFilenames(QString content)
+{
+    QStringList filenames;
+    for (int i = 0; (i = content.indexOf("src=\"", i+1)) > 0;)
+    {
+        int cur = i + QString("src=\"").length();
+        filenames << content.mid(cur, content.indexOf("\"", cur) - cur);
+    }
+    return filenames;
 }
 
 QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
@@ -51,6 +61,7 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
 
     StrMap match;
     match["resource_id"] = "";
+    QStringList oldfiles, newfiles;
 
     if (data["category_id"].toString() == "")
     {
@@ -91,7 +102,23 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
     } else
     {
         match["category_id"] = data["category_id"];
-        match["content"] = data["content"].toString().replace(QString("src=\"%1/").arg(filesUrl()), "src=\"");
+
+        QString content = data["content"].toString();
+
+        // move extenal files
+        QStringList filenames = extractFilenames(content);
+        foreach (QString filename, filenames)
+        {
+            QString newfile = getInAppFilename(filename);
+            content.replace(filename, newfile);
+        }
+
+        // extract old filenames
+        qry.exec("select content from matches where id = "+ matchId);
+        if (qry.next())
+            oldfiles = extractFilenames(qry.value(0).toString());
+
+        match["content"] = content;
     }
 
     match["designer_id"] = data["corrector_id"];
@@ -117,6 +144,7 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
     support["corrector_id"] = data["corrector_id"];
     support["current_state"] = data["current_state"];
     support["score"] = data["score"];
+
 
     // supports table
     qry.exec("select id from supports where match_id = "+ matchId);
@@ -185,12 +213,19 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
         }
     }
 
+
+    // files table
+
+    newfiles = extractFilenames(match["content"].toString());
+    foreach (QString filename, oldfiles)
+    if (! newfiles.contains(filename))
+        removeInAppFile(filename);
+
+
     db.commit();
 
     return "";
 }
-
-
 
 QString MMatches::deliver(QString userId, QString matchId)
 {
