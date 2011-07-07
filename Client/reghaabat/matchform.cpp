@@ -79,6 +79,7 @@ void MatchForm::selectMatch()
 
         ui->eTitle->setText(match["title"].toString());
         eCorrector->setText(match["corrector"].toString());
+        eCorrector->setValue(match["corrector_id"].toString());
         ui->sScore->setValue(match["score"].toInt());
         ui->cAgeClass->setCurrentIndex(ui->cAgeClass->findData(match["ageclass"]));
         ui->cState->setCurrentIndex(ui->cState->findData(match["current_state"]));
@@ -88,7 +89,9 @@ void MatchForm::selectMatch()
             ui->cType->setCurrentIndex(0); // Questions
             ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["kind"]));
             eAuthor->setText(match["author"].toString());
+            eAuthor->setValue(match["author_id"].toString());
             ePublication->setText(match["publication"].toString());
+            ePublication->setValue(match["publication_id"].toString());
 
             // questions
             for (int i = 0; i < questions.size(); i++)

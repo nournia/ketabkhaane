@@ -6,7 +6,7 @@
 bool MMatches::get(QString matchId, StrMap& match, QList<StrPair>& questions)
 {
     QSqlQuery qry;
-    qry.exec("select matches.title, matches.ageclass, matches.category_id, matches.content, resources.kind, authors.title as author, publications.title as publication, supports.current_state, supports.score, supports.corrector_id, users.firstname || ' ' || users.lastname as corrector "
+    qry.exec("select matches.title, matches.ageclass, matches.category_id, matches.content, resources.kind, resources.author_id, authors.title as author, resources.publication_id, publications.title as publication, supports.current_state, supports.score, supports.corrector_id, users.firstname || ' ' || users.lastname as corrector "
              "from matches left join resources on matches.resource_id = resources.id left join authors on resources.author_id = authors.id left join publications on resources.publication_id = publications.id left join supports on matches.id = supports.match_id left join users on supports.corrector_id = users.id where matches.id = " + matchId);
     if (! qry.next()) return false;
 
