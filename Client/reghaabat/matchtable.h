@@ -6,6 +6,7 @@
 
 #include <mmatches.h>
 #include <matchform.h>
+#include <mainwindow.h>
 
 class MatchListModel : public QSqlQueryModel
 {
@@ -120,9 +121,15 @@ public:
     ~MatchTable();
 
     MatchListModel* model;
+    ViewerForm* viewer;
 
 private:
     Ui::MatchTable *ui;
+
+
+private slots:
+    void on_bMatchList_clicked();
+    void on_bEditMatch_clicked();
 };
 
 #endif // MATCHTABLE_H

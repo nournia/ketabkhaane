@@ -20,6 +20,7 @@ ViewerForm::ViewerForm(QWidget *parent) :
     ui(new Ui::ViewerForm)
 {
     ui->setupUi(this);
+    setMinimumWidth(900);
 }
 
 ViewerForm::~ViewerForm()
@@ -103,7 +104,7 @@ QString getMatchListQuery(QString ageclass)
     return QString("select matches.title, %1 ifnull(categories.title, case resources.kind when 'book' then ' "+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end) as kind, supports.score from matches inner join supports on matches.id = supports.match_id %2 left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id where supports.current_state = 'active' %3 order by kind, supports.score desc, matches.title").arg(tField).arg(tTable).arg(tCondition);
 }
 
-void ViewerForm::on_bUserAll_clicked()
+void ViewerForm::bUserAll()
 {
     loadHtml("list");
 
@@ -113,7 +114,7 @@ void ViewerForm::on_bUserAll_clicked()
     frame->findFirstElement("body").setInnerXml(content);
 }
 
-void ViewerForm::on_bUserGenderGroup_clicked()
+void ViewerForm::bUserGenderGroup()
 {
     loadHtml("list");
 
@@ -126,7 +127,7 @@ void ViewerForm::on_bUserGenderGroup_clicked()
     frame->findFirstElement("body").setInnerXml(content);
 }
 
-void ViewerForm::on_bMatchAll_clicked()
+void ViewerForm::bMatchAll()
 {
     loadHtml("list");
 
@@ -137,7 +138,7 @@ void ViewerForm::on_bMatchAll_clicked()
 }
 
 
-void ViewerForm::on_bMatchAgeGroup_clicked()
+void ViewerForm::bMatchAgeGroup()
 {
     loadHtml("list");
     QString content;
@@ -153,7 +154,6 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 {
     QSettings settings("Rooyesh", "Reghaabat");
     setWindowTitle(tr("Preview"));
-    setMinimumWidth(900);
 
     loadHtml("match");
     QWebFrame* frame = ui->webView->page()->mainFrame();
@@ -255,7 +255,6 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
         frame->findFirstElement("#library").setInnerXml(library);
     }
 
-    ui->gLists->setVisible(false);
 }
 
 void ViewerForm::savePdf(QString filename)

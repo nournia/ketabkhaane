@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     scoreform.cpp \
     matchtable.cpp \
     musers.cpp \
-    mmatches.cpp
+    mmatches.cpp \
+    usermanagement.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -62,7 +63,8 @@ HEADERS  += mainwindow.h \
     spinboxdelegate.h \
     viewerform.h \
     scoreform.h \
-    matchtable.h
+    matchtable.h \
+    usermanagement.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -77,4 +79,5 @@ FORMS    += mainwindow.ui \
     formchangepermissions.ui \
     viewerform.ui \
     scoreform.ui \
-    matchtable.ui
+    matchtable.ui \
+    usermanagement.ui

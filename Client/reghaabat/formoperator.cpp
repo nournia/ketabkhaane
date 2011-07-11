@@ -10,6 +10,7 @@
 #include <matchrow.h>
 #include <mainwindow.h>
 #include <jalali.h>
+#include <musers.h>
 
 FormOperator::FormOperator(QWidget *parent) :
     QWidget(parent),
@@ -32,7 +33,8 @@ FormOperator::FormOperator(QWidget *parent) :
     eMatch = new MyLineEdit("", this);
     ui->lMatch->addWidget(eMatch);
     QWidget::setTabOrder(eMatch, ui->bDeliver);
-    QWidget::setTabOrder(ui->bDeliver, ui->cPrint);
+    QWidget::setTabOrder(ui->bDeliver, ui->cQuickSearch);
+    QWidget::setTabOrder(ui->cQuickSearch, ui->cPrint);
     QWidget::setTabOrder(ui->cPrint, ui->bPreview);
 
     connect(eMatch, SIGNAL(select()), this, SLOT(selectMatch()));

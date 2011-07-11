@@ -52,7 +52,6 @@ MatchForm::MatchForm(QWidget *parent) :
     fillerItem->setLayout(lay);
 
     cancelMatch();
-    editMode(false);
 }
 
 MatchForm::~MatchForm()
@@ -62,6 +61,7 @@ MatchForm::~MatchForm()
 
 void MatchForm::editMode(bool edit)
 {
+    eMatch->setText("");
     ui->gMatch->setVisible(edit);
     ui->gData->setEnabled(! edit);
 }

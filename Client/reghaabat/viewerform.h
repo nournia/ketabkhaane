@@ -21,18 +21,16 @@ public:
     void showMatch(StrMap match, QList<StrPair> questions);
     void savePdf(QString filename);
 
+    void bMatchAgeGroup();
+    void bUserGenderGroup();
+    void bMatchAll();
+    void bUserAll();
 private:
     Ui::ViewerForm *ui;
 
 public slots:
     void on_bPrint_clicked();
-
-private slots:
     void on_bPdf_clicked();
-    void on_bMatchAgeGroup_clicked();
-    void on_bUserGenderGroup_clicked();
-    void on_bMatchAll_clicked();
-    void on_bUserAll_clicked();
 };
 
 #endif // VIEWERFORM_H

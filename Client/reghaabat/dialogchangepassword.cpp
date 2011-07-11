@@ -4,7 +4,6 @@
 #include <QMessageBox>
 
 #include <musers.h>
-#include <mainwindow.h>
 
 DialogChangePassword::DialogChangePassword(QWidget *parent) :
     QDialog(parent),

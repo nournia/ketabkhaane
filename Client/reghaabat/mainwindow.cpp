@@ -7,10 +7,16 @@
 #include <logindialog.h>
 #include <dialogchangepassword.h>
 #include <formchangepermissions.h>
-#include <viewerform.h>
 #include <scoreform.h>
 #include <matchtable.h>
 #include <sender.h>
+#include <formoperator.h>
+#include <userform.h>
+#include <matchform.h>
+#include <optionsform.h>
+#include <formfirst.h>
+#include <usermanagement.h>
+
 
 // forms
 FormFirst* formFirst;
@@ -20,9 +26,9 @@ FormChangePermissions* formChangePermissions;
 UserForm* userForm;
 MatchForm* matchForm;
 OptionsForm* optionsForm;
-ViewerForm* viewerForm;
 ScoreForm* scoreForm;
 MatchTable* matchListForm;
+UserManagement* userManagement;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -34,11 +40,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
     applyPermission();
 
+    stackedLayout = new QStackedLayout;
+    stackedLayout->setContentsMargins(0, 0, 0, 0);
+    delete ui->container->layout();
+    ui->container->setLayout(stackedLayout);
+
+
 //    optionsForm = new OptionsForm(this);
 //    showForm(optionsForm);
 
     firstPage();
     on_actionLogin_triggered();
+
+    viewer = new ViewerForm(this);
 }
 
 MainWindow::~MainWindow()
@@ -46,34 +60,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::clear()
-{
-    delete formFirst; formFirst = 0;
-    delete userForm; userForm = 0;
-    delete formOperator; formOperator = 0;
-    delete matchForm; matchForm = 0;
-    delete optionsForm; optionsForm = 0;
-    delete formChangePermissions; formChangePermissions = 0;
-    delete viewerForm; viewerForm = 0;
-    delete scoreForm; scoreForm = 0;
-    delete matchListForm; matchListForm = 0;
-}
-
 void MainWindow::applyPermission()
 {
    ui->actionSync->setVisible(false);
 
+   ui->actionDeliver->setEnabled(false);
+   ui->actionUserManagement->setEnabled(false);
+   ui->actionMatchManagement->setEnabled(false);
    ui->actionSync->setEnabled(false);
    ui->actionOptions->setEnabled(false);
-   ui->actionDeliverMatch->setEnabled(false);
-   ui->actionNewUser->setEnabled(false);
-   ui->actionEditUser->setEnabled(false);
-   ui->actionNewMatch->setEnabled(false);
-   ui->actionEditMatch->setEnabled(false);
    ui->actionChangePermissions->setEnabled(false);
-   ui->actionLists->setEnabled(false);
    ui->actionSetScores->setEnabled(false);
-   ui->actionMatchTable->setEnabled(false);
+   ui->actionPayment->setEnabled(false);
 
    ui->actionLogin->setVisible(Reghaabat::instance()->userId.isEmpty());
    ui->actionLogout->setVisible(! ui->actionLogin->isVisible());
@@ -84,40 +82,25 @@ void MainWindow::applyPermission()
    if (Reghaabat::hasAccess("operator"))
    {
 //       ui->actionSync->setEnabled(true);
-       ui->actionNewUser->setEnabled(true);
-       ui->actionEditUser->setEnabled(true);
-       ui->actionDeliverMatch->setEnabled(true);
+       ui->actionUserManagement->setEnabled(true);
+       ui->actionDeliver->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("designer"))
    {
-       ui->actionNewMatch->setEnabled(true);
-       ui->actionEditMatch->setEnabled(true);
+       ui->actionMatchManagement->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("manager"))
    {
        ui->actionChangePermissions->setEnabled(true);
-       ui->actionLists->setEnabled(true);
        ui->actionSetScores->setEnabled(true);
-       ui->actionMatchTable->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("master"))
    {
        ui->actionOptions->setEnabled(true);
    }
-}
-
-void MainWindow::showForm(QWidget* form)
-{
-    QVBoxLayout* lay =  new QVBoxLayout();
-    lay->setContentsMargins(0, 0, 0, 0);
-
-    lay->addWidget(form);
-    delete ui->container->layout();
-    ui->container->setLayout(lay);
-    ui->container->show();
 }
 
 void MainWindow::on_actionSync_triggered()
@@ -144,7 +127,7 @@ void MainWindow::on_actionLogin_triggered()
 
         applyPermission();
 
-        on_actionDeliverMatch_triggered();
+        on_actionDeliver_triggered();
     }
 }
 
@@ -160,77 +143,116 @@ void MainWindow::on_actionLogout_triggered()
          delete child->widget();
     delete ui->statusBar->layout();
 
-    clear();
+    firstPage();
 
     applyPermission();
 }
 
-void MainWindow::on_actionNewUser_triggered()
+void MainWindow::on_actionUserManagement_triggered()
 {
     if (! Reghaabat::hasAccess("operator")) return;
 
-    clear();
-    userForm = new UserForm(this);
-    connect(userForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
-    showForm(userForm);
-}
-
-void MainWindow::on_actionEditUser_triggered()
-{
-    on_actionNewUser_triggered();
-    if (userForm)
+    if (! userManagement)
     {
-        userForm->editMode(true);
-        userForm->eUser->setFocus();
+        userManagement = new UserManagement(this);
+        stackedLayout->addWidget(userManagement);
     }
+    stackedLayout->setCurrentWidget(userManagement);
 }
 
-void MainWindow::on_actionNewMatch_triggered()
+void MainWindow::on_actionMatchManagement_triggered()
+{
+    if (! Reghaabat::hasAccess("manager")) return;
+
+    if (!matchListForm)
+    {
+        matchListForm = new MatchTable(this);
+        stackedLayout->addWidget(matchListForm);
+    }
+    stackedLayout->setCurrentWidget(matchListForm);
+}
+
+void MainWindow::newUser()
+{
+    if (! Reghaabat::hasAccess("operator")) return;
+
+    if (! userForm)
+    {
+        userForm = new UserForm(this);
+        connect(userForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
+        stackedLayout->addWidget(userForm);
+    }
+    stackedLayout->setCurrentWidget(userForm);
+    userForm->editMode(false);
+}
+
+void MainWindow::editUser()
+{
+    if (! Reghaabat::hasAccess("operator")) return;
+
+    newUser();
+    userForm->editMode(true);
+    userForm->eUser->setFocus();
+}
+
+void MainWindow::newMatch()
 {
     if (! Reghaabat::hasAccess("designer")) return;
 
-    clear();
-    matchForm = new MatchForm(this);
-    connect(matchForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
-    showForm(matchForm);
+    if (! matchForm)
+    {
+        matchForm = new MatchForm(this);
+        connect(matchForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
+        stackedLayout->addWidget(matchForm);
+    }
+    stackedLayout->setCurrentWidget(matchForm);
+    matchForm->editMode(false);
 }
 
-void MainWindow::on_actionEditMatch_triggered()
+void MainWindow::editMatch()
 {
-    on_actionNewMatch_triggered();
-    if (matchForm)
-    {
-       matchForm->editMode(true);
-       matchForm->eMatch->setFocus();
-    }
+    if (! Reghaabat::hasAccess("designer")) return;
+
+    newMatch();
+    matchForm->editMode(true);
+    matchForm->eMatch->setFocus();
 }
 
 void MainWindow::on_actionOptions_triggered()
 {
     if (! Reghaabat::hasAccess("master")) return;
 
-    clear();
-    optionsForm = new OptionsForm(this);
-    connect(optionsForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
-    showForm(optionsForm);
+    if (! optionsForm)
+    {
+        optionsForm = new OptionsForm(this);
+        connect(optionsForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
+        stackedLayout->addWidget(optionsForm);
+    }
+    stackedLayout->setCurrentWidget(optionsForm);
 }
 
-void MainWindow::on_actionDeliverMatch_triggered()
+void MainWindow::on_actionDeliver_triggered()
 {
     if (! Reghaabat::hasAccess("operator")) return;
 
-    clear();
-    formOperator = new FormOperator(this);
-    showForm(formOperator);
+    if (! formOperator)
+    {
+        formOperator = new FormOperator(this);
+        stackedLayout->addWidget(formOperator);
+    }
+    stackedLayout->setCurrentWidget(formOperator);
 
     formOperator->eUser->setFocus();
 }
 
 void MainWindow::firstPage()
 {
-    clear();
-    formFirst = new FormFirst(this);
-    showForm(formFirst);
+    if (! formFirst)
+    {
+        formFirst = new FormFirst(this);
+        stackedLayout->addWidget(formFirst);
+    }
+    stackedLayout->setCurrentWidget(formFirst);
 }
 
 void MainWindow::on_actionChangePassword_triggered()
@@ -243,32 +265,22 @@ void MainWindow::on_actionChangePermissions_triggered()
 {
     if (! Reghaabat::hasAccess("manager")) return;
 
-    clear();
-    formChangePermissions = new FormChangePermissions(this);
-    showForm(formChangePermissions);
-}
-
-void MainWindow::on_actionLists_triggered()
-{
-    clear();
-    viewerForm = new ViewerForm(this);
-    showForm(viewerForm);
+    if (! formChangePermissions)
+    {
+        formChangePermissions = new FormChangePermissions(this);
+        stackedLayout->addWidget(formChangePermissions);
+    }
+    stackedLayout->setCurrentWidget(formChangePermissions);
 }
 
 void MainWindow::on_actionSetScores_triggered()
 {
     if (! Reghaabat::hasAccess("manager")) return;
 
-    clear();
-    scoreForm = new ScoreForm(this);
-    showForm(scoreForm);
-}
-
-void MainWindow::on_actionMatchTable_triggered()
-{
-    if (! Reghaabat::hasAccess("manager")) return;
-
-    clear();
-    matchListForm = new MatchTable(this);
-    showForm(matchListForm);
+    if (! scoreForm)
+    {
+        scoreForm = new ScoreForm(this);
+        stackedLayout->addWidget(scoreForm);
+    }
+    stackedLayout->setCurrentWidget(scoreForm);
 }

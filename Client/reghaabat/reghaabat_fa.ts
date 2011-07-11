@@ -168,7 +168,6 @@
     <name>MainWindow</name>
     <message>
         <location filename="mainwindow.ui" line="+14"/>
-        <location line="+32"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -181,84 +180,98 @@
         <translation type="obsolete">عضو</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>User</source>
-        <translation>عضو</translation>
+        <translation type="obsolete">عضو</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Match</source>
         <oldsource>match</oldsource>
-        <translation>مسابقه</translation>
+        <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+63"/>
         <location line="+3"/>
         <source>Sync</source>
         <translation>همزمانی</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+9"/>
         <location line="+3"/>
         <source>Login</source>
         <translation>ورود</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+9"/>
         <location line="+3"/>
         <source>Logout</source>
         <translation>خروج</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>New User</source>
-        <translation>عضو جدید</translation>
+        <location line="+18"/>
+        <location line="+3"/>
+        <source>Deliver</source>
+        <translation>تحویل</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+39"/>
+        <source>User Management</source>
+        <translation>مدیریت عضوها</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <location line="+3"/>
+        <source>Match Management</source>
+        <translation>مدیریت مسابقه‌ها</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Payment</source>
+        <translation>پرداخت</translation>
+    </message>
+    <message>
+        <source>New User</source>
+        <translation type="obsolete">عضو جدید</translation>
+    </message>
+    <message>
+        <location line="-72"/>
         <source>Options</source>
         <translation>تنظمیات</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Deliver Match</source>
-        <translation>تحویل مسابقه</translation>
+        <translation type="obsolete">تحویل مسابقه</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Edit User</source>
-        <translation>ویرایش عضو</translation>
+        <translation type="obsolete">ویرایش عضو</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Edit Match</source>
-        <translation>ویرایش مسابقه</translation>
+        <translation type="obsolete">ویرایش مسابقه</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+21"/>
         <source>Change Password</source>
         <translation>تغییر کلمه عبور</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+9"/>
         <source>Change Permissions</source>
         <translation>تغییر دسترسی‌ها</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Lists</source>
-        <translation>لیستها</translation>
+        <translation type="obsolete">لیستها</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+9"/>
         <location line="+3"/>
         <source>Set Scores</source>
         <translation>ثبت امتیازها</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>MatchTable</source>
-        <translation>جدول مسابقه‌ها</translation>
+        <translation type="obsolete">جدول مسابقه‌ها</translation>
     </message>
     <message>
         <source>list</source>
@@ -289,11 +302,9 @@
         <translation type="obsolete">تنظیمات</translation>
     </message>
     <message>
-        <location line="-51"/>
-        <location line="+3"/>
         <source>New Match</source>
         <oldsource>deliverMatch</oldsource>
-        <translation>ایجاد مسابقه</translation>
+        <translation type="obsolete">ایجاد مسابقه</translation>
     </message>
     <message>
         <source>editUser</source>
@@ -416,8 +427,8 @@
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location line="+104"/>
-        <location filename="matchtable.h" line="+94"/>
+        <location line="+106"/>
+        <location filename="matchtable.h" line="+95"/>
         <location filename="viewerform.cpp" line="+103"/>
         <location line="+101"/>
         <source>book</source>
@@ -475,6 +486,29 @@
         <location filename="matchrow.ui" line="+57"/>
         <source>Receive</source>
         <translation>دریافت</translation>
+    </message>
+</context>
+<context>
+    <name>MatchTable</name>
+    <message>
+        <location filename="matchtable.ui" line="+32"/>
+        <source>New Match</source>
+        <translation>مسابقه جدید</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Edit Match</source>
+        <translation>ویرایش مسابقه</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Match List</source>
+        <translation>لیست مسابقه‌ها</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Age Group</source>
+        <translation>با تفکیک سنی</translation>
     </message>
 </context>
 <context>
@@ -606,9 +640,8 @@
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="dialogchangepassword.cpp" line="+26"/>
+        <location filename="dialogchangepassword.cpp" line="+25"/>
         <location filename="logindialog.cpp" line="+0"/>
-        <location filename="main.cpp" line="+17"/>
         <location filename="matchform.cpp" line="+93"/>
         <location filename="optionsform.cpp" line="-12"/>
         <location filename="userform.cpp" line="+65"/>
@@ -619,9 +652,8 @@
         <translation>رقابت</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+1"/>
         <source>Rooyesh</source>
-        <translation>رویش</translation>
+        <translation type="obsolete">رویش</translation>
     </message>
 </context>
 <context>
@@ -690,14 +722,14 @@
     </message>
     <message>
         <location filename="formchangepermissions.h" line="+33"/>
-        <location filename="formoperator.cpp" line="+127"/>
+        <location filename="formoperator.cpp" line="+128"/>
         <location filename="matchtable.h" line="+54"/>
         <location filename="scoreform.h" line="+61"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
     <message>
-        <location filename="mmatches.cpp" line="+30"/>
+        <location filename="mmatches.cpp" line="+40"/>
         <source>Title is required.</source>
         <oldsource>Title is required</oldsource>
         <translation>عنوان نباید خالی باشد.</translation>
@@ -719,7 +751,7 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+245"/>
         <source>Invalid record selected.</source>
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
@@ -738,7 +770,7 @@
     </message>
     <message>
         <location filename="matchtable.h" line="+18"/>
-        <location filename="mmatches.h" line="+60"/>
+        <location filename="mmatches.h" line="+52"/>
         <source>active</source>
         <translation>فعال</translation>
     </message>
@@ -991,32 +1023,50 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>ViewerForm</name>
+    <name>UserManagement</name>
     <message>
-        <location filename="viewerform.ui" line="+53"/>
-        <location line="+23"/>
-        <source>All</source>
-        <translation>همه</translation>
+        <location filename="usermanagement.ui" line="+32"/>
+        <source>New User</source>
+        <translation>عضو جدید</translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="+7"/>
+        <source>Edit User</source>
+        <translation>ویرایش عضو</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Score List</source>
+        <translation>لیست امتیازها</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Gender Group</source>
         <translation>با تفکیک آقا و خانم</translation>
     </message>
+</context>
+<context>
+    <name>ViewerForm</name>
     <message>
-        <location line="+10"/>
+        <source>All</source>
+        <translation type="obsolete">همه</translation>
+    </message>
+    <message>
+        <source>Gender Group</source>
+        <translation type="obsolete">با تفکیک آقا و خانم</translation>
+    </message>
+    <message>
         <location filename="viewerform.cpp" line="-76"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Age Group</source>
-        <translation>با تفکیک سنی</translation>
+        <translation type="obsolete">با تفکیک سنی</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location filename="viewerform.ui" line="+77"/>
         <source>Pdf</source>
         <translation></translation>
     </message>
@@ -1026,9 +1076,8 @@ p, li { white-space: pre-wrap; }
         <translation>چاپ</translation>
     </message>
     <message>
-        <location line="-114"/>
         <source>User Score List</source>
-        <translation>لیست امتیاز بچه‌ها</translation>
+        <translation type="obsolete">لیست امتیاز بچه‌ها</translation>
     </message>
     <message>
         <location filename="viewerform.cpp" line="-89"/>
@@ -1144,8 +1193,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">کیفیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="-227"/>
-        <location line="+251"/>
+        <location filename="matchform.cpp" line="-229"/>
+        <location line="+253"/>
         <location filename="viewerform.cpp" line="-55"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>

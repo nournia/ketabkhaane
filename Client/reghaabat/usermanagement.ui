@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MatchTable</class>
- <widget class="QDialog" name="MatchTable">
+ <class>UserManagement</class>
+ <widget class="QDialog" name="UserManagement">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>572</width>
-    <height>384</height>
+    <width>630</width>
+    <height>479</height>
    </rect>
   </property>
   <property name="layoutDirection">
@@ -27,16 +27,16 @@
        <number>3</number>
       </property>
       <item>
-       <widget class="QPushButton" name="bNewMatch">
+       <widget class="QPushButton" name="bNewUser">
         <property name="text">
-         <string>New Match</string>
+         <string>New User</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="bEditMatch">
+       <widget class="QPushButton" name="bEditUser">
         <property name="text">
-         <string>Edit Match</string>
+         <string>Edit User</string>
         </property>
        </widget>
       </item>
@@ -56,14 +56,14 @@
       <item>
        <widget class="QPushButton" name="bMatchList">
         <property name="text">
-         <string>Match List</string>
+         <string>Score List</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="cAgeGroup">
+       <widget class="QCheckBox" name="cGenderGroup">
         <property name="text">
-         <string>Age Group</string>
+         <string>Gender Group</string>
         </property>
        </widget>
       </item>
@@ -71,11 +71,17 @@
     </widget>
    </item>
    <item>
-    <widget class="QTableView" name="tMatches">
-     <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-    </widget>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
