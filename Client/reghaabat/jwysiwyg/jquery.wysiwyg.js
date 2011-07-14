@@ -588,7 +588,7 @@
 
 				element = element.parentNode;
 			}
-			if(!element.tagName && (element.previousSibling || element.nextSibling)) {
+			if(element != null && !element.tagName && (element.previousSibling || element.nextSibling)) {
 				if(element.previousSibling) {
 					if(element.previousSibling.tagName.toLowerCase() == filterTagName) {
 						return element.previousSibling;
@@ -659,7 +659,7 @@
 				element = element.childNodes[range.startOffset];
 			}
 			
-			if(!element.tagName && (element.previousSibiling || element.nextSibling)) {
+			if(element != null && !element.tagName && (element.previousSibiling || element.nextSibling)) {
 				if(element.previousSibiling) {
 					if(element.previousSibiling.tagName.toLowerCase() == filterTagName) {
 						return element.previousSibiling;

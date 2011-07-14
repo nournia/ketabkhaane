@@ -53,7 +53,7 @@
 			};
 
 			formImageHtml = 		'<form class="wysiwyg" id="wysiwyg-addImage"><fieldset>' +
-									'<div class="form-row"><span class="form-row-key">{preview}:</span><div class="form-row-value"><img src="" alt="{preview}" style="margin: 2px; padding:5px; max-width: 100%; overflow:hidden; max-height: 100px; border: 1px solid rgb(192, 192, 192);"/></div></div>'+
+									'<div class="form-row"><span class="form-row-key">{preview}:</span><div class="form-row-value"><img src="" style="margin: 2px; padding:5px; max-width: 100%; overflow:hidden; max-height: 100px; border: 1px solid rgb(192, 192, 192);"/></div></div>'+
 									'<div class="form-row"><label for="name">{url}:</label><div class="form-row-value"><input type="text" name="src" value=""/>';
 				if ($.wysiwyg.fileManager.ready) {
 					// Add the File Manager icon:
@@ -216,8 +216,8 @@
 
 			form.find('img').bind("load", function () {
 				// if (form.find('img').attr("naturalWidth")) {
-					// form.find('input[name="naturalWidth"]').val(form.find('img').attr("naturalWidth"));
-					// form.find('input[name="naturalHeight"]').val(form.find('img').attr("naturalHeight"));
+					// form.find('input[name="width"]').val(form.find('img').attr("naturalWidth"));
+					// form.find('input[name="height"]').val(form.find('img').attr("naturalHeight"));
 				// }
 			});
 
