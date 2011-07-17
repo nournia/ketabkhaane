@@ -5,6 +5,7 @@
 
 #include <mainwindow.h>
 #include <connector.h>
+#include <migrations.h>
 
 /** parameters
 *   reghaabat.exe -data $FOLDER
@@ -14,7 +15,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setApplicationVersion("0.8.5");
 
+    // arguments
     if (argc == 3 && !strcmp(argv[1], "-data"))
     {
         QSettings settings("Rooyesh", "Reghaabat");
@@ -25,8 +28,6 @@ int main(int argc, char *argv[])
         else
             settings.setValue("DataFolder", filename);
     }
-
-    Connector::connectDb();
 
     // translation
     QTranslator rTranslator;
@@ -44,6 +45,11 @@ int main(int argc, char *argv[])
     a.setStyleSheet(qss.readAll());
     qss.close();
 
+    // db connection
+    Connector::connectDb();
+    migrate(a.applicationVersion());
+
+    // execute
     MainWindow w;
     w.show();
 

@@ -320,8 +320,8 @@ void convertAccessDbToSqliteDb(QString accessFilename)
     importTable("answers", "select userid, matchid, iif(deliverdate is null, '1300/01/01', deliverdate) as ddate, iif(deliverdate is null, '1300/01/01', receivedate) as rdate, iif(deliverdate is null, '1300/01/01', scoredate) as sdate, iif(scoredate is null, null, transactions.score/matches.maxscore) as rate, operatorid, iif(deliverdate is null, '1300/01/01', deliverdate) from transactions inner join matches on transactions.matchid = matches.id",
                 QStringList() << "user_id" << "match_id" << "delivered_at" << "received_at" << "corrected_at" << "rate");
 
-    importTable("payments", "select userid, score, operatorid, scoredate from payments",
-                QStringList() << "user_id" << "payment");
+    importTable("payments", "select userid, score, scoredate, operatorid, scoredate from payments",
+                QStringList() << "user_id" << "payment" << "payed_at");
 
     importTable("open_scores", "select userid, 0, title, score, operatorid, scoredate from freescores",
                 QStringList() << "user_id" << "category_id" << "title" << "score");

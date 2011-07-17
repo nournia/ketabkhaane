@@ -124,7 +124,9 @@ create table library (
 	pay_coeff float not null default "1",
 	pay_unit varchar(100) not null default "امتیاز",
 	active tinyint(1) not null default "1",
-	open_user tinyint(1) not null default "1"
+	open_user tinyint(1) not null default "1",
+	version varchar(10) null,
+	options text null
 );
 create table supports (
 	id integer not null primary key autoincrement,
@@ -143,7 +145,8 @@ create table scores (
 create table payments (
 	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
-	payment smallint not null
+	payment smallint not null,
+	payed_at timestamp not null default current_timestamp
 );
 
 -- open_scores 
@@ -197,7 +200,7 @@ insert into open_categories (id, title) values (0, 'خلاصه‌نویسی');
 insert into open_categories (id, title) values (1, 'شعر');
 insert into open_categories (id, title) values (2, 'داستان');
 
-insert into library (id, group_id, title, image, license, tournament_title, started_at) values (1, 1, 'کتابخانه‌ی شهید خرازی', '1.jpg','aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', '2011-06-01 00:00:00');
+insert into library (id, group_id, title, image, license, tournament_title, started_at, version) values (1, 1, 'کتابخانه‌ی شهید خرازی', '1.jpg','aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', '2011-06-01 00:00:00', '0.8.5');
 insert into permissions (user_id, permission, accept) values (1770, "master", 1);
 
 -- after import
