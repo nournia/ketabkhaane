@@ -429,16 +429,16 @@
     <message>
         <location line="+106"/>
         <location filename="matchtable.h" line="+95"/>
-        <location filename="viewerform.cpp" line="+103"/>
-        <location line="+101"/>
+        <location filename="viewerform.cpp" line="+104"/>
+        <location line="+100"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
         <location line="+1"/>
         <location filename="matchtable.h" line="+0"/>
-        <location filename="viewerform.cpp" line="-101"/>
-        <location line="+106"/>
+        <location filename="viewerform.cpp" line="-100"/>
+        <location line="+105"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -590,6 +590,36 @@
     </message>
 </context>
 <context>
+    <name>Payment</name>
+    <message>
+        <location filename="payment.ui" line="+40"/>
+        <source>Username</source>
+        <translation>نام عضو</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Score Residue</source>
+        <oldsource>Residue</oldsource>
+        <translation>موجودی امتیاز</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Score Sum</source>
+        <oldsource>Sum</oldsource>
+        <translation>مجموع امتیاز</translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Score</source>
+        <translation>امتیاز</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Pay</source>
+        <translation>پرداخت</translation>
+    </message>
+</context>
+<context>
     <name>PermissionModel</name>
     <message>
         <location filename="formchangepermissions.h" line="+66"/>
@@ -644,7 +674,8 @@
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="matchform.cpp" line="+93"/>
         <location filename="optionsform.cpp" line="-12"/>
-        <location filename="userform.cpp" line="+65"/>
+        <location filename="payment.cpp" line="+68"/>
+        <location filename="userform.cpp" line="+67"/>
         <location line="+58"/>
         <location line="+9"/>
         <location line="+9"/>
@@ -659,7 +690,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="musers.h" line="+52"/>
+        <location filename="musers.cpp" line="+44"/>
         <source>User name is required.</source>
         <translation>نام عضو وارد نشده است.</translation>
     </message>
@@ -688,7 +719,7 @@
         <translation>این شماره ملی برای %1 ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+49"/>
         <source>Invalid Old Password.</source>
         <translation>کلمه عبور وارد شده اشتباه است.</translation>
     </message>
@@ -698,16 +729,21 @@
         <translation>کلمه عبور جدید باید با تکرار آن تطابق داشته باشد.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+23"/>
         <source>Password is required.</source>
         <translation>پسورد نباید خالی باشد.</translation>
+    </message>
+    <message>
+        <location line="+59"/>
+        <source>You have not sufficent score.</source>
+        <translation>شما به اندازه کافی امتیاز ندارید.</translation>
     </message>
     <message>
         <source>Password phrase length must be greater than 6 characters and mustn&apos;t be a pure number.</source>
         <translation type="obsolete">کلمه عبور باید حداقل 6 حرف باشد و نباید فقط از عدد تشکل شده باشد.</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="-31"/>
         <source>You must have at least one master user.</source>
         <translation>سامانه باید حداقل یک مدیر داشته باشد.</translation>
     </message>
@@ -716,13 +752,13 @@
         <translation type="obsolete">سامانه باید حداقل یک مدیر داشته باشد.</translation>
     </message>
     <message>
-        <location line="-36"/>
+        <location line="-45"/>
         <source>Password Changed.</source>
         <translation>کلمه عبور جدید ثبت شد.</translation>
     </message>
     <message>
         <location filename="formchangepermissions.h" line="+33"/>
-        <location filename="formoperator.cpp" line="+128"/>
+        <location filename="formoperator.cpp" line="+129"/>
         <location filename="matchtable.h" line="+54"/>
         <location filename="scoreform.h" line="+61"/>
         <source>Reghaabat</source>
@@ -1056,7 +1092,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">با تفکیک آقا و خانم</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="-76"/>
+        <location filename="viewerform.cpp" line="-75"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -1146,7 +1182,7 @@ p, li { white-space: pre-wrap; }
         <translation>گروه</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+16"/>
         <source>Grade1</source>
         <translation>ضعیف</translation>
     </message>
@@ -1195,7 +1231,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="matchform.cpp" line="-229"/>
         <location line="+253"/>
-        <location filename="viewerform.cpp" line="-55"/>
+        <location filename="viewerform.cpp" line="-54"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
     </message>

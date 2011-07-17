@@ -16,7 +16,7 @@
 #include <optionsform.h>
 #include <formfirst.h>
 #include <usermanagement.h>
-
+#include <payment.h>
 
 // forms
 FormFirst* formFirst;
@@ -29,6 +29,7 @@ OptionsForm* optionsForm;
 ScoreForm* scoreForm;
 MatchTable* matchListForm;
 UserManagement* userManagement;
+Payment* paymentForm;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -45,9 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
     delete ui->container->layout();
     ui->container->setLayout(stackedLayout);
 
-
 //    optionsForm = new OptionsForm(this);
-//    showForm(optionsForm);
+//    stackedLayout->addWidget(optionsForm);
 
     firstPage();
     on_actionLogin_triggered();
@@ -95,6 +95,7 @@ void MainWindow::applyPermission()
    {
        ui->actionChangePermissions->setEnabled(true);
        ui->actionSetScores->setEnabled(true);
+       ui->actionPayment->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("master"))
@@ -283,4 +284,17 @@ void MainWindow::on_actionSetScores_triggered()
         stackedLayout->addWidget(scoreForm);
     }
     stackedLayout->setCurrentWidget(scoreForm);
+}
+
+void MainWindow::on_actionPayment_triggered()
+{
+    if (! Reghaabat::hasAccess("manager")) return;
+
+    if (! paymentForm)
+    {
+        paymentForm = new Payment(this);
+        stackedLayout->addWidget(paymentForm);
+    }
+    stackedLayout->setCurrentWidget(paymentForm);
+    paymentForm->eUser->setFocus();
 }

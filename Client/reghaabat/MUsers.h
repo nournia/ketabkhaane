@@ -24,6 +24,8 @@ public:
     static QString setPassword(QString userId, QString newPass);
 
     static QString setPermission(QString userId, QString permission);
+
+    static QString pay(QString userId, int score);
 };
 
 #endif // MUSERS_H

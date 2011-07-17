@@ -36,7 +36,8 @@ SOURCES += main.cpp\
     matchtable.cpp \
     musers.cpp \
     mmatches.cpp \
-    usermanagement.cpp
+    usermanagement.cpp \
+    payment.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -64,7 +65,9 @@ HEADERS  += mainwindow.h \
     viewerform.h \
     scoreform.h \
     matchtable.h \
-    usermanagement.h
+    usermanagement.h \
+    payment.h \
+    migrations.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -80,4 +83,5 @@ FORMS    += mainwindow.ui \
     viewerform.ui \
     scoreform.ui \
     matchtable.ui \
-    usermanagement.ui
+    usermanagement.ui \
+    payment.ui
