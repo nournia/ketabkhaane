@@ -598,25 +598,51 @@
     </message>
     <message>
         <location line="+21"/>
-        <source>Score Residue</source>
-        <oldsource>Residue</oldsource>
-        <translation>موجودی امتیاز</translation>
+        <source>Score Residue:</source>
+        <oldsource>Score Residue</oldsource>
+        <translation>موجودی امتیاز:</translation>
     </message>
     <message>
         <location line="+14"/>
-        <source>Score Sum</source>
-        <oldsource>Sum</oldsource>
-        <translation>مجموع امتیاز</translation>
+        <source>Score Sum:</source>
+        <oldsource>Score Sum</oldsource>
+        <translation>مجموع امتیاز:</translation>
     </message>
     <message>
         <location line="+23"/>
+        <location line="+72"/>
         <source>Score</source>
         <translation>امتیاز</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="-52"/>
         <source>Pay</source>
         <translation>پرداخت</translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Scores</source>
+        <translation>امتیازها</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Title</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Payments</source>
+        <translation>پرداختها</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Date</source>
+        <translation>تاریخ</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Payment</source>
+        <translation>امتیاز</translation>
     </message>
 </context>
 <context>
@@ -674,7 +700,7 @@
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="matchform.cpp" line="+93"/>
         <location filename="optionsform.cpp" line="-12"/>
-        <location filename="payment.cpp" line="+68"/>
+        <location filename="payment.cpp" line="+108"/>
         <location filename="userform.cpp" line="+67"/>
         <location line="+58"/>
         <location line="+9"/>
@@ -867,15 +893,6 @@
         <location filename="questionmodule.ui" line="+77"/>
         <source>-</source>
         <oldsource>+</oldsource>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+36"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p dir=&apos;rtl&apos; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
@@ -1182,27 +1199,31 @@ p, li { white-space: pre-wrap; }
         <translation>گروه</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location filename="payment.cpp" line="-36"/>
+        <location filename="viewerform.cpp" line="+16"/>
         <source>Grade1</source>
         <translation>ضعیف</translation>
     </message>
     <message>
         <location line="+0"/>
+        <location filename="viewerform.cpp" line="+0"/>
         <source>Grade2</source>
         <translation>متوسط</translation>
     </message>
     <message>
         <location line="+0"/>
+        <location filename="viewerform.cpp" line="+0"/>
         <source>Grade3</source>
         <translation>خوب</translation>
     </message>
     <message>
         <location line="+0"/>
+        <location filename="viewerform.cpp" line="+0"/>
         <source>Grade4</source>
         <translation>عالی</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location filename="viewerform.cpp" line="+36"/>
         <source>Your score depends on your mood, attention and genuis.</source>
         <translation>امتیاز مسابقه به حوصله، دقت و استعداد شما داده می‌شود.</translation>
     </message>
