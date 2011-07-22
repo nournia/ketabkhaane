@@ -4,11 +4,13 @@
 #include <helper.h>
 #include <connector.h>
 
+bool change;
 bool isBetween(QString version, QString min, QString max)
 {
     bool ok = (min <= version) && (version < max);
     if (ok)
         qDebug() << QString("migrate %1 to %2").arg(min).arg(max);
+    change |= ok;
     return ok;
 }
 
@@ -16,6 +18,7 @@ void migrate(QString newVersion)
 {
     QSqlQuery qry, qryTmp;
     bool ok = true;
+    change = false;
 
     // retreive application version
     QString version;
@@ -36,11 +39,7 @@ void migrate(QString newVersion)
     if (isBetween(version, "0.8.2", "0.8.5"))
     {
         // paymetns
-        if (!qry.exec("alter table payments add column payed_at timestamp null"))
-        {
-            db.rollback();
-            return;
-        }
+        ok &= qry.exec("alter table payments add column payed_at timestamp null");
 
         qry.exec("select row_id, created_at from logs where table_name = 'payments'");
         while (qry.next())
@@ -54,13 +53,21 @@ void migrate(QString newVersion)
             insertLog("payments", "insert", qry.value(0), master, qry.value(1).toDateTime());
     }
 
-    if (ok && qry.exec(QString("update library set version = '%1'").arg(newVersion)))
+    if (change && ok)
+        ok &= qry.exec(QString("update library set version = '%1'").arg(newVersion));
+
+    qry.clear();
+    qryTmp.clear();
+
+    if (change && ok)
     {
-        db.commit();
-        qDebug() << "migration complete";
+        insertLog("library", "update", "1");
+        if (db.commit())
+            qDebug() << "migration complete";
     }
     else
-        db.rollback();
+        if (! db.rollback())
+            qDebug() << db.lastError();
 }
 
 #endif // MIGRATIONS_H

@@ -206,6 +206,7 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
         {
             if (! qry.exec("delete from questions where id = "+ qryQ.value(0).toString()))
             {
+                qryQ.clear();
                 db.rollback();
                 return qry.lastError().text();
             }
