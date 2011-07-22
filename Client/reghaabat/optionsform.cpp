@@ -28,7 +28,7 @@ OptionsForm::OptionsForm(QWidget *parent) :
     ui->eLibraryAddress->setText(settings.value("LibraryAddress", "").toString());
     ui->eDataFolder->setText(settings.value("DataFolder", "").toString());
     ui->cPrinters->setCurrentIndex(ui->cPrinters->findText(settings.value("Printer", "").toString()));
-    ui->cCorrectorPrint->setCurrentIndex(ui->cCorrectorPrint->findData(settings.value("CorrectorPrint", "NameFamily").toString()));
+    ui->cCorrectorPrint->setCurrentIndex(ui->cCorrectorPrint->findData(options()["CorrectorIdentifier"].toString()));
 }
 
 OptionsForm::~OptionsForm()
@@ -52,7 +52,7 @@ void OptionsForm::on_buttonBox_accepted()
     settings.setValue("LibraryAddress", ui->eLibraryAddress->text());
     settings.setValue("DataFolder", ui->eDataFolder->text());
     settings.setValue("Printer", ui->cPrinters->currentText());
-    settings.setValue("CorrectorPrint", ui->cCorrectorPrint->itemData(ui->cCorrectorPrint->currentIndex()).toString());
+    writeOption("CorrectorIdentifier", ui->cCorrectorPrint->itemData(ui->cCorrectorPrint->currentIndex()).toString());
 
     QString msg = "";
 

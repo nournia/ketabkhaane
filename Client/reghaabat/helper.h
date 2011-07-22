@@ -15,22 +15,36 @@
 typedef QMap<QString, QVariant> StrMap;
 typedef QPair<QString, QString> StrPair;
 
-// prototypes
-
-StrMap getRecord(QSqlQuery& query);
-QString getReplaceQuery(QString table, StrMap data, QString id);
+// refine
 
 QString getAbsoluteAddress(QString address);
+
+// constants
+
 QString dataFolder();
 QString filesUrl();
 
+// ui
+
 void fillComboBox(QComboBox* combobox, QList<StrPair> data);
 
+// db
+
+StrMap getRecord(QSqlQuery& query);
+QString getReplaceQuery(QString table, StrMap data, QString id);
 QVariant insertTitleEntry(QString table, QString title);
 void insertLog(QString table, QString operation, QVariant id, QString userId = "", QDateTime time = QDateTime::currentDateTime());
 
+// files
+
 QString getInAppFilename(QString filename);
 void removeInAppFile(QString filename);
+
+// options
+
+QVariantMap options();
+void writeOption(QString key, QVariant value);
+
 
 // inlines
 

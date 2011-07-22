@@ -3,10 +3,30 @@
 #include <QCoreApplication>
 #include <QSettings>
 #include <QFileInfo>
-#include <QDebug>
+#include <json.h>
+
 
 // init reghaabat global variables
 Reghaabat* Reghaabat::m_Instance = 0;
+
+
+QString QVariantMapToString(QVariantMap& data)
+{
+    QString json;
+    bool first = true;
+
+    json = "{";
+    QMapIterator<QString, QVariant> i(data);
+    while (i.hasNext()) {
+        i.next();
+        json += (first ? "" : ", ") + QString("\"%1\": %2").arg(i.key()).arg(getJsonValue(i.value().toString()));
+        if (first) first = false;
+    }
+
+    json += "}";
+
+    return json;
+}
 
 QString getAbsoluteAddress(QString address)
 {
@@ -175,4 +195,42 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
     qry.addBindValue(formatDateTime(time));
     if (! qry.exec())
         qDebug() << "log " << qry.lastError();
+}
+
+QVariantMap options()
+{
+    QVariantMap options;
+    options["CorrectorIdentifier"] = "NameFamily";
+    options["MaxMatchesInOneDay"] = 3;
+    options["MaxConcurrentMatches"] = 3;
+
+    QSqlQuery qry;
+    qry.exec("select options from library limit 1");
+    if (qry.next())
+    {
+        bool ok;
+        QVariantMap data = Json::parse(qry.value(0).toString(), ok).toMap();
+        if (ok)
+        {
+            QMapIterator<QString, QVariant> i(data);
+            while (i.hasNext()) {
+                i.next();
+                if (options.contains(i.key()))
+                    options[i.key()] = i.value();
+            }
+        }
+    }
+
+    return options;
+}
+
+void writeOption(QString key, QVariant value)
+{
+    QVariantMap opt = options();
+    if (opt.contains(key))
+        opt[key] = value;
+
+    QSqlQuery qry;
+    if (qry.exec(QString("update library set options = '%1'").arg(QVariantMapToString(opt))))
+        insertLog("library", "update", "1");
 }

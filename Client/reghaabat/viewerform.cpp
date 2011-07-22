@@ -152,7 +152,6 @@ void ViewerForm::bMatchAgeGroup()
 
 void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 {
-    QSettings settings("Rooyesh", "Reghaabat");
     setWindowTitle(tr("Preview"));
 
     loadHtml("match");
@@ -228,7 +227,7 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     if (qry.next())
     {
         QString corrector;
-        QString correctorPrint = settings.value("CorrectorPrint", "NameFamily").toString();
+        QString correctorPrint = options()["CorrectorIdentifier"].toString();
 
         if (correctorPrint == "NameFamily")
             corrector = qry.value(0).toString() + " " + qry.value(1).toString();

@@ -3,7 +3,6 @@
 #include <helper.h>
 
 #include <QFile>
-#include <QSettings>
 
 // reverse priority of tables
 QStringList tables = QStringList() << "scores" << "permissions" << "answers" << "questions" << "payments" << "supports" << "open_scores" << "matches" << "resources" << "files" << "authors" << "publications" << "users";
