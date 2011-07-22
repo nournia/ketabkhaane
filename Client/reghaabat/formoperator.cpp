@@ -115,11 +115,15 @@ void FormOperator::on_bDeliver_clicked()
     if (! eUser->value().isEmpty() && ! eMatch->value().isEmpty())
     {
         QString msg;
-
         QSqlQuery qry;
-        qry.exec(QString("select count(match_id) from answers where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(eUser->value()));
-        if (qry.next() && qry.value(0).toInt() >= 3)
+
+        qry.exec(QString("select count(match_id) from answers where user_id = %1 and delivered_at > (select started_at from library) and received_at is null").arg(eUser->value()));
+        if (qry.next() && qry.value(0).toInt() >= options()["MaxConcurrentMatches"].toInt())
             msg = QObject::tr("You received enough matches at the moment.");
+
+        qry.exec(QString("select count(match_id) from answers where user_id = %1 and delivered_at > (select started_at from library) and delivered_at > datetime('now', '-12 hours')").arg(eUser->value()));
+        if (qry.next() && qry.value(0).toInt() >= options()["MaxMatchesInOneDay"].toInt())
+            msg = QObject::tr("You received enough matches today.");
 
         if (msg.isEmpty())
             msg = MMatches::deliver(eUser->value(), eMatch->value());

@@ -430,15 +430,15 @@
         <location line="+106"/>
         <location filename="matchtable.h" line="+95"/>
         <location filename="viewerform.cpp" line="+104"/>
-        <location line="+100"/>
+        <location line="+99"/>
         <source>book</source>
         <translation>کتاب</translation>
     </message>
     <message>
         <location line="+1"/>
         <location filename="matchtable.h" line="+0"/>
-        <location filename="viewerform.cpp" line="-100"/>
-        <location line="+105"/>
+        <location filename="viewerform.cpp" line="-99"/>
+        <location line="+104"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
@@ -514,7 +514,7 @@
 <context>
     <name>OptionsForm</name>
     <message>
-        <location filename="optionsform.ui" line="+107"/>
+        <location filename="optionsform.ui" line="+135"/>
         <source>Convert Old Database</source>
         <translation>تبدیل پایگاه داده قبلی</translation>
     </message>
@@ -524,7 +524,7 @@
         <translation>ارتباط با کتابخانه</translation>
     </message>
     <message>
-        <location line="-32"/>
+        <location line="-60"/>
         <source>General</source>
         <translation>عمومی</translation>
     </message>
@@ -543,7 +543,17 @@
         <translation>نمایش مصحح</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+10"/>
+        <source>Max Concurrent Matches</source>
+        <translation>حداکثر مسابقه‌های در دست عضو</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Max Matches In One Day</source>
+        <translation>حداکثر تحویل مسابقه به عضو در یک روز</translation>
+    </message>
+    <message>
+        <location line="+30"/>
         <source>Db Address</source>
         <translation>آدرس پایگاه داده</translation>
     </message>
@@ -579,7 +589,7 @@
         <translation>کد عضویت</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+47"/>
         <source>Select Library Database</source>
         <translation>انتخاب پایگاه داده کتابخانه</translation>
     </message>
@@ -603,13 +613,13 @@
         <translation>موجودی امتیاز:</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+17"/>
         <source>Score Sum:</source>
         <oldsource>Score Sum</oldsource>
         <translation>مجموع امتیاز:</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+26"/>
         <location line="+72"/>
         <source>Score</source>
         <translation>امتیاز</translation>
@@ -700,7 +710,7 @@
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="matchform.cpp" line="+93"/>
         <location filename="optionsform.cpp" line="-12"/>
-        <location filename="payment.cpp" line="+108"/>
+        <location filename="payment.cpp" line="+106"/>
         <location filename="userform.cpp" line="+67"/>
         <location line="+58"/>
         <location line="+9"/>
@@ -784,7 +794,7 @@
     </message>
     <message>
         <location filename="formchangepermissions.h" line="+33"/>
-        <location filename="formoperator.cpp" line="+129"/>
+        <location filename="formoperator.cpp" line="+133"/>
         <location filename="matchtable.h" line="+54"/>
         <location filename="scoreform.h" line="+61"/>
         <source>Reghaabat</source>
@@ -813,7 +823,7 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+245"/>
+        <location line="+246"/>
         <source>Invalid record selected.</source>
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
@@ -878,9 +888,14 @@
         <translation>رده سنی این مسابقه بیش از یک سطح با شما اختلاف دارد.</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="-7"/>
+        <location filename="formoperator.cpp" line="-11"/>
         <source>You received enough matches at the moment.</source>
         <translation>در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>You received enough matches today.</source>
+        <translation>امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
     </message>
 </context>
 <context>
@@ -1109,7 +1124,7 @@
         <translation type="obsolete">با تفکیک آقا و خانم</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="-75"/>
+        <location filename="viewerform.cpp" line="-74"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -1200,7 +1215,7 @@
     </message>
     <message>
         <location filename="payment.cpp" line="-36"/>
-        <location filename="viewerform.cpp" line="+16"/>
+        <location filename="viewerform.cpp" line="+15"/>
         <source>Grade1</source>
         <translation>ضعیف</translation>
     </message>

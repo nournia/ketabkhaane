@@ -59,8 +59,6 @@ void Payment::selectUser()
 
 
     // fill tables
-    QTableWidgetItem* item;
-
     qry.exec(QString("select payed_at, payment from payments where user_id = %1 and payed_at > (select started_at from library) order by payed_at desc").arg(eUser->value()));
     for (int row = 0; qry.next(); row++)
     {

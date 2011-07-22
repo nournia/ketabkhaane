@@ -20,15 +20,17 @@ OptionsForm::OptionsForm(QWidget *parent) :
     foreach(QPrinterInfo printer, QPrinterInfo::availablePrinters())
         ui->cPrinters->addItem(printer.printerName());
 
-    ui->cCorrectorPrint->addItem(tr("NameFamily"), "NameFamily");
-    ui->cCorrectorPrint->addItem(tr("Family"), "Family");
-    ui->cCorrectorPrint->addItem(tr("Id"), "Id");
+    ui->cCorrectorIdentifier->addItem(tr("NameFamily"), "NameFamily");
+    ui->cCorrectorIdentifier->addItem(tr("Family"), "Family");
+    ui->cCorrectorIdentifier->addItem(tr("Id"), "Id");
 
     QSettings settings("Rooyesh", "Reghaabat");
     ui->eLibraryAddress->setText(settings.value("LibraryAddress", "").toString());
     ui->eDataFolder->setText(settings.value("DataFolder", "").toString());
     ui->cPrinters->setCurrentIndex(ui->cPrinters->findText(settings.value("Printer", "").toString()));
-    ui->cCorrectorPrint->setCurrentIndex(ui->cCorrectorPrint->findData(options()["CorrectorIdentifier"].toString()));
+    ui->cCorrectorIdentifier->setCurrentIndex(ui->cCorrectorIdentifier->findData(options()["CorrectorIdentifier"].toString()));
+    ui->sMaxConcurrentMatches->setValue(options()["MaxConcurrentMatches"].toInt());
+    ui->sMaxMatchesInOneDay->setValue(options()["MaxMatchesInOneDay"].toInt());
 }
 
 OptionsForm::~OptionsForm()
@@ -52,7 +54,9 @@ void OptionsForm::on_buttonBox_accepted()
     settings.setValue("LibraryAddress", ui->eLibraryAddress->text());
     settings.setValue("DataFolder", ui->eDataFolder->text());
     settings.setValue("Printer", ui->cPrinters->currentText());
-    writeOption("CorrectorIdentifier", ui->cCorrectorPrint->itemData(ui->cCorrectorPrint->currentIndex()).toString());
+    writeOption("CorrectorIdentifier", ui->cCorrectorIdentifier->itemData(ui->cCorrectorIdentifier->currentIndex()).toString());
+    writeOption("MaxConcurrentMatches", ui->sMaxConcurrentMatches->value());
+    writeOption("MaxMatchesInOneDay", ui->sMaxMatchesInOneDay->value());
 
     QString msg = "";
 
