@@ -25,6 +25,10 @@ body {
 
 <script type="text/javascript">
 
+function emptyEditor() {
+	$('#wysiwyg').wysiwyg('setContent', '');
+}
+
 $(function() {
 	$(document).ready(function() {
 		$('#wysiwyg').wysiwyg({

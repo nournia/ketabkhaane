@@ -8,6 +8,7 @@
 #include <QWebElementCollection>
 #include <QPushButton>
 #include <QFile>
+#include <QFileDialog>
 
 #include <viewerform.h>
 #include <mainwindow.h>
@@ -51,6 +52,17 @@ MatchForm::MatchForm(QWidget *parent) :
     lay->addRow("", button);
     fillerItem->setLayout(lay);
 
+
+    // init editor
+    QFile file(getAbsoluteAddress("jwysiwyg.html"));
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QString html = QTextStream(&file).readAll();
+        html = html.replace("\"jwysiwyg/", QString("\"%1/jwysiwyg/").arg(QCoreApplication::applicationDirPath()));
+        ui->eContent->setHtml(html);
+        ui->eContent->page()->mainFrame()->addToJavaScriptWindowObject("containerForm", this);
+    }
+
     cancelMatch();
 }
 
@@ -61,7 +73,11 @@ MatchForm::~MatchForm()
 
 void MatchForm::editMode(bool edit)
 {
-    eMatch->setText("");
+    if (eMatch->text().isEmpty())
+        cancelMatch();
+    else
+        eMatch->setText("");
+
     ui->gMatch->setVisible(edit);
     ui->gData->setEnabled(! edit);
 }
@@ -129,13 +145,7 @@ void MatchForm::cancelMatch()
     eAuthor->setText("");
     ePublication->setText("");
 
-    QFile file(getAbsoluteAddress("jwysiwyg.html"));
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QString html = QTextStream(&file).readAll();
-        html = html.replace("\"jwysiwyg/", QString("\"%1/jwysiwyg/").arg(QCoreApplication::applicationDirPath()));
-        ui->eContent->setHtml(html);
-    }
+    ui->eContent->page()->mainFrame()->evaluateJavaScript("emptyEditor();");
 
     clearQuestions();
 
@@ -280,4 +290,9 @@ void MatchForm::on_buttonBox_clicked(QAbstractButton* button)
         viewer->showMatch(match, questions);
         viewer->exec();
     }
+}
+
+QString MatchForm::getFilename()
+{
+    return QFileDialog::getOpenFileName(this, tr("Select Image File")).replace("/", "\\");
 }

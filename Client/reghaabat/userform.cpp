@@ -30,7 +30,10 @@ UserForm::~UserForm()
 
 void UserForm::editMode(bool edit)
 {
-    eUser->setText("");
+    if (eUser->text().isEmpty())
+        cancelUser();
+    else
+        eUser->setText("");
 
     ui->gUser->setVisible(edit);
     ui->gData->setEnabled(! edit);
