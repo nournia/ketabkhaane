@@ -54,19 +54,14 @@
 
 			formImageHtml = 		'<form class="wysiwyg" id="wysiwyg-addImage"><fieldset>' +
 									'<div class="form-row"><span class="form-row-key">{preview}:</span><div class="form-row-value"><img src="" style="margin: 2px; padding:5px; max-width: 100%; overflow:hidden; max-height: 100px; border: 1px solid rgb(192, 192, 192);"/></div></div>'+
-									'<div class="form-row"><label for="name">{url}:</label><div class="form-row-value"><button class="button" id="browseImage">انتخاب</button><input type="hidden" name="src" value=""/>';
-				if ($.wysiwyg.fileManager.ready) {
-					// Add the File Manager icon:
-					formImageHtml +=	'<div class="wysiwyg-fileManager" title="{fileManagerIcon}"/>';
-				}
-				formImageHtml += 	'</div></div>' +
+									'<input type="hidden" name="src" value=""/>'+
 									// '<div class="form-row"><label for="name">{title}:</label><div class="form-row-value"><input type="text" name="imgtitle" value=""/></div></div>' +
 									// '<div class="form-row"><label for="name">{description}:</label><div class="form-row-value"><input type="text" name="description" value=""/></div></div>' +
 									'<div class="form-row"><label for="name">{width} × {height}:</label><div class="form-row-value"><input type="text" name="width" value="" class="width-small"/> x <input type="text" name="height" value="" class="width-small"/></div></div>' +
 									// '<div class="form-row"><label for="name">{original}:</label><div class="form-row-value"><input type="text" name="naturalWidth" value="" class="width-small" disabled="disabled"/> x ' + '<input type="text" name="naturalHeight" value="" class="width-small" disabled="disabled"/></div></div>' +
 									// '<div class="form-row"><label for="name">{float}:</label><div class="form-row-value"><select name="float">' + '<option value="">{floatNone}</option>' + '<option value="left">{floatLeft}</option>' + '<option value="right">{floatRight}</option></select></div></div>' +
-									'<div class="form-row form-row-last"><label for="name"></label><div class="form-row-value"><input type="submit" class="button" value="{submit}"/> ' +
-									'<input type="reset" class="button" value="{reset}"/></div></div></fieldset></form>';
+									'<div class="form-row form-row-last"><label for="name"></label><div class="form-row-value"><button class="button" id="browseImage">تغییر</button><input type="submit" class="button" value="{submit}"/><input type="reset" class="button" value="{reset}"/></div></div>' +
+									'</fieldset></form>';
 
 			for (key in dialogReplacements) {
 				if ($.wysiwyg.i18n) {
@@ -127,10 +122,17 @@
 				$("#browseImage").click(function(){
 					fileaddr = containerForm.getFilename();
 					dialog.find("input[name=src]").val(fileaddr).change();
+					dialog.show();
 					return false;
 				});
 				
 				self.makeForm(dialog, img);
+
+				if (dialog.find("input[name=src]").val() == "")
+				{
+					dialog.hide();
+					$("#browseImage").click();
+				}
 			});
 			
 			adialog.open();
@@ -221,14 +223,15 @@
 			form.find('input[name="height"]').val(img.height);
 			form.find('img').attr("src", img.src);
 
-			/*
+			
 			form.find('img').bind("load", function () {
-				if (form.find('img').attr("naturalWidth")) {
-					form.find('input[name="width"]').val(form.find('img').attr("naturalWidth"));
-					form.find('input[name="height"]').val(form.find('img').attr("naturalHeight"));
+				var iimg = form.find('img')[0]; 
+				if (iimg.naturalWidth) {
+					form.find('input[name="width"]').val(iimg.naturalWidth);
+					form.find('input[name="height"]').val(iimg.naturalHeight);
 				}
 			});
-			*/
+			
 
 			form.find("input[name=src]").bind("change", function () {
 				form.find('img').attr("src", this.value);

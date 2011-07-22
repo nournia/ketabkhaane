@@ -97,10 +97,11 @@ background-color:white; padding:0px; margin:0; display:block; width: 100%; }
 
 /* reghaabat */
 .wysiwyg-dialog { direction: rtl; font-family: Arial; }
-.wysiwyg-dialog-content form.wysiwyg .form-row label, .wysiwyg-dialog form.wysiwyg .form-row .form-row-key { float:right; width:16%; padding:4px 1px; }
-.wysiwyg-dialog-content form.wysiwyg .form-row .form-row-value { width:83%; }
+.wysiwyg-dialog-content form.wysiwyg .form-row label, .wysiwyg-dialog form.wysiwyg .form-row .form-row-key { float:right; width:66px; padding:4px 1px; }
+.wysiwyg-dialog-content form.wysiwyg .form-row .form-row-value { width:80%; }
 .wysiwyg-dialog .wysiwyg-dialog-topbar .wysiwyg-dialog-close-wrapper .wysiwyg-dialog-close-button { left: 5px; right: auto; }
 .wysiwyg-dialog .wysiwyg-dialog-content { padding: 5px; }
 .wysiwyg-dialog .wysiwyg-dialog-topbar { padding: 1px;}
-.wysiwyg-dialog .form-row-value img { min-height: 100px; min-width: 100px; }
-.wysiwyg-dialog .button { font-size: 0.85em; min-width: 50px; }
+.wysiwyg-dialog .form-row-value img { min-height: 120px; min-width: 120px; }
+.wysiwyg-dialog .button { font-size: 0.85em; min-width: 40px; height: 23px; }
+.wysiwyg-dialog input[type=text] { direction: ltr; text-align: center; }
