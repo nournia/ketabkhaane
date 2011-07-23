@@ -2,7 +2,6 @@
 #define USERFORM_H
 
 #include <QWidget>
-#include <mylineedit.h>
 #include <musers.h>
 
 namespace Ui {
@@ -20,7 +19,6 @@ public:
     void editMode(bool edit);
 
     QString importedId;
-    MyLineEdit* eUser;
 private:
     Ui::UserForm *ui;
 

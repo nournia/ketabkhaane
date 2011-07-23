@@ -47,6 +47,9 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="MyLineEdit" name="eUser"/>
+        </item>
        </layout>
       </item>
      </layout>
@@ -81,6 +84,9 @@
            <string>New Match</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <widget class="MyLineEdit" name="eMatch"/>
         </item>
        </layout>
       </item>
@@ -174,6 +180,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>bDeliver</tabstop>
   <tabstop>bPreview</tabstop>

@@ -11,10 +11,9 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     ui->setupUi(this);
 
     // add username edit
-    eUser = new MyLineEdit("select id as cid, id as clabel, firstname || ' ' || lastname as ctitle from users where id not in (select user_id from permissions)", this);
-    ui->lUser->addWidget(eUser);
-    connect(eUser, SIGNAL(select()), this, SLOT(selectUser()));
-    connect(eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
+    ui->eUser->setQuery("select id as cid, id as clabel, firstname || ' ' || lastname as ctitle from users where id not in (select user_id from permissions)");
+    connect(ui->eUser, SIGNAL(select()), this, SLOT(selectUser()));
+    connect(ui->eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
 
     // table configurations
     model = new PermissionModel(this);
@@ -30,7 +29,6 @@ FormChangePermissions::FormChangePermissions(QWidget *parent) :
     ui->tPermissions->setItemDelegateForColumn(3, new LineEditDelegate(true, ui->tPermissions));
 
     cancelUser();
-    eUser->setFocus();
 }
 
 FormChangePermissions::~FormChangePermissions()
@@ -51,13 +49,13 @@ void FormChangePermissions::cancelUser()
 
 void FormChangePermissions::on_bAdd_clicked()
 {
-    if (! eUser->value().isEmpty())
+    if (! ui->eUser->value().isEmpty())
     {
-        MUsers::setPermission(eUser->value(), "user");
+        MUsers::setPermission(ui->eUser->value(), "user");
 
         model->sort(1);
 
-        eUser->setText("");
-        eUser->setQuery("select id as cid, id as clabel, firstname || ' ' || lastname as ctitle from users where id not in (select user_id from permissions)");
+        ui->eUser->setText("");
+        ui->eUser->setQuery("select id as cid, id as clabel, firstname || ' ' || lastname as ctitle from users where id not in (select user_id from permissions)");
     }
 }

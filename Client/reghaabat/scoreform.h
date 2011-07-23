@@ -16,7 +16,8 @@ public:
 
     SetScoreModel(QObject *parent = 0) : QSqlQueryModel(parent)
     {
-        sort(2);
+        _column = 2;
+        setOptions("", 1);
 
         setHeaderData(1, Qt::Horizontal, tr("Name"));
         setHeaderData(2, Qt::Horizontal, tr("Title"));
@@ -94,8 +95,6 @@ public:
 
 
 
-#include <mylineedit.h>
-
 #include <QWidget>
 
 namespace Ui {
@@ -109,8 +108,6 @@ class ScoreForm : public QWidget
 public:
     explicit ScoreForm(QWidget *parent = 0);
     ~ScoreForm();
-
-    MyLineEdit *eCorrector;
 
     SetScoreModel* model;
 

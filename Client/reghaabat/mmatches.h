@@ -3,7 +3,6 @@
 
 #include <QVariant>
 #include <QComboBox>
-#include <QDebug>
 
 #include <helper.h>
 #include <connector.h>

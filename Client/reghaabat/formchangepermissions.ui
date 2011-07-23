@@ -29,6 +29,9 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="MyLineEdit" name="eUser"/>
+        </item>
        </layout>
       </item>
       <item>
@@ -50,6 +53,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>eUser</tabstop>
+  <tabstop>bAdd</tabstop>
+  <tabstop>tPermissions</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

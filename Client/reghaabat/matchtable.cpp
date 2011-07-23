@@ -6,6 +6,7 @@
 #include <comboboxdelegate.h>
 #include <spinboxdelegate.h>
 #include <lineeditdelegate.h>
+#include <mainwindow.h>
 
 MatchTable::MatchTable(QWidget *parent) :
     QDialog(parent),

@@ -108,6 +108,9 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="MyLineEdit" name="eUser"/>
+        </item>
        </layout>
       </item>
      </layout>
@@ -301,7 +304,15 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
+  <tabstop>eUser</tabstop>
   <tabstop>eFirstname</tabstop>
   <tabstop>eLastname</tabstop>
   <tabstop>rMale</tabstop>
@@ -312,6 +323,9 @@
   <tabstop>eAddress</tabstop>
   <tabstop>eDescription</tabstop>
   <tabstop>buttonBox</tabstop>
+  <tabstop>eLibraryId</tabstop>
+  <tabstop>bImport</tabstop>
+  <tabstop>gImport</tabstop>
  </tabstops>
  <resources/>
  <connections/>

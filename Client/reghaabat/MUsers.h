@@ -3,7 +3,6 @@
 
 #include <QCryptographicHash>
 
-#include <mainwindow.h>
 #include <helper.h>
 
 class MUsers

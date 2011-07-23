@@ -2,8 +2,6 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
-#include <mylineedit.h>
-#include <mainwindow.h>
 
 namespace Ui {
     class LoginDialog;
@@ -19,7 +17,6 @@ public:
 
 private:
     Ui::LoginDialog *ui;
-    MyLineEdit *eUsername;
 
 private slots:
     void on_buttonBox_rejected();

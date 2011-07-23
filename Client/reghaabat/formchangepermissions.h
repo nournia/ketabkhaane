@@ -93,8 +93,6 @@ public:
 };
 
 
-#include <mylineedit.h>
-
 namespace Ui {
     class FormChangePermissions;
 }
@@ -108,8 +106,6 @@ public:
     ~FormChangePermissions();
 
     PermissionModel* model;
-
-    MyLineEdit* eUser;
 private:
     Ui::FormChangePermissions *ui;
 

@@ -1,9 +1,8 @@
 #include "sender.h"
 
-#include <mainwindow.h>
+#include <helper.h>
 #include <syncer.h>
 
-#include <QDebug>
 #include <QFile>
 #include <QSqlQuery>
 #include <QStringList>

@@ -116,6 +116,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>eQuestion</tabstop>
+  <tabstop>eAnswer</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -2,7 +2,6 @@
 #include "ui_matchrow.h"
 
 #include <mmatches.h>
-#include <mainwindow.h>
 #include <jalali.h>
 
 MatchRow::MatchRow(QString uid, QString mid, QString title, QWidget *parent) :

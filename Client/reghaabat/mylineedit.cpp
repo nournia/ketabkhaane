@@ -158,11 +158,9 @@ void MyCompleter::updateSuggestions()
     editor->setValue(valueId);
 }
 
-MyLineEdit::MyLineEdit(QString q, QWidget *parent): QLineEdit(parent)
+MyLineEdit::MyLineEdit(QWidget *parent): QLineEdit(parent)
 {
     completer = new MyCompleter(this);
-    completer->setQuery(q);
-
     connect(this, SIGNAL(returnPressed()), completer, SLOT(updateSuggestions()));
 }
 

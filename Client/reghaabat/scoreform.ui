@@ -41,6 +41,9 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="MyLineEdit" name="eCorrector"/>
+        </item>
        </layout>
       </item>
       <item>
@@ -76,6 +79,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>eCorrector</tabstop>
+  <tabstop>tScores</tabstop>
+  <tabstop>sDays</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

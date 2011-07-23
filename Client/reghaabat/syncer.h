@@ -8,7 +8,6 @@
 #include <QVariant>
 #include <QDateTime>
 #include <QStringList>
-#include <QDebug>
 
 class Syncer : public QObject
 {

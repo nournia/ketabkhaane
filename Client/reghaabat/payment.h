@@ -3,8 +3,6 @@
 
 #include <QDialog>
 
-#include <mylineedit.h>
-
 namespace Ui {
     class Payment;
 }
@@ -17,7 +15,6 @@ public:
     explicit Payment(QWidget *parent = 0);
     ~Payment();
 
-    MyLineEdit* eUser;
 private:
     Ui::Payment *ui;
 

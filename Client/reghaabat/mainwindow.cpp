@@ -193,7 +193,6 @@ void MainWindow::editUser()
 
     newUser();
     userForm->editMode(true);
-    userForm->eUser->setFocus();
 }
 
 void MainWindow::newMatch()
@@ -216,7 +215,6 @@ void MainWindow::editMatch()
 
     newMatch();
     matchForm->editMode(true);
-    matchForm->eMatch->setFocus();
 }
 
 void MainWindow::on_actionOptions_triggered()
@@ -242,8 +240,6 @@ void MainWindow::on_actionDeliver_triggered()
         stackedLayout->addWidget(formOperator);
     }
     stackedLayout->setCurrentWidget(formOperator);
-
-    formOperator->eUser->setFocus();
 }
 
 void MainWindow::firstPage()
@@ -296,5 +292,4 @@ void MainWindow::on_actionPayment_triggered()
         stackedLayout->addWidget(paymentForm);
     }
     stackedLayout->setCurrentWidget(paymentForm);
-    paymentForm->eUser->setFocus();
 }

@@ -47,6 +47,9 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="MyLineEdit" name="eMatch"/>
+        </item>
        </layout>
       </item>
      </layout>
@@ -163,6 +166,9 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="MyLineEdit" name="eAuthor"/>
+              </item>
              </layout>
             </item>
             <item>
@@ -173,6 +179,9 @@
                  <string>Publication</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <widget class="MyLineEdit" name="ePublication"/>
               </item>
              </layout>
             </item>
@@ -195,6 +204,9 @@
                 <string>Corrector</string>
                </property>
               </widget>
+             </item>
+             <item>
+              <widget class="MyLineEdit" name="eCorrector"/>
              </item>
             </layout>
            </item>
@@ -307,14 +319,24 @@
    <extends>QWidget</extends>
    <header>QtWebKit/QWebView</header>
   </customwidget>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>eMatch</tabstop>
   <tabstop>cType</tabstop>
   <tabstop>cGroup</tabstop>
   <tabstop>cAgeClass</tabstop>
   <tabstop>eTitle</tabstop>
+  <tabstop>eAuthor</tabstop>
+  <tabstop>ePublication</tabstop>
+  <tabstop>eCorrector</tabstop>
   <tabstop>sScore</tabstop>
   <tabstop>cState</tabstop>
+  <tabstop>eContent</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources/>

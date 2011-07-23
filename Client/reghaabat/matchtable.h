@@ -6,7 +6,7 @@
 
 #include <mmatches.h>
 #include <matchform.h>
-#include <mainwindow.h>
+#include <viewerform.h>
 
 class MatchListModel : public QSqlQueryModel
 {

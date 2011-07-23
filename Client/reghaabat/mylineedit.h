@@ -40,7 +40,7 @@ class MyLineEdit: public QLineEdit
     Q_OBJECT
 
 public:
-    MyLineEdit(QString q, QWidget *parent = 0);
+    MyLineEdit(QWidget *parent = 0);
 
     void setValue(QString val);
 

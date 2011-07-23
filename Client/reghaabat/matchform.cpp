@@ -20,18 +20,9 @@ MatchForm::MatchForm(QWidget *parent) :
     ui->setupUi(this);
     ui->buttonBox->addButton(ViewerForm::tr("Preview"), QDialogButtonBox::ResetRole);
 
-    eCorrector = new MyLineEdit("select id as cid, id as clabel, firstname ||' '|| lastname as ctitle from users", this);
-    ui->lCorrector->addWidget(eCorrector);
-
-    eAuthor = new MyLineEdit("select id as cid, '' as clabel, title as ctitle from authors", this);
-    ui->lAuthor->addWidget(eAuthor);
-
-    ePublication = new MyLineEdit("select id as cid, '' as clabel, title as ctitle from publications", this);
-    ui->lPublication->addWidget(ePublication);
-
-    QWidget::setTabOrder(ui->eTitle, eAuthor);
-    QWidget::setTabOrder(eAuthor, ePublication);
-    QWidget::setTabOrder(ePublication, eCorrector);
+    ui->eCorrector->setQuery("select id as cid, id as clabel, firstname ||' '|| lastname as ctitle from users");
+    ui->eAuthor->setQuery("select id as cid, '' as clabel, title as ctitle from authors");
+    ui->ePublication->setQuery("select id as cid, '' as clabel, title as ctitle from publications");
 
     fillComboBox(ui->cState, MMatches::states());
     fillComboBox(ui->cAgeClass, MMatches::ageclasses());
@@ -39,10 +30,8 @@ MatchForm::MatchForm(QWidget *parent) :
     on_cType_currentIndexChanged(0);
 
     // add matchname edit
-    eMatch = new MyLineEdit("", this);
-    ui->lMatch->addWidget(eMatch);
-    connect(eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
-    connect(eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
+    connect(ui->eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
+    connect(ui->eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
 
     // init fillerItem for new question
     fillerItem = new QWidget(this);
@@ -73,29 +62,32 @@ MatchForm::~MatchForm()
 
 void MatchForm::editMode(bool edit)
 {
-    if (eMatch->text().isEmpty())
+    if (ui->eMatch->text().isEmpty())
         cancelMatch();
     else
-        eMatch->setText("");
+        ui->eMatch->setText("");
 
     ui->gMatch->setVisible(edit);
     ui->gData->setEnabled(! edit);
+
+    if (edit)
+        ui->eMatch->setFocus();
 }
 
 void MatchForm::selectMatch()
 {
-    if (! eMatch->value().isEmpty())
+    if (! ui->eMatch->value().isEmpty())
     {
         cancelMatch();
         clearQuestions();
 
         QList<StrPair> questions;
         StrMap match;
-        MMatches::get(eMatch->value(), match, questions);
+        MMatches::get(ui->eMatch->value(), match, questions);
 
         ui->eTitle->setText(match["title"].toString());
-        eCorrector->setText(match["corrector"].toString());
-        eCorrector->setValue(match["corrector_id"].toString());
+        ui->eCorrector->setText(match["corrector"].toString());
+        ui->eCorrector->setValue(match["corrector_id"].toString());
         ui->sScore->setValue(match["score"].toInt());
         ui->cAgeClass->setCurrentIndex(ui->cAgeClass->findData(match["ageclass"]));
         ui->cState->setCurrentIndex(ui->cState->findData(match["current_state"]));
@@ -104,10 +96,10 @@ void MatchForm::selectMatch()
         {
             ui->cType->setCurrentIndex(0); // Questions
             ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["kind"]));
-            eAuthor->setText(match["author"].toString());
-            eAuthor->setValue(match["author_id"].toString());
-            ePublication->setText(match["publication"].toString());
-            ePublication->setValue(match["publication_id"].toString());
+            ui->eAuthor->setText(match["author"].toString());
+            ui->eAuthor->setValue(match["author_id"].toString());
+            ui->ePublication->setText(match["publication"].toString());
+            ui->ePublication->setValue(match["publication_id"].toString());
 
             // questions
             for (int i = 0; i < questions.size(); i++)
@@ -133,17 +125,17 @@ void MatchForm::selectMatch()
 
 void MatchForm::cancelMatch()
 {
-    eMatch->setQuery("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id");
+    ui->eMatch->setQuery("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id");
 
     ui->eTitle->setText("");
-    eCorrector->setText("");
+    ui->eCorrector->setText("");
     ui->sScore->setValue(0);
     ui->cAgeClass->setCurrentIndex(0);
     ui->cState->setCurrentIndex(0);
 
     ui->cGroup->setCurrentIndex(0);
-    eAuthor->setText("");
-    ePublication->setText("");
+    ui->eAuthor->setText("");
+    ui->ePublication->setText("");
 
     ui->eContent->page()->mainFrame()->evaluateJavaScript("emptyEditor();");
 
@@ -153,7 +145,7 @@ void MatchForm::cancelMatch()
 
     ui->gData->setEnabled(false);
 
-    eMatch->setFocus();
+    ui->eMatch->setFocus();
 }
 
 void MatchForm::on_cType_currentIndexChanged(int index)
@@ -220,7 +212,7 @@ QString refineHtml(QString html)
 void MatchForm::fillMaps(StrMap& match, QList<StrPair>& questions)
 {
     match["title"] = ui->eTitle->text();
-    match["corrector_id"] = eCorrector->value();
+    match["corrector_id"] = ui->eCorrector->value();
     match["score"] = ui->sScore->value();
     match["ageclass"] = ui->cAgeClass->itemData(ui->cAgeClass->currentIndex());
     match["current_state"] = ui->cState->itemData(ui->cState->currentIndex());
@@ -228,8 +220,8 @@ void MatchForm::fillMaps(StrMap& match, QList<StrPair>& questions)
     if (ui->cType->currentIndex() == 0)
     {
         match["kind"] = ui->cGroup->itemData(ui->cGroup->currentIndex());
-        match["author"] = ! eAuthor->value().isEmpty() ? eAuthor->value() : eAuthor->text();
-        match["publication"] = ! ePublication->value().isEmpty() ? ePublication->value() : ePublication->text();
+        match["author"] = ! ui->eAuthor->value().isEmpty() ? ui->eAuthor->value() : ui->eAuthor->text();
+        match["publication"] = ! ui->ePublication->value().isEmpty() ? ui->ePublication->value() : ui->ePublication->text();
 
         // questions
         for (int i = 0; i < qModules.size(); i++)
@@ -250,7 +242,7 @@ void MatchForm::on_buttonBox_accepted()
     QList<StrPair> questions;
     fillMaps(match, questions);
 
-    QString msg = MMatches::set(eMatch->value(), match, questions);
+    QString msg = MMatches::set(ui->eMatch->value(), match, questions);
 
     // there isn't any error
     if (msg == "")

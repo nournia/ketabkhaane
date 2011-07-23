@@ -13,10 +13,8 @@ UserForm::UserForm(QWidget *parent) :
     ui->setupUi(this);
 
     // add username edit
-    eUser = new MyLineEdit("", this);
-    ui->lUser->addWidget(eUser);
-    connect(eUser, SIGNAL(select()), this, SLOT(selectUser()));
-    connect(eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
+    connect(ui->eUser, SIGNAL(select()), this, SLOT(selectUser()));
+    connect(ui->eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
 
     cancelUser();
     editMode(false);
@@ -30,15 +28,18 @@ UserForm::~UserForm()
 
 void UserForm::editMode(bool edit)
 {
-    if (eUser->text().isEmpty())
+    if (ui->eUser->text().isEmpty())
         cancelUser();
     else
-        eUser->setText("");
+        ui->eUser->setText("");
 
     ui->gUser->setVisible(edit);
     ui->gData->setEnabled(! edit);
     ui->buttonBox->setEnabled(! edit);
     ui->gImport->setVisible(! edit);
+
+    if (edit)
+        ui->eUser->setFocus();
 }
 
 void UserForm::on_buttonBox_rejected()
@@ -58,7 +59,7 @@ void UserForm::on_buttonBox_accepted()
     user["birth_date"] = toGregorian(ui->eBirthDate->text());
     user["gender"] = ui->rMale->isChecked() ? "male" : "female";
 
-    QString msg = MUsers::set(eUser->value(), user, importedId);
+    QString msg = MUsers::set(ui->eUser->value(), user, importedId);
 
     // there isn't any error
     if (msg == "")
@@ -72,10 +73,10 @@ void UserForm::on_buttonBox_accepted()
 
 void UserForm::selectUser()
 {
-    if (! eUser->value().isEmpty())
+    if (! ui->eUser->value().isEmpty())
     {
         StrMap user;
-        MUsers::get(eUser->value(), user);
+        MUsers::get(ui->eUser->value(), user);
         ui->eFirstname->setText(user["firstname"].toString());
         ui->eLastname->setText(user["lastname"].toString());
         ui->eNationalId->setText(user["national_id"].toString());
@@ -101,7 +102,7 @@ void UserForm::cancelUser()
     QString condition;
     if (!Reghaabat::hasAccess("manager"))
         condition = QString(" where gender = '%1'").arg(Reghaabat::instance()->userGender);
-    eUser->setQuery("select id as cid, id as clabel, firstname||' '||lastname as ctitle from users" + condition);
+    ui->eUser->setQuery("select id as cid, id as clabel, firstname||' '||lastname as ctitle from users" + condition);
 
     ui->eFirstname->setText("");
     ui->eLastname->setText("");
@@ -115,7 +116,7 @@ void UserForm::cancelUser()
     ui->gData->setEnabled(false);
     ui->buttonBox->setEnabled(false);
 
-    eUser->setFocus();
+    ui->eUser->setFocus();
 }
 
 void UserForm::on_bImport_clicked()

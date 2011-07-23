@@ -24,21 +24,13 @@ FormOperator::FormOperator(QWidget *parent) :
     QString condition;
     if (!Reghaabat::hasAccess("manager"))
         condition = QString(" where gender = '%1'").arg(Reghaabat::instance()->userGender);
-    eUser = new MyLineEdit("select id as cid, id as clabel, firstname||' '||lastname as ctitle from users" + condition, this);
-    ui->lUser->addWidget(eUser);
-    connect(eUser, SIGNAL(select()), this, SLOT(selectUser()));
-    connect(eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
+    ui->eUser->setQuery("select id as cid, id as clabel, firstname||' '||lastname as ctitle from users" + condition);
+    connect(ui->eUser, SIGNAL(select()), this, SLOT(selectUser()));
+    connect(ui->eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
 
     // add matchname edit
-    eMatch = new MyLineEdit("", this);
-    ui->lMatch->addWidget(eMatch);
-    QWidget::setTabOrder(eMatch, ui->bDeliver);
-    QWidget::setTabOrder(ui->bDeliver, ui->cQuickSearch);
-    QWidget::setTabOrder(ui->cQuickSearch, ui->cPrint);
-    QWidget::setTabOrder(ui->cPrint, ui->bPreview);
-
-    connect(eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
-    connect(eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
+    connect(ui->eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
+    connect(ui->eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
 
     cancelUser();
 }
@@ -54,7 +46,7 @@ void FormOperator::cancelUser()
     ui->gMatch->setEnabled(false);
 
     cancelMatch();
-    eMatch->setText("");
+    ui->eMatch->setText("");
 
     // clean gDelivered
     QLayoutItem *child;
@@ -71,14 +63,14 @@ void FormOperator::cancelMatch()
 void FormOperator::selectUser()
 {
     cancelUser();
-    if (! eUser->value().isEmpty())
+    if (! ui->eUser->value().isEmpty())
     {
         QSqlQuery qry;
-        qry.exec(QString("select match_id, matches.title from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(eUser->value()));
+        qry.exec(QString("select match_id, matches.title from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
 
         for (int i = 1; qry.next(); i++)
         {
-            MatchRow* row = new MatchRow(eUser->value(), qry.value(0).toString(), qry.value(1).toString(), ui->gDelivered);
+            MatchRow* row = new MatchRow(ui->eUser->value(), qry.value(0).toString(), qry.value(1).toString(), ui->gDelivered);
             ui->lDelivered->layout()->addWidget(row);
         }
 
@@ -90,20 +82,20 @@ void FormOperator::selectUser()
 
         QString query;
         if (ui->cQuickSearch->isChecked())
-            query = QString("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(eUser->value())).arg(eUser->value());
+            query = QString("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(ui->eUser->value())).arg(ui->eUser->value());
         else
             query = "select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id";
-        eMatch->setQuery(query);
-        eMatch->setFocus();
+        ui->eMatch->setQuery(query);
+        ui->eMatch->setFocus();
     }
 }
 
 void FormOperator::selectMatch()
 {
-    ui->bDeliver->setEnabled(! eMatch->value().isEmpty());
-    ui->bPreview->setEnabled(! eMatch->value().isEmpty());
+    ui->bDeliver->setEnabled(! ui->eMatch->value().isEmpty());
+    ui->bPreview->setEnabled(! ui->eMatch->value().isEmpty());
 
-    if (! eMatch->value().isEmpty())
+    if (! ui->eMatch->value().isEmpty())
     {
         ui->bDeliver->setFocus();
         prepareViewer();
@@ -112,21 +104,21 @@ void FormOperator::selectMatch()
 
 void FormOperator::on_bDeliver_clicked()
 {
-    if (! eUser->value().isEmpty() && ! eMatch->value().isEmpty())
+    if (! ui->eUser->value().isEmpty() && ! ui->eMatch->value().isEmpty())
     {
         QString msg;
         QSqlQuery qry;
 
-        qry.exec(QString("select count(match_id) from answers where user_id = %1 and delivered_at > (select started_at from library) and received_at is null").arg(eUser->value()));
+        qry.exec(QString("select count(match_id) from answers where user_id = %1 and delivered_at > (select started_at from library) and received_at is null").arg(ui->eUser->value()));
         if (qry.next() && qry.value(0).toInt() >= options()["MaxConcurrentMatches"].toInt())
             msg = QObject::tr("You received enough matches at the moment.");
 
-        qry.exec(QString("select count(match_id) from answers where user_id = %1 and delivered_at > (select started_at from library) and delivered_at > datetime('now', '-12 hours')").arg(eUser->value()));
+        qry.exec(QString("select count(match_id) from answers where user_id = %1 and delivered_at > (select started_at from library) and delivered_at > datetime('now', '-12 hours')").arg(ui->eUser->value()));
         if (qry.next() && qry.value(0).toInt() >= options()["MaxMatchesInOneDay"].toInt())
             msg = QObject::tr("You received enough matches today.");
 
         if (msg.isEmpty())
-            msg = MMatches::deliver(eUser->value(), eMatch->value());
+            msg = MMatches::deliver(ui->eUser->value(), ui->eMatch->value());
 
         if (! msg.isEmpty())
         {
@@ -142,13 +134,13 @@ void FormOperator::on_bDeliver_clicked()
         if (ok)
         {
             QSqlQuery qryObj;
-            qryObj.exec("select label from matches inner join objects on matches.resource_id = objects.resource_id where matches.id = "+ eMatch->value());
+            qryObj.exec("select label from matches inner join objects on matches.resource_id = objects.resource_id where matches.id = "+ ui->eMatch->value());
 
             if (qryObj.next())
             {
                 QSqlQuery qry(library);
                 qry.prepare("insert into cash values (?, ?, ?, null, ?, null)");
-                qry.addBindValue(eUser->value());
+                qry.addBindValue(ui->eUser->value());
                 qry.addBindValue(qryObj.value(0).toString());
                 qry.addBindValue(toJalali(QDate::currentDate()));
                 qry.addBindValue(Reghaabat::instance()->userId);
@@ -169,13 +161,13 @@ void FormOperator::prepareViewer()
 {
     // don't perpare match again
     static QString prepared;
-    if (prepared == eMatch->value())
+    if (prepared == ui->eMatch->value())
         return;
 
     StrMap match;
     QList<StrPair> questions, asks;
-    MMatches::get(eMatch->value(), match, questions);
-    match["user"] = eUser->value();
+    MMatches::get(ui->eMatch->value(), match, questions);
+    match["user"] = ui->eUser->value();
 
     QSqlQuery qry;
 
@@ -211,7 +203,7 @@ void FormOperator::prepareViewer()
 
     viewer->showMatch(match, asks);
 
-    prepared = eMatch->value();
+    prepared = ui->eMatch->value();
 }
 
 void FormOperator::on_cQuickSearch_clicked()

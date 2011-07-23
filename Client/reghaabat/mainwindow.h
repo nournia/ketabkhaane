@@ -32,7 +32,6 @@ public slots:
     void newMatch();
     void editMatch();
 
-private slots:
     void on_actionPayment_triggered();
     void on_actionSetScores_triggered();
     void on_actionChangePermissions_triggered();

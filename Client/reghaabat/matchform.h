@@ -5,7 +5,6 @@
 #include <QAbstractButton>
 
 #include <mmatches.h>
-#include <mylineedit.h>
 #include <questionmodule.h>
 
 namespace Ui {
@@ -22,7 +21,6 @@ public:
 
     void editMode(bool edit);
 
-    MyLineEdit *eMatch, *eCorrector, *eAuthor, *ePublication;
     QList<QuestionModule*> qModules;
 
     void fillMaps(StrMap& match, QList<StrPair>& questions);

@@ -158,6 +158,18 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>cPrinters</tabstop>
+  <tabstop>cCorrectorIdentifier</tabstop>
+  <tabstop>sMaxConcurrentMatches</tabstop>
+  <tabstop>sMaxMatchesInOneDay</tabstop>
+  <tabstop>eLibraryAddress</tabstop>
+  <tabstop>bSelectLibraryDb</tabstop>
+  <tabstop>eDataFolder</tabstop>
+  <tabstop>bSelectDataFolder</tabstop>
+  <tabstop>bConvertDb</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

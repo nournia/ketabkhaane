@@ -3,7 +3,6 @@
 
 #include <QWidget>
 
-#include <mylineedit.h>
 #include <mmatches.h>
 #include <viewerform.h>
 
@@ -18,8 +17,6 @@ class FormOperator : public QWidget
 public:
     explicit FormOperator(QWidget *parent = 0);
     ~FormOperator();
-
-    MyLineEdit *eUser, *eMatch;
 
     void prepareViewer();
 

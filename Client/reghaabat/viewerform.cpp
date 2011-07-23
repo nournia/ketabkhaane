@@ -21,6 +21,7 @@ ViewerForm::ViewerForm(QWidget *parent) :
 {
     ui->setupUi(this);
     setMinimumWidth(900);
+    setMinimumHeight(600);
 }
 
 ViewerForm::~ViewerForm()

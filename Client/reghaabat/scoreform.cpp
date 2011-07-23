@@ -10,16 +10,13 @@ ScoreForm::ScoreForm(QWidget *parent) :
     ui->setupUi(this);
 
     // add corrector edit
-    eCorrector = new MyLineEdit("select id as cid, id as clabel, firstname ||' '|| lastname as ctitle from users where id in (select corrector_id from supports)", this);
-    ui->lCorrector->addWidget(eCorrector);
-    connect(eCorrector, SIGNAL(select()), this, SLOT(selectCorrector()));
-    connect(eCorrector, SIGNAL(cancel()), this, SLOT(cancelCorrector()));
+    ui->eCorrector->setQuery("select id as cid, id as clabel, firstname ||' '|| lastname as ctitle from users where id in (select corrector_id from supports)");
+    connect(ui->eCorrector, SIGNAL(select()), this, SLOT(selectCorrector()));
+    connect(ui->eCorrector, SIGNAL(cancel()), this, SLOT(cancelCorrector()));
 
     // table configurations
     model = new SetScoreModel(this);
     ui->tScores->setModel(model);
-
-    QWidget::setTabOrder(eCorrector, ui->tScores);
 
     ui->tScores->setColumnHidden(0, true);
     ui->tScores->horizontalHeader()->setResizeMode(2, QHeaderView::Stretch);
@@ -30,7 +27,7 @@ ScoreForm::ScoreForm(QWidget *parent) :
 
     ui->tScores->setItemDelegateForColumn(4, new SpinBoxDelegate(-100, 10000, 50, ui->tScores));
 
-    cancelCorrector();
+    ui->eCorrector->setFocus();
 }
 
 ScoreForm::~ScoreForm()
@@ -40,17 +37,17 @@ ScoreForm::~ScoreForm()
 
 void ScoreForm::selectCorrector()
 {
-    ((SetScoreModel*) ui->tScores->model())->setOptions(eCorrector->value(), ui->sDays->value());
+    ((SetScoreModel*) ui->tScores->model())->setOptions(ui->eCorrector->value(), ui->sDays->value());
     ui->tScores->setFocus();
 }
 
 void ScoreForm::cancelCorrector()
 {
-    ((SetScoreModel*) ui->tScores->model())->setOptions(eCorrector->value(), ui->sDays->value());
-    eCorrector->setFocus();
+    ((SetScoreModel*) ui->tScores->model())->setOptions(ui->eCorrector->value(), ui->sDays->value());
+    ui->eCorrector->setFocus();
 }
 
 void ScoreForm::on_sDays_editingFinished()
 {
-    ((SetScoreModel*) ui->tScores->model())->setOptions(eCorrector->value(), ui->sDays->value());
+    ((SetScoreModel*) ui->tScores->model())->setOptions(ui->eCorrector->value(), ui->sDays->value());
 }
