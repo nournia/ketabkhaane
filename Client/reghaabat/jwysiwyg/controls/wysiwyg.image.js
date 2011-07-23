@@ -118,13 +118,36 @@
 					e.stopPropagation();
 				});
 				
+				// reghaabat section
 				
 				$("#browseImage").click(function(){
-					fileaddr = containerForm.getFilename();
+					var fileaddr = containerForm.getFilename();
+					
+					if (fileaddr == '')
+						$("input[type=submit]").click();
+					
 					dialog.find("input[name=src]").val(fileaddr).change();
 					dialog.show();
 					return false;
 				});
+				
+				$("input[name=width]").change(function(){
+					var w = $("input[name=width]").val(), h = $("input[name=height]").val();
+					var r = $('.form-row-value img')[0].naturalWidth / $('.form-row-value img')[0].naturalHeight;
+					if (isNaN(w)) w = 0; if (isNaN(h)) h = 0; if (isNaN(r)) r = 1;
+					 
+					$("input[name=height]").val(Math.round(w * 1/r));					
+				});
+
+				$("input[name=height]").change(function(){
+					var w = $("input[name=width]").val(), h = $("input[name=height]").val();
+					var r = $('.form-row-value img')[0].naturalWidth / $('.form-row-value img')[0].naturalHeight;
+					if (isNaN(w)) w = 0; if (isNaN(h)) h = 0; if (isNaN(r)) r = 1;
+					 
+					$("input[name=width]").val(Math.round(h * r));					
+				});
+				
+				// reghaabat end
 				
 				self.makeForm(dialog, img);
 
@@ -223,10 +246,10 @@
 			form.find('input[name="height"]').val(img.height);
 			form.find('img').attr("src", img.src);
 
-			
+			// reghaabat
 			form.find('img').bind("load", function () {
-				var iimg = form.find('img')[0]; 
-				if (iimg.naturalWidth) {
+				var iimg = $('.form-row-value img')[0]; 
+				if (iimg.naturalWidth && form.find('input[name="width"]').val() == '') {
 					form.find('input[name="width"]').val(iimg.naturalWidth);
 					form.find('input[name="height"]').val(iimg.naturalHeight);
 				}
