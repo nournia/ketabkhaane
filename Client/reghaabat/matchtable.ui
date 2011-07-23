@@ -31,12 +31,20 @@
         <property name="text">
          <string>New Match</string>
         </property>
+        <property name="icon">
+         <iconset resource="reghaabat.qrc">
+          <normaloff>:/images/add_match.png</normaloff>:/images/add_match.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="bEditMatch">
         <property name="text">
          <string>Edit Match</string>
+        </property>
+        <property name="icon">
+         <iconset resource="reghaabat.qrc">
+          <normaloff>:/images/edit_match.png</normaloff>:/images/edit_match.png</iconset>
         </property>
        </widget>
       </item>
@@ -57,6 +65,10 @@
        <widget class="QPushButton" name="bMatchList">
         <property name="text">
          <string>Match List</string>
+        </property>
+        <property name="icon">
+         <iconset resource="reghaabat.qrc">
+          <normaloff>:/images/matches.png</normaloff>:/images/matches.png</iconset>
         </property>
        </widget>
       </item>
@@ -79,6 +91,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="reghaabat.qrc"/>
+ </resources>
  <connections/>
 </ui>

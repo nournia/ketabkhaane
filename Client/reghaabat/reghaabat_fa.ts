@@ -86,32 +86,36 @@
         <translation type="obsolete">ویرایش</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+32"/>
         <source>New Match</source>
         <translation>مسابقه جدید</translation>
     </message>
     <message>
-        <location line="+44"/>
         <source>Quick Search</source>
-        <translation>جستجوی سریع</translation>
+        <translation type="obsolete">جستجوی سریع</translation>
     </message>
     <message>
-        <location line="-20"/>
+        <location line="+18"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+24"/>
+        <source>Limited Search</source>
+        <translation>جستجوی محدود</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Print</source>
         <translation>چاپ</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+17"/>
         <source>Deliver</source>
         <translation>تحویل</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+17"/>
         <source>Delivered Matches</source>
         <oldsource>Received Matches</oldsource>
         <translation>مسابقه‌های برده شده</translation>
@@ -136,7 +140,7 @@
         <translation>کلمه عبور</translation>
     </message>
     <message>
-        <location filename="logindialog.cpp" line="+42"/>
+        <location filename="logindialog.cpp" line="+43"/>
         <source>Invalid Username or Password.</source>
         <translation>نام کاربری و یا کلمه‌ی عبور اشتباه است.</translation>
     </message>
@@ -625,17 +629,17 @@
     </message>
     <message>
         <location line="+26"/>
-        <location line="+72"/>
+        <location line="+76"/>
         <source>Score</source>
         <translation>امتیاز</translation>
     </message>
     <message>
-        <location line="-52"/>
+        <location line="-56"/>
         <source>Pay</source>
         <translation>پرداخت</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+29"/>
         <source>Scores</source>
         <translation>امتیازها</translation>
     </message>
@@ -910,12 +914,6 @@
         <translation type="obsolete">سوال</translation>
     </message>
     <message>
-        <location filename="questionmodule.ui" line="+77"/>
-        <source>-</source>
-        <oldsource>+</oldsource>
-        <translation></translation>
-    </message>
-    <message>
         <source>Answer</source>
         <translation type="obsolete">پاسخ</translation>
     </message>
@@ -1108,17 +1106,17 @@
         <translation>عضو جدید</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+11"/>
         <source>Edit User</source>
         <translation>ویرایش عضو</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+24"/>
         <source>Score List</source>
         <translation>لیست امتیازها</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+11"/>
         <source>Gender Group</source>
         <translation>با تفکیک آقا و خانم</translation>
     </message>
@@ -1149,7 +1147,7 @@
         <translation>ذخیره</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+11"/>
         <source>Print</source>
         <translation>چاپ</translation>
     </message>

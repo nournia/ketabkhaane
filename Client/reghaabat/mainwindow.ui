@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
-    <height>532</height>
+    <width>685</width>
+    <height>391</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,6 +43,9 @@
    </property>
   </widget>
   <widget class="QToolBar" name="toolBar">
+   <property name="contextMenuPolicy">
+    <enum>Qt::PreventContextMenu</enum>
+   </property>
    <property name="movable">
     <bool>false</bool>
    </property>
@@ -59,11 +62,13 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionDeliver"/>
+   <addaction name="actionNewUser"/>
+   <addaction name="actionEditUser"/>
+   <addaction name="separator"/>
    <addaction name="actionPayment"/>
    <addaction name="actionSetScores"/>
-   <addaction name="separator"/>
-   <addaction name="actionUserManagement"/>
    <addaction name="actionMatchManagement"/>
+   <addaction name="actionUserManagement"/>
    <addaction name="separator"/>
    <addaction name="actionChangePermissions"/>
    <addaction name="actionOptions"/>
@@ -183,6 +188,24 @@
    </property>
    <property name="text">
     <string>Payment</string>
+   </property>
+  </action>
+  <action name="actionNewUser">
+   <property name="icon">
+    <iconset resource="reghaabat.qrc">
+     <normaloff>:/images/add_user.png</normaloff>:/images/add_user.png</iconset>
+   </property>
+   <property name="text">
+    <string>New User</string>
+   </property>
+  </action>
+  <action name="actionEditUser">
+   <property name="icon">
+    <iconset resource="reghaabat.qrc">
+     <normaloff>:/images/edit_user.png</normaloff>:/images/edit_user.png</iconset>
+   </property>
+   <property name="text">
+    <string>Edit User</string>
    </property>
   </action>
  </widget>

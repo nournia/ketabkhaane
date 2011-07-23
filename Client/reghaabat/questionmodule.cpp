@@ -1,6 +1,8 @@
 #include "questionmodule.h"
 #include "ui_questionmodule.h"
 
+#include <helper.h>
+
 QuestionModule::QuestionModule(QString question, QString answer, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::QuestionModule)
@@ -10,8 +12,6 @@ QuestionModule::QuestionModule(QString question, QString answer, QWidget *parent
     ui->eQuestion->setText(question);
     ui->eAnswer->setPlainText(answer);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    refresh(false);
 }
 
 QuestionModule::~QuestionModule()
@@ -33,10 +33,10 @@ void QuestionModule::refresh(bool collapse)
     int h = ui->wQuestion->minimumHeight();
     if (ui->wAnswer->isVisible())
     {
-        ui->bAnswer->setText("-");
+        ui->bAnswer->setIcon(QIcon(":/images/minus.png"));
         h += ui->wAnswer->minimumHeight();
     } else
-        ui->bAnswer->setText("+");
+        ui->bAnswer->setIcon(QIcon(":/images/plus.png"));
 
     resize(width(), h);
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>630</width>
-    <height>479</height>
+    <height>393</height>
    </rect>
   </property>
   <property name="layoutDirection">
@@ -31,12 +31,20 @@
         <property name="text">
          <string>New User</string>
         </property>
+        <property name="icon">
+         <iconset resource="reghaabat.qrc">
+          <normaloff>:/images/add_user.png</normaloff>:/images/add_user.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="bEditUser">
         <property name="text">
          <string>Edit User</string>
+        </property>
+        <property name="icon">
+         <iconset resource="reghaabat.qrc">
+          <normaloff>:/images/edit_user.png</normaloff>:/images/edit_user.png</iconset>
         </property>
        </widget>
       </item>
@@ -57,6 +65,10 @@
        <widget class="QPushButton" name="bMatchList">
         <property name="text">
          <string>Score List</string>
+        </property>
+        <property name="icon">
+         <iconset resource="reghaabat.qrc">
+          <normaloff>:/images/scores.png</normaloff>:/images/scores.png</iconset>
         </property>
        </widget>
       </item>
@@ -85,6 +97,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="reghaabat.qrc"/>
+ </resources>
  <connections/>
 </ui>

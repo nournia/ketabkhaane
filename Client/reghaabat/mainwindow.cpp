@@ -37,6 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    resize(760, 530);
+
     this->move(QApplication::desktop()->screen()->rect().center()-this->rect().center());
 
     applyPermission();
@@ -65,6 +67,8 @@ void MainWindow::applyPermission()
    ui->actionSync->setVisible(false);
 
    ui->actionDeliver->setEnabled(false);
+   ui->actionNewUser->setEnabled(false);
+   ui->actionEditUser->setEnabled(false);
    ui->actionUserManagement->setEnabled(false);
    ui->actionMatchManagement->setEnabled(false);
    ui->actionSync->setEnabled(false);
@@ -82,12 +86,14 @@ void MainWindow::applyPermission()
    if (Reghaabat::hasAccess("operator"))
    {
 //       ui->actionSync->setEnabled(true);
-       ui->actionUserManagement->setEnabled(true);
+       ui->actionNewUser->setEnabled(true);
+       ui->actionEditUser->setEnabled(true);
        ui->actionDeliver->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("designer"))
    {
+       ui->actionUserManagement->setEnabled(true);
        ui->actionMatchManagement->setEnabled(true);
    }
 
@@ -292,4 +298,14 @@ void MainWindow::on_actionPayment_triggered()
         stackedLayout->addWidget(paymentForm);
     }
     stackedLayout->setCurrentWidget(paymentForm);
+}
+
+void MainWindow::on_actionNewUser_triggered()
+{
+    newUser();
+}
+
+void MainWindow::on_actionEditUser_triggered()
+{
+    editUser();
 }

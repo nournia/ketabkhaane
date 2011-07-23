@@ -17,5 +17,16 @@
         <file>images/score.png</file>
         <file>images/payment.png</file>
         <file>images/password.png</file>
+        <file>images/pdf.png</file>
+        <file>images/print.png</file>
+        <file>images/add_user.png</file>
+        <file>images/edit_user.png</file>
+        <file>images/scores.png</file>
+        <file>images/minus.png</file>
+        <file>images/plus.png</file>
+        <file>images/star.png</file>
+        <file>images/add_match.png</file>
+        <file>images/edit_match.png</file>
+        <file>images/matches.png</file>
     </qresource>
 </RCC>

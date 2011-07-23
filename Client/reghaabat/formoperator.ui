@@ -74,12 +74,6 @@
        <layout class="QHBoxLayout" name="lMatch">
         <item>
          <widget class="QLabel" name="label">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
           <property name="text">
            <string>New Match</string>
           </property>
@@ -98,14 +92,12 @@
          </property>
          <item>
           <widget class="QPushButton" name="bPreview">
-           <property name="maximumSize">
-            <size>
-             <width>75</width>
-             <height>16777215</height>
-            </size>
-           </property>
            <property name="text">
             <string>Preview</string>
+           </property>
+           <property name="icon">
+            <iconset resource="reghaabat.qrc">
+             <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
            </property>
           </widget>
          </item>
@@ -125,7 +117,7 @@
          <item>
           <widget class="QCheckBox" name="cQuickSearch">
            <property name="text">
-            <string>Quick Search</string>
+            <string>Limited Search</string>
            </property>
            <property name="checked">
             <bool>true</bool>
@@ -134,12 +126,6 @@
          </item>
          <item>
           <widget class="QCheckBox" name="cPrint">
-           <property name="maximumSize">
-            <size>
-             <width>50</width>
-             <height>16777215</height>
-            </size>
-           </property>
            <property name="text">
             <string>Print</string>
            </property>
@@ -153,14 +139,12 @@
            <property name="enabled">
             <bool>true</bool>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>75</width>
-             <height>16777215</height>
-            </size>
-           </property>
            <property name="text">
             <string>Deliver</string>
+           </property>
+           <property name="icon">
+            <iconset resource="reghaabat.qrc">
+             <normaloff>:/images/ok.png</normaloff>:/images/ok.png</iconset>
            </property>
           </widget>
          </item>
@@ -189,8 +173,9 @@
  </customwidgets>
  <tabstops>
   <tabstop>bDeliver</tabstop>
-  <tabstop>bPreview</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="reghaabat.qrc"/>
+ </resources>
  <connections/>
 </ui>

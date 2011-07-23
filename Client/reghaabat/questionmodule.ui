@@ -66,15 +66,22 @@
          <widget class="QPushButton" name="bAnswer">
           <property name="maximumSize">
            <size>
-            <width>17</width>
-            <height>18</height>
+            <width>21</width>
+            <height>21</height>
            </size>
           </property>
           <property name="focusPolicy">
            <enum>Qt::NoFocus</enum>
           </property>
           <property name="text">
-           <string>-</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="reghaabat.qrc">
+            <normaloff>:/images/minus.png</normaloff>:/images/minus.png</iconset>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -120,6 +127,8 @@
   <tabstop>eQuestion</tabstop>
   <tabstop>eAnswer</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="reghaabat.qrc"/>
+ </resources>
  <connections/>
 </ui>

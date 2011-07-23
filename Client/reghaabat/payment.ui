@@ -126,6 +126,10 @@
         <property name="text">
          <string>Pay</string>
         </property>
+        <property name="icon">
+         <iconset resource="reghaabat.qrc">
+          <normaloff>:/images/ok.png</normaloff>:/images/ok.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
@@ -243,6 +247,8 @@
   <tabstop>tScores</tabstop>
   <tabstop>tPayments</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="reghaabat.qrc"/>
+ </resources>
  <connections/>
 </ui>

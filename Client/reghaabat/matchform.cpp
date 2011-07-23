@@ -18,7 +18,7 @@ MatchForm::MatchForm(QWidget *parent) :
     ui(new Ui::MatchForm)
 {
     ui->setupUi(this);
-    ui->buttonBox->addButton(ViewerForm::tr("Preview"), QDialogButtonBox::ResetRole);
+    ui->buttonBox->addButton(new QPushButton(QIcon(":/images/preview.png"), ViewerForm::tr("Preview")), QDialogButtonBox::ResetRole);
 
     ui->eCorrector->setQuery("select id as cid, id as clabel, firstname ||' '|| lastname as ctitle from users");
     ui->eAuthor->setQuery("select id as cid, '' as clabel, title as ctitle from authors");
@@ -36,7 +36,7 @@ MatchForm::MatchForm(QWidget *parent) :
     // init fillerItem for new question
     fillerItem = new QWidget(this);
     QFormLayout* lay = new QFormLayout(fillerItem);
-    QPushButton* button = new QPushButton(tr("New Question"), fillerItem);
+    QPushButton* button = new QPushButton(QIcon(":/images/star.png"), tr("New Question"), fillerItem);
     connect(button, SIGNAL(clicked()), this, SLOT(bNewQuestion_clicked()));
     lay->addRow("", button);
     fillerItem->setLayout(lay);

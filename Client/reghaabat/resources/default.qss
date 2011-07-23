@@ -27,3 +27,18 @@ QFrame {
     border: 0px solid solid;
 }
 */
+
+
+/* Buttons */
+
+QDialogButtonBox {
+    dialogbuttonbox-buttons-have-icons: 1;
+    dialog-ok-icon: url(:/images/ok.png);
+    dialog-cancel-icon: url(:/images/cancel.png);
+}
+
+QPushButton {
+    qproperty-layoutDirection: LeftToRight;
+    icon-size: 18px;
+    height: 14px;
+}

@@ -45,6 +45,10 @@ public slots:
     void on_actionSync_triggered();
 
     void firstPage();
+
+private slots:
+    void on_actionEditUser_triggered();
+    void on_actionNewUser_triggered();
 };
 
 #endif // MAINWINDOW_H

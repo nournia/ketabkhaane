@@ -39,6 +39,10 @@
         <property name="text">
          <string>Add</string>
         </property>
+        <property name="icon">
+         <iconset resource="reghaabat.qrc">
+          <normaloff>:/images/plus.png</normaloff>:/images/plus.png</iconset>
+        </property>
        </widget>
       </item>
      </layout>
@@ -65,6 +69,8 @@
   <tabstop>bAdd</tabstop>
   <tabstop>tPermissions</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="reghaabat.qrc"/>
+ </resources>
  <connections/>
 </ui>
