@@ -110,7 +110,7 @@
         <translation>چاپ</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+13"/>
         <source>Deliver</source>
         <translation>تحویل</translation>
     </message>
@@ -193,7 +193,7 @@
         <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+68"/>
         <location line="+3"/>
         <source>Sync</source>
         <translation>همزمانی</translation>
@@ -233,11 +233,12 @@
         <translation>پرداخت</translation>
     </message>
     <message>
+        <location line="+9"/>
         <source>New User</source>
-        <translation type="obsolete">عضو جدید</translation>
+        <translation>عضو جدید</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-81"/>
         <source>Options</source>
         <translation>تنظمیات</translation>
     </message>
@@ -246,15 +247,16 @@
         <translation type="obsolete">تحویل مسابقه</translation>
     </message>
     <message>
+        <location line="+90"/>
         <source>Edit User</source>
-        <translation type="obsolete">ویرایش عضو</translation>
+        <translation>ویرایش عضو</translation>
     </message>
     <message>
         <source>Edit Match</source>
         <translation type="obsolete">ویرایش مسابقه</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="-69"/>
         <source>Change Password</source>
         <translation>تغییر کلمه عبور</translation>
     </message>
@@ -505,17 +507,17 @@
         <translation>مسابقه جدید</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+11"/>
         <source>Edit Match</source>
         <translation>ویرایش مسابقه</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+24"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+11"/>
         <source>Age Group</source>
         <translation>با تفکیک سنی</translation>
     </message>
@@ -523,22 +525,21 @@
 <context>
     <name>OptionsForm</name>
     <message>
-        <location filename="optionsform.ui" line="+135"/>
+        <location filename="optionsform.ui" line="+171"/>
         <source>Convert Old Database</source>
         <translation>تبدیل پایگاه داده قبلی</translation>
     </message>
     <message>
-        <location line="-55"/>
         <source>Library Connection</source>
-        <translation>ارتباط با کتابخانه</translation>
+        <translation type="obsolete">ارتباط با کتابخانه</translation>
     </message>
     <message>
-        <location line="-60"/>
+        <location line="-151"/>
         <source>General</source>
         <translation>عمومی</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+109"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
@@ -547,9 +548,9 @@
         <translation type="obsolete">عنوان</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-100"/>
         <source>Corrector Show</source>
-        <translation>نمایش مصحح</translation>
+        <translation>نحوه نمایش مصحح</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -557,33 +558,47 @@
         <translation>حداکثر مسابقه‌های در دست عضو</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+14"/>
         <source>Max Matches In One Day</source>
         <translation>حداکثر تحویل مسابقه به عضو در یک روز</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+17"/>
+        <source>Local</source>
+        <translation>محلی</translation>
+    </message>
+    <message>
+        <location line="+34"/>
         <source>Db Address</source>
         <translation>آدرس پایگاه داده</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <location line="+26"/>
+        <location line="+38"/>
+        <source>Description</source>
+        <translation>توضیحات</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Version</source>
+        <translation>نسخه</translation>
+    </message>
+    <message>
+        <location line="-60"/>
+        <location line="+25"/>
         <source>Select</source>
         <translation>انتخاب</translation>
     </message>
     <message>
-        <location line="-16"/>
         <source>Reghaabat Network</source>
-        <translation>شبکه رقابت</translation>
+        <translation type="obsolete">شبکه رقابت</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-37"/>
         <source>Data Folder</source>
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="+23"/>
+        <location filename="optionsform.cpp" line="+24"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -598,7 +613,7 @@
         <translation>کد عضویت</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+48"/>
         <source>Select Library Database</source>
         <translation>انتخاب پایگاه داده کتابخانه</translation>
     </message>

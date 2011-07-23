@@ -28,5 +28,6 @@
         <file>images/add_match.png</file>
         <file>images/edit_match.png</file>
         <file>images/matches.png</file>
+        <file>images/search.png</file>
     </qresource>
 </RCC>

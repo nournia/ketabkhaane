@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QPrinterInfo>
 #include <QFileDialog>
+#include <QCoreApplication>
 
 #include <accesstosqlite.h>
 
@@ -31,6 +32,7 @@ OptionsForm::OptionsForm(QWidget *parent) :
     ui->cCorrectorIdentifier->setCurrentIndex(ui->cCorrectorIdentifier->findData(options()["CorrectorIdentifier"].toString()));
     ui->sMaxConcurrentMatches->setValue(options()["MaxConcurrentMatches"].toInt());
     ui->sMaxMatchesInOneDay->setValue(options()["MaxMatchesInOneDay"].toInt());
+    ui->lVersion->setText(QCoreApplication::applicationVersion());
 }
 
 OptionsForm::~OptionsForm()
