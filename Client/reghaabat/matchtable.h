@@ -14,9 +14,11 @@ class MatchListModel : public QSqlQueryModel
 
 public:
     QMap<QModelIndex, QVariant> edited;
+    QList<StrPair> ageclasses;
 
     MatchListModel(QObject *parent = 0) : QSqlQueryModel(parent)
     {
+        ageclasses = MMatches::ageclasses(true);
         sort(1);
 
         setHeaderData(1, Qt::Horizontal, tr("Title"));
@@ -59,19 +61,24 @@ public:
         QList<StrPair> questions;
         MMatches::get(id, match, questions);
 
+        QString val = value.toString();
         switch (index.column())
         {
         case 1:
-            match["title"] = value.toString();
+            match["title"] = val;
         break;
         case 3:
-            match["ageclass"] = value.toString();
+            match["ageclass"] = val;
+
+            for (int i = 0; i < ageclasses.size(); i++)
+                if (ageclasses.at(i).second == val)
+                    val = ageclasses.at(i).first;
         break;
         case 4:
-            match["score"] = value.toString();
+            match["score"] = val;
         break;
         case 6:
-            match["current_state"] = value.toString();
+            match["current_state"] = val;
         break;
         }
 
@@ -80,7 +87,7 @@ public:
         if (! msg.isEmpty())
             QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
         else
-            edited[index] = value;
+            edited[index] = val;
 
         return msg.isEmpty();
     }
