@@ -126,7 +126,7 @@ void MyCompleter::updateSuggestions()
                 fname = qry->value(2).toString();
             }
 
-            QTreeWidgetItem * item;
+            QTreeWidgetItem* item;
             item = new QTreeWidgetItem(popup);
             item->setText(0, qry->value(2).toString());
             item->setText(1, qry->value(1).toString());

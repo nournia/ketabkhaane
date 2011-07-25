@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     mmatches.cpp \
     usermanagement.cpp \
     payment.cpp \
-    json.cpp
+    json.cpp \
+    uihelper.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -69,7 +70,8 @@ HEADERS  += mainwindow.h \
     usermanagement.h \
     payment.h \
     migrations.h \
-    json.h
+    json.h \
+    uihelper.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \

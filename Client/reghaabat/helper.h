@@ -1,13 +1,15 @@
-#ifndef SQLMAP_H
-#define SQLMAP_H
+#ifndef HELPER_H
+#define HELPER_H
+
+#include <QVariant>
+#include <QMap>
+#include <QStringList>
 
 #include <QSqlQuery>
 #include <QSqlRecord>
-#include <QMap>
-#include <QVariant>
 #include <QSqlError>
+
 #include <QDateTime>
-#include <QComboBox>
 #include <QDebug>
 
 // types
@@ -24,9 +26,6 @@ QString getAbsoluteAddress(QString address);
 QString dataFolder();
 QString filesUrl();
 
-// ui
-
-void fillComboBox(QComboBox* combobox, QList<StrPair> data);
 
 // db
 
@@ -127,4 +126,4 @@ public:
     }
 };
 
-#endif // SQLMAP_H
+#endif // HELPER_H

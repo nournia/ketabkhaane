@@ -97,7 +97,7 @@
     <message>
         <location line="+18"/>
         <source>Preview</source>
-        <translation>پیش نمایش</translation>
+        <translation>نمایش</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -428,13 +428,13 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+39"/>
+        <location filename="matchform.cpp" line="+40"/>
         <source>New Question</source>
         <translation>سوال جدید</translation>
     </message>
     <message>
         <location line="+118"/>
-        <location filename="matchtable.h" line="+95"/>
+        <location filename="matchtable.h" line="+102"/>
         <location filename="viewerform.cpp" line="+105"/>
         <location line="+99"/>
         <source>book</source>
@@ -457,7 +457,7 @@
 <context>
     <name>MatchListModel</name>
     <message>
-        <location filename="matchtable.h" line="-73"/>
+        <location filename="matchtable.h" line="-78"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
@@ -819,7 +819,7 @@
     <message>
         <location filename="formchangepermissions.h" line="+33"/>
         <location filename="formoperator.cpp" line="+125"/>
-        <location filename="matchtable.h" line="+54"/>
+        <location filename="matchtable.h" line="+59"/>
         <location filename="scoreform.h" line="+62"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>

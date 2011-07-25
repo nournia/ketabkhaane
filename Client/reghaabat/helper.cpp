@@ -1,9 +1,10 @@
 #include <helper.h>
 
+#include <json.h>
+
 #include <QCoreApplication>
 #include <QSettings>
 #include <QFileInfo>
-#include <json.h>
 
 
 // init reghaabat global variables
@@ -83,13 +84,6 @@ QString getReplaceQuery(QString table, StrMap data, QString id)
         return QString("insert into %1 (%2) values (%3)").arg(table).arg(fields).arg(values);
     else
         return QString("update %1 set %2 where id = %3").arg(table).arg(values).arg(id);
-}
-
-void fillComboBox(QComboBox* combobox, QList<StrPair> data)
-{
-    combobox->clear();
-    for (int i = 0; i < data.size(); i++)
-        combobox->addItem(data.at(i).first, data.at(i).second);
 }
 
 QVariant insertTitleEntry(QString table, QString title)

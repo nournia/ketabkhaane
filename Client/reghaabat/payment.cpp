@@ -2,10 +2,10 @@
 #include "ui_payment.h"
 
 #include <helper.h>
+#include <uihelper.h>
 #include <musers.h>
 #include <jalali.h>
 #include <viewerform.h>
-
 #include <QMessageBox>
 
 Payment::Payment(QWidget *parent) :
@@ -22,8 +22,8 @@ Payment::Payment(QWidget *parent) :
     connect(ui->eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
 
     // table configurations
-    ui->tPayments->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
-    ui->tScores->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+    customizeTable(ui->tPayments, 2, 80, false, 0, true);
+    customizeTable(ui->tScores, 2, 80, false, 0, true);
 
     cancelUser();
 }

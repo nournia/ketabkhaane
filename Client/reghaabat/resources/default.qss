@@ -13,20 +13,23 @@ QStatusBar {
   		stop:1 rgba(184, 214, 236, 255));
 }
 
+QTreeView::item {
+	height: 16; 
+}
 
-/* Table */
+/* Tables */
 
 QTableView {
-    border: 1px solid grey;
+	border: 1px solid grey;
 }
 
-
-/* Frame */
-/*
 QFrame {
-    border: 0px solid solid;
+	selection-color: black;
+	selection-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+		stop:0 rgba(224, 239, 255, 255),
+		stop:0.533333 rgba(199, 215, 230, 255),
+		stop:1 rgba(184, 214, 236, 255));
 }
-*/
 
 
 /* Buttons */
@@ -38,7 +41,7 @@ QDialogButtonBox {
 }
 
 QPushButton {
-    qproperty-layoutDirection: LeftToRight;
-    icon-size: 18px;
-    height: 14px;
+	qproperty-layoutDirection: LeftToRight;
+	icon-size: 18px;
+	height: 16px;
 }

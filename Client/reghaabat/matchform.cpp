@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QFileDialog>
 
+#include <uihelper.h>
 #include <viewerform.h>
 #include <mainwindow.h>
 

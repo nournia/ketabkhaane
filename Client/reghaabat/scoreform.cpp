@@ -2,6 +2,7 @@
 #include "ui_scoreform.h"
 
 #include <spinboxdelegate.h>
+#include <uihelper.h>
 
 ScoreForm::ScoreForm(QWidget *parent) :
     QWidget(parent),
@@ -18,12 +19,8 @@ ScoreForm::ScoreForm(QWidget *parent) :
     model = new SetScoreModel(this);
     ui->tScores->setModel(model);
 
-    ui->tScores->setColumnHidden(0, true);
-    ui->tScores->horizontalHeader()->setResizeMode(2, QHeaderView::Stretch);
+    customizeTable(ui->tScores, 4, 80, true, 2);
     ui->tScores->setColumnWidth(1, 150);
-    ui->tScores->verticalHeader()->setDefaultSectionSize(22);
-    ui->tScores->verticalHeader()->setVisible(false);
-    ui->tScores->setSortingEnabled(true);
 
     ui->tScores->setItemDelegateForColumn(4, new SpinBoxDelegate(-100, 10000, 50, ui->tScores));
 
