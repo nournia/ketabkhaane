@@ -45,3 +45,6 @@ QPushButton {
 	icon-size: 18px;
 	height: 16px;
 }
+QPushButton[flat="true"] {
+	icon-size: 14px;
+}

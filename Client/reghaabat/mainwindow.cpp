@@ -126,8 +126,8 @@ void MainWindow::on_actionLogin_triggered()
     {
         QPushButton* logout = new QPushButton(QIcon(":/images/logout.png"), "", this);
         logout->setFlat(true);
-        logout->setMaximumWidth(23);
-        logout->setMaximumHeight(23);
+        logout->setMaximumWidth(15);
+        logout->setMaximumHeight(15);
         connect(logout, SIGNAL(clicked()), this, SLOT(on_actionLogout_triggered()));
         logout->setToolTip(tr("Logout"));
 

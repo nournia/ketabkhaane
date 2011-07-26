@@ -66,15 +66,12 @@
          <widget class="QPushButton" name="bAnswer">
           <property name="maximumSize">
            <size>
-            <width>21</width>
-            <height>21</height>
+            <width>16</width>
+            <height>16</height>
            </size>
           </property>
           <property name="focusPolicy">
            <enum>Qt::NoFocus</enum>
-          </property>
-          <property name="text">
-           <string/>
           </property>
           <property name="icon">
            <iconset resource="reghaabat.qrc">
