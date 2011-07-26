@@ -51,6 +51,12 @@ void migrate(QString newVersion)
         qry.exec("select id, payed_at from payments");
         while (qry.next())
             insertLog("payments", "insert", qry.value(0), master, qry.value(1).toDateTime());
+
+        // matches
+        ok &= qry.exec("update matches set content = replace(content, 'img width=\"100%\"', 'img style=\"width: 858px; height: 650px; \"')");
+        qry.exec("select id from matches where content is not null");
+        while (qry.next())
+            insertLog("matches", "update", qry.value(0), master);
     }
 
     if (change && ok)

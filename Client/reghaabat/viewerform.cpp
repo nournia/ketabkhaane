@@ -20,7 +20,7 @@ ViewerForm::ViewerForm(QWidget *parent) :
     ui(new Ui::ViewerForm)
 {
     ui->setupUi(this);
-    setMinimumWidth(900);
+    setMinimumWidth(915);
     setMinimumHeight(600);
 }
 
@@ -277,7 +277,10 @@ void ViewerForm::on_bPdf_clicked()
         file.close();
     }
 
-    savePdf(QFileDialog::getSaveFileName(this, ""));
+    QString filename = QFileDialog::getSaveFileName(this, "");
+    if (!filename.endsWith(".pdf"))
+        filename += ".pdf";
+    savePdf(filename);
 }
 
 void ViewerForm::on_bPrint_clicked()
