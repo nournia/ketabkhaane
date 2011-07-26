@@ -210,3 +210,8 @@ void FormOperator::on_cQuickSearch_clicked()
 {
     selectUser();
 }
+
+void FormOperator::focus()
+{
+    ui->eUser->setFocus();
+}

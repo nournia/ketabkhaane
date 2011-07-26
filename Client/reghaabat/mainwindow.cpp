@@ -255,6 +255,7 @@ void MainWindow::on_actionDeliver_triggered()
         stackedLayout->addWidget(formOperator);
     }
     stackedLayout->setCurrentWidget(formOperator);
+    formOperator->focus();
 }
 
 void MainWindow::firstPage()
@@ -295,6 +296,7 @@ void MainWindow::on_actionSetScores_triggered()
         stackedLayout->addWidget(scoreForm);
     }
     stackedLayout->setCurrentWidget(scoreForm);
+    scoreForm->focus();
 }
 
 void MainWindow::on_actionPayment_triggered()

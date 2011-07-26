@@ -23,8 +23,6 @@ ScoreForm::ScoreForm(QWidget *parent) :
     ui->tScores->setColumnWidth(1, 150);
 
     ui->tScores->setItemDelegateForColumn(4, new SpinBoxDelegate(-100, 10000, 50, ui->tScores));
-
-    ui->eCorrector->setFocus();
 }
 
 ScoreForm::~ScoreForm()
@@ -47,4 +45,9 @@ void ScoreForm::cancelCorrector()
 void ScoreForm::on_sDays_editingFinished()
 {
     ((SetScoreModel*) ui->tScores->model())->setOptions(ui->eCorrector->value(), ui->sDays->value());
+}
+
+void ScoreForm::focus()
+{
+    ui->eCorrector->setFocus();
 }

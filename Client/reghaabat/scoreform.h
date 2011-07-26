@@ -109,6 +109,8 @@ public:
     explicit ScoreForm(QWidget *parent = 0);
     ~ScoreForm();
 
+    void focus();
+
     SetScoreModel* model;
 
 private:

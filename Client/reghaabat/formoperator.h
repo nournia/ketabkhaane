@@ -19,6 +19,7 @@ public:
     ~FormOperator();
 
     void prepareViewer();
+    void focus();
 
 private:
     Ui::FormOperator *ui;
