@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QLabel>
+#include <QPushButton>
 #include <QDesktopWidget>
 
 #include <logindialog.h>
@@ -123,11 +124,19 @@ void MainWindow::on_actionLogin_triggered()
 
     if (! Reghaabat::instance()->userId.isEmpty())
     {
-        QLabel* label = new QLabel(Reghaabat::instance()->userName, this);
+        QPushButton* logout = new QPushButton(QIcon(":/images/logout.png"), "", this);
+        logout->setFlat(true);
+        logout->setMaximumWidth(23);
+        logout->setMaximumHeight(23);
+        connect(logout, SIGNAL(clicked()), this, SLOT(on_actionLogout_triggered()));
+        logout->setToolTip(tr("Logout"));
 
-        QVBoxLayout* lay =  new QVBoxLayout();
+        QLabel* username = new QLabel(Reghaabat::instance()->userName, this);
+
+        QHBoxLayout* lay =  new QHBoxLayout();
         lay->setContentsMargins(9, 3, 9, 3);
-        lay->addWidget(label);
+        lay->addWidget(logout);
+        lay->addWidget(username);
         delete ui->statusBar->layout();
         ui->statusBar->setLayout(lay);
         ui->statusBar->show();
