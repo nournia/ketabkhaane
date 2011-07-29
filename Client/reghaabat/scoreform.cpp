@@ -40,12 +40,17 @@ ScoreForm::~ScoreForm()
 
 void ScoreForm::selectCorrector()
 {
-    ((SetScoreModel*) ui->tScores->model())->setCorrector(eCorrector->value());
+    ((SetScoreModel*) ui->tScores->model())->setOptions(eCorrector->value(), ui->sDays->value());
     ui->tScores->setFocus();
 }
 
 void ScoreForm::cancelCorrector()
 {
-    ((SetScoreModel*) ui->tScores->model())->setCorrector("");
+    ((SetScoreModel*) ui->tScores->model())->setOptions(eCorrector->value(), ui->sDays->value());
     eCorrector->setFocus();
+}
+
+void ScoreForm::on_sDays_editingFinished()
+{
+    ((SetScoreModel*) ui->tScores->model())->setOptions(eCorrector->value(), ui->sDays->value());
 }

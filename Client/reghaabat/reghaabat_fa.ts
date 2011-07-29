@@ -422,12 +422,12 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+49"/>
+        <location filename="matchform.cpp" line="+50"/>
         <source>New Question</source>
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+115"/>
         <location filename="matchtable.h" line="+95"/>
         <location filename="viewerform.cpp" line="+104"/>
         <location line="+99"/>
@@ -441,6 +441,11 @@
         <location line="+104"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
+    </message>
+    <message>
+        <location line="+131"/>
+        <source>Select Image File</source>
+        <translation>انتخاب تصویر</translation>
     </message>
 </context>
 <context>
@@ -708,10 +713,10 @@
     <message>
         <location filename="dialogchangepassword.cpp" line="+25"/>
         <location filename="logindialog.cpp" line="+0"/>
-        <location filename="matchform.cpp" line="+93"/>
+        <location filename="matchform.cpp" line="-38"/>
         <location filename="optionsform.cpp" line="-12"/>
         <location filename="payment.cpp" line="+106"/>
-        <location filename="userform.cpp" line="+67"/>
+        <location filename="userform.cpp" line="+70"/>
         <location line="+58"/>
         <location line="+9"/>
         <location line="+9"/>
@@ -921,6 +926,11 @@
         <location filename="scoreform.ui" line="+40"/>
         <source>Corrector</source>
         <translation>مصحح</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Days For Show Score</source>
+        <translation>نمایش امتیاز روزهای قبل</translation>
     </message>
 </context>
 <context>
@@ -1265,8 +1275,8 @@
         <translation type="obsolete">کیفیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="-229"/>
-        <location line="+253"/>
+        <location filename="matchform.cpp" line="-238"/>
+        <location line="+262"/>
         <location filename="viewerform.cpp" line="-54"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>

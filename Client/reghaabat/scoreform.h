@@ -65,10 +65,12 @@ public:
         return msg.isEmpty();
     }
 
-    QString corrector;
-    void setCorrector(QString value)
+    QString corrector, days;
+    void setOptions(QString c, int d)
     {
-        corrector = value;
+        corrector = c;
+        days = QString("-%1 days").arg(d);
+
         sort(_column, _order);
     }
 
@@ -81,7 +83,7 @@ public:
         if (! corrector.isEmpty())
             tmp = corrector;
 
-        QString sql = QString("select answers.id, firstname||' '||lastname as name, matches.title, supports.score as maxscore, round(answers.rate * supports.score) as score from answers inner join supports on answers.match_id = supports.match_id inner join users on answers.user_id = users.id inner join matches on answers.match_id = matches.id where received_at is not null and (corrected_at is null or corrected_at >= date('now', '-1 days')) and answers.delivered_at > (select started_at from library) and  corrector_id = %1 order by %2").arg(tmp).arg(fields[column-1]);
+        QString sql = QString("select answers.id, firstname||' '||lastname as name, matches.title, supports.score as maxscore, round(answers.rate * supports.score) as score from answers inner join supports on answers.match_id = supports.match_id inner join users on answers.user_id = users.id inner join matches on answers.match_id = matches.id where received_at is not null and (corrected_at is null or corrected_at >= date('now', '%3')) and answers.delivered_at > (select started_at from library) and  corrector_id = %1 order by %2").arg(tmp).arg(fields[column-1]).arg(days);
 
         if (order == Qt::DescendingOrder)
             sql += " desc";
@@ -116,6 +118,7 @@ private:
     Ui::ScoreForm *ui;
 
 private slots:
+    void on_sDays_editingFinished();
     void selectCorrector();
     void cancelCorrector();
 };
