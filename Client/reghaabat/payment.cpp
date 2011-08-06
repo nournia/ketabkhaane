@@ -44,12 +44,12 @@ void Payment::selectUser()
 {
     QSqlQuery qry;
 
-    qry.exec("select score from scores where user_id = "+ ui->eUser->value());
+    qry.exec("select round(score) from scores where user_id = "+ ui->eUser->value());
     if (! qry.next())
         return;
     ui->lSum->setText(qry.value(0).toString());
 
-    qry.exec(QString("select score - ifnull((select sum(payment) as payed_score from payments where user_id = %1 and payed_at > (select started_at from library)), 0) as residue from scores where user_id = %1").arg(ui->eUser->value()));
+    qry.exec(QString("select round(score - ifnull((select sum(payment) as payed_score from payments where user_id = %1 and payed_at > (select started_at from library)), 0)) as residue from scores where user_id = %1").arg(ui->eUser->value()));
     if (! qry.next())
         return;
     ui->lResidue->setText(qry.value(0).toString());
