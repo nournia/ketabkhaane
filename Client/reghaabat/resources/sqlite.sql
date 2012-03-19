@@ -8,7 +8,6 @@
 -- tables ------------------------------------------------------------------------------
 
 -- globals 
-
 create table ageclasses(
 	id tinyint(4) not null primary key,
 	title varchar(255) not null,
@@ -33,8 +32,9 @@ create table users (
 	phone varchar(50) null default null,
 	gender varchar(10) not null, -- enum("male","female")
 	description varchar(255) null default null,
-	email varchar(255) default null,
-	upassword char(40) default null,
+	email varchar(255) null default null,
+	upassword char(40) null default null,
+	label varchar(10) null default null, 
 
 	score integer not null default "0",
 	correction_time integer not null default "0",
@@ -169,7 +169,6 @@ create table objects (
 	resource_id integer not null references resources(id) on update cascade,
 	label varchar(255) not null
 );
-
 
 -- log
 create table logs (
