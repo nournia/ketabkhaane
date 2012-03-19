@@ -26,7 +26,6 @@ private slots:
     void on_bSelectDataFolder_clicked();
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
-    void on_bConvertDb_clicked();
 };
 
 #endif // OPTIONSFORM_H

@@ -285,7 +285,7 @@ void importImages()
     }
 }
 
-void convertAccessDbToSqliteDb(QString accessFilename)
+void importMatchDb(QString accessFilename)
 {
     sqliteDb = Connector::connectDb();
     accessDb = connectAccess(accessFilename);
@@ -328,7 +328,21 @@ void convertAccessDbToSqliteDb(QString accessFilename)
 
     sqliteQry.exec("pragma foreign_keys = off");
 
-    qDebug() << "import finished";
+    qDebug() << "match import finished";
+}
+
+void importLibraryDb(QString accessFilename)
+{
+    sqliteDb = Connector::connectDb();
+    accessDb = connectAccess(accessFilename);
+
+    sqliteQry = QSqlQuery();
+    accessQry = QSqlQuery(accessDb);
+
+    if (! buildSqliteDb())
+        return;
+
+    qDebug() << "library import finished";
 }
 
 #endif // ACCESSTOSQLITE_H

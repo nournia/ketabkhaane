@@ -7,15 +7,14 @@
 #include <QFileDialog>
 #include <QCoreApplication>
 
-#include <accesstosqlite.h>
+#include <helper.h>
+
 
 OptionsForm::OptionsForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::OptionsForm)
 {
     ui->setupUi(this);
-
-    ui->bConvertDb->setVisible(ui->bConvertDb->isEnabled());
 
     ui->cPrinters->clear();
     foreach(QPrinterInfo printer, QPrinterInfo::availablePrinters())
@@ -38,11 +37,6 @@ OptionsForm::OptionsForm(QWidget *parent) :
 OptionsForm::~OptionsForm()
 {
     delete ui;
-}
-
-void OptionsForm::on_bConvertDb_clicked()
-{
-    convertAccessDbToSqliteDb("C:\\Users\\Noorian\\Desktop\\Reghaabat.mdb");
 }
 
 void OptionsForm::on_buttonBox_rejected()

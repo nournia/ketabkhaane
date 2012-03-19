@@ -163,16 +163,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="bConvertDb">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="text">
-      <string>Convert Old Database</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -202,7 +192,6 @@
   <tabstop>bSelectLibraryDb</tabstop>
   <tabstop>eDataFolder</tabstop>
   <tabstop>bSelectDataFolder</tabstop>
-  <tabstop>bConvertDb</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources>

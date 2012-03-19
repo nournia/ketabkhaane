@@ -6,6 +6,7 @@
 #include <mainwindow.h>
 #include <connector.h>
 #include <migrations.h>
+#include <accesstosqlite.h>
 
 /** parameters
 *   reghaabat.exe -data $FOLDER
@@ -28,6 +29,12 @@ int main(int argc, char *argv[])
         else
             settings.setValue("DataFolder", filename);
     }
+    else if (argc == 2 && !strcmp(argv[1], "-import"))
+    {
+        importMatchDb("C:\\Users\\Noorian\\Desktop\\Reghaabat.mdb");
+        importLibraryDb("C:\\Users\\Noorian\\Desktop\\Library.mdb");
+    }
+
 
     // translation
     QTranslator rTranslator;
