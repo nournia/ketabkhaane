@@ -170,14 +170,14 @@ create table roots (
 );
 create table branches (
 	id integer not null primary key autoincrement,
-	root_id integer not null,
+	root_id integer not null references roots(id) on update cascade,
 	title varchar(255) not null,
 	label varchar(10) null default null
 );
 create table objects (
 	id integer not null primary key autoincrement,
 	resource_id integer not null references resources(id) on update cascade,
-	branch_id integer not null,
+	branch_id integer not null references branches(id) on update cascade,
 	label varchar(50) not null,
 	cnt int not null default 0 -- count of object in this library
 );

@@ -24,3 +24,14 @@ delete from questions where matchid not in (select id from matches)
 
 ---
 replace special characters
+
+
+
+# libarary part
+
+افزودن گروه 550 به جدول گروه‌بندی اشيا و مشخص شدن عنوان آن
+اصلاح گروه‌بندی‌ها در پایگاه داده کتابخانه پیش یا پس از انتقال
+
+missed fields:
+	users.(father_name, sh_sh, vadieh, tamdid_date, ax)
+	objectsgroping.(object type)

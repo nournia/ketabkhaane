@@ -336,9 +336,10 @@ void importBranches()
     importTable("roots", "select distinct sarname, '', '' from objectsgroping where gropingcode > 100",
                 QStringList() << "title");
 
-    importTable("branches", "select gropingcode, 0, zirname, gropingcode, '', '' from objectsgroping where gropingcode > 100",
+    importTable("branches", "select gropingcode, 1, zirname, gropingcode, '', '' from objectsgroping where gropingcode > 100",
                 QStringList() << "id" << "root_id" << "title" << "label");
 
+    // fix root_id of branches
     QSqlQuery qry(sqliteDb);
     accessQry.exec("select gropingcode, sarname from objectsgroping");
     while (accessQry.next())
@@ -351,6 +352,52 @@ void importBranches()
             insertLog("branches", "update", id);
         }
     }
+}
+
+void importObjects()
+{
+    QSqlQuery objectQry(sqliteDb);
+    objectQry.prepare(getInsertQuery("objects", QStringList() << "branch_id" << "resource_id" << "label" << "cnt"));
+
+    QVariant resourceId;
+    QSqlQuery resourceQry(sqliteDb);
+    resourceQry.prepare(getInsertQuery("resources", QStringList() << "kind" << "author_id" << "publication_id" << "title"));
+
+    sqliteDb.transaction();
+    accessQry.exec("select gropingno, `object id`, `object name`, `object writer`, `object publication`, `object count`, objecttype, `date of type` from objects inner join objectsgroping on objects.gropingno = objectsgroping.gropingcode");
+    while (accessQry.next())
+    {
+        // insert resource
+        resourceQry.bindValue(":title", refineText(accessQry.value(2).toString()));
+        resourceQry.bindValue(":author_id", insertTitleEntry("authors", accessQry.value(3).toString()));
+        resourceQry.bindValue(":publication_id", insertTitleEntry("publications", accessQry.value(4).toString()));
+
+        if (accessQry.value(6).toInt() == 0)
+            resourceQry.bindValue(":kind", "book");
+        else if (accessQry.value(6).toInt() == 2)
+            resourceQry.bindValue(":kind", "multimedia");
+
+        if (! resourceQry.exec())
+            qDebug() << "resource " << resourceQry.lastError() << accessQry.value(1).toString();
+        else
+        {
+            resourceId = resourceQry.lastInsertId();
+            insertLog("resources", "insert", resourceId);
+        }
+
+        // insert object
+        objectQry.bindValue(":branch_id", accessQry.value(0));
+        objectQry.bindValue(":label", accessQry.value(1));
+        objectQry.bindValue(":cnt", accessQry.value(5));
+        objectQry.bindValue(":resource_id", resourceId);
+        if (! objectQry.exec())
+            qDebug() << "object " << objectQry.lastError() << accessQry.value(1).toString();
+        else
+            insertLog("objects", "insert", objectQry.lastInsertId());
+    }
+
+    sqliteDb.commit();
+    qDebug() << "+ " << QString("objects");
 }
 
 void importLibraryDb(QString accessFilename)
@@ -368,12 +415,13 @@ void importLibraryDb(QString accessFilename)
 
     sqliteQry.exec("pragma foreign_keys = on");
 
-    // todo charachter refinement
     // todo ozviats
     importTable("users", "select id, name, family, t_t as tdate, adress +' - '+ str(block) +' - '+ str(`home no`), phon, iif(`is men` = true, 'male', 'female'), memo, id, '', `reg date` from users",
                 QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description" << "label");
 
     importBranches();
+
+    importObjects();
 
     sqliteQry.exec("pragma foreign_keys = off");
 
