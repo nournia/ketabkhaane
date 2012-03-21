@@ -164,10 +164,21 @@ create table open_scores (
 
 
 -- library
+create table roots (
+	id integer not null primary key autoincrement,
+	title varchar(255) not null
+);
+create table branches (
+	id integer not null primary key autoincrement,
+	root_id integer not null,
+	title varchar(255) not null
+);
 create table objects (
 	id integer not null primary key autoincrement,
 	resource_id integer not null references resources(id) on update cascade,
-	label varchar(255) not null
+	branch_id integer not null,
+	label varchar(50) not null,
+	cnt int not null default 0 -- count of object in this library
 );
 
 -- log
