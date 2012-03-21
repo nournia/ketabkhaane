@@ -122,7 +122,7 @@ QString getInsertQuery(QString table, QStringList fields)
 QVariant refineValue(QVariant value)
 {
     QString tn = value.typeName();
-    if (tn == "QString" &&  value.toString().contains(''))
+    if (tn == "QString")
         return refineText(value.toString()).replace('', "");
     else
         return value;
@@ -333,6 +333,8 @@ void importMatchDb(QString accessFilename)
 
 void importLibraryDb(QString accessFilename)
 {
+    qDebug() << "library import started";
+
     sqliteDb = Connector::connectDb();
     accessDb = connectAccess(accessFilename);
 
@@ -341,6 +343,15 @@ void importLibraryDb(QString accessFilename)
 
     if (! buildSqliteDb())
         return;
+
+    sqliteQry.exec("pragma foreign_keys = on");
+
+    // todo charachter refinement
+    // todo ozviats
+    importTable("users", "select id, name, family, t_t as tdate, adress +' - '+ str(block) +' - '+ str(`home no`), phon, iif(`is men` = true, 'male', 'female'), memo, id, '', `reg date` from users",
+                QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description" << "label");
+
+    sqliteQry.exec("pragma foreign_keys = off");
 
     qDebug() << "library import finished";
 }
