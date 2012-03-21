@@ -171,7 +171,8 @@ create table roots (
 create table branches (
 	id integer not null primary key autoincrement,
 	root_id integer not null,
-	title varchar(255) not null
+	title varchar(255) not null,
+	label varchar(10) null default null
 );
 create table objects (
 	id integer not null primary key autoincrement,

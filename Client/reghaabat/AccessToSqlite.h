@@ -331,6 +331,28 @@ void importMatchDb(QString accessFilename)
     qDebug() << "match import finished";
 }
 
+void importBranches()
+{
+    importTable("roots", "select distinct sarname, '', '' from objectsgroping where gropingcode > 100",
+                QStringList() << "title");
+
+    importTable("branches", "select gropingcode, 0, zirname, gropingcode, '', '' from objectsgroping where gropingcode > 100",
+                QStringList() << "id" << "root_id" << "title" << "label");
+
+    QSqlQuery qry(sqliteDb);
+    accessQry.exec("select gropingcode, sarname from objectsgroping");
+    while (accessQry.next())
+    {
+        QString id = accessQry.value(0).toString();
+        sqliteQry.exec("select id from roots where title = '"+ refineText(accessQry.value(1).toString()) +"'");
+        if (sqliteQry.next())
+        {
+            qry.exec("update branches set root_id = "+ sqliteQry.value(0).toString() +" where id = "+ id);
+            insertLog("branches", "update", id);
+        }
+    }
+}
+
 void importLibraryDb(QString accessFilename)
 {
     qDebug() << "library import started";
@@ -350,6 +372,8 @@ void importLibraryDb(QString accessFilename)
     // todo ozviats
     importTable("users", "select id, name, family, t_t as tdate, adress +' - '+ str(block) +' - '+ str(`home no`), phon, iif(`is men` = true, 'male', 'female'), memo, id, '', `reg date` from users",
                 QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description" << "label");
+
+    importBranches();
 
     sqliteQry.exec("pragma foreign_keys = off");
 
