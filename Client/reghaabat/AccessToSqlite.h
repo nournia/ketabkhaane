@@ -400,6 +400,15 @@ void importObjects()
     qDebug() << "+ " << QString("objects");
 }
 
+void importBorrows()
+{
+    importTable("borrows", "select userid, objectid, date_raft as rdate, date_bargasht as bdate, login_of_raft, date_raft as cdate from (cash inner join objects on cash.objectid = objects.[object id]) inner join users on cash.userid = users.id",
+                QStringList() << "user_id" << "object_id" << "delivered_at" << "received_at");
+
+    if ( ! sqliteQry.exec("UPDATE borrows SET object_id = (SELECT id FROM objects WHERE objects.label = borrows.object_id)"))
+        qDebug() << "object " << sqliteQry.lastError();
+}
+
 void importLibraryDb(QString accessFilename)
 {
     qDebug() << "library import started";
@@ -424,6 +433,8 @@ void importLibraryDb(QString accessFilename)
     importObjects();
 
     sqliteQry.exec("pragma foreign_keys = off");
+
+    importBorrows();
 
     qDebug() << "library import finished";
 }

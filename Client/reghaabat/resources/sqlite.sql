@@ -181,6 +181,13 @@ create table objects (
 	label varchar(50) not null,
 	cnt int not null default 0 -- count of object in this library
 );
+create table borrows (
+	id integer not null primary key autoincrement,
+	user_id integer not null references users(id) on update cascade,
+	object_id integer not null references resources(id) on update cascade,
+	delivered_at datetime not null default current_timestamp,
+	received_at datetime null default null
+);
 
 -- log
 create table logs (
