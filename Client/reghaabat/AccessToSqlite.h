@@ -419,6 +419,12 @@ void importLibraryDb(QString accessFilename)
     sqliteQry = QSqlQuery();
     accessQry = QSqlQuery(accessDb);
 
+    // backup user passwords
+    sqliteQry.exec("select id, upassword from users where upassword is not null");
+    QStringList passQry;
+    while(sqliteQry.next())
+        passQry << "update users set upassword = '"+ sqliteQry.value(1).toString() +"' where id = "+ sqliteQry.value(0).toString();
+
     if (! buildSqliteDb())
         return;
 
@@ -427,6 +433,10 @@ void importLibraryDb(QString accessFilename)
     // todo ozviats
     importTable("users", "select id, name, family, t_t as tdate, adress +' - '+ str(block) +' - '+ str(`home no`), phon, iif(`is men` = true, 'male', 'female'), memo, id, '', `reg date` from users",
                 QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description" << "label");
+
+    // restore user passwords
+    foreach(QString pq, passQry)
+        sqliteQry.exec(pq);
 
     importBranches();
 
