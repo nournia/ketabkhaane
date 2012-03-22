@@ -26,8 +26,23 @@ delete from questions where matchid not in (select id from matches)
 replace special characters
 
 
-
 # libarary part
+تذکر حذف شدن ودیعه‌ها
+
+fill usertype table:
+UserTypeName	UserTypeDescription
+تعليق عضويت	1
+عضو عادي	1
+عضو فراري	1
+عضو كتابخانه	2
+عضو همراه	1
+عضو ويژه	2
+مسئول کتابخانه	2
+عضو افتخاري	2
+عضو ويژه کمک درسي	2
+عضو عادي کمک درسي	1
+-----
+fix ozviat of '1948'
 
 افزودن گروه 550 به جدول گروه‌بندی اشيا و مشخص شدن عنوان آن
 اصلاح گروه‌بندی‌ها در پایگاه داده کتابخانه پیش یا پس از انتقال

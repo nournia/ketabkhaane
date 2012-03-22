@@ -1,4 +1,4 @@
-create table users (
+﻿create table users (
 	id integer not null primary key autoincrement,
 	national_id integer null default null,
 	firstname varchar(255) not null,
@@ -10,7 +10,8 @@ create table users (
 	description varchar(255) null default null,
 	email varchar(255) null default null,
 	upassword char(40) null default null,
-	label varchar(10) null default null, 
+	label varchar(10) null default null,
+	account smallint not null references accounts(id) on update cascade,
 
 	score integer not null default "0",
 	correction_time integer not null default "0",
@@ -24,10 +25,16 @@ create table payments (
 	payment smallint not null, -- positive: rise of user score
 	payed_at timestamp not null default current_timestamp,
 	kind varchar(10) not null, -- enum("match", "payment", "penalty", "receipt") -- effect: +, -, -, + 
-	reference integer null -- match: match_id, penalty: object_id
+	description varchar(50) null -- match: match_id, penalty: object_id
 );
 
 
+create table accounts (
+	id integer not null primary key autoincrement,
+	title varchar(255) not null,
+	bookfine integer not null, -- daily after one week
+	cdfine integer not null -- daily
+);
 create table roots (
 	id integer not null primary key autoincrement,
 	title varchar(255) not null
@@ -53,3 +60,5 @@ create table borrows (
 	received_at datetime null default null
 );
 
+insert into accounts (id, title, bookfine, cdfine) values (1, 'عضو عادی', 50, 100);
+insert into accounts (id, title, bookfine, cdfine) values (2, 'عضو ویژه', 25, 100);

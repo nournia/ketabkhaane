@@ -34,13 +34,20 @@ create table users (
 	description varchar(255) null default null,
 	email varchar(255) null default null,
 	upassword char(40) null default null,
-	label varchar(10) null default null, 
+	label varchar(10) null default null,
+	account smallint not null references accounts(id) on update cascade,
 
 	score integer not null default "0",
 	correction_time integer not null default "0",
 
 	unique (email) on conflict abort,
 	unique (national_id) on conflict abort
+);
+create table accounts (
+	id integer not null primary key autoincrement,
+	title varchar(255) not null,
+	bookfine integer not null, -- daily after one week
+	cdfine integer not null -- daily
 );
 create table permissions (
 	id integer not null primary key autoincrement,
@@ -145,8 +152,10 @@ create table scores (
 create table payments (
 	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
-	payment smallint not null,
-	payed_at timestamp not null default current_timestamp
+	payment smallint not null, -- positive: rise of user score
+	payed_at timestamp not null default current_timestamp,
+	kind varchar(10) not null, -- enum("match", "payment", "penalty", "receipt") -- effect: +, -, -, + 
+	description varchar(50) null -- match: match_id, penalty: object_id
 );
 
 -- open_scores 
