@@ -364,45 +364,39 @@ void importBranches()
 
 void importObjects()
 {
-    QSqlQuery objectQry(sqliteDb);
-    objectQry.prepare(getInsertQuery("objects", QStringList() << "branch_id" << "resource_id" << "label" << "cnt"));
-
-    QVariant resourceId;
-    QSqlQuery resourceQry(sqliteDb);
-    resourceQry.prepare(getInsertQuery("resources", QStringList() << "kind" << "author_id" << "publication_id" << "title"));
+    sqliteQry.prepare(getInsertQuery("objects", QStringList() << "author_id" << "publication_id" << "type_id" << "title" << "branch_id" << "label" << "cnt"));
 
     sqliteDb.transaction();
     accessQry.exec("select gropingno, `object id`, `object name`, `object writer`, `object publication`, `object count`, objecttype, `date of type` from objects inner join objectsgroping on objects.gropingno = objectsgroping.gropingcode");
     while (accessQry.next())
     {
-        // insert resource
-        resourceQry.bindValue(":title", refineText(accessQry.value(2).toString()));
-        resourceQry.bindValue(":author_id", insertTitleEntry("authors", accessQry.value(3).toString()));
-        resourceQry.bindValue(":publication_id", insertTitleEntry("publications", accessQry.value(4).toString()));
+        sqliteQry.bindValue(":author_id", insertTitleEntry("authors", accessQry.value(3).toString()));
+        sqliteQry.bindValue(":publication_id", insertTitleEntry("publications", accessQry.value(4).toString()));
 
         if (accessQry.value(6).toInt() == 0)
-            resourceQry.bindValue(":kind", "book");
+            sqliteQry.bindValue(":type_id", "0");
         else if (accessQry.value(6).toInt() == 2)
-            resourceQry.bindValue(":kind", "multimedia");
+            sqliteQry.bindValue(":type_id", "1");
 
-        if (! resourceQry.exec())
-            qDebug() << "resource " << resourceQry.lastError() << accessQry.value(1).toString();
+        sqliteQry.bindValue(":title", refineText(accessQry.value(2).toString()));
+        sqliteQry.bindValue(":branch_id", accessQry.value(0));
+        sqliteQry.bindValue(":label", accessQry.value(1));
+        sqliteQry.bindValue(":cnt", accessQry.value(5));
+        if (! sqliteQry.exec())
+            qDebug() << "object " << sqliteQry.lastError() << accessQry.value(1).toString();
         else
-        {
-            resourceId = resourceQry.lastInsertId();
-            insertLog("resources", "insert", resourceId);
-        }
-
-        // insert object
-        objectQry.bindValue(":branch_id", accessQry.value(0));
-        objectQry.bindValue(":label", accessQry.value(1));
-        objectQry.bindValue(":cnt", accessQry.value(5));
-        objectQry.bindValue(":resource_id", resourceId);
-        if (! objectQry.exec())
-            qDebug() << "object " << objectQry.lastError() << accessQry.value(1).toString();
-        else
-            insertLog("objects", "insert", objectQry.lastInsertId());
+            insertLog("objects", "insert", sqliteQry.lastInsertId());
     }
+
+    // fix matches table link
+    if (! sqliteQry.exec("create temporary table mb(id, designer_id, title, ageclass, category_id, content)")) qDebug() << sqliteQry.lastError();
+    if (! sqliteQry.exec("insert into mb select id, designer_id, title, ageclass, category_id, content from matches")) qDebug() << sqliteQry.lastError();
+    if (! sqliteQry.exec("drop table matches")) qDebug() << sqliteQry.lastError();
+    if (! sqliteQry.exec("create table matches (id integer not null primary key autoincrement, designer_id integer null default null references users(id) on update cascade, title varchar(255) not null, ageclass tinyint(4) null default null, object_id integer null default null references objects(id) on update cascade, category_id tinyint(4) null default null references categories(id) on update cascade, content text null default null)")) qDebug() << sqliteQry.lastError();
+    if (! sqliteQry.exec("insert into matches select id, designer_id, title, ageclass, 1, category_id, content from mb")) qDebug() << sqliteQry.lastError();
+    if (! sqliteQry.exec("drop table mb")) qDebug() << sqliteQry.lastError();
+
+    if (! sqliteQry.exec("update matches set object_id = (select id from objects where trim(objects.title) = trim(matches.title)) where category_id is null")) qDebug() << sqliteQry.lastError();
 
     sqliteDb.commit();
     qDebug() << "+ " << QString("objects");
@@ -437,6 +431,8 @@ void importLibraryDb(QString accessFilename)
     sqliteQry.exec("drop table if exists users;");
     sqliteQry.exec("drop table if exists payments;");
     sqliteQry.exec("drop table if exists objects;");
+    sqliteQry.exec("drop table if exists resources;");
+
     if (! buildSqliteDb(true))
         return;
 
@@ -451,9 +447,9 @@ void importLibraryDb(QString accessFilename)
 
     importBranches();
 
-    importObjects();
-
     sqliteQry.exec("pragma foreign_keys = off");
+
+    importObjects();
 
     importBorrows();
 

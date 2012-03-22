@@ -8,7 +8,7 @@
 -- tables ------------------------------------------------------------------------------
 
 -- globals 
-create table ageclasses(
+create table ageclasses (
 	id tinyint(4) not null primary key,
 	title varchar(255) not null,
 	description varchar(255) null default null,
@@ -19,6 +19,10 @@ create table ageclasses(
 create table categories (
 	id tinyint(4) not null primary key,
 	title varchar(255) not null
+);
+create table types (
+	id integer not null primary key autoincrement,
+	title varchar(50) not null
 );
 
 -- users
@@ -69,18 +73,6 @@ create table files (
 	id integer not null primary key autoincrement,
 	extension varchar(5) not null
 );
-create table resources (
-	id integer not null primary key autoincrement,
-	author_id integer null default null references authors(id) on update cascade,
-	publication_id integer null default null references publications(id) on update cascade,
-	kind varchar(12) not null, -- enum("book", "multimedia", "webpage")
-	-- tags set("") null default null,
-	title varchar(255) not null,
-	ageclass tinyint(4) null default null,
-	content text null default null, -- html for all types
-	link varchar(1000) null default null, -- book:, multimedia: fileaddress, webpage: url
-	volume int null default null -- book: pages, multimedia: seconds, webpage: words
-);
 create table matches (
 	id integer not null primary key autoincrement,
 	designer_id integer null default null references users(id) on update cascade,
@@ -89,7 +81,7 @@ create table matches (
 	ageclass tinyint(4) null default null,
 	
 	-- question
-	resource_id integer null default null references resources(id) on update cascade,
+	object_id integer null default null references objects(id) on update cascade,
 	
 	-- instruction
 	category_id tinyint(4) null default null references categories(id) on update cascade,
@@ -171,7 +163,6 @@ create table open_scores (
 	score smallint(6) not null
 );
 
-
 -- library
 create table roots (
 	id integer not null primary key autoincrement,
@@ -185,7 +176,10 @@ create table branches (
 );
 create table objects (
 	id integer not null primary key autoincrement,
-	resource_id integer not null references resources(id) on update cascade,
+	author_id integer null default null references authors(id) on update cascade,
+	publication_id integer null default null references publications(id) on update cascade,
+	type_id smallint not null references types(id) on update cascade,
+	title varchar(255) not null,
 	branch_id integer not null references branches(id) on update cascade,
 	label varchar(50) not null,
 	cnt int not null default 0 -- count of object in this library
