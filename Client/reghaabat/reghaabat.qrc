@@ -3,6 +3,7 @@
         <file>resources/list.html</file>
         <file>resources/match.html</file>
         <file>resources/sqlite.sql</file>
+        <file>resources/library.sql</file>
         <file>resources/default.qss</file>
         <file>images/cancel.png</file>
         <file>images/deliver.png</file>

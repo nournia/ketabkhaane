@@ -53,9 +53,13 @@ bool addTriggers()
     return true;
 }
 
-bool buildSqliteDb()
+bool buildSqliteDb(bool library = false)
 {
-    QFile file(":/resources/sqlite.sql");
+    QString filename = ":/resources/sqlite.sql";
+    if (library)
+        filename = ":/resources/library.sql";
+
+    QFile file(filename);
     if (! file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qDebug() << "sql file not found";
@@ -63,11 +67,12 @@ bool buildSqliteDb()
     }
 
     sqliteDb.transaction();
-    foreach (QString table, sqliteDb.tables(QSql::Tables))
-    {
-        if (! table.startsWith("sqlite_") && ! sqliteQry.exec("drop table if exists " + table + ";"))
-            qDebug() << sqliteQry.lastError();
-    }
+    if (! library)
+        foreach (QString table, sqliteDb.tables(QSql::Tables))
+        {
+            if (! table.startsWith("sqlite_") && ! sqliteQry.exec("drop table if exists " + table + ";"))
+                qDebug() << sqliteQry.lastError();
+        }
 
     QString trigger = "";
     foreach (QString q, QTextStream(&file).readAll().split(";"))
@@ -96,11 +101,14 @@ bool buildSqliteDb()
     }
     sqliteDb.commit();
 
-    addTriggers();
+    if (! library)
+    {
+        addTriggers();
 
-    QDir d;
-    d.mkdir("data");
-    d.mkdir("data/files");
+        QDir d;
+        d.mkdir("data");
+        d.mkdir("data/files");
+    }
 
     return true;
 }
@@ -425,7 +433,11 @@ void importLibraryDb(QString accessFilename)
     while(sqliteQry.next())
         passQry << "update users set upassword = '"+ sqliteQry.value(1).toString() +"' where id = "+ sqliteQry.value(0).toString();
 
-    if (! buildSqliteDb())
+    // build database
+    sqliteQry.exec("drop table if exists users;");
+    sqliteQry.exec("drop table if exists payments;");
+    sqliteQry.exec("drop table if exists objects;");
+    if (! buildSqliteDb(true))
         return;
 
     sqliteQry.exec("pragma foreign_keys = on");
