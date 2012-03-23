@@ -1,7 +1,7 @@
 #ifndef ACCESSTOSQLITE_H
 #define ACCESSTOSQLITE_H
 
-#include <Jalali.h>
+#include <jalali.h>
 #include <connector.h>
 #include <musers.h>
 

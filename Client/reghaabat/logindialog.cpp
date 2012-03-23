@@ -1,7 +1,7 @@
 #include "logindialog.h"
 #include "ui_logindialog.h"
 
-#include <MUsers.h>
+#include <musers.h>
 #include <QMessageBox>
 
 LoginDialog::LoginDialog(QWidget *parent) :
