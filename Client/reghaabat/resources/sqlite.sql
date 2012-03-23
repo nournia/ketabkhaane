@@ -41,9 +41,6 @@ create table users (
 	label varchar(10) null default null,
 	account smallint not null references accounts(id) on update cascade,
 
-	score integer not null default "0",
-	correction_time integer not null default "0",
-
 	unique (email) on conflict abort,
 	unique (national_id) on conflict abort
 );
