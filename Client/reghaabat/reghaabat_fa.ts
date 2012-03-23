@@ -95,7 +95,7 @@
         <translation type="obsolete">جستجوی سریع</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+24"/>
         <source>Preview</source>
         <translation>نمایش</translation>
     </message>
@@ -193,7 +193,7 @@
         <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+67"/>
         <location line="+3"/>
         <source>Sync</source>
         <translation>همزمانی</translation>
@@ -207,6 +207,7 @@
     <message>
         <location line="+9"/>
         <location line="+3"/>
+        <location filename="mainwindow.cpp" line="+132"/>
         <source>Logout</source>
         <translation>خروج</translation>
     </message>
@@ -525,16 +526,15 @@
 <context>
     <name>OptionsForm</name>
     <message>
-        <location filename="optionsform.ui" line="+171"/>
         <source>Convert Old Database</source>
-        <translation>تبدیل پایگاه داده قبلی</translation>
+        <translation type="obsolete">تبدیل پایگاه داده قبلی</translation>
     </message>
     <message>
         <source>Library Connection</source>
         <translation type="obsolete">ارتباط با کتابخانه</translation>
     </message>
     <message>
-        <location line="-151"/>
+        <location filename="optionsform.ui" line="+20"/>
         <source>General</source>
         <translation>عمومی</translation>
     </message>
@@ -598,7 +598,7 @@
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="+24"/>
+        <location filename="optionsform.cpp" line="+23"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -613,7 +613,7 @@
         <translation>کد عضویت</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+43"/>
         <source>Select Library Database</source>
         <translation>انتخاب پایگاه داده کتابخانه</translation>
     </message>
@@ -735,10 +735,8 @@
         <location filename="matchform.cpp" line="-38"/>
         <location filename="optionsform.cpp" line="-12"/>
         <location filename="payment.cpp" line="+103"/>
-        <location filename="userform.cpp" line="+71"/>
-        <location line="+58"/>
-        <location line="+9"/>
-        <location line="+9"/>
+        <location filename="userform.cpp" line="+78"/>
+        <location line="+4"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -750,7 +748,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="musers.cpp" line="+44"/>
+        <location filename="musers.cpp" line="+54"/>
         <source>User name is required.</source>
         <translation>نام عضو وارد نشده است.</translation>
     </message>
@@ -769,12 +767,11 @@
         <translation type="obsolete">عضو دیگری با این نام ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>You imported this user before.</source>
-        <translation>این عضو قبلا وارد شده است.</translation>
+        <translation type="obsolete">این عضو قبلا وارد شده است.</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+16"/>
         <source>%1 has exact same national id.</source>
         <translation>این شماره ملی برای %1 ثبت شده است.</translation>
     </message>
@@ -976,7 +973,7 @@
 <context>
     <name>UserForm</name>
     <message>
-        <location filename="userform.ui" line="+134"/>
+        <location filename="userform.ui" line="+73"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
@@ -1001,27 +998,34 @@
         <translation>نشانی</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="+47"/>
+        <source>Label</source>
+        <translation>کد</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Account</source>
+        <translation>عضویت</translation>
+    </message>
+    <message>
+        <location line="-71"/>
         <source>Phone</source>
         <translation>شماره تماس</translation>
     </message>
     <message>
-        <location line="-221"/>
         <source>Library Import</source>
-        <translation>ورود اطلاعات از کتابخانه</translation>
+        <translation type="obsolete">ورود اطلاعات از کتابخانه</translation>
     </message>
     <message>
-        <location line="+15"/>
         <source>Id</source>
-        <translation>کد عضویت</translation>
+        <translation type="obsolete">کد عضویت</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>Import</source>
-        <translation>وارد کردن</translation>
+        <translation type="obsolete">وارد کردن</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="-140"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
@@ -1067,19 +1071,21 @@
         <translation type="obsolete">نوع</translation>
     </message>
     <message>
-        <location filename="userform.cpp" line="-18"/>
         <source>Library connection error.</source>
-        <translation>خطا در ارتباط با پایگاه داده کتابخانه.</translation>
+        <translation type="obsolete">خطا در ارتباط با پایگاه داده کتابخانه.</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Invalid library id.</source>
-        <translation>کد عضویت نامعتبر است.</translation>
+        <translation type="obsolete">کد عضویت نامعتبر است.</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Permission denied.</source>
-        <translation>محدودیت دسترسی</translation>
+        <translation type="obsolete">محدودیت دسترسی</translation>
+    </message>
+    <message>
+        <location filename="userform.cpp" line="-5"/>
+        <source>%1 registered with %2 label.</source>
+        <translation>%1 با کد %2 ثبت نام شد.</translation>
     </message>
 </context>
 <context>

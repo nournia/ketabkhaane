@@ -51,6 +51,8 @@ fix ozviat of '1948'
 بررسی اینکه آیا نوع سی‌دی‌ها مولتی‌مدیا هست یا نه
 اصلاح شئ تمام مسابقه‌هایی که شئ آنها درست تنظیم نشده به صورت دستی
 
+حذف عضوهایی که نام خالی دارند
+
 missed fields:
 	users.(father_name, sh_sh, vadieh, tamdid_date, ax)
 	objectsgroping.(object type)

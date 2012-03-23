@@ -33,7 +33,17 @@ QString MUsers::getAgeClass(QString userId)
     return qry.value(0).toString();
 }
 
-QString MUsers::set(QString userId, StrMap user, QString importedId)
+QString MUsers::getNewLabel()
+{
+    QSqlQuery qry;
+    qry.exec("select max(label) from users");
+    if (qry.next() && qry.value(0).toInt())
+        return QString("%1").arg(qry.value(0).toInt() + 1);
+    else
+        return "1111";
+}
+
+QString MUsers::set(QString userId, StrMap user)
 {
     QSqlQuery qry;
 
@@ -57,29 +67,21 @@ QString MUsers::set(QString userId, StrMap user, QString importedId)
             return QObject::tr("There is another user with this name.");
     */
 
-    // imported
-    if (! importedId.isEmpty())
-    {
-        qry.exec(QString("select * from users where id = %1").arg(importedId));
-        if (qry.next())
-            return QObject::tr("You imported this user before.");
-    }
-
     // used national id
     qry.exec("select id, firstname ||' '|| lastname from users where national_id = "+ user["national_id"].toString());
     if (qry.next())
         if (qry.value(0).toString() != userId)
             return QObject::tr("%1 has exact same national id.").arg(qry.value(1).toString());
 
+    // set user label
+    if (userId.isEmpty())
+        user["label"] = getNewLabel();
 
     // store
     if (! qry.exec(getReplaceQuery("users", user, userId)))
         return qry.lastError().text();
 
     QString tmpUID = qry.lastInsertId().toString();
-
-    if (! importedId.isEmpty())
-        qry.exec(QString("update users set id = %1 where id = %2").arg(importedId).arg(tmpUID));
 
     if (userId.isEmpty())
     {

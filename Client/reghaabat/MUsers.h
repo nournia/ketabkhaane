@@ -14,7 +14,9 @@ public:
 
     static QString getAgeClass(QString userId);
 
-    static QString set(QString userId, StrMap user, QString importedId);
+    static QString getNewLabel();
+
+    static QString set(QString userId, StrMap user);
 
     static bool login(QString userId, QString password, StrMap& user);
 
@@ -25,6 +27,17 @@ public:
     static QString setPermission(QString userId, QString permission);
 
     static QString pay(QString userId, int score);
+
+    static QList<StrPair> accounts()
+    {
+        QSqlQuery qry;
+        qry.exec("select id, title from accounts");
+
+        QList<StrPair> tmp;
+        while(qry.next())
+            tmp.append(qMakePair(qry.value(1).toString(), qry.value(0).toString()));
+        return tmp;
+    }
 };
 
 #endif // MUSERS_H

@@ -18,7 +18,6 @@ public:
 
     void editMode(bool edit);
 
-    QString importedId;
 private:
     Ui::UserForm *ui;
 
@@ -26,8 +25,6 @@ signals:
     void closeForm();
 
 private slots:
-    void on_gImport_clicked();
-    void on_bImport_clicked();
     void selectUser();
     void cancelUser();
 

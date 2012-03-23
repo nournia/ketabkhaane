@@ -5,6 +5,7 @@
 
 #include <jalali.h>
 #include <connector.h>
+#include <uihelper.h>
 
 UserForm::UserForm(QWidget *parent) :
     QWidget(parent),
@@ -15,6 +16,7 @@ UserForm::UserForm(QWidget *parent) :
     // add username edit
     connect(ui->eUser, SIGNAL(select()), this, SLOT(selectUser()));
     connect(ui->eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
+    fillComboBox(ui->cAccount, MUsers::accounts());
 
     cancelUser();
     editMode(false);
@@ -36,10 +38,11 @@ void UserForm::editMode(bool edit)
     ui->gUser->setVisible(edit);
     ui->gData->setEnabled(! edit);
     ui->buttonBox->setEnabled(! edit);
-    ui->gImport->setVisible(! edit);
 
     if (edit)
         ui->eUser->setFocus();
+    else
+        ui->eLabel->setText(MUsers::getNewLabel());
 }
 
 void UserForm::on_buttonBox_rejected()
@@ -58,14 +61,22 @@ void UserForm::on_buttonBox_accepted()
     user["description"] = ui->eDescription->text();
     user["birth_date"] = toGregorian(ui->eBirthDate->text());
     user["gender"] = ui->rMale->isChecked() ? "male" : "female";
+    user["account"] = ui->cAccount->itemData(ui->cAccount->currentIndex());
+    user["label"] = ui->eLabel->text();
 
-    QString msg = MUsers::set(ui->eUser->value(), user, importedId);
+    QString msg = MUsers::set(ui->eUser->value(), user);
 
     // there isn't any error
     if (msg == "")
     {
-        importedId = "";
         emit closeForm();
+
+        if (ui->eUser->value().isEmpty())
+        {
+            MUsers::get(ui->eUser->value(), user);
+            msg = tr("%1 registered with %2 label.").arg(user["firstname"].toString() +" "+ user["lastname"].toString()).arg(user["label"].toString());
+            QMessageBox::information(this, QApplication::tr("Reghaabat"), msg);
+        }
     }
     else
         QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
@@ -83,6 +94,8 @@ void UserForm::selectUser()
         ui->eAddress->setText(user["address"].toString());
         ui->ePhone->setText(user["phone"].toString());
         ui->eDescription->setText(user["description"].toString());
+        ui->eLabel->setText(user["label"].toString());
+        ui->cAccount->setCurrentIndex(ui->cAccount->findData(user["account"]));
 
         ui->eBirthDate->setText(toJalali(user["birth_date"].toDate()));
 
@@ -104,6 +117,7 @@ void UserForm::cancelUser()
         condition = QString(" where gender = '%1'").arg(Reghaabat::instance()->userGender);
     ui->eUser->setQuery("select id as cid, id as clabel, firstname||' '||lastname as ctitle from users" + condition);
 
+    ui->eLabel->setText("");
     ui->eFirstname->setText("");
     ui->eLastname->setText("");
     ui->eNationalId->setText("");
@@ -112,65 +126,10 @@ void UserForm::cancelUser()
     ui->eDescription->setText("");
     ui->eBirthDate->setText("");
     ui->rMale->setChecked(true);
+    ui->cAccount->setCurrentIndex(0);
 
     ui->gData->setEnabled(false);
     ui->buttonBox->setEnabled(false);
 
     ui->eUser->setFocus();
-}
-
-void UserForm::on_bImport_clicked()
-{
-    bool ok;
-    QSqlDatabase library = Connector::connectLibrary(ok);
-
-    if (!ok)
-    {
-        QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Library connection error."));
-        return;
-    }
-
-    QSqlQuery qry(library);
-    qry.exec(QString("select Name, Family, Adress, Phon, T_T, [Is Men], Id from users where id = '%1'").arg(ui->eLibraryId->text()));
-
-    if (!qry.next())
-    {
-        QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Invalid library id."));
-        return;
-    }
-
-    // permission validation
-    if (!Reghaabat::hasAccess("manager"))
-        if (!Reghaabat::hasAccess("operator") ||
-            !((qry.value(5).toBool() && Reghaabat::instance()->userGender == "male") || (!qry.value(5).toBool() && Reghaabat::instance()->userGender == "female")))
-        {
-            QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Permission denied."));
-            return;
-        }
-
-    ui->eFirstname->setText(qry.value(0).toString());
-    ui->eLastname->setText(qry.value(1).toString());
-    ui->eAddress->setText(qry.value(2).toString());
-    ui->ePhone->setText(qry.value(3).toString());
-
-    ui->eBirthDate->setText(qry.value(4).toString());
-
-    if (qry.value(5).toBool())
-        ui->rMale->setChecked(true);
-    else
-        ui->rFemale->setChecked(true);
-
-    importedId = qry.value(6).toString();
-
-    ui->gData->setEnabled(true);
-    ui->buttonBox->setEnabled(true);
-    ui->eFirstname->setFocus();
-}
-
-void UserForm::on_gImport_clicked()
-{
-    ui->gImport->setMaximumHeight(ui->gImport->isChecked() ? 54 : 14);
-
-    if (ui->gImport->isChecked())
-        ui->eLibraryId->setFocus();
 }

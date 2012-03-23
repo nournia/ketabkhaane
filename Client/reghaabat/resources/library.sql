@@ -64,8 +64,8 @@ create table borrows (
 	received_at datetime null default null
 );
 
-insert into accounts (id, title, bookfine, cdfine) values (0, 'عضو عادی', 50, 100);
-insert into accounts (id, title, bookfine, cdfine) values (1, 'عضو ویژه', 25, 100);
+insert into accounts (id, title, bookfine, cdfine) values (0, 'عادی', 50, 100);
+insert into accounts (id, title, bookfine, cdfine) values (1, 'ویژه', 25, 100);
 
 insert into types (id, title) values (0, 'کتاب');
 insert into types (id, title) values (1, 'چند رسانه‌ای');

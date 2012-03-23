@@ -6,75 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>383</height>
+    <width>538</width>
+    <height>421</height>
    </rect>
   </property>
   <property name="layoutDirection">
    <enum>Qt::RightToLeft</enum>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QGroupBox" name="gImport">
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>14</height>
-      </size>
-     </property>
-     <property name="title">
-      <string>Library Import</string>
-     </property>
-     <property name="flat">
-      <bool>true</bool>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>Id</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="eLibraryId">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bImport">
-        <property name="text">
-         <string>Import</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item>
     <widget class="QGroupBox" name="gUser">
      <property name="minimumSize">
@@ -128,14 +67,14 @@
       <property name="labelAlignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
-      <item row="0" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>Firstname</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+      <item row="2" column="1">
        <widget class="QLineEdit" name="eFirstname">
         <property name="maximumSize">
          <size>
@@ -145,14 +84,14 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="3" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
          <string>Lastname</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="3" column="1">
        <widget class="QLineEdit" name="eLastname">
         <property name="maximumSize">
          <size>
@@ -162,14 +101,14 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
+      <item row="4" column="0">
        <widget class="QLabel" name="label_11">
         <property name="text">
          <string>Gender</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="4" column="1">
        <widget class="QWidget" name="widget" native="true">
         <property name="maximumSize">
          <size>
@@ -201,34 +140,27 @@
         </layout>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>NationalId</string>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="eLabel">
+        <property name="enabled">
+         <bool>false</bool>
         </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="eNationalId">
         <property name="maximumSize">
          <size>
-          <width>100</width>
+          <width>32</width>
           <height>16777215</height>
          </size>
         </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_8">
         <property name="text">
-         <string/>
+         <string>Label</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>BirthDate</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
+      <item row="5" column="1">
        <widget class="QLineEdit" name="eBirthDate">
         <property name="maximumSize">
          <size>
@@ -242,14 +174,14 @@
        </widget>
       </item>
       <item row="5" column="0">
-       <widget class="QLabel" name="label_7">
+       <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>Phone</string>
+         <string>BirthDate</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
-       <widget class="QLineEdit" name="ePhone">
+      <item row="6" column="1">
+       <widget class="QComboBox" name="cAccount">
         <property name="maximumSize">
          <size>
           <width>100</width>
@@ -259,13 +191,50 @@
        </widget>
       </item>
       <item row="6" column="0">
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="label_9">
         <property name="text">
-         <string>Address</string>
+         <string>Account</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="1">
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="eNationalId">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>NationalId</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLineEdit" name="ePhone">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Phone</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="1">
        <widget class="QLineEdit" name="eAddress">
         <property name="maximumSize">
          <size>
@@ -275,20 +244,27 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="label_10">
+      <item row="9" column="0">
+       <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Description</string>
+         <string>Address</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
+      <item row="10" column="1">
        <widget class="QLineEdit" name="eDescription">
         <property name="maximumSize">
          <size>
           <width>200</width>
           <height>16777215</height>
          </size>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>Description</string>
         </property>
        </widget>
       </item>
@@ -317,15 +293,7 @@
   <tabstop>eLastname</tabstop>
   <tabstop>rMale</tabstop>
   <tabstop>rFemale</tabstop>
-  <tabstop>eNationalId</tabstop>
-  <tabstop>eBirthDate</tabstop>
-  <tabstop>ePhone</tabstop>
-  <tabstop>eAddress</tabstop>
-  <tabstop>eDescription</tabstop>
   <tabstop>buttonBox</tabstop>
-  <tabstop>eLibraryId</tabstop>
-  <tabstop>bImport</tabstop>
-  <tabstop>gImport</tabstop>
  </tabstops>
  <resources/>
  <connections/>
