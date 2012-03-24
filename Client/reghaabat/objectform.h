@@ -24,6 +24,8 @@ signals:
     void closeForm();
 
 private slots:
+    void on_cBranch_currentIndexChanged(int index);
+    void on_cRoot_currentIndexChanged(int index);
     void selectObject();
     void cancelObject();
 

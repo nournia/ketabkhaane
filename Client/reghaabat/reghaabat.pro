@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     json.cpp \
     uihelper.cpp \
     objectform.cpp \
-    objectmanagement.cpp
+    objectmanagement.cpp \
+    mobjects.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -75,7 +76,8 @@ HEADERS  += mainwindow.h \
     json.h \
     uihelper.h \
     objectform.h \
-    objectmanagement.h
+    objectmanagement.h \
+    mobjects.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
