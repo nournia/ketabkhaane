@@ -39,7 +39,9 @@ SOURCES += main.cpp\
     usermanagement.cpp \
     payment.cpp \
     json.cpp \
-    uihelper.cpp
+    uihelper.cpp \
+    objectform.cpp \
+    objectmanagement.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -71,7 +73,9 @@ HEADERS  += mainwindow.h \
     payment.h \
     migrations.h \
     json.h \
-    uihelper.h
+    uihelper.h \
+    objectform.h \
+    objectmanagement.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -88,4 +92,6 @@ FORMS    += mainwindow.ui \
     scoreform.ui \
     matchtable.ui \
     usermanagement.ui \
-    payment.ui
+    payment.ui \
+    objectform.ui \
+    objectmanagement.ui

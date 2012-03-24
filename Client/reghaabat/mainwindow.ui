@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>628</width>
-    <height>391</height>
+    <width>624</width>
+    <height>377</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -65,10 +65,11 @@
    <addaction name="actionNewUser"/>
    <addaction name="actionEditUser"/>
    <addaction name="separator"/>
-   <addaction name="actionPayment"/>
-   <addaction name="actionSetScores"/>
-   <addaction name="actionMatchManagement"/>
    <addaction name="actionUserManagement"/>
+   <addaction name="actionObjectManagement"/>
+   <addaction name="actionMatchManagement"/>
+   <addaction name="actionSetScores"/>
+   <addaction name="actionPayment"/>
    <addaction name="separator"/>
    <addaction name="actionChangePermissions"/>
    <addaction name="actionOptions"/>
@@ -205,6 +206,18 @@
    </property>
    <property name="text">
     <string>Edit User</string>
+   </property>
+  </action>
+  <action name="actionObjectManagement">
+   <property name="icon">
+    <iconset resource="reghaabat.qrc">
+     <normaloff>:/images/object.png</normaloff>:/images/object.png</iconset>
+   </property>
+   <property name="text">
+    <string>Object Management</string>
+   </property>
+   <property name="toolTip">
+    <string>Objec tManagement</string>
    </property>
   </action>
  </widget>

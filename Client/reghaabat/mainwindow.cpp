@@ -14,9 +14,11 @@
 #include <formoperator.h>
 #include <userform.h>
 #include <matchform.h>
+#include <objectform.h>
 #include <optionsform.h>
 #include <formfirst.h>
 #include <usermanagement.h>
+#include <objectmanagement.h>
 #include <payment.h>
 
 // forms
@@ -26,10 +28,12 @@ FormChangePermissions* formChangePermissions;
 
 UserForm* userForm;
 MatchForm* matchForm;
+ObjectForm* objectForm;
 OptionsForm* optionsForm;
 ScoreForm* scoreForm;
 MatchTable* matchListForm;
 UserManagement* userManagement;
+ObjectManagement* objectManagement;
 Payment* paymentForm;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -72,6 +76,7 @@ void MainWindow::applyPermission()
    ui->actionEditUser->setEnabled(false);
    ui->actionUserManagement->setEnabled(false);
    ui->actionMatchManagement->setEnabled(false);
+   ui->actionObjectManagement->setEnabled(false);
    ui->actionSync->setEnabled(false);
    ui->actionOptions->setEnabled(false);
    ui->actionChangePermissions->setEnabled(false);
@@ -96,6 +101,7 @@ void MainWindow::applyPermission()
    {
        ui->actionUserManagement->setEnabled(true);
        ui->actionMatchManagement->setEnabled(true);
+       ui->actionObjectManagement->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("manager"))
@@ -232,6 +238,28 @@ void MainWindow::editMatch()
     matchForm->editMode(true);
 }
 
+void MainWindow::newObject()
+{
+    if (! Reghaabat::hasAccess("designer")) return;
+
+    if (! objectForm)
+    {
+        objectForm = new ObjectForm(this);
+        connect(objectForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
+        stackedLayout->addWidget(objectForm);
+    }
+    stackedLayout->setCurrentWidget(objectForm);
+    objectForm->editMode(false);
+}
+
+void MainWindow::editObject()
+{
+    if (! Reghaabat::hasAccess("designer")) return;
+
+    newObject();
+    objectForm->editMode(true);
+}
+
 void MainWindow::on_actionOptions_triggered()
 {
     if (! Reghaabat::hasAccess("master")) return;
@@ -319,4 +347,16 @@ void MainWindow::on_actionNewUser_triggered()
 void MainWindow::on_actionEditUser_triggered()
 {
     editUser();
+}
+
+void MainWindow::on_actionObjectManagement_triggered()
+{
+    if (! Reghaabat::hasAccess("manager")) return;
+
+    if (! objectManagement)
+    {
+        objectManagement = new ObjectManagement(this);
+        stackedLayout->addWidget(objectManagement);
+    }
+    stackedLayout->setCurrentWidget(objectManagement);
 }

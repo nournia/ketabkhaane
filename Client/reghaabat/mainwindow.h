@@ -31,6 +31,8 @@ public slots:
     void editUser();
     void newMatch();
     void editMatch();
+    void newObject();
+    void editObject();
 
     void on_actionPayment_triggered();
     void on_actionSetScores_triggered();
@@ -47,6 +49,7 @@ public slots:
     void firstPage();
 
 private slots:
+    void on_actionObjectManagement_triggered();
     void on_actionEditUser_triggered();
     void on_actionNewUser_triggered();
 };
