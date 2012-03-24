@@ -163,7 +163,8 @@ create table open_scores (
 -- library
 create table roots (
 	id integer not null primary key autoincrement,
-	title varchar(255) not null
+	title varchar(255) not null,
+	type_id smallint not null references types(id) on update cascade
 );
 create table branches (
 	id integer not null primary key autoincrement,

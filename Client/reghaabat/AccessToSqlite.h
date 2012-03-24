@@ -341,19 +341,19 @@ void importMatchDb(QString accessFilename)
 
 void importBranches()
 {
-    importTable("roots", "select distinct sarname, '', '' from objectsgroping where gropingcode > 100",
-                QStringList() << "title");
+    importTable("roots", "select sarname, iif(objecttype = 2, 1, 0), '', '' from objectsgroping where gropingcode > 100 and gropingcode < 350 group by sarname, iif(objecttype = 2, 1, 0) order by first(gropingcode)",
+                QStringList() << "title" << "type_id");
 
-    importTable("branches", "select gropingcode, 1, zirname, gropingcode, '', '' from objectsgroping where gropingcode > 100",
+    importTable("branches", "select gropingcode, 1, zirname, gropingcode, '', '' from objectsgroping where gropingcode > 100 and gropingcode < 350",
                 QStringList() << "id" << "root_id" << "title" << "label");
 
     // fix root_id of branches
     QSqlQuery qry(sqliteDb);
-    accessQry.exec("select gropingcode, sarname from objectsgroping");
+    accessQry.exec("select gropingcode, sarname, iif(objecttype = 2, 1, 0) from objectsgroping");
     while (accessQry.next())
     {
         QString id = accessQry.value(0).toString();
-        sqliteQry.exec("select id from roots where title = '"+ refineText(accessQry.value(1).toString()) +"'");
+        sqliteQry.exec("select id from roots where title = '"+ refineText(accessQry.value(1).toString()) +"' and type_id = "+ accessQry.value(2).toString());
         if (sqliteQry.next())
         {
             qry.exec("update branches set root_id = "+ sqliteQry.value(0).toString() +" where id = "+ id);

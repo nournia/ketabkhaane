@@ -17,8 +17,6 @@ ObjectForm::ObjectForm(QWidget *parent) :
     connect(ui->eObject, SIGNAL(cancel()), this, SLOT(cancelObject()));
 
     fillComboBox(ui->cType, MObjects::types());
-    fillComboBox(ui->cRoot, MObjects::roots());
-    fillComboBox(ui->cBranch, MObjects::branches("1"));
 }
 
 ObjectForm::~ObjectForm()
@@ -81,6 +79,11 @@ void ObjectForm::cancelObject()
     ui->gData->setEnabled(false);
 
     ui->eObject->setFocus();
+}
+
+void ObjectForm::on_cType_currentIndexChanged(int index)
+{
+    fillComboBox(ui->cRoot, MObjects::roots(ui->cType->itemData(index).toString()));
 }
 
 void ObjectForm::on_cRoot_currentIndexChanged(int index)

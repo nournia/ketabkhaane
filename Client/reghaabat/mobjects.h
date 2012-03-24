@@ -21,10 +21,10 @@ public:
         return tmp;
     }
 
-    static QList<StrPair> roots()
+    static QList<StrPair> roots(QString type)
     {
         QSqlQuery qry;
-        qry.exec("select id, title from roots order by id");
+        qry.exec("select id, title from roots where type_id = "+ type +" order by id");
 
         QList<StrPair> tmp;
         while(qry.next())
@@ -35,7 +35,7 @@ public:
     static QList<StrPair> branches(QString root)
     {
         QSqlQuery qry;
-        qry.exec("select id, title from branches where root_id = "+ root +" oreder by id");
+        qry.exec("select id, title from branches where root_id = "+ root +" order by id");
 
         QList<StrPair> tmp;
         while(qry.next())
