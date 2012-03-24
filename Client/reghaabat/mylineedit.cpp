@@ -116,7 +116,7 @@ void MyCompleter::updateSuggestions()
         popup->setUpdatesEnabled(false);
         popup->clear();
 
-        qry->exec(qtmp + QString("(ctitle like '%"+ text +"%' or clabel like '%"+ text +"%') order by ctitle"));
+        qry->exec(qtmp + QString("(ctitle like '%"+ text +"%' or clabel like '%"+ text +"%') order by ctitle limit 50"));
         for (i = 0; qry->next(); i++)
         {
             if (i == 0)
