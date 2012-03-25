@@ -22,7 +22,7 @@ OptionsForm::OptionsForm(QWidget *parent) :
 
     ui->cCorrectorIdentifier->addItem(tr("NameFamily"), "NameFamily");
     ui->cCorrectorIdentifier->addItem(tr("Family"), "Family");
-    ui->cCorrectorIdentifier->addItem(tr("Id"), "Id");
+    ui->cCorrectorIdentifier->addItem(tr("Label"), "Label");
 
     QSettings settings("Sobhe", "Reghaabat");
     ui->eDataFolder->setText(settings.value("DataFolder", "").toString());

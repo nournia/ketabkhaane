@@ -21,18 +21,21 @@ MatchForm::MatchForm(QWidget *parent) :
     ui->setupUi(this);
     ui->buttonBox->addButton(new QPushButton(QIcon(":/images/preview.png"), ViewerForm::tr("Preview")), QDialogButtonBox::ResetRole);
 
-    ui->eCorrector->setQuery("select id as cid, id as clabel, firstname ||' '|| lastname as ctitle from users");
-    ui->eAuthor->setQuery("select id as cid, '' as clabel, title as ctitle from authors");
-    ui->ePublication->setQuery("select id as cid, '' as clabel, title as ctitle from publications");
+    ui->eObject->setQuery("select id as cid, label as clabel, title as ctitle from objects");
+    ui->eCorrector->setQuery("select id as cid, label as clabel, firstname ||' '|| lastname as ctitle from users");
 
     fillComboBox(ui->cState, MMatches::states());
     fillComboBox(ui->cAgeClass, MMatches::ageclasses());
+    fillComboBox(ui->cGroup, MMatches::categories());
 
     on_cType_currentIndexChanged(0);
 
     // add matchname edit
     connect(ui->eMatch, SIGNAL(select()), this, SLOT(selectMatch()));
     connect(ui->eMatch, SIGNAL(cancel()), this, SLOT(cancelMatch()));
+
+    connect(ui->eObject, SIGNAL(select()), this, SLOT(selectObject()));
+    connect(ui->eObject, SIGNAL(cancel()), this, SLOT(cancelObject()));
 
     // init fillerItem for new question
     fillerItem = new QWidget(this);
@@ -86,6 +89,8 @@ void MatchForm::selectMatch()
         StrMap match;
         MMatches::get(ui->eMatch->value(), match, questions);
 
+        ui->eObject->setText(match["object"].toString());
+        ui->eObject->setValue(match["object_id"].toString());
         ui->eTitle->setText(match["title"].toString());
         ui->eCorrector->setText(match["corrector"].toString());
         ui->eCorrector->setValue(match["corrector_id"].toString());
@@ -96,11 +101,6 @@ void MatchForm::selectMatch()
         if (match["category_id"] == "")
         {
             ui->cType->setCurrentIndex(0); // Questions
-            ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["kind"]));
-            ui->eAuthor->setText(match["author"].toString());
-            ui->eAuthor->setValue(match["author_id"].toString());
-            ui->ePublication->setText(match["publication"].toString());
-            ui->ePublication->setValue(match["publication_id"].toString());
 
             // questions
             for (int i = 0; i < questions.size(); i++)
@@ -126,17 +126,16 @@ void MatchForm::selectMatch()
 
 void MatchForm::cancelMatch()
 {
-    ui->eMatch->setQuery("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id");
+    ui->eMatch->setQuery("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.object_id = objects.id");
 
     ui->eTitle->setText("");
+    ui->eObject->setText("");
     ui->eCorrector->setText("");
     ui->sScore->setValue(0);
     ui->cAgeClass->setCurrentIndex(0);
     ui->cState->setCurrentIndex(0);
 
     ui->cGroup->setCurrentIndex(0);
-    ui->eAuthor->setText("");
-    ui->ePublication->setText("");
 
     ui->eContent->page()->mainFrame()->evaluateJavaScript("emptyEditor();");
 
@@ -152,15 +151,10 @@ void MatchForm::cancelMatch()
 void MatchForm::on_cType_currentIndexChanged(int index)
 {
     bool intructions = ui->cType->currentIndex() == 0;
-    if (intructions)
-    {
-        ui->cGroup->clear();
-        ui->cGroup->addItem(tr("book"), "book");
-        ui->cGroup->addItem(tr("multimedia"), "multimedia");
-    } else
-        fillComboBox(ui->cGroup, MMatches::categories());
 
-    ui->gResource->setVisible(intructions);
+    ui->gObject->setVisible(intructions);
+    ui->cGroup->setVisible(! intructions);
+    ui->lGroup->setVisible(! intructions);
     ui->sQuestions->setVisible(intructions);
     ui->eContent->setVisible(! intructions);
 }
@@ -214,16 +208,13 @@ void MatchForm::fillMaps(StrMap& match, QList<StrPair>& questions)
 {
     match["title"] = ui->eTitle->text();
     match["corrector_id"] = ui->eCorrector->value();
+    match["object_id"] = ui->eObject->value();
     match["score"] = ui->sScore->value();
     match["ageclass"] = ui->cAgeClass->itemData(ui->cAgeClass->currentIndex());
     match["current_state"] = ui->cState->itemData(ui->cState->currentIndex());
 
     if (ui->cType->currentIndex() == 0)
     {
-        match["kind"] = ui->cGroup->itemData(ui->cGroup->currentIndex());
-        match["author"] = ! ui->eAuthor->value().isEmpty() ? ui->eAuthor->value() : ui->eAuthor->text();
-        match["publication"] = ! ui->ePublication->value().isEmpty() ? ui->ePublication->value() : ui->ePublication->text();
-
         // questions
         for (int i = 0; i < qModules.size(); i++)
             if (qModules.at(i)->question() != "")
@@ -288,4 +279,14 @@ void MatchForm::on_buttonBox_clicked(QAbstractButton* button)
 QString MatchForm::getFilename()
 {
     return QFileDialog::getOpenFileName(this, tr("Select Image File")).replace("/", "\\");
+}
+
+void MatchForm::selectObject()
+{
+    ui->eTitle->setText(ui->eObject->text());
+}
+
+void MatchForm::cancelObject()
+{
+    ui->eTitle->setText("");
 }

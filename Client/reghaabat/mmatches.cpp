@@ -5,8 +5,8 @@
 bool MMatches::get(QString matchId, StrMap& match, QList<StrPair>& questions)
 {
     QSqlQuery qry;
-    qry.exec("select matches.title, matches.ageclass, matches.category_id, matches.content, resources.kind, resources.author_id, authors.title as author, resources.publication_id, publications.title as publication, supports.current_state, supports.score, supports.corrector_id, users.firstname || ' ' || users.lastname as corrector "
-             "from matches left join resources on matches.resource_id = resources.id left join authors on resources.author_id = authors.id left join publications on resources.publication_id = publications.id left join supports on matches.id = supports.match_id left join users on supports.corrector_id = users.id where matches.id = " + matchId);
+    qry.exec("select matches.title, matches.ageclass, matches.object_id, objects.title as object, matches.category_id, matches.content, supports.current_state, supports.score, supports.corrector_id, users.firstname || ' ' || users.lastname as corrector "
+             "from matches left join objects on matches.object_id = objects.id left join supports on matches.id = supports.match_id left join users on supports.corrector_id = users.id where matches.id = " + matchId);
     if (! qry.next()) return false;
 
     match = getRecord(qry);
@@ -33,9 +33,7 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
 {
     QSqlQuery qry;
 
-    // validation
-
-    // basic
+    // basic validation
     if (data["title"].toString().isEmpty())
         return QObject::tr("Title is required.");
     if (data["corrector_id"].toString().isEmpty())
@@ -50,56 +48,18 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
         if (qry.value(0).toString() != matchId)
             return QObject::tr("There is another match with this title.");
 
-    data["author"] = data["author"].toString().trimmed();
-    data["publication"] = data["publication"].toString().trimmed();
-
-
     // store
-
     QSqlDatabase db = Connector::connectDb();
     db.transaction();
 
     StrMap match;
-    match["resource_id"] = "";
     QStringList oldfiles, newfiles;
 
-    if (data["category_id"].toString() == "")
-    {
-        // new author & publication
-        if (! data["author"].toString().isEmpty() && data["author"].toInt() == 0)
-            data["author"] = insertTitleEntry("authors", data["author"].toString());
+    match["category_id"] = "";
+    match["content"] = "";
+    match["object_id"] = "";
 
-        if (! data["publication"].toString().isEmpty() && data["publication"].toInt() == 0)
-            data["publication"] = insertTitleEntry("publications", data["publication"].toString());
-
-        StrMap resource;
-        resource["author_id"] = data["author"];
-        resource["publication_id"] = data["publication"];
-        resource["kind"] = data["kind"];
-        resource["title"] = data["title"];
-        resource["ageclass"] = data["ageclass"];
-
-        if (matchId != "")
-        {
-            qry.exec("select resource_id from matches where id = "+ matchId);
-            if (qry.next())
-                match["resource_id"] = qry.value(0).toString();
-        }
-
-        // resources table
-        if (! qry.exec(getReplaceQuery("resources", resource, match["resource_id"].toString())))
-        {
-            db.rollback();
-            return qry.lastError().text();
-        }
-        if (match["resource_id"].toString().isEmpty())
-        {
-            match["resource_id"] = qry.lastInsertId().toString();
-            insertLog("resources", "insert", match["resource_id"]);
-        } else
-            insertLog("resources", "update", match["resource_id"]);
-
-    } else
+    if (! data["category_id"].toString().isEmpty())
     {
         match["category_id"] = data["category_id"];
 
@@ -119,7 +79,8 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
             oldfiles = extractFilenames(qry.value(0).toString());
 
         match["content"] = content;
-    }
+    } else
+        match["object_id"] = data["object_id"];
 
     match["designer_id"] = data["corrector_id"];
     match["title"] = data["title"];
@@ -164,7 +125,7 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
 
 
     // questions table
-    if (data["category_id"].toString() == "")
+    if (data["category_id"].toString().isEmpty())
     {
         QString persistent;
 

@@ -40,6 +40,8 @@ public slots:
 private slots:
     void selectMatch();
     void cancelMatch();
+    void selectObject();
+    void cancelObject();
     void bNewQuestion_clicked();
 
     void on_buttonBox_rejected();

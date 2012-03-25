@@ -99,12 +99,12 @@ public:
 
         QString sql = QString() +
             "select matches.id, matches.title as title, "+
-            "ifnull(categories.title, case resources.kind when 'book' then '"+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end) as kind, "+
+            "ifnull(categories.title, types.title) as kind, "+
             "ageclasses.title as ageclass, "+
             "supports.score, "+
             "ifnull(answer_ratio, '-') as answer_ratio, "+
             "case supports.current_state when 'active' then '"+ QObject::tr("active") +"' when 'imported' then '"+ QObject::tr("imported") +"' when 'disabled' then '"+ QObject::tr("disabled") +"' end as state "+
-            "from matches inner join supports on matches.id = supports.match_id inner join ageclasses on matches.ageclass = ageclasses.id left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id "+
+            "from matches inner join supports on matches.id = supports.match_id inner join ageclasses on matches.ageclass = ageclasses.id left join categories on categories.id = matches.category_id left join objects on matches.object_id = objects.id left join types on objects.type_id = types.id "+
             "left join (select match_id, count(question)||' / '||count(answer) as answer_ratio from questions group by match_id) as t_questions on matches.id = t_questions.match_id "+
             "order by " + fields[column-1];
 

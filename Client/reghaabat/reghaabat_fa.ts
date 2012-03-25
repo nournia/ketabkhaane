@@ -364,7 +364,7 @@
         <translation>عنوان مسابقه</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+47"/>
         <source>Type</source>
         <translation>نوع</translation>
     </message>
@@ -379,27 +379,32 @@
         <translation>توضیحی</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+18"/>
         <source>Group</source>
         <translation>گروه</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-10"/>
         <source>AgeClass</source>
         <translation>رده سنی</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+43"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+25"/>
+        <source>Object</source>
+        <translation>شئ</translation>
+    </message>
+    <message>
+        <location line="+23"/>
         <source>Corrector</source>
         <translation>مصحح</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+10"/>
         <source>Score</source>
         <translation>امتیاز</translation>
     </message>
@@ -425,22 +430,19 @@
         <translation type="obsolete">غیر فعال</translation>
     </message>
     <message>
-        <location line="-74"/>
         <source>Author</source>
-        <translation>نویسنده</translation>
+        <translation type="obsolete">نویسنده</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Publication</source>
-        <translation>انتشارات</translation>
+        <translation type="obsolete">انتشارات</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+40"/>
+        <location filename="matchform.cpp" line="+43"/>
         <source>New Question</source>
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location line="+118"/>
         <location filename="matchtable.h" line="+102"/>
         <location filename="viewerform.cpp" line="+105"/>
         <location line="+99"/>
@@ -448,15 +450,14 @@
         <translation>کتاب</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <location filename="matchtable.h" line="+0"/>
+        <location line="+0"/>
         <location filename="viewerform.cpp" line="-99"/>
         <location line="+104"/>
         <source>multimedia</source>
         <translation>چند رسانه‌ای</translation>
     </message>
     <message>
-        <location line="+131"/>
+        <location filename="matchform.cpp" line="+238"/>
         <source>Select Image File</source>
         <translation>انتخاب تصویر</translation>
     </message>
@@ -679,8 +680,12 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>Label</source>
+        <translation>کد</translation>
+    </message>
+    <message>
         <source>Id</source>
-        <translation>کد عضویت</translation>
+        <translation type="obsolete">کد عضویت</translation>
     </message>
     <message>
         <source>Select Library Database</source>
@@ -893,7 +898,7 @@
         <translation>رقابت</translation>
     </message>
     <message>
-        <location filename="mmatches.cpp" line="+40"/>
+        <location filename="mmatches.cpp" line="+38"/>
         <location filename="mobjects.cpp" line="+41"/>
         <source>Title is required.</source>
         <oldsource>Title is required</oldsource>
@@ -916,7 +921,7 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+246"/>
+        <location line="+209"/>
         <source>Invalid record selected.</source>
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
@@ -1010,7 +1015,7 @@
         <translation>مصحح</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+24"/>
         <source>Days For Show Score</source>
         <translation>نمایش امتیاز روزهای قبل</translation>
     </message>
@@ -1366,8 +1371,8 @@
         <translation type="obsolete">کیفیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="-230"/>
-        <location line="+254"/>
+        <location filename="matchform.cpp" line="-221"/>
+        <location line="+245"/>
         <location filename="viewerform.cpp" line="-54"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>

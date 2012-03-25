@@ -224,7 +224,7 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 
 
     // corrector
-    qry.exec("select firstname, lastname from users where id = "+ match["corrector"].toString());
+    qry.exec("select firstname, lastname, label from users where id = "+ match["corrector"].toString());
     if (qry.next())
     {
         QString corrector;
@@ -234,8 +234,8 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
             corrector = qry.value(0).toString() + " " + qry.value(1).toString();
         else if (correctorPrint == "Family")
             corrector = qry.value(1).toString();
-        else if (correctorPrint == "Id")
-            corrector = match["corrector"].toString();
+        else if (correctorPrint == "Label")
+            corrector = corrector = qry.value(2).toString();
 
         frame->findFirstElement("#corrector").setPlainText(corrector);
     }
