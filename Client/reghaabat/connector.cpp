@@ -25,7 +25,7 @@ QSqlDatabase Connector::connectLibrary(bool& ok)
     QSqlDatabase db;
     ok = false;
 
-    QSettings settings("Rooyesh", "Reghaabat");
+    QSettings settings("Sobhe", "Reghaabat");
     QString library = settings.value("LibraryAddress", "").toString();
 
     if (library.isEmpty() || ! QFile::exists(library))

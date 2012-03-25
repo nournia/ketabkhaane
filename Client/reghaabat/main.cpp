@@ -16,12 +16,12 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setApplicationVersion("0.8.5");
+    a.setApplicationVersion("0.9.0");
 
     // arguments
     if (argc == 3 && !strcmp(argv[1], "-data"))
     {
-        QSettings settings("Rooyesh", "Reghaabat");
+        QSettings settings("Sobhe", "Reghaabat");
 
         QString filename = argv[2];
         if (filename.isEmpty())
@@ -33,8 +33,8 @@ int main(int argc, char *argv[])
     {
         importMatchDb("C:\\Users\\Noorian\\Desktop\\Reghaabat.mdb");
         importLibraryDb("C:\\Users\\Noorian\\Desktop\\Library.mdb");
+        exit(0);
     }
-
 
     // translation
     QTranslator rTranslator;
@@ -62,6 +62,3 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
-
-
-

@@ -36,7 +36,7 @@ QString getAbsoluteAddress(QString address)
 
 QString dataFolder()
 {
-    QSettings settings("Rooyesh", "Reghaabat");
+    QSettings settings("Sobhe", "Reghaabat");
     return settings.value("DataFolder", getAbsoluteAddress("data")).toString();
 }
 

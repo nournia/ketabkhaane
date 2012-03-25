@@ -285,7 +285,7 @@ void ViewerForm::on_bPdf_clicked()
 
 void ViewerForm::on_bPrint_clicked()
 {
-    QSettings settings("Rooyesh", "Reghaabat");
+    QSettings settings("Sobhe", "Reghaabat");
     QString tmpFile = "p";
 
     savePdf(tmpFile);
