@@ -10,6 +10,8 @@ public:
 
     static QString getNewLabel(QString branch);
 
+    static QString set(QString userId, StrMap object);
+
     static QList<StrPair> types()
     {
         QSqlQuery qry;

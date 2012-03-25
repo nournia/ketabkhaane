@@ -31,3 +31,37 @@ QString MObjects::getNewLabel(QString branch)
     result = label +"-"+ result.replace(" ", "0");
     return result;
 }
+
+QString MObjects::set(QString objectId, StrMap object)
+{
+    QSqlQuery qry;
+
+    // validate
+    if (object["title"].toString().trimmed().isEmpty())
+        return QObject::tr("Title is required.");
+
+    // set label
+    if (objectId.isEmpty())
+        object["label"] = getNewLabel(object["branch_id"].toString());
+
+    // new author & publication
+    if (! object["author_id"].toString().isEmpty() && object["author_id"].toInt() == 0)
+        object["author_id"] = insertTitleEntry("authors", object["author_id"].toString());
+    if (! object["publication_id"].toString().isEmpty() && object["publication_id"].toInt() == 0)
+        object["publication_id"] = insertTitleEntry("publications", object["publication_id"].toString());
+
+    // store
+    if (! qry.exec(getReplaceQuery("objects", object, objectId)))
+        return qry.lastError().text();
+
+    if (objectId.isEmpty())
+    {
+        objectId = qry.lastInsertId().toString();
+        insertLog("objects", "insert", objectId);
+    }
+    else
+        insertLog("objects", "update", objectId);
+
+    object["id"] = objectId;
+    return "";
+}

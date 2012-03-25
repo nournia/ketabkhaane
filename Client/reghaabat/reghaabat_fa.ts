@@ -193,7 +193,7 @@
         <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+68"/>
         <location line="+3"/>
         <source>Sync</source>
         <translation>همزمانی</translation>
@@ -207,7 +207,7 @@
     <message>
         <location line="+9"/>
         <location line="+3"/>
-        <location filename="mainwindow.cpp" line="+132"/>
+        <location filename="mainwindow.cpp" line="+138"/>
         <source>Logout</source>
         <translation>خروج</translation>
     </message>
@@ -239,7 +239,13 @@
         <translation>عضو جدید</translation>
     </message>
     <message>
-        <location line="-81"/>
+        <location line="+18"/>
+        <location line="+3"/>
+        <source>Object Management</source>
+        <translation>مدیریت اشیاء</translation>
+    </message>
+    <message>
+        <location line="-102"/>
         <source>Options</source>
         <translation>تنظمیات</translation>
     </message>
@@ -524,6 +530,72 @@
     </message>
 </context>
 <context>
+    <name>ObjectForm</name>
+    <message>
+        <location filename="objectform.ui" line="+46"/>
+        <source>Objectname</source>
+        <translation>عنوان شئ</translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Label</source>
+        <translation>کد</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Type</source>
+        <translation>نوع</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Root</source>
+        <translation>سرگروه</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Branch</source>
+        <translation>زیرگروه</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Title</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Count</source>
+        <translation>تعداد</translation>
+    </message>
+    <message>
+        <location line="-34"/>
+        <source>Author</source>
+        <translation>نویسنده</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Publication</source>
+        <translation>انتشارات</translation>
+    </message>
+    <message>
+        <location filename="objectform.cpp" line="+125"/>
+        <source>%1 registered with %2 label.</source>
+        <translation>«%1» با کد «%2» ثبت شد.</translation>
+    </message>
+</context>
+<context>
+    <name>ObjectManagement</name>
+    <message>
+        <location filename="objectmanagement.ui" line="+32"/>
+        <source>New Object</source>
+        <translation>شئ جدید</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Edit Object</source>
+        <translation>ویرایش شئ</translation>
+    </message>
+</context>
+<context>
     <name>OptionsForm</name>
     <message>
         <source>Convert Old Database</source>
@@ -539,7 +611,7 @@
         <translation>عمومی</translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+87"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
@@ -548,7 +620,7 @@
         <translation type="obsolete">عنوان</translation>
     </message>
     <message>
-        <location line="-100"/>
+        <location line="-78"/>
         <source>Corrector Show</source>
         <translation>نحوه نمایش مصحح</translation>
     </message>
@@ -568,12 +640,11 @@
         <translation>محلی</translation>
     </message>
     <message>
-        <location line="+34"/>
         <source>Db Address</source>
-        <translation>آدرس پایگاه داده</translation>
+        <translation type="obsolete">آدرس پایگاه داده</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+50"/>
         <source>Description</source>
         <translation>توضیحات</translation>
     </message>
@@ -583,8 +654,7 @@
         <translation>نسخه</translation>
     </message>
     <message>
-        <location line="-60"/>
-        <location line="+25"/>
+        <location line="-35"/>
         <source>Select</source>
         <translation>انتخاب</translation>
     </message>
@@ -593,7 +663,7 @@
         <translation type="obsolete">شبکه رقابت</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-12"/>
         <source>Data Folder</source>
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
@@ -613,12 +683,11 @@
         <translation>کد عضویت</translation>
     </message>
     <message>
-        <location line="+43"/>
         <source>Select Library Database</source>
-        <translation>انتخاب پایگاه داده کتابخانه</translation>
+        <translation type="obsolete">انتخاب پایگاه داده کتابخانه</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+41"/>
         <source>Select Reghaabat Data Folder</source>
         <translation>انتخاب پوشه داده‌ها</translation>
     </message>
@@ -733,7 +802,9 @@
         <location filename="dialogchangepassword.cpp" line="+25"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="matchform.cpp" line="-38"/>
-        <location filename="optionsform.cpp" line="-12"/>
+        <location filename="objectform.cpp" line="+1"/>
+        <location line="+4"/>
+        <location filename="optionsform.cpp" line="-5"/>
         <location filename="payment.cpp" line="+103"/>
         <location filename="userform.cpp" line="+78"/>
         <location line="+4"/>
@@ -776,7 +847,7 @@
         <translation>این شماره ملی برای %1 ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+48"/>
         <source>Invalid Old Password.</source>
         <translation>کلمه عبور وارد شده اشتباه است.</translation>
     </message>
@@ -823,6 +894,7 @@
     </message>
     <message>
         <location filename="mmatches.cpp" line="+40"/>
+        <location filename="mobjects.cpp" line="+41"/>
         <source>Title is required.</source>
         <oldsource>Title is required</oldsource>
         <translation>عنوان نباید خالی باشد.</translation>
@@ -983,32 +1055,32 @@
         <translation>نام خانوادگی</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+126"/>
         <source>NationalId</source>
         <translation>شماره ملی</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-37"/>
         <source>BirthDate</source>
         <translation>تاریخ تولد</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+71"/>
         <source>Address</source>
         <translation>نشانی</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="-91"/>
         <source>Label</source>
         <translation>کد</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+37"/>
         <source>Account</source>
         <translation>عضویت</translation>
     </message>
     <message>
-        <location line="-71"/>
+        <location line="+37"/>
         <source>Phone</source>
         <translation>شماره تماس</translation>
     </message>
@@ -1025,22 +1097,22 @@
         <translation type="obsolete">وارد کردن</translation>
     </message>
     <message>
-        <location line="-140"/>
+        <location line="-187"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
     <message>
-        <location line="+133"/>
+        <location line="+126"/>
         <source>9999/99/99;_</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+95"/>
         <source>Description</source>
         <translation>توضیحات</translation>
     </message>
     <message>
-        <location line="-113"/>
+        <location line="-160"/>
         <source>Gender</source>
         <translation>جنسیت</translation>
     </message>
@@ -1085,7 +1157,7 @@
     <message>
         <location filename="userform.cpp" line="-5"/>
         <source>%1 registered with %2 label.</source>
-        <translation>%1 با کد %2 ثبت نام شد.</translation>
+        <translation>«%1» با کد «%2» ثبت شد.</translation>
     </message>
 </context>
 <context>

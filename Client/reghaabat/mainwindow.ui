@@ -217,7 +217,7 @@
     <string>Object Management</string>
    </property>
    <property name="toolTip">
-    <string>Objec tManagement</string>
+    <string>Object Management</string>
    </property>
   </action>
  </widget>

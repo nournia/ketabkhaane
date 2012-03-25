@@ -81,11 +81,9 @@ QString MUsers::set(QString userId, StrMap user)
     if (! qry.exec(getReplaceQuery("users", user, userId)))
         return qry.lastError().text();
 
-    QString tmpUID = qry.lastInsertId().toString();
-
     if (userId.isEmpty())
     {
-        userId = tmpUID;
+        userId = qry.lastInsertId().toString();
         insertLog("users", "insert", userId);
 
         if (qry.exec(QString("insert into scores (user_id) values (%1)").arg(userId)))
@@ -94,6 +92,7 @@ QString MUsers::set(QString userId, StrMap user)
     else
         insertLog("users", "update", userId);
 
+    user["id"] = userId;
     return "";
 }
 

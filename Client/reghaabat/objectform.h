@@ -24,6 +24,7 @@ signals:
     void closeForm();
 
 private slots:
+    void on_buttonBox_accepted();
     void on_cType_currentIndexChanged(int index);
     void on_cBranch_currentIndexChanged(int index);
     void on_cRoot_currentIndexChanged(int index);

@@ -73,7 +73,7 @@ void UserForm::on_buttonBox_accepted()
 
         if (ui->eUser->value().isEmpty())
         {
-            MUsers::get(ui->eUser->value(), user);
+            MUsers::get(user["id"].toString(), user);
             msg = tr("%1 registered with %2 label.").arg(user["firstname"].toString() +" "+ user["lastname"].toString()).arg(user["label"].toString());
             QMessageBox::information(this, QApplication::tr("Reghaabat"), msg);
         }
