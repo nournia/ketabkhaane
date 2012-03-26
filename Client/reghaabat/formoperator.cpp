@@ -24,7 +24,7 @@ FormOperator::FormOperator(QWidget *parent) :
     QString condition;
     if (!Reghaabat::hasAccess("manager"))
         condition = QString(" where gender = '%1'").arg(Reghaabat::instance()->userGender);
-    ui->eUser->setQuery("select id as cid, id as clabel, firstname||' '||lastname as ctitle from users" + condition);
+    ui->eUser->setQuery("select id as cid, label as clabel, firstname||' '||lastname as ctitle from users" + condition);
     connect(ui->eUser, SIGNAL(select()), this, SLOT(selectUser()));
     connect(ui->eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
 
@@ -82,9 +82,9 @@ void FormOperator::selectUser()
 
         QString query;
         if (ui->cQuickSearch->isChecked())
-            query = QString("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(ui->eUser->value())).arg(ui->eUser->value());
+            query = QString("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.object_id = objects.id inner join supports on matches.id = supports.match_id where supports.current_state = 'active' and abs(ageclass - %1) <= 1 and matches.id not in (select match_id from answers where user_id = %2)").arg(MUsers::getAgeClass(ui->eUser->value())).arg(ui->eUser->value());
         else
-            query = "select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.resource_id = objects.resource_id";
+            query = "select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.object_id = objects.id";
         ui->eMatch->setQuery(query);
         ui->eMatch->setFocus();
     }
@@ -170,11 +170,6 @@ void FormOperator::prepareViewer()
     match["user"] = ui->eUser->value();
 
     QSqlQuery qry;
-
-    // corrector
-    qry.exec(QString("select id from users where firstname ||' '|| lastname = '%1'").arg(match["corrector"].toString()));
-    if (qry.next())
-        match["corrector"] = qry.value(0).toString();
 
     // select random questions
     int qs = 4;

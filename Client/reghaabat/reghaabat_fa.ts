@@ -443,21 +443,15 @@
         <translation>سوال جدید</translation>
     </message>
     <message>
-        <location filename="matchtable.h" line="+102"/>
-        <location filename="viewerform.cpp" line="+105"/>
-        <location line="+99"/>
         <source>book</source>
-        <translation>کتاب</translation>
+        <translation type="obsolete">کتاب</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location filename="viewerform.cpp" line="-99"/>
-        <location line="+104"/>
         <source>multimedia</source>
-        <translation>چند رسانه‌ای</translation>
+        <translation type="obsolete">چند رسانه‌ای</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+238"/>
+        <location line="+238"/>
         <source>Select Image File</source>
         <translation>انتخاب تصویر</translation>
     </message>
@@ -465,7 +459,7 @@
 <context>
     <name>MatchListModel</name>
     <message>
-        <location filename="matchtable.h" line="-78"/>
+        <location filename="matchtable.h" line="+24"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
@@ -1230,7 +1224,7 @@
         <translation type="obsolete">با تفکیک آقا و خانم</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="-74"/>
+        <location filename="viewerform.cpp" line="+135"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -1294,7 +1288,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Weman Score List</source>
+        <source>Women Score List</source>
+        <oldsource>Weman Score List</oldsource>
         <translation>لیست امتیاز خانمها</translation>
     </message>
     <message>
@@ -1321,40 +1316,36 @@
     </message>
     <message>
         <location filename="payment.cpp" line="-36"/>
-        <location filename="viewerform.cpp" line="+15"/>
         <source>Grade1</source>
         <translation>ضعیف</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location filename="viewerform.cpp" line="+0"/>
         <source>Grade2</source>
         <translation>متوسط</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location filename="viewerform.cpp" line="+0"/>
         <source>Grade3</source>
         <translation>خوب</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location filename="viewerform.cpp" line="+0"/>
         <source>Grade4</source>
         <translation>عالی</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="+36"/>
+        <location filename="viewerform.cpp" line="+51"/>
         <source>Your score depends on your mood, attention and genuis.</source>
         <translation>امتیاز مسابقه به حوصله، دقت و استعداد شما داده می‌شود.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+9"/>
         <source>You can achive up to twice score for writing an abstract of book.</source>
         <translation>نوشتن خلاصه‌ای از کتاب به اندازه پاسخ دادن به سوالها امتیاز دارد.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+2"/>
         <source>You can achive up to twice score for writing an abstract of match content.</source>
         <translation>نوشتن خلاصه‌ای از محتوی مسابقه به اندازه پاسخ دادن به سوالها امتیاز دارد.</translation>
     </message>
@@ -1373,7 +1364,7 @@
     <message>
         <location filename="matchform.cpp" line="-221"/>
         <location line="+245"/>
-        <location filename="viewerform.cpp" line="-54"/>
+        <location filename="viewerform.cpp" line="-55"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
     </message>

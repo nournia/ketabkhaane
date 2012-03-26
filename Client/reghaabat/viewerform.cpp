@@ -102,7 +102,7 @@ QString getMatchListQuery(QString ageclass)
     } else
         tCondition = "and matches.ageclass = " + ageclass;
 
-    return QString("select matches.title, %1 ifnull(categories.title, case resources.kind when 'book' then ' "+ MatchForm::tr("book") +"' when 'multimedia' then '"+ MatchForm::tr("multimedia") +"' end) as kind, supports.score from matches inner join supports on matches.id = supports.match_id %2 left join categories on categories.id = matches.category_id left join resources on matches.resource_id = resources.id where supports.current_state = 'active' %3 order by kind, supports.score desc, matches.title").arg(tField).arg(tTable).arg(tCondition);
+    return QString("select matches.title, %1 ifnull(categories.title, types.title) as kind, supports.score from matches inner join supports on matches.id = supports.match_id %2 left join categories on categories.id = matches.category_id left join objects on matches.object_id = objects.id left join types on objects.type_id = types.id where supports.current_state = 'active' %3 order by kind, supports.score desc, matches.title").arg(tField).arg(tTable).arg(tCondition);
 }
 
 void ViewerForm::bUserAll()
@@ -122,7 +122,7 @@ void ViewerForm::bUserGenderGroup()
     QString content;
     QStringList fields = QStringList() << tr("Rank") << tr("Name") << tr("Matches") << tr("Score");
     content += addTable(tr("Men Score List"), fields, getScoreListQuery("and users.gender = 'male'"));
-    content += addTable(tr("Weman Score List"), fields, getScoreListQuery("and users.gender = 'female'"));
+    content += addTable(tr("Women Score List"), fields, getScoreListQuery("and users.gender = 'female'"));
 
     QWebFrame *frame = ui->webView->page()->mainFrame();
     frame->findFirstElement("body").setInnerXml(content);
@@ -161,13 +161,14 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     frame->findFirstElement("#date").setPlainText(toJalali(QDate::currentDate()));
 
     QString content, evaluations, choices;
-    choices = QString("<span class='choice'>%1</span><span class='choice'>%2</span><span class='choice'>%3</span><span class='choice'>%4</span>").arg(tr("Grade1")).arg(tr("Grade2")).arg(tr("Grade3")).arg(tr("Grade4"));
+    //choices = QString("<span class='choice'>%1</span><span class='choice'>%2</span><span class='choice'>%3</span><span class='choice'>%4</span>").arg(tr("Grade1")).arg(tr("Grade2")).arg(tr("Grade3")).arg(tr("Grade4"));
 
     if (questions.count() > 0)
         for (int i = 0; i < questions.count() + 1; i++)
         {
             if (i < questions.count())
             {
+                if (! questions[i].second.isEmpty()) questions[i].second += "<hr />";
                 content += QString("<p><span>%1.<span> %2<br />%3</p>").arg(i+1).arg(questions[i].first).arg(questions[i].second);
                 //evaluations += QString("<div class='question'><span class='index'>%1 %2</span>%3</div>").arg(tr("Question")).arg(i+1).arg(choices);
             } else
@@ -189,8 +190,7 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 
 
     // kind
-    QString kind = match["kind"].toString();
-    QString advice;
+    QString kind, advice;
 
     if (! match["category_id"].toString().isEmpty())
     {
@@ -199,15 +199,16 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
             kind = qry.value(0).toString();
         advice = tr("Your score depends on your mood, attention and genuis.");
     }
-    else if (kind == "book")
+    else if (! match["object_id"].toString().isEmpty())
     {
-        kind = MatchForm::tr("book");
-        advice = tr("You can achive up to twice score for writing an abstract of book.");
-    }
-    else if (kind == "multimedia")
-    {
-        kind = MatchForm::tr("multimedia");
-        advice = tr("You can achive up to twice score for writing an abstract of match content.");
+        qry.exec("select objects.type_id, types.title from objects left join types on objects.type_id = types.id where objects.id = "+ match["object_id"].toString());
+        if (qry.next())
+            kind = qry.value(1).toString();
+
+        if (qry.value(0).toString() == "0")
+            advice = tr("You can achive up to twice score for writing an abstract of book.");
+        else
+            advice = tr("You can achive up to twice score for writing an abstract of match content.");
     }
 
     frame->findFirstElement("#kind").setPlainText(kind);
@@ -224,7 +225,7 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 
 
     // corrector
-    qry.exec("select firstname, lastname, label from users where id = "+ match["corrector"].toString());
+    qry.exec("select firstname, lastname, label from users where id = "+ match["corrector_id"].toString());
     if (qry.next())
     {
         QString corrector;
