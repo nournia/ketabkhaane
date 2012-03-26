@@ -393,7 +393,7 @@ void importObjects()
     if (! sqliteQry.exec("insert into mb select id, designer_id, title, ageclass, category_id, content from matches")) qDebug() << sqliteQry.lastError();
     if (! sqliteQry.exec("drop table matches")) qDebug() << sqliteQry.lastError();
     if (! sqliteQry.exec("create table matches (id integer not null primary key autoincrement, designer_id integer null default null references users(id) on update cascade, title varchar(255) not null, ageclass tinyint(4) null default null, object_id integer null default null references objects(id) on update cascade, category_id tinyint(4) null default null references categories(id) on update cascade, content text null default null)")) qDebug() << sqliteQry.lastError();
-    if (! sqliteQry.exec("insert into matches select id, designer_id, title, ageclass, 1, category_id, content from mb")) qDebug() << sqliteQry.lastError();
+    if (! sqliteQry.exec("insert into matches select id, designer_id, title, ageclass, null, category_id, content from mb")) qDebug() << sqliteQry.lastError();
     if (! sqliteQry.exec("drop table mb")) qDebug() << sqliteQry.lastError();
 
     if (! sqliteQry.exec("update matches set object_id = (select id from objects where trim(objects.title) = trim(matches.title)) where category_id is null")) qDebug() << sqliteQry.lastError();
