@@ -115,7 +115,7 @@ void UserForm::cancelUser()
     QString condition;
     if (!Reghaabat::hasAccess("manager"))
         condition = QString(" where gender = '%1'").arg(Reghaabat::instance()->userGender);
-    ui->eUser->setQuery("select id as cid, id as clabel, firstname||' '||lastname as ctitle from users" + condition);
+    ui->eUser->setQuery("select id as cid, label as clabel, firstname||' '||lastname as ctitle from users" + condition);
 
     ui->eLabel->setText("");
     ui->eFirstname->setText("");
