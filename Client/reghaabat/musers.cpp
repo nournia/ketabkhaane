@@ -11,24 +11,24 @@ bool MUsers::get(QString userId, StrMap& user)
     return true;
 }
 
-QString MUsers::getAgeClassQuery(QString userId)
+QString MUsers::getAgeClassCase(QString when)
 {
     QSqlQuery qry;
     qry.exec("select id, beginage, endage from ageclasses order by id");
 
-    QString field = "current_date - birth_date";
+    QString field = when + " - users.birth_date";
     QString caseSt = "case";
     while (qry.next())
         caseSt += QString(" when %1 between %2 and %3 then %4").arg(field).arg(qry.value(1).toString()).arg(qry.value(2).toString()).arg(qry.value(0).toString());
     caseSt += " else -10 end";
 
-    return QString("select %1 as ageclass from users where id = %2").arg(caseSt).arg(userId);
+    return caseSt;
 }
 
 QString MUsers::getAgeClass(QString userId)
 {
     QSqlQuery qry;
-    qry.exec(getAgeClassQuery(userId));
+    qry.exec(QString("select %1 as ageclass from users where id = %2").arg(getAgeClassCase("current_date")).arg(userId));
     qry.next();
     return qry.value(0).toString();
 }

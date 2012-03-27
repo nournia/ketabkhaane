@@ -29,30 +29,6 @@ QSqlDatabase connectAccess(QString filename)
     return db;
 }
 
-bool addTriggers()
-{
-    foreach (QString trigger, QStringList() << "rate_update" << "rate_insert")
-        sqliteQry.exec("drop trigger if exists "+ trigger);
-
-    QString age_coeff = QString("case (select ageclass from matches where id = new.match_id) - (%1) when 0 then 1 when 1 then 1.25 when -1 then 0.75 else 0 end").arg(MUsers::getAgeClassQuery("new.user_id"));
-
-    // (new_rate - old_rate) * pay_coeff * age_coeff * match_score
-    QString updateSt = "update scores set score = score + (ifnull(new.rate,0)%2) * (select pay_coeff from library) * (%1) * (select score from supports where supports.match_id = new.match_id) where scores.user_id = new.user_id;";
-
-    if (! sqliteQry.exec(QString("create trigger rate_update after update of rate on answers begin %1 end;").arg(updateSt.arg(age_coeff).arg(" - ifnull(old.rate,0)"))))
-    {
-        qDebug() << sqliteQry.lastError();
-        return false;
-    }
-    if (! sqliteQry.exec(QString("create trigger rate_insert after insert on answers begin %1 end;").arg(updateSt.arg(age_coeff).arg(""))));
-    {
-        qDebug() << sqliteQry.lastError();
-        return false;
-    }
-
-    return true;
-}
-
 bool buildSqliteDb(bool library = false)
 {
     QString filename = ":/resources/sqlite.sql";
@@ -103,8 +79,6 @@ bool buildSqliteDb(bool library = false)
 
     if (! library)
     {
-        addTriggers();
-
         QDir d;
         d.mkdir("data");
         d.mkdir("data/files");
@@ -411,6 +385,23 @@ void importBorrows()
         qDebug() << "object " << sqliteQry.lastError();
 }
 
+void importTransactions()
+{
+    // import payments
+    sqliteQry.exec("insert into transactions select id, user_id, -1*payment, payed_at, 'match', 'pay' from payments");
+    sqliteQry.exec("drop table payments");
+
+    // import scores
+    QString score = "answers.rate * supports.score * (case matches.ageclass - ("+ MUsers::getAgeClassCase("answers.corrected_at") +") when 0 then 1 when 1 then 1.25 when -1 then 0.75 else 0 end)";
+    if (! sqliteQry.exec("insert into transactions select 2000 + answers.id, answers.user_id, round("+ score +") as score, answers.corrected_at, 'match', 'mid:'||answers.match_id from answers inner join supports on answers.match_id = supports.match_id inner join matches on answers.match_id = matches.id inner join users on answers.user_id = users.id where answers.rate is not null"))
+        qDebug() << "scores " << sqliteQry.lastError();
+    sqliteQry.exec("drop table scores");
+
+    // todo import roozname
+
+    qDebug() << "+ " << QString("transactions");
+}
+
 void importLibraryDb(QString accessFilename)
 {
     qDebug() << "library import started";
@@ -429,7 +420,6 @@ void importLibraryDb(QString accessFilename)
 
     // build database
     sqliteQry.exec("drop table if exists users;");
-    sqliteQry.exec("drop table if exists payments;");
     sqliteQry.exec("drop table if exists objects;");
     sqliteQry.exec("drop table if exists resources;");
 
@@ -444,6 +434,8 @@ void importLibraryDb(QString accessFilename)
     // restore user passwords
     foreach(QString pq, passQry)
         sqliteQry.exec(pq);
+
+    importTransactions();
 
     importBranches();
 

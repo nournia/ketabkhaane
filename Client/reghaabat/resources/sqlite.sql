@@ -138,13 +138,13 @@ create table scores (
 	participated_at datetime not null default current_timestamp,
 	confirm tinyint(1) not null default "1"
 );
-create table payments (
+create table transactions (
 	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
-	payment smallint not null, -- positive: rise of user score
-	payed_at timestamp not null default current_timestamp,
-	kind varchar(10) not null, -- enum("match", "payment", "penalty", "receipt") -- effect: +, -, -, + 
-	description varchar(50) null -- match: match_id, penalty: object_id
+	score smallint not null, -- match: +answer -payment, library: +receipt -penalty
+	created_at timestamp not null default current_timestamp,
+	kind varchar(10) not null, -- enum("match", "library")
+	description varchar(50) null -- mid: match_id, oid: object_id, off: discount, pay: payment
 );
 
 -- open_scores 

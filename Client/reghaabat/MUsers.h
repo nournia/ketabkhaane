@@ -10,7 +10,7 @@ class MUsers
 public:
     static bool get(QString userId, StrMap& user);
 
-    static QString getAgeClassQuery(QString userId);
+    static QString getAgeClassCase(QString userId);
 
     static QString getAgeClass(QString userId);
 
