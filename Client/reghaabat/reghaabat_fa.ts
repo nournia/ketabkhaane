@@ -77,7 +77,7 @@
 <context>
     <name>FormOperator</name>
     <message>
-        <location filename="formoperator.ui" line="+46"/>
+        <location filename="formoperator.ui" line="+44"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
@@ -86,39 +86,88 @@
         <translation type="obsolete">ویرایش</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>New Match</source>
-        <translation>مسابقه جدید</translation>
+        <translation type="obsolete">مسابقه جدید</translation>
     </message>
     <message>
         <source>Quick Search</source>
         <translation type="obsolete">جستجوی سریع</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+147"/>
         <source>Preview</source>
         <translation>نمایش</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="-36"/>
         <source>Limited Search</source>
         <translation>جستجوی محدود</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-61"/>
+        <source>Object</source>
+        <translation>شئ</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Match</source>
+        <translation>مسابقه</translation>
+    </message>
+    <message>
+        <location line="+66"/>
         <source>Print</source>
         <translation>چاپ</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+10"/>
+        <source>Deliver Object</source>
+        <translation>تحویل شئ</translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>Receive</source>
+        <translation>دریافت</translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Accept</source>
+        <translation>تایید</translation>
+    </message>
+    <message>
+        <location line="-196"/>
+        <location line="+53"/>
         <source>Deliver</source>
         <translation>تحویل</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <source>Objectname</source>
+        <translation type="obsolete">عنوان شئ</translation>
+    </message>
+    <message>
         <source>Delivered Matches</source>
         <oldsource>Received Matches</oldsource>
-        <translation>مسابقه‌های برده شده</translation>
+        <translation type="obsolete">مسابقه‌های برده شده</translation>
+    </message>
+    <message>
+        <location filename="formoperator.cpp" line="+80"/>
+        <location line="+9"/>
+        <source>Received</source>
+        <translation>دریافت</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Renewed</source>
+        <translation>تمدید</translation>
+    </message>
+    <message>
+        <location line="+44"/>
+        <source>You received enough matches at the moment.</source>
+        <translation>در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>You received enough matches today.</source>
+        <translation>امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
     </message>
 </context>
 <context>
@@ -496,9 +545,8 @@
 <context>
     <name>MatchRow</name>
     <message>
-        <location filename="matchrow.ui" line="+57"/>
         <source>Receive</source>
-        <translation>دریافت</translation>
+        <translation type="obsolete">دریافت</translation>
     </message>
 </context>
 <context>
@@ -885,7 +933,7 @@
     </message>
     <message>
         <location filename="formchangepermissions.h" line="+33"/>
-        <location filename="formoperator.cpp" line="+125"/>
+        <location filename="formoperator.cpp" line="+22"/>
         <location filename="matchtable.h" line="+59"/>
         <location filename="scoreform.h" line="+62"/>
         <source>Reghaabat</source>
@@ -980,14 +1028,17 @@
         <translation>رده سنی این مسابقه بیش از یک سطح با شما اختلاف دارد.</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="-11"/>
         <source>You received enough matches at the moment.</source>
-        <translation>در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
+        <translation type="obsolete">در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>You received enough matches today.</source>
-        <translation>امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
+        <translation type="obsolete">امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
+    </message>
+    <message>
+        <location filename="mobjects.cpp" line="+39"/>
+        <source>You borrowed this object.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

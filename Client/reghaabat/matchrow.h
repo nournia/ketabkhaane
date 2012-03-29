@@ -12,16 +12,14 @@ class MatchRow : public QWidget
     Q_OBJECT
 
 public:
-    explicit MatchRow(QString uid, QString mid, QString title, QWidget *parent = 0);
+    explicit MatchRow(QString title, QStringList states, QString mid, QString oid, QString icon, QWidget *parent = 0);
     ~MatchRow();
+    QString getState();
 
-    QString userId, matchId;
+    QString matchId, objectId;
 
 private:
     Ui::MatchRow *ui;
-
-private slots:
-    void on_button_clicked();
 };
 
 #endif // MATCHROW_H

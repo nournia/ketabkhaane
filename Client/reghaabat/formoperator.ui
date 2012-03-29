@@ -39,74 +39,103 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="lUser">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Username</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MyLineEdit" name="eUser"/>
-        </item>
-       </layout>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Username</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyLineEdit" name="eUser"/>
       </item>
      </layout>
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="gMatch">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
+    <widget class="QGroupBox" name="gDeliver">
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>80</height>
+       <height>90</height>
       </size>
      </property>
      <property name="title">
-      <string/>
+      <string>Deliver</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <layout class="QHBoxLayout" name="lMatch">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>New Match</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MyLineEdit" name="eMatch"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QWidget" name="newMatchButtons" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <widget class="QWidget" name="widget" native="true">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="bPreview">
+          <widget class="QComboBox" name="cDeliver">
            <property name="minimumSize">
             <size>
-             <width>80</width>
+             <width>0</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>22</height>
+            </size>
+           </property>
+           <item>
+            <property name="text">
+             <string>Object</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Match</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="MyLineEdit" name="eObject"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bDeliver">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
              <height>0</height>
             </size>
            </property>
            <property name="text">
-            <string>Preview</string>
+            <string>Deliver</string>
            </property>
            <property name="icon">
             <iconset resource="reghaabat.qrc">
-             <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
+             <normaloff>:/images/ok.png</normaloff>:/images/ok.png</iconset>
            </property>
           </widget>
          </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="gMatchOpt" native="true">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="margin">
+          <number>0</number>
+         </property>
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
@@ -121,7 +150,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QCheckBox" name="cQuickSearch">
+          <widget class="QCheckBox" name="cLimitedSearch">
            <property name="text">
             <string>Limited Search</string>
            </property>
@@ -141,12 +170,93 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="bDeliver">
-           <property name="enabled">
+          <widget class="QCheckBox" name="cDeliverObject">
+           <property name="text">
+            <string>Deliver Object</string>
+           </property>
+           <property name="checked">
             <bool>true</bool>
            </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bPreview">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
-            <string>Deliver</string>
+            <string>Preview</string>
+           </property>
+           <property name="icon">
+            <iconset resource="reghaabat.qrc">
+             <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="gReceive" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QGroupBox" name="gObjects">
+        <property name="title">
+         <string>Receive</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="lObjects"/>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_2" native="true">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>28</height>
+         </size>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>492</width>
+             <height>9</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bReceive">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Accept</string>
            </property>
            <property name="icon">
             <iconset resource="reghaabat.qrc">
@@ -160,14 +270,6 @@
      </layout>
     </widget>
    </item>
-   <item>
-    <widget class="QGroupBox" name="gDelivered">
-     <property name="title">
-      <string>Delivered Matches</string>
-     </property>
-     <layout class="QVBoxLayout" name="lDelivered"/>
-    </widget>
-   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -178,12 +280,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>eUser</tabstop>
-  <tabstop>eMatch</tabstop>
-  <tabstop>bDeliver</tabstop>
-  <tabstop>cPrint</tabstop>
-  <tabstop>cQuickSearch</tabstop>
-  <tabstop>bPreview</tabstop>
+  <tabstop>cLimitedSearch</tabstop>
  </tabstops>
  <resources>
   <include location="reghaabat.qrc"/>

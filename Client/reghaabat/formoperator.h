@@ -3,7 +3,6 @@
 
 #include <QWidget>
 
-#include <mmatches.h>
 #include <viewerform.h>
 
 namespace Ui {
@@ -26,12 +25,13 @@ private:
     ViewerForm* viewer;
 
 private slots:
-    void on_cQuickSearch_clicked();
+    void on_cDeliver_currentIndexChanged(int);
+    void on_cLimitedSearch_clicked();
     void on_bPreview_clicked();
     void selectUser();
-    void selectMatch();
+    void selectObject();
     void cancelUser();
-    void cancelMatch();
+    void cancelObject();
     void on_bDeliver_clicked();
 };
 

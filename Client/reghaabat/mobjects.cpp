@@ -65,3 +65,24 @@ QString MObjects::set(QString objectId, StrMap object)
     object["id"] = objectId;
     return "";
 }
+
+QString MObjects::receive(QString userId, QString objectId)
+{
+
+}
+
+QString MObjects::deliver(QString userId, QString objectId)
+{
+    QSqlQuery qry;
+
+    qry.exec(QString("select id from borrows where user_id = %1 and object_id = %2 and received_at is null").arg(userId).arg(objectId));
+    if (qry.next())
+        return QObject::tr("You borrowed this object.");
+
+    if (! qry.exec(QString("insert into borrows (user_id, object_id) values (%1, %2)").arg(userId).arg(objectId)))
+        return qry.lastError().text();
+
+    insertLog("borrows", "insert", qry.lastInsertId());
+
+    return "";
+}

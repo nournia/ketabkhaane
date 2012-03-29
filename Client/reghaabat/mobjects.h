@@ -11,6 +11,8 @@ public:
     static QString getNewLabel(QString branch);
 
     static QString set(QString userId, StrMap object);
+    static QString receive(QString userId, QString objectId);
+    static QString deliver(QString userId, QString objectId);
 
     static QList<StrPair> types()
     {
