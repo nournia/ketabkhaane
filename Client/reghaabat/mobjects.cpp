@@ -68,7 +68,19 @@ QString MObjects::set(QString objectId, StrMap object)
 
 QString MObjects::receive(QString userId, QString objectId)
 {
+    QSqlQuery qry;
+    qry.prepare("update borrows set received_at = ? where user_id = ? and object_id = ?");
+    qry.addBindValue(formatDateTime(QDateTime::currentDateTime()));
+    qry.addBindValue(userId);
+    qry.addBindValue(objectId);
+    if (! qry.exec())
+        return qry.lastError().text();
 
+    qry.exec(QString("select id from borrows where user_id = %1 and object_id = %2").arg(userId).arg(objectId));
+    if (qry.next())
+        insertLog("borrows", "update", qry.value(0));
+
+    return "";
 }
 
 QString MObjects::deliver(QString userId, QString objectId)

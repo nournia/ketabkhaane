@@ -53,7 +53,7 @@ void FormOperator::cancelUser()
     cancelObject();
     ui->eObject->setText("");
 
-    // clean gDelivered
+    // clean lObjects
     QLayoutItem *child;
     while ((child = ui->lObjects->layout()->takeAt(0)) != 0)
          delete child->widget();
@@ -71,22 +71,27 @@ void FormOperator::selectUser()
     if (! ui->eUser->value().isEmpty())
     {
         bool receive = false;
+        QStringList matchObjects;
 
         // show delivered matches
         QSqlQuery qry;
-        qry.exec(QString("select match_id, matches.title from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
+        MatchRow* row;
+
+        qry.exec(QString("select match_id, matches.title, matches.object_id from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
         for (int i = 1; qry.next(); i++)
         {
-            MatchRow* row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received"), qry.value(0).toString(), "", ":/images/match.png", ui->gObjects);
+            row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received"), qry.value(0).toString(), "", ":/images/match.png", ui->gObjects);
             ui->lObjects->layout()->addWidget(row);
+            matchObjects << qry.value(2).toString();
             receive = true;
         }
 
         // show delivered objects
         qry.exec(QString("select object_id, objects.title from borrows inner join objects on borrows.object_id = objects.id where user_id = %1 and received_at is null").arg(ui->eUser->value()));
         for (int i = 1; qry.next(); i++)
+        if (! matchObjects.contains(qry.value(0).toString()))
         {
-            MatchRow* row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received") << tr("Renewed"), "", qry.value(0).toString(), ":/images/object.png", ui->gObjects);
+            row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received") << tr("Renewed"), "", qry.value(0).toString(), ":/images/object.png", ui->gObjects);
             ui->lObjects->layout()->addWidget(row);
             receive = true;
         }
@@ -243,4 +248,36 @@ void FormOperator::on_cDeliver_currentIndexChanged(int index)
     ui->eObject->setText("");
     ui->eObject->setQuery(query);
     ui->eObject->setFocus();
+}
+
+void FormOperator::on_bReceive_clicked()
+{
+    QSqlQuery qry;
+    MatchRow* row;
+
+    // last widget is space filler
+    for (int i = 0; i < ui->lObjects->layout()->count() - 1; i++)
+    {
+        row = (MatchRow*)(ui->lObjects->layout()->itemAt(i)->widget());
+
+        if (row->getState() == tr("Received"))
+        {
+            if (! row->objectId.isEmpty())
+            {
+                MObjects::receive(ui->eUser->value(), row->objectId);
+            }
+            else if (! row->matchId.isEmpty())
+            {
+                MMatches::receive(ui->eUser->value(), row->matchId);
+
+                qry.exec(QString("select object_id from matches where id = %1").arg(row->matchId));
+                if (qry.next() && ! qry.value(0).toString().isEmpty())
+                    MObjects::receive(ui->eUser->value(), qry.value(0).toString());
+            }
+        }
+    }
+
+    cancelUser();
+    ui->eUser->setText("");
+    ui->eUser->setFocus();
 }

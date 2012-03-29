@@ -25,6 +25,7 @@ private:
     ViewerForm* viewer;
 
 private slots:
+    void on_bReceive_clicked();
     void on_cDeliver_currentIndexChanged(int);
     void on_cLimitedSearch_clicked();
     void on_bPreview_clicked();

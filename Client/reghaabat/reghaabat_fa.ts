@@ -149,13 +149,14 @@
         <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="+80"/>
-        <location line="+9"/>
+        <location filename="formoperator.cpp" line="+81"/>
+        <location line="+11"/>
+        <location line="+169"/>
         <source>Received</source>
         <translation>دریافت</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-169"/>
         <source>Renewed</source>
         <translation>تمدید</translation>
     </message>
@@ -1036,9 +1037,9 @@
         <translation type="obsolete">امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
     </message>
     <message>
-        <location filename="mobjects.cpp" line="+39"/>
+        <location filename="mobjects.cpp" line="+51"/>
         <source>You borrowed this object.</source>
-        <translation type="unfinished"></translation>
+        <translation>این شئ هم‌اکنون به امانت پیش شماست.</translation>
     </message>
 </context>
 <context>
