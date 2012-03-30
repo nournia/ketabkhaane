@@ -393,7 +393,7 @@ void importTransactions()
     sqliteQry.exec("drop table payments");
 
     // import scores
-    if (! sqliteQry.exec(MMatches::getScoreSql()))
+    if (! sqliteQry.exec(MMatches::getScoreSql("insert")))
         qDebug() << "scores " << sqliteQry.lastError();
     sqliteQry.exec("drop table scores");
 

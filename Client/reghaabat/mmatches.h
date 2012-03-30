@@ -13,7 +13,7 @@ public:
 
     static bool get(QString matchId, StrMap& match, QList<StrPair>& questions);
     static QString set(QString matchId, StrMap data, QList<StrPair> questions);
-    static QString getScoreSql();
+    static QString getScoreSql(QString opt);
 
     /* answers */
 

@@ -250,13 +250,14 @@ QString MMatches::correct(QString answerId, QString Score)
 {
     QSqlQuery qry;
 
-    qry.prepare("select supports.score from supports inner join answers on supports.match_id = answers.match_id where answers.id = ?");
+    qry.prepare("select supports.score, answers.user_id, answers.match_id from supports inner join answers on supports.match_id = answers.match_id where answers.id = ?");
     qry.addBindValue(answerId);
     qry.exec();
     if (! qry.next())
         return QObject::tr("Invalid record selected.");
 
     float rate = Score.toFloat() / qry.value(0).toInt();
+    QString userId = qry.value(1).toString(), matchId = qry.value(2).toString();
 
     if (rate < -1 || rate > 2)
         return QObject::tr("Score must be less than 2 * max score.");
@@ -269,17 +270,41 @@ QString MMatches::correct(QString answerId, QString Score)
 
     insertLog("answers", "update", answerId);
 
-    // insert score
-    if (qry.exec(getScoreSql() + " and answers.id = "+ answerId))
-        insertLog("transactions", "insert", qry.lastInsertId());
+
+    // register score
+
+    qry.exec(QString("select id from transactions where user_id = %1 and description = 'mid:%2'").arg(userId).arg(matchId));
+    if (qry.next())
+    {
+        QString tid = qry.value(0).toString();
+
+        qry.exec(getScoreSql("select") + " and answers.id = "+ answerId);
+        qry.next();
+        QString score = qry.value(1).toString();
+
+        if (qry.exec(QString("update transactions set score = %1 where id = %2").arg(score).arg(tid)))
+            insertLog("transactions", "update", tid);
+        else
+            return qry.lastError().text();
+    }
     else
-        qDebug() << qry.lastError().text();
+    {
+        if (qry.exec(getScoreSql("insert") + " and answers.id = "+ answerId))
+            insertLog("transactions", "insert", qry.lastInsertId());
+        else
+            return qry.lastError().text();
+    }
 
     return "";
 }
 
-QString MMatches::getScoreSql()
+QString MMatches::getScoreSql(QString opt = "insert")
 {
     QString scoreSt = "answers.rate * supports.score * (case matches.ageclass - ("+ MUsers::getAgeClassCase("answers.corrected_at") +") when 0 then 1 when 1 then 1.25 when -1 then 0.75 else 0 end)";
-    return "insert into transactions (user_id, score, created_at, kind, description) select answers.user_id, round("+ scoreSt +") as score, answers.corrected_at, 'match', 'mid:'||answers.match_id from answers inner join supports on answers.match_id = supports.match_id inner join matches on answers.match_id = matches.id inner join users on answers.user_id = users.id where answers.rate is not null";
+    QString selectSt = "select answers.user_id, round("+ scoreSt +") as score, answers.corrected_at, 'match', 'mid:'||answers.match_id from answers inner join supports on answers.match_id = supports.match_id inner join matches on answers.match_id = matches.id inner join users on answers.user_id = users.id where answers.rate is not null";
+
+    if (opt == "insert")
+        return "insert into transactions (user_id, score, created_at, kind, description) " + selectSt;
+    else
+        return selectSt;
 }
