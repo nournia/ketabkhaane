@@ -144,7 +144,7 @@ create table transactions (
 	score smallint not null, -- match: +answer -payment, library: +receipt -penalty
 	created_at timestamp not null default current_timestamp,
 	kind varchar(10) not null, -- enum("match", "library")
-	description varchar(50) null -- mid: match_id, oid: object_id, off: discount, pay: payment
+	description varchar(50) null -- off: discount (fine from objects), chg (money user charged to he's account), mid:match_id (score from match), pay (money payed to user for matches)
 );
 
 -- open_scores 

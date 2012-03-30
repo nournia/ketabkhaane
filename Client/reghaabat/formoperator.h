@@ -33,6 +33,7 @@ private slots:
     void selectObject();
     void cancelUser();
     void cancelObject();
+    void refreshFine();
     void on_bDeliver_clicked();
 };
 

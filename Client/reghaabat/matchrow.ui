@@ -26,8 +26,14 @@
    <enum>Qt::RightToLeft</enum>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="leftMargin">
+    <number>1</number>
+   </property>
    <property name="topMargin">
     <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>1</number>
    </property>
    <property name="bottomMargin">
     <number>2</number>
@@ -94,14 +100,8 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
      <property name="styleSheet">
-      <string notr="true">color: #9d261d;</string>
+      <string notr="true">color: #9d261d</string>
      </property>
     </widget>
    </item>

@@ -124,16 +124,42 @@
         <translation>تحویل شئ</translation>
     </message>
     <message>
+        <location line="+65"/>
+        <source>Payment</source>
+        <translation>پرداخت</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Discount</source>
+        <translation>تخفیف</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Fine</source>
+        <translation>جریمه</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <location line="+23"/>
+        <source>0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-16"/>
+        <source>Debt</source>
+        <translation>بدهی</translation>
+    </message>
+    <message>
         <source>Receive</source>
         <translation type="obsolete">دریافت</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+42"/>
         <source>Accept</source>
         <translation>تایید</translation>
     </message>
     <message>
-        <location line="-199"/>
+        <location line="-297"/>
         <location line="+56"/>
         <source>Deliver</source>
         <translation>تحویل</translation>
@@ -148,7 +174,7 @@
         <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="+83"/>
+        <location filename="formoperator.cpp" line="+87"/>
         <location line="+11"/>
         <location line="+169"/>
         <source>Received</source>
@@ -156,12 +182,12 @@
     </message>
     <message>
         <location line="-169"/>
-        <location line="+184"/>
+        <location line="+180"/>
         <source>Renewed</source>
         <translation>تمدید</translation>
     </message>
     <message>
-        <location line="-140"/>
+        <location line="-136"/>
         <source>You received enough matches at the moment.</source>
         <translation>در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
     </message>
@@ -550,7 +576,7 @@
         <translation type="obsolete">دریافت</translation>
     </message>
     <message>
-        <location filename="matchrow.cpp" line="+17"/>
+        <location filename="matchrow.cpp" line="+16"/>
         <source>fine: %1</source>
         <translation>جریمه: %1</translation>
     </message>
@@ -969,7 +995,7 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+209"/>
+        <location line="+208"/>
         <source>Invalid record selected.</source>
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
@@ -1009,7 +1035,7 @@
         <translation type="obsolete">امتیاز وارد شده معتبر نیست.</translation>
     </message>
     <message>
-        <location filename="mmatches.cpp" line="-62"/>
+        <location filename="mmatches.cpp" line="-61"/>
         <source>You received this match before</source>
         <translation>شما این مسابقه را قبلا تحویل گرفته‌اید.</translation>
     </message>

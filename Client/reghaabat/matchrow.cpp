@@ -4,8 +4,8 @@
 #include <mmatches.h>
 #include <jalali.h>
 
-MatchRow::MatchRow(QString title, QStringList states, QString mid, QString oid, int fine, QWidget *parent) :
-    QWidget(parent), ui(new Ui::MatchRow), matchId(mid), objectId(oid)
+MatchRow::MatchRow(QString title, QStringList states, QString mid, QString oid, int fi, QWidget *parent) :
+    QWidget(parent), ui(new Ui::MatchRow), matchId(mid), objectId(oid), fine(fi)
 {
     ui->setupUi(this);
 
@@ -17,6 +17,8 @@ MatchRow::MatchRow(QString title, QStringList states, QString mid, QString oid, 
 
     ui->lObject->setVisible(! objectId.isEmpty());
     ui->lMatch->setVisible(! matchId.isEmpty());
+
+    connect(ui->combo, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
 }
 
 MatchRow::~MatchRow()

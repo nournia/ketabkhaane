@@ -53,6 +53,11 @@ void FormOperator::cancelUser()
     cancelObject();
     ui->eObject->setText("");
 
+    ui->lFine->setText("0");
+    ui->lDebt->setText("0");
+    ui->sPayment->setValue(0);
+    ui->sDiscount->setValue(0);
+
     // clean lObjects
     QLayoutItem *child;
     while ((child = ui->lObjects->layout()->takeAt(0)) != 0)
@@ -76,17 +81,16 @@ void FormOperator::selectUser()
         // show delivered matches
         QSqlQuery qry;
         MatchRow* row;
+        int fine;
 
         qry.exec(QString("select match_id, matches.title, matches.object_id from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
         for (int i = 1; qry.next(); i++)
         {
-            int fine = 0;
-            if (! qry.value(2).toString().isEmpty())
-                fine = MObjects::getFine(ui->eUser->value(), qry.value(2).toString());
-
+            fine = qry.value(2).toString().isEmpty() ? 0 : MObjects::getFine(ui->eUser->value(), qry.value(2).toString());
             row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received"), qry.value(0).toString(), qry.value(2).toString(), fine, ui->gObjects);
             ui->lObjects->layout()->addWidget(row);
             matchObjects << qry.value(2).toString();
+            connect(row, SIGNAL(changed()), this, SLOT(refreshFine()));
             receive = true;
         }
 
@@ -95,13 +99,22 @@ void FormOperator::selectUser()
         for (int i = 1; qry.next(); i++)
         if (! matchObjects.contains(qry.value(0).toString()))
         {
-            row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received") << tr("Renewed"), "", qry.value(0).toString(), MObjects::getFine(ui->eUser->value(), qry.value(0).toString()), ui->gObjects);
+            fine = MObjects::getFine(ui->eUser->value(), qry.value(0).toString());
+            row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received") << tr("Renewed"), "", qry.value(0).toString(), fine, ui->gObjects);
             ui->lObjects->layout()->addWidget(row);
+            connect(row, SIGNAL(changed()), this, SLOT(refreshFine()));
             receive = true;
         }
 
         // space filler
         ui->lObjects->layout()->addWidget(new QWidget);
+
+        // numbers
+        qry.exec(QString("select -1 * sum(score) from transactions where user_id = %1 and kind = 'library'").arg(ui->eUser->value()));
+        qry.next();
+        int debt = qry.value(0).toInt();
+        ui->lDebt->setText(QString("%1").arg(debt));
+        refreshFine();
 
         ui->gDeliver->setEnabled(true);
         if (receive)
@@ -109,6 +122,23 @@ void FormOperator::selectUser()
 
         on_cDeliver_currentIndexChanged(ui->cDeliver->currentIndex());
     }
+}
+
+void FormOperator::refreshFine()
+{
+    int fine = 0;
+    MatchRow* row;
+    for (int i = 0; i < ui->lObjects->layout()->count() - 1; i++)
+    {
+        row = (MatchRow*)(ui->lObjects->layout()->itemAt(i)->widget());
+        if (! row->getState().isEmpty())
+            fine += row->fine;
+    }
+
+    int all = fine + ui->lDebt->text().toInt();
+    ui->lFine->setText(QString("%1").arg(fine));
+    ui->sDiscount->setMaximum(fine);
+    ui->sPayment->setMaximum(all);
 }
 
 void FormOperator::selectObject()
@@ -256,10 +286,18 @@ void FormOperator::on_cDeliver_currentIndexChanged(int index)
 
 void FormOperator::on_bReceive_clicked()
 {
-    QSqlQuery qry;
-    MatchRow* row;
+    QString msg;
+
+    // payment
+    msg = MObjects::charge(ui->eUser->value(), ui->lFine->text().toInt(), ui->sDiscount->value(), ui->sPayment->value());
+    if (! msg.isEmpty())
+    {
+        QMessageBox::critical(0, QObject::tr("Reghaabat"), msg);
+        return;
+    }
 
     // last widget is space filler
+    MatchRow* row;
     for (int i = 0; i < ui->lObjects->layout()->count() - 1; i++)
     {
         row = (MatchRow*)(ui->lObjects->layout()->itemAt(i)->widget());
@@ -267,20 +305,14 @@ void FormOperator::on_bReceive_clicked()
         if (row->getState() == tr("Received"))
         {
             if (! row->objectId.isEmpty())
-            {
                 MObjects::receive(ui->eUser->value(), row->objectId);
-            }
             if (! row->matchId.isEmpty())
-            {
                 MMatches::receive(ui->eUser->value(), row->matchId);
-            }
         }
         else if (row->getState()  == tr("Renewed"))
         {
             if (! row->objectId.isEmpty())
-            {
                 MObjects::renew(ui->eUser->value(), row->objectId);
-            }
         }
     }
 

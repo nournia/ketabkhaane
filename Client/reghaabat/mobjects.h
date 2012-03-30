@@ -15,6 +15,7 @@ public:
 
     static int getFine(QString userId, QString objectId);
 
+    static QString charge(QString userId, int fine, int discount, int money);
     static QString receive(QString userId, QString objectId);
     static QString deliver(QString userId, QString objectId);
     static QString renew(QString userId, QString objectId);
