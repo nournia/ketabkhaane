@@ -94,7 +94,7 @@
         <translation type="obsolete">جستجوی سریع</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+150"/>
         <source>Preview</source>
         <translation>نمایش</translation>
     </message>
@@ -124,18 +124,17 @@
         <translation>تحویل شئ</translation>
     </message>
     <message>
-        <location line="+39"/>
         <source>Receive</source>
-        <translation>دریافت</translation>
+        <translation type="obsolete">دریافت</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+84"/>
         <source>Accept</source>
         <translation>تایید</translation>
     </message>
     <message>
-        <location line="-196"/>
-        <location line="+53"/>
+        <location line="-199"/>
+        <location line="+56"/>
         <source>Deliver</source>
         <translation>تحویل</translation>
     </message>
@@ -149,7 +148,7 @@
         <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="+81"/>
+        <location filename="formoperator.cpp" line="+83"/>
         <location line="+11"/>
         <location line="+169"/>
         <source>Received</source>
@@ -157,11 +156,12 @@
     </message>
     <message>
         <location line="-169"/>
+        <location line="+184"/>
         <source>Renewed</source>
         <translation>تمدید</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="-140"/>
         <source>You received enough matches at the moment.</source>
         <translation>در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
     </message>
@@ -548,6 +548,11 @@
     <message>
         <source>Receive</source>
         <translation type="obsolete">دریافت</translation>
+    </message>
+    <message>
+        <location filename="matchrow.cpp" line="+17"/>
+        <source>fine: %1</source>
+        <translation>جریمه: %1</translation>
     </message>
 </context>
 <context>

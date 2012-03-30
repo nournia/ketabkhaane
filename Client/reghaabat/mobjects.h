@@ -6,13 +6,20 @@
 class MObjects
 {
 public:
+
     static bool get(QString objectId, StrMap& object);
-
     static QString getNewLabel(QString branch);
-
     static QString set(QString userId, StrMap object);
+
+    /* borrows */
+
+    static int getFine(QString userId, QString objectId);
+
     static QString receive(QString userId, QString objectId);
     static QString deliver(QString userId, QString objectId);
+    static QString renew(QString userId, QString objectId);
+
+    /* data */
 
     static QList<StrPair> types()
     {

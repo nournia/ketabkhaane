@@ -187,7 +187,8 @@ create table borrows (
 	user_id integer not null references users(id) on update cascade,
 	object_id integer not null references objects(id) on update cascade,
 	delivered_at datetime not null default current_timestamp,
-	received_at datetime null default null
+	received_at datetime null default null,
+	renewed_at datetime null default null
 );
 
 -- log

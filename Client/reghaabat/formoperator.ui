@@ -214,7 +214,7 @@
       <item>
        <widget class="QGroupBox" name="gObjects">
         <property name="title">
-         <string>Receive</string>
+         <string/>
         </property>
         <property name="flat">
          <bool>true</bool>
