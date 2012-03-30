@@ -152,7 +152,7 @@ QString MObjects::charge(QString userId, int fine, int discount, int money)
     else
         return qry.lastError().text();
 
-    // insert payment
+    // insert charge
     if (qry.exec(QString("insert into transactions (user_id, score, kind, description) values (%1, %2, 'library', 'chg')").arg(userId).arg(money)))
         insertLog("transactions", "insert", qry.lastInsertId());
     else

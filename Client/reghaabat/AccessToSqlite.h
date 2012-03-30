@@ -4,6 +4,7 @@
 #include <jalali.h>
 #include <connector.h>
 #include <musers.h>
+#include <mmatches.h>
 
 #include <QtCore/QCoreApplication>
 #include <QDate>
@@ -392,8 +393,7 @@ void importTransactions()
     sqliteQry.exec("drop table payments");
 
     // import scores
-    QString score = "answers.rate * supports.score * (case matches.ageclass - ("+ MUsers::getAgeClassCase("answers.corrected_at") +") when 0 then 1 when 1 then 1.25 when -1 then 0.75 else 0 end)";
-    if (! sqliteQry.exec("insert into transactions select 2000 + answers.id, answers.user_id, round("+ score +") as score, answers.corrected_at, 'match', 'mid:'||answers.match_id from answers inner join supports on answers.match_id = supports.match_id inner join matches on answers.match_id = matches.id inner join users on answers.user_id = users.id where answers.rate is not null"))
+    if (! sqliteQry.exec(MMatches::getScoreSql()))
         qDebug() << "scores " << sqliteQry.lastError();
     sqliteQry.exec("drop table scores");
 
@@ -422,6 +422,8 @@ void importLibraryDb(QString accessFilename)
     sqliteQry.exec("drop table if exists users;");
     sqliteQry.exec("drop table if exists objects;");
     sqliteQry.exec("drop table if exists resources;");
+    sqliteQry.exec("drop trigger if exists rate_update");
+    sqliteQry.exec("drop trigger if exists rate_insert");
 
     if (! buildSqliteDb(true))
         return;

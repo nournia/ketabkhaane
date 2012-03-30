@@ -250,7 +250,7 @@ QString MMatches::correct(QString answerId, QString Score)
 {
     QSqlQuery qry;
 
-    qry.prepare("select score from supports inner join answers on supports.match_id = answers.match_id where answers.id = ?");
+    qry.prepare("select supports.score from supports inner join answers on supports.match_id = answers.match_id where answers.id = ?");
     qry.addBindValue(answerId);
     qry.exec();
     if (! qry.next())
@@ -269,6 +269,17 @@ QString MMatches::correct(QString answerId, QString Score)
 
     insertLog("answers", "update", answerId);
 
+    // insert score
+    if (qry.exec(getScoreSql() + " and answers.id = "+ answerId))
+        insertLog("transactions", "insert", qry.lastInsertId());
+    else
+        qDebug() << qry.lastError().text();
+
     return "";
 }
 
+QString MMatches::getScoreSql()
+{
+    QString scoreSt = "answers.rate * supports.score * (case matches.ageclass - ("+ MUsers::getAgeClassCase("answers.corrected_at") +") when 0 then 1 when 1 then 1.25 when -1 then 0.75 else 0 end)";
+    return "insert into transactions (user_id, score, created_at, kind, description) select answers.user_id, round("+ scoreSt +") as score, answers.corrected_at, 'match', 'mid:'||answers.match_id from answers inner join supports on answers.match_id = supports.match_id inner join matches on answers.match_id = matches.id inner join users on answers.user_id = users.id where answers.rate is not null";
+}
