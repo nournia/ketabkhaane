@@ -80,7 +80,11 @@ void FormOperator::selectUser()
         qry.exec(QString("select match_id, matches.title, matches.object_id from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
         for (int i = 1; qry.next(); i++)
         {
-            row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received"), qry.value(0).toString(), "", ":/images/match.png", 0, ui->gObjects);
+            int fine = 0;
+            if (! qry.value(2).toString().isEmpty())
+                fine = MObjects::getFine(ui->eUser->value(), qry.value(2).toString());
+
+            row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received"), qry.value(0).toString(), qry.value(2).toString(), fine, ui->gObjects);
             ui->lObjects->layout()->addWidget(row);
             matchObjects << qry.value(2).toString();
             receive = true;
@@ -91,7 +95,7 @@ void FormOperator::selectUser()
         for (int i = 1; qry.next(); i++)
         if (! matchObjects.contains(qry.value(0).toString()))
         {
-            row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received") << tr("Renewed"), "", qry.value(0).toString(), ":/images/object.png", MObjects::getFine(ui->eUser->value(), qry.value(0).toString()), ui->gObjects);
+            row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received") << tr("Renewed"), "", qry.value(0).toString(), MObjects::getFine(ui->eUser->value(), qry.value(0).toString()), ui->gObjects);
             ui->lObjects->layout()->addWidget(row);
             receive = true;
         }
@@ -266,13 +270,9 @@ void FormOperator::on_bReceive_clicked()
             {
                 MObjects::receive(ui->eUser->value(), row->objectId);
             }
-            else if (! row->matchId.isEmpty())
+            if (! row->matchId.isEmpty())
             {
                 MMatches::receive(ui->eUser->value(), row->matchId);
-
-                qry.exec(QString("select object_id from matches where id = %1").arg(row->matchId));
-                if (qry.next() && ! qry.value(0).toString().isEmpty())
-                    MObjects::receive(ui->eUser->value(), qry.value(0).toString());
             }
         }
         else if (row->getState()  == tr("Renewed"))

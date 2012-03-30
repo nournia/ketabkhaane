@@ -33,7 +33,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="lIcon">
+    <widget class="QLabel" name="lObject">
      <property name="minimumSize">
       <size>
        <width>22</width>
@@ -45,6 +45,31 @@
        <width>22</width>
        <height>22</height>
       </size>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="reghaabat.qrc">:/images/object.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lMatch">
+     <property name="minimumSize">
+      <size>
+       <width>22</width>
+       <height>22</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>22</width>
+       <height>22</height>
+      </size>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="reghaabat.qrc">:/images/match.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -78,9 +103,6 @@
      <property name="styleSheet">
       <string notr="true">color: #9d261d;</string>
      </property>
-     <property name="text">
-      <string/>
-     </property>
     </widget>
    </item>
    <item>
@@ -101,6 +123,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="reghaabat.qrc"/>
+ </resources>
  <connections/>
 </ui>

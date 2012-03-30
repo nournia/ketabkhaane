@@ -218,7 +218,6 @@ QString MMatches::deliver(QString userId, QString matchId)
 
 
     // deliver
-
     qry.prepare("insert into answers (user_id, match_id) values (?, ?)");
     qry.addBindValue(userId);
     qry.addBindValue(matchId);
