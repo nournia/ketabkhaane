@@ -124,28 +124,34 @@
         <translation>تحویل شئ</translation>
     </message>
     <message>
+        <location line="+97"/>
         <location line="+65"/>
+        <source>+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="-23"/>
         <source>Payment</source>
         <translation>پرداخت</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+30"/>
         <source>Discount</source>
         <translation>تخفیف</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="-92"/>
         <source>Fine</source>
         <translation>جریمه</translation>
     </message>
     <message>
-        <location line="+16"/>
-        <location line="+23"/>
+        <location line="+13"/>
+        <location line="+27"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-13"/>
         <source>Debt</source>
         <translation>بدهی</translation>
     </message>
@@ -154,12 +160,12 @@
         <translation type="obsolete">دریافت</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+110"/>
         <source>Accept</source>
         <translation>تایید</translation>
     </message>
     <message>
-        <location line="-297"/>
+        <location line="-329"/>
         <location line="+56"/>
         <source>Deliver</source>
         <translation>تحویل</translation>
@@ -174,20 +180,20 @@
         <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="+87"/>
-        <location line="+11"/>
-        <location line="+169"/>
+        <location filename="formoperator.cpp" line="+90"/>
+        <location line="+13"/>
+        <location line="+202"/>
         <source>Received</source>
         <translation>دریافت</translation>
     </message>
     <message>
-        <location line="-169"/>
-        <location line="+180"/>
+        <location line="-202"/>
+        <location line="+209"/>
         <source>Renewed</source>
         <translation>تمدید</translation>
     </message>
     <message>
-        <location line="-136"/>
+        <location line="-140"/>
         <source>You received enough matches at the moment.</source>
         <translation>در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
     </message>
@@ -966,6 +972,7 @@
     <message>
         <location filename="formchangepermissions.h" line="+33"/>
         <location filename="formoperator.cpp" line="+22"/>
+        <location line="+97"/>
         <location filename="matchtable.h" line="+59"/>
         <location filename="scoreform.h" line="+62"/>
         <source>Reghaabat</source>
@@ -1071,6 +1078,11 @@
         <location filename="mobjects.cpp" line="+51"/>
         <source>You borrowed this object.</source>
         <translation>این شئ هم‌اکنون به امانت پیش شماست.</translation>
+    </message>
+    <message>
+        <location line="+55"/>
+        <source>Discount is greater than fine.</source>
+        <translation>مقدار تخفیف بیشتر از مقدار جریمه است.</translation>
     </message>
 </context>
 <context>
