@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
     qss.close();
 
     // db connection
-    Connector::connectDb();
-    migrate(a.applicationVersion());
+    if (Connector::connectDb().isOpen())
+        migrate(a.applicationVersion());
 
     // execute
     MainWindow w;

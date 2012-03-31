@@ -20,18 +20,34 @@
       <string>General</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+      </property>
       <property name="labelAlignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
       <item row="0" column="0">
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Corrector Show</string>
+         <string>Book Borrow Days</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="cCorrectorIdentifier"/>
+       <widget class="QSpinBox" name="sBookBorrowDays">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_5">
@@ -42,6 +58,12 @@
       </item>
       <item row="1" column="1">
        <widget class="QSpinBox" name="sMaxConcurrentMatches">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="maximum">
          <number>10</number>
         </property>
@@ -56,8 +78,31 @@
       </item>
       <item row="2" column="1">
        <widget class="QSpinBox" name="sMaxMatchesInOneDay">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="maximum">
          <number>10</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Corrector Show</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QComboBox" name="cCorrectorIdentifier">
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>16777215</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -109,7 +154,14 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="cPrinters"/>
+       <widget class="QComboBox" name="cPrinters">
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -163,9 +215,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>cCorrectorIdentifier</tabstop>
-  <tabstop>sMaxConcurrentMatches</tabstop>
-  <tabstop>sMaxMatchesInOneDay</tabstop>
   <tabstop>eDataFolder</tabstop>
   <tabstop>bSelectDataFolder</tabstop>
   <tabstop>buttonBox</tabstop>

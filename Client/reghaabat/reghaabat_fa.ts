@@ -289,7 +289,7 @@
     <message>
         <location line="+9"/>
         <location line="+3"/>
-        <location filename="mainwindow.cpp" line="+138"/>
+        <location filename="mainwindow.cpp" line="+158"/>
         <source>Logout</source>
         <translation>خروج</translation>
     </message>
@@ -436,6 +436,12 @@
     <message>
         <source>Matches</source>
         <translation type="obsolete">مسابقه‌ها</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="-96"/>
+        <source>Database Connection Error!</source>
+        <oldsource>Database Connection Error.</oldsource>
+        <translation>خطا در اتصال به پایگاه داده‌ها!</translation>
     </message>
 </context>
 <context>
@@ -692,7 +698,7 @@
         <translation>عمومی</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+107"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
@@ -701,22 +707,28 @@
         <translation type="obsolete">عنوان</translation>
     </message>
     <message>
-        <location line="-78"/>
+        <location line="-50"/>
         <source>Corrector Show</source>
         <translation>نحوه نمایش مصحح</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-28"/>
         <source>Max Concurrent Matches</source>
         <translation>حداکثر مسابقه‌های در دست عضو</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Max Matches In One Day</source>
-        <translation>حداکثر تحویل مسابقه به عضو در یک روز</translation>
+        <translation>حداکثر تحویل مسابقه به عضو در روز</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="-31"/>
+        <source>Book Borrow Days</source>
+        <oldsource>Object Borrow Days</oldsource>
+        <translation>مدت امانت کتاب</translation>
+    </message>
+    <message>
+        <location line="+58"/>
         <source>Local</source>
         <translation>محلی</translation>
     </message>
@@ -772,7 +784,7 @@
         <translation type="obsolete">انتخاب پایگاه داده کتابخانه</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+45"/>
         <source>Select Reghaabat Data Folder</source>
         <translation>انتخاب پوشه داده‌ها</translation>
     </message>
@@ -886,11 +898,12 @@
     <message>
         <location filename="dialogchangepassword.cpp" line="+25"/>
         <location filename="logindialog.cpp" line="+0"/>
+        <location filename="mainwindow.cpp" line="+0"/>
         <location filename="matchform.cpp" line="-38"/>
         <location filename="objectform.cpp" line="+1"/>
         <location line="+4"/>
         <location filename="optionsform.cpp" line="-5"/>
-        <location filename="payment.cpp" line="+103"/>
+        <location filename="payment.cpp" line="+95"/>
         <location filename="userform.cpp" line="+78"/>
         <location line="+4"/>
         <source>Reghaabat</source>
@@ -947,7 +960,7 @@
         <translation>پسورد نباید خالی باشد.</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+76"/>
         <source>You have not sufficent score.</source>
         <translation>شما به اندازه کافی امتیاز ندارید.</translation>
     </message>
@@ -956,7 +969,7 @@
         <translation type="obsolete">کلمه عبور باید حداقل 6 حرف باشد و نباید فقط از عدد تشکل شده باشد.</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-48"/>
         <source>You must have at least one master user.</source>
         <translation>سامانه باید حداقل یک مدیر داشته باشد.</translation>
     </message>
@@ -1007,7 +1020,7 @@
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>Score must be less than 2 * max score.</source>
         <translation>امتیاز باید از دو برابر حداکثر امتیاز کوچکتر باشد.</translation>
     </message>
@@ -1021,7 +1034,7 @@
     </message>
     <message>
         <location filename="matchtable.h" line="+18"/>
-        <location filename="mmatches.h" line="+51"/>
+        <location filename="mmatches.h" line="+52"/>
         <source>active</source>
         <translation>فعال</translation>
     </message>
@@ -1042,7 +1055,7 @@
         <translation type="obsolete">امتیاز وارد شده معتبر نیست.</translation>
     </message>
     <message>
-        <location filename="mmatches.cpp" line="-61"/>
+        <location filename="mmatches.cpp" line="-62"/>
         <source>You received this match before</source>
         <translation>شما این مسابقه را قبلا تحویل گرفته‌اید.</translation>
     </message>
@@ -1410,7 +1423,7 @@
         <translation>گروه</translation>
     </message>
     <message>
-        <location filename="payment.cpp" line="-36"/>
+        <location filename="payment.cpp" line="-38"/>
         <source>Grade1</source>
         <translation>ضعیف</translation>
     </message>

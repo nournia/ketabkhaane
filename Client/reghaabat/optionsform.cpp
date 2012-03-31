@@ -27,10 +27,12 @@ OptionsForm::OptionsForm(QWidget *parent) :
     QSettings settings("Sobhe", "Reghaabat");
     ui->eDataFolder->setText(settings.value("DataFolder", "").toString());
     ui->cPrinters->setCurrentIndex(ui->cPrinters->findText(settings.value("Printer", "").toString()));
+    ui->lVersion->setText(QCoreApplication::applicationVersion());
+
+    ui->sBookBorrowDays->setValue(options()["BookBorrowDays"].toInt());
     ui->cCorrectorIdentifier->setCurrentIndex(ui->cCorrectorIdentifier->findData(options()["CorrectorIdentifier"].toString()));
     ui->sMaxConcurrentMatches->setValue(options()["MaxConcurrentMatches"].toInt());
     ui->sMaxMatchesInOneDay->setValue(options()["MaxMatchesInOneDay"].toInt());
-    ui->lVersion->setText(QCoreApplication::applicationVersion());
 }
 
 OptionsForm::~OptionsForm()
@@ -48,6 +50,8 @@ void OptionsForm::on_buttonBox_accepted()
     QSettings settings("Sobhe", "Reghaabat");
     settings.setValue("DataFolder", ui->eDataFolder->text());
     settings.setValue("Printer", ui->cPrinters->currentText());
+
+    writeOption("BookBorrowDays", ui->sBookBorrowDays->value());
     writeOption("CorrectorIdentifier", ui->cCorrectorIdentifier->itemData(ui->cCorrectorIdentifier->currentIndex()).toString());
     writeOption("MaxConcurrentMatches", ui->sMaxConcurrentMatches->value());
     writeOption("MaxMatchesInOneDay", ui->sMaxMatchesInOneDay->value());

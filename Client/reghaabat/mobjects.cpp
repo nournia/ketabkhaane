@@ -118,7 +118,7 @@ QString MObjects::renew(QString userId, QString objectId)
 
 int MObjects::getFine(QString userId, QString objectId)
 {
-    int days;
+    int days = 0;
 
     QSqlQuery qry;
     qry.exec(QString("select julianday(date('now')) - julianday(date(ifnull(renewed_at, delivered_at))) as days from borrows where user_id = %1 and object_id = %2 and received_at is null").arg(userId).arg(objectId));
@@ -132,7 +132,7 @@ int MObjects::getFine(QString userId, QString objectId)
     book = qry.value(2).toInt() == 0;
     fine = qry.value(qry.value(2).toInt()).toInt();
 
-    if (book) days -= 7;
+    if (book) days -= options()["BookBorrowDays"].toInt();
 
     if (days > 0)
         return fine * days;

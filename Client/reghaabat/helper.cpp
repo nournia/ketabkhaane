@@ -194,6 +194,7 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
 QVariantMap options()
 {
     QVariantMap options;
+    options["BookBorrowDays"] = 7;
     options["CorrectorIdentifier"] = "NameFamily";
     options["MaxMatchesInOneDay"] = 3;
     options["MaxConcurrentMatches"] = 3;

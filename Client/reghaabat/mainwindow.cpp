@@ -55,6 +55,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     firstPage();
 
+
+    // check for db connection
+    if (! Connector::connectDb().isOpen())
+    {
+        QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Database Connection Error!"));
+        exit(1);
+    }
+
     // check for startup situation
     QSqlQuery qry;
     qry.exec("select id from users where upassword is not null");
