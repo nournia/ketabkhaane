@@ -89,7 +89,7 @@ QString ViewerForm::addTable(QString title, QStringList fields, QString query)
 
 QString getScoreListQuery(QString condition)
 {
-    return QString("select firstname ||' '|| lastname, corrected, round(scores.score) from scores inner join users on scores.user_id = users.id inner join ( select user_id, count(id) as corrected from answers where corrected_at > (select started_at from library) group by user_id) as t_corrected on scores.user_id = t_corrected.user_id where scores.score > 0 %1 order by scores.score desc").arg(condition);
+    return QString("select firstname ||' '|| lastname, corrected, sscore from users inner join (select user_id, sum(score) as sscore from transactions where substr(description, 1, 3) = 'mid' and created_at > (select started_at from library) group by user_id) as _scores on users.id = _scores.user_id inner join (select user_id, count(id) as corrected from answers where corrected_at > (select started_at from library) group by user_id) as _corrected on users.id =_corrected.user_id where sscore > 0 %1 order by sscore desc").arg(condition);
 }
 
 QString getMatchListQuery(QString ageclass)
