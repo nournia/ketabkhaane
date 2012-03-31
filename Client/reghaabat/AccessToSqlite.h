@@ -447,6 +447,8 @@ void importLibraryDb(QString accessFilename)
 
     importBorrows();
 
+    sqliteQry.exec("update library set version = '0.9.0'");
+
     qDebug() << "library import finished";
 }
 
