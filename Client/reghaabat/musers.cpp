@@ -195,21 +195,34 @@ QString MUsers::setPermission(QString userId, QString permission)
     return "";
 }
 
+int MUsers::getScore(QString userId)
+{
+    QSqlQuery qry;
+    qry.exec(QString("select sum(score) from transactions where user_id = %1 and substr(description, 1, 3) = 'mid' and created_at > (select started_at from library)").arg(userId));
+    if (qry.next())
+        return qry.value(0).toInt();
+    return 0;
+}
+
+int MUsers::getPayment(QString userId)
+{
+    QSqlQuery qry;
+    qry.exec(QString("select -1 * sum(score) from transactions where user_id = %1 and description = 'pay' and created_at > (select started_at from library)").arg(userId));
+    if (qry.next())
+        return qry.value(0).toInt();
+    return 0;
+}
+
 QString MUsers::pay(QString userId, int score)
 {
     QSqlQuery qry;
 
-    qry.exec(QString("select score - ifnull((select sum(payment) as payed_score from payments ts where user_id = %1 and payed_at > (select started_at from library)), 0) as residue from scores where user_id = %1").arg(userId));
-    if (!qry.next())
-        return qry.lastError().text();
-
-    if (qry.value(0).toInt() - score < 0)
+    if ((getScore(userId) - getPayment(userId)) - score < 0)
         return QObject::tr("You have not sufficent score.");
 
-    if (!qry.exec(QString("insert into payments (user_id, payment, payed_at) values (%1, %2, '%3')").arg(userId).arg(score).arg(formatDateTime(QDateTime::currentDateTime()))))
+    if (!qry.exec(QString("insert into transactions (user_id, score, kind, description) values (%1, %2, 'match', 'pay')").arg(userId).arg(-1 * score)))
         return qry.lastError().text();
-
-    insertLog("payments", "insert", qry.lastInsertId());
+    insertLog("transactions", "insert", qry.lastInsertId());
 
     return "";
 }

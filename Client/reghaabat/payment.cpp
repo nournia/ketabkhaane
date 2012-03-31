@@ -43,20 +43,10 @@ inline QTableWidgetItem* getItem(QString str)
 void Payment::selectUser()
 {
     QSqlQuery qry;
-
-    qry.exec("select round(score) from scores where user_id = "+ ui->eUser->value());
-    if (! qry.next())
-        return;
-    ui->lSum->setText(qry.value(0).toString());
-
-    qry.exec(QString("select round(score - ifnull((select sum(payment) as payed_score from payments where user_id = %1 and payed_at > (select started_at from library)), 0)) as residue from scores where user_id = %1").arg(ui->eUser->value()));
-    if (! qry.next())
-        return;
-    ui->lResidue->setText(qry.value(0).toString());
-
+    int payment = MUsers::getPayment(ui->eUser->value()), score = MUsers::getScore(ui->eUser->value());
 
     // fill tables
-    qry.exec(QString("select payed_at, payment from payments where user_id = %1 and payed_at > (select started_at from library) order by payed_at desc").arg(ui->eUser->value()));
+    qry.exec(QString("select created_at, -1 * score from transactions where user_id = %1 and description = 'pay' and created_at > (select started_at from library) order by created_at desc").arg(ui->eUser->value()));
     for (int row = 0; qry.next(); row++)
     {
         ui->tPayments->insertRow(row);
@@ -73,6 +63,8 @@ void Payment::selectUser()
         ui->tScores->setItem(row, 1, getItem(qry.value(1).toString()));
     }
 
+    ui->lSum->setText(QString("%1").arg(score));
+    ui->lResidue->setText(QString("%1").arg(score - payment));
 
     ui->gPay->setEnabled(true);
     ui->sPay->setFocus();

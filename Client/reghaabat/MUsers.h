@@ -9,23 +9,17 @@ class MUsers
 {
 public:
     static bool get(QString userId, StrMap& user);
-
     static QString getAgeClassCase(QString userId);
-
     static QString getAgeClass(QString userId);
-
     static QString getNewLabel();
+    static int getScore(QString userId);
+    static int getPayment(QString userId);
 
     static QString set(QString userId, StrMap user);
-
     static bool login(QString userId, QString password, StrMap& user);
-
     static QString changePassword(QString userId, QString oldPass, QString newPass, QString rePass);
-
     static QString setPassword(QString userId, QString newPass);
-
     static QString setPermission(QString userId, QString permission);
-
     static QString pay(QString userId, int score);
 
     static QList<StrPair> accounts()
