@@ -698,7 +698,7 @@
         <translation>عمومی</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+132"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
@@ -707,28 +707,28 @@
         <translation type="obsolete">عنوان</translation>
     </message>
     <message>
-        <location line="-50"/>
+        <location line="-57"/>
         <source>Corrector Show</source>
         <translation>نحوه نمایش مصحح</translation>
     </message>
     <message>
-        <location line="-28"/>
+        <location line="-40"/>
         <source>Max Concurrent Matches</source>
         <translation>حداکثر مسابقه‌های در دست عضو</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+20"/>
         <source>Max Matches In One Day</source>
         <translation>حداکثر تحویل مسابقه به عضو در روز</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-43"/>
         <source>Book Borrow Days</source>
         <oldsource>Object Borrow Days</oldsource>
         <translation>مدت امانت کتاب</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+83"/>
         <source>Local</source>
         <translation>محلی</translation>
     </message>
@@ -737,7 +737,7 @@
         <translation type="obsolete">آدرس پایگاه داده</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+57"/>
         <source>Description</source>
         <translation>توضیحات</translation>
     </message>
@@ -747,7 +747,7 @@
         <translation>نسخه</translation>
     </message>
     <message>
-        <location line="-35"/>
+        <location line="-42"/>
         <source>Select</source>
         <translation>انتخاب</translation>
     </message>
@@ -798,18 +798,22 @@
     </message>
     <message>
         <location line="+24"/>
-        <source>Score Residue:</source>
-        <oldsource>Score Residue</oldsource>
-        <translation>موجودی امتیاز:</translation>
+        <source>Score Residue</source>
+        <oldsource>Score Residue:</oldsource>
+        <translation>موجودی امتیاز</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>Score Sum:</source>
         <oldsource>Score Sum</oldsource>
-        <translation>مجموع امتیاز:</translation>
+        <translation type="obsolete">مجموع امتیاز:</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+23"/>
+        <source>Score Sum</source>
+        <translation>مجموع امتیاز</translation>
+    </message>
+    <message>
+        <location line="+32"/>
         <location line="+76"/>
         <source>Score</source>
         <translation>امتیاز</translation>
