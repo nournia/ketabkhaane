@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QSettings>
 #include <QFile>
+#include <QDir>
 
 #include "helper.h"
 
@@ -18,6 +19,27 @@ QSqlDatabase Connector::connectDb()
         return db;
     } else
         return QSqlDatabase::database();
+}
+
+bool Connector::buildDb()
+{
+    QSqlQuery qry;
+
+    QFile file(":/resources/sqlite.sql");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    foreach (QString q, QTextStream(&file).readAll().split(";"))
+    if (q.contains("create", Qt::CaseInsensitive) || q.contains("insert", Qt::CaseInsensitive) || q.contains("update", Qt::CaseInsensitive))
+        if (! qry.exec(q))
+        {
+            qDebug() << "sql file error: " << qry.lastError();
+            return false;
+        }
+
+    insertLog("library", "insert", 1);
+    insertLog("files", "insert", 1);
+
+    return true;
 }
 
 QSqlDatabase Connector::connectLibrary(bool& ok)

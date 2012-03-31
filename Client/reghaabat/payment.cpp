@@ -17,7 +17,7 @@ Payment::Payment(QWidget *parent) :
     QString condition;
     if (!Reghaabat::hasAccess("manager"))
         condition = QString(" where gender = '%1'").arg(Reghaabat::instance()->userGender);
-    ui->eUser->setQuery("select id as cid, id as clabel, firstname||' '||lastname as ctitle from users" + condition);
+    ui->eUser->setQuery("select id as cid, label as clabel, firstname||' '||lastname as ctitle from users" + condition);
     connect(ui->eUser, SIGNAL(select()), this, SLOT(selectUser()));
     connect(ui->eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
 

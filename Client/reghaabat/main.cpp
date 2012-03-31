@@ -19,7 +19,17 @@ int main(int argc, char *argv[])
     a.setApplicationVersion("0.9.0");
 
     // arguments
-    if (argc == 3 && !strcmp(argv[1], "-data"))
+    if (argc == 2 && !strcmp(argv[1], "-bootstrap"))
+    {
+        QSettings settings("Sobhe", "Reghaabat");
+        settings.setValue("DataFolder", "data");
+
+        Connector::connectDb();
+        Connector::buildDb();
+
+        exit(0);
+    }
+    else if (argc == 3 && !strcmp(argv[1], "-data"))
     {
         QSettings settings("Sobhe", "Reghaabat");
 
@@ -29,12 +39,10 @@ int main(int argc, char *argv[])
         else
             settings.setValue("DataFolder", filename);
     }
-    else if (argc == 2 && !strcmp(argv[1], "-import"))
-    {
-        importMatchDb("C:\\Users\\Noorian\\Desktop\\Reghaabat.mdb");
-        importLibraryDb("C:\\Users\\Noorian\\Desktop\\Library.mdb");
-        exit(0);
-    }
+
+    // importMatchDb("C:\\Users\\Noorian\\Desktop\\Reghaabat.mdb");
+    // importLibraryDb("C:\\Users\\Noorian\\Desktop\\Library.mdb");
+    // exit(0);
 
     // translation
     QTranslator rTranslator;

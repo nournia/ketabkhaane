@@ -163,21 +163,24 @@ QString MUsers::setPermission(QString userId, QString permission)
 {
     QSqlQuery qry;
 
+    // validation
+    if (permission != "master")
+    {
+        qry.exec("select user_id from permissions where permission = 'master' and user_id != "+ userId);
+        if (! qry.next())
+        {
+            qry.exec("select id from permissions");
+            if (! qry.next())
+                permission = "master";
+            else
+                return QObject::tr("You must have at least one master user.");
+        }
+    }
+
     qry.exec("select id, permission from permissions where user_id = "+ userId);
     if (qry.next())
     {
-        // validation
         QString id = qry.value(0).toString();
-
-        if (qry.value(1).toString() == "master")
-        {
-            qry.exec("select user_id from permissions where permission = 'master' and user_id != "+ userId);
-            if (! qry.next())
-                return QObject::tr("You must have at least one master user.");
-        }
-
-
-        // store
 
         if (! qry.exec(QString("update permissions set permission = '%1' where id = %2").arg(permission).arg(id)))
             return qry.lastError().text();
@@ -186,7 +189,7 @@ QString MUsers::setPermission(QString userId, QString permission)
     }
     else
     {
-        if (! qry.exec(QString("insert into permissions (user_id, permission) values (%1, 'user')").arg(userId)))
+        if (! qry.exec(QString("insert into permissions (user_id, permission) values (%1, '%2')").arg(userId).arg(permission)))
             return qry.lastError().text();
 
         insertLog("permissions", "insert", qry.lastInsertId());

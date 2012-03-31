@@ -175,7 +175,7 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
     if (! time.isValid())
         time = QDateTime::currentDateTime();
 
-    if (userId.isEmpty())
+    if (userId.isEmpty() && !Reghaabat::instance()->userId.isEmpty())
         userId = Reghaabat::instance()->userId;
     else if (userId.toInt() == 0)
         userId.clear();

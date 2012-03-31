@@ -11,6 +11,7 @@ class Connector
 public:
     static QSqlDatabase connectDb();
     static QSqlDatabase connectLibrary(bool& ok);
+    static bool buildDb();
 };
 
 #endif // CONNECTOR_H

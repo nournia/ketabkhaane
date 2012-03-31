@@ -53,11 +53,23 @@ MainWindow::MainWindow(QWidget *parent) :
     delete ui->container->layout();
     ui->container->setLayout(stackedLayout);
 
-//    optionsForm = new OptionsForm(this);
-//    stackedLayout->addWidget(optionsForm);
-
     firstPage();
-    on_actionLogin_triggered();
+
+    // check for startup situation
+    QSqlQuery qry;
+    qry.exec("select id from users where upassword is not null");
+    if (! qry.next())
+    {
+        Reghaabat::instance()->userId = "";
+        Reghaabat::instance()->userName = "";
+        Reghaabat::instance()->userGender = "male";
+        Reghaabat::instance()->userPermission = "master";
+
+        ui->actionLogin->setEnabled(false);
+        applyPermission();
+    }
+    else
+        on_actionLogin_triggered();
 
     viewer = new ViewerForm(this);
 }

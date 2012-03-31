@@ -220,9 +220,11 @@ insert into open_categories (id, title) values (0, 'خلاصه‌نویسی');
 insert into open_categories (id, title) values (1, 'شعر');
 insert into open_categories (id, title) values (2, 'داستان');
 
-insert into library (id, group_id, title, image, license, tournament_title, started_at, version) values (1, 1, 'کتابخانه‌ی شهید خرازی', '1.jpg','aslwkelrfjsasdf', 'مسابقه کتاب‌خوانی', '2011-06-01 00:00:00', '0.8.5');
-insert into permissions (user_id, permission, accept) values (1770, "master", 1);
+insert into accounts (id, title, bookfine, cdfine) values (0, 'عادی', 50, 100);
+insert into accounts (id, title, bookfine, cdfine) values (1, 'ویژه', 25, 100);
 
--- after import
-update users set upassword = '356a192b7913b04c54574d18c28d46e6395428ab' where id = 1770;
-update scores set score = 0;
+insert into types (id, title) values (0, 'کتاب');
+insert into types (id, title) values (1, 'چند رسانه‌ای');
+
+insert into library (id, group_id, title, image, license, tournament_title, started_at, version) values (1, 1, 'کتابخانه شما', '', '', '', current_timestamp, '0.9.0');
+insert into files values (1, 'jpg');
