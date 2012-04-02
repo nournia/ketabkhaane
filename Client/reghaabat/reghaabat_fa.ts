@@ -182,13 +182,13 @@
     <message>
         <location filename="formoperator.cpp" line="+90"/>
         <location line="+13"/>
-        <location line="+202"/>
+        <location line="+204"/>
         <source>Received</source>
         <translation>دریافت</translation>
     </message>
     <message>
-        <location line="-202"/>
-        <location line="+209"/>
+        <location line="-204"/>
+        <location line="+211"/>
         <source>Renewed</source>
         <translation>تمدید</translation>
     </message>
@@ -1098,6 +1098,11 @@
     </message>
     <message>
         <location line="+55"/>
+        <source>Invalid input.</source>
+        <translation>ورودی نامعتبر است.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Discount is greater than fine.</source>
         <translation>مقدار تخفیف بیشتر از مقدار جریمه است.</translation>
     </message>

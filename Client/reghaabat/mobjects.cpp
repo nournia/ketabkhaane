@@ -143,20 +143,28 @@ QString MObjects::charge(QString userId, int fine, int discount, int money)
 {
     QSqlQuery qry;
 
+    if (money < 0 || discount < 0)
+        return QObject::tr("Invalid input.");
     if (discount > fine)
         return QObject::tr("Discount is greater than fine.");
 
     // insert fine - discount
-    if (qry.exec(QString("insert into transactions (user_id, score, kind, description) values (%1, %2, 'library', 'off:%3')").arg(userId).arg(-1*(fine - discount)).arg(discount)))
-        insertLog("transactions", "insert", qry.lastInsertId());
-    else
-        return qry.lastError().text();
+    if (fine > 0 || discount > 0)
+    {
+        if (qry.exec(QString("insert into transactions (user_id, score, description) values (%1, %2, 'off:%3')").arg(userId).arg(-1*(fine - discount)).arg(discount)))
+            insertLog("transactions", "insert", qry.lastInsertId());
+        else
+            return qry.lastError().text();
+    }
 
     // insert charge
-    if (qry.exec(QString("insert into transactions (user_id, score, kind, description) values (%1, %2, 'library', 'chg')").arg(userId).arg(money)))
-        insertLog("transactions", "insert", qry.lastInsertId());
-    else
-        return qry.lastError().text();
+    if (money > 0)
+    {
+        if (qry.exec(QString("insert into transactions (user_id, score, description) values (%1, %2, 'chg')").arg(userId).arg(money)))
+            insertLog("transactions", "insert", qry.lastInsertId());
+        else
+            return qry.lastError().text();
+    }
 
     return "";
 }

@@ -143,8 +143,7 @@ create table transactions (
 	user_id integer not null references users(id) on update cascade,
 	score smallint not null, -- match: +answer -payment, library: +receipt -penalty
 	created_at timestamp not null default current_timestamp,
-	kind varchar(10) not null, -- enum("match", "library")
-	description varchar(50) null -- off: discount (fine from objects), chg (money user charged to he's account), mid:match_id (score from match), pay (money payed to user for matches)
+	description varchar(20) null -- off: discount (fine from objects), chg (money user charged to he's account), mid:match_id (score from match), pay (money payed to user for matches)
 );
 
 -- open_scores 

@@ -110,7 +110,7 @@ void FormOperator::selectUser()
         ui->lObjects->layout()->addWidget(new QWidget);
 
         // numbers
-        qry.exec(QString("select -1 * sum(score) from transactions where user_id = %1 and kind = 'library'").arg(ui->eUser->value()));
+        qry.exec(QString("select -1 * sum(score) from transactions where user_id = %1 and (description = 'chg' or substr(description, 1, 3) = 'off')").arg(ui->eUser->value()));
         qry.next();
         int debt = qry.value(0).toInt();
         ui->lDebt->setText(QString("%1").arg(debt));
@@ -135,10 +135,12 @@ void FormOperator::refreshFine()
             fine += row->fine;
     }
 
-    int all = fine + ui->lDebt->text().toInt();
     ui->lFine->setText(QString("%1").arg(fine));
-    ui->sDiscount->setMaximum(fine);
+    int all = fine + ui->lDebt->text().toInt();
+    if (all < 0) all = 0;
     ui->sPayment->setMaximum(all);
+    if (fine > all) all = fine;
+    ui->sDiscount->setMaximum(all);
 }
 
 void FormOperator::selectObject()

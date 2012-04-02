@@ -389,7 +389,7 @@ void importBorrows()
 void importTransactions()
 {
     // import payments
-    sqliteQry.exec("insert into transactions select id, user_id, -1*payment, payed_at, 'match', 'pay' from payments");
+    sqliteQry.exec("insert into transactions select id, user_id, -1*payment, payed_at, 'pay' from payments");
     sqliteQry.exec("drop table payments");
 
     // import scores

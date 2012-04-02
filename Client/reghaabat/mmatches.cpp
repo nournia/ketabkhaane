@@ -301,10 +301,10 @@ QString MMatches::correct(QString answerId, QString Score)
 QString MMatches::getScoreSql(QString opt = "insert")
 {
     QString scoreSt = "answers.rate * supports.score * (case matches.ageclass - ("+ MUsers::getAgeClassCase("answers.corrected_at") +") when 0 then 1 when 1 then 1.25 when -1 then 0.75 else 0 end)";
-    QString selectSt = "select answers.user_id, round("+ scoreSt +") as score, answers.corrected_at, 'match', 'mid:'||answers.match_id from answers inner join supports on answers.match_id = supports.match_id inner join matches on answers.match_id = matches.id inner join users on answers.user_id = users.id where answers.rate is not null";
+    QString selectSt = "select answers.user_id, round("+ scoreSt +") as score, answers.corrected_at, 'mid:'||answers.match_id from answers inner join supports on answers.match_id = supports.match_id inner join matches on answers.match_id = matches.id inner join users on answers.user_id = users.id where answers.rate is not null";
 
     if (opt == "insert")
-        return "insert into transactions (user_id, score, created_at, kind, description) " + selectSt;
+        return "insert into transactions (user_id, score, created_at, description) " + selectSt;
     else
         return selectSt;
 }

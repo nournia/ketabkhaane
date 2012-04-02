@@ -223,7 +223,7 @@ QString MUsers::pay(QString userId, int score)
     if ((getScore(userId) - getPayment(userId)) - score < 0)
         return QObject::tr("You have not sufficent score.");
 
-    if (!qry.exec(QString("insert into transactions (user_id, score, kind, description) values (%1, %2, 'match', 'pay')").arg(userId).arg(-1 * score)))
+    if (!qry.exec(QString("insert into transactions (user_id, score, description) values (%1, %2, 'pay')").arg(userId).arg(-1 * score)))
         return qry.lastError().text();
     insertLog("transactions", "insert", qry.lastInsertId());
 

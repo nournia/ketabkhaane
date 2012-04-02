@@ -322,7 +322,7 @@
              <widget class="QSpinBox" name="sPayment">
               <property name="minimumSize">
                <size>
-                <width>54</width>
+                <width>55</width>
                 <height>0</height>
                </size>
               </property>
@@ -352,7 +352,7 @@
              <widget class="QSpinBox" name="sDiscount">
               <property name="minimumSize">
                <size>
-                <width>54</width>
+                <width>55</width>
                 <height>0</height>
                </size>
               </property>
