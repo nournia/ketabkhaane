@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     uihelper.cpp \
     objectform.cpp \
     objectmanagement.cpp \
-    mobjects.cpp
+    mobjects.cpp \
+    aboutdialog.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -77,7 +78,8 @@ HEADERS  += mainwindow.h \
     uihelper.h \
     objectform.h \
     objectmanagement.h \
-    mobjects.h
+    mobjects.h \
+    aboutdialog.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -96,4 +98,5 @@ FORMS    += mainwindow.ui \
     usermanagement.ui \
     payment.ui \
     objectform.ui \
-    objectmanagement.ui
+    objectmanagement.ui \
+    aboutdialog.ui

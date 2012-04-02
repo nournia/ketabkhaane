@@ -49,6 +49,7 @@ public slots:
     void firstPage();
 
 private slots:
+    void on_actionAbout_triggered();
     void on_actionObjectManagement_triggered();
     void on_actionEditUser_triggered();
     void on_actionNewUser_triggered();

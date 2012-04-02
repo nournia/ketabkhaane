@@ -6,6 +6,7 @@
 #include <QDesktopWidget>
 
 #include <logindialog.h>
+#include <aboutdialog.h>
 #include <dialogchangepassword.h>
 #include <formchangepermissions.h>
 #include <scoreform.h>
@@ -42,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    resize(760, 530);
+    resize(790, 550);
 
     this->move(QApplication::desktop()->screen()->rect().center()-this->rect().center());
 
@@ -379,4 +380,10 @@ void MainWindow::on_actionObjectManagement_triggered()
         stackedLayout->addWidget(objectManagement);
     }
     stackedLayout->setCurrentWidget(objectManagement);
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    AboutDialog ad(this);
+    ad.exec();
 }

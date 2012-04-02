@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>624</width>
-    <height>377</height>
+    <width>616</width>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -76,6 +76,7 @@
    <addaction name="separator"/>
    <addaction name="actionChangePassword"/>
    <addaction name="actionLogin"/>
+   <addaction name="actionAbout"/>
   </widget>
   <action name="actionSync">
    <property name="text">
@@ -218,6 +219,18 @@
    </property>
    <property name="toolTip">
     <string>Object Management</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="reghaabat.qrc">
+     <normaloff>:/images/reghaabat.ico</normaloff>:/images/reghaabat.ico</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+   <property name="toolTip">
+    <string>About</string>
    </property>
   </action>
  </widget>

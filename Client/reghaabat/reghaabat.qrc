@@ -33,5 +33,6 @@
         <file>images/object.png</file>
         <file>images/add_object.png</file>
         <file>images/edit_object.png</file>
+        <file>images/reghaabat.ico</file>
     </qresource>
 </RCC>

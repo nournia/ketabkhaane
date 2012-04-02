@@ -2,6 +2,29 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fa_IR">
 <context>
+    <name>AboutDialog</name>
+    <message>
+        <location filename="aboutdialog.ui" line="+14"/>
+        <source>About</source>
+        <translation>درباره</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Book Reading Competition Software</source>
+        <translation>نرم افزار مسابقه کتاب‌خوانی</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Site</source>
+        <translation>وب‌گاه</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>reghaabat.ir</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>DialogChangePassword</name>
     <message>
         <location filename="dialogchangepassword.ui" line="+14"/>
@@ -275,7 +298,7 @@
         <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+69"/>
         <location line="+3"/>
         <source>Sync</source>
         <translation>همزمانی</translation>
@@ -289,7 +312,7 @@
     <message>
         <location line="+9"/>
         <location line="+3"/>
-        <location filename="mainwindow.cpp" line="+158"/>
+        <location filename="mainwindow.cpp" line="+159"/>
         <source>Logout</source>
         <translation>خروج</translation>
     </message>
@@ -327,7 +350,13 @@
         <translation>مدیریت اشیاء</translation>
     </message>
     <message>
-        <location line="-102"/>
+        <location line="+9"/>
+        <location line="+3"/>
+        <source>About</source>
+        <translation>درباره</translation>
+    </message>
+    <message>
+        <location line="-114"/>
         <source>Options</source>
         <translation>تنظمیات</translation>
     </message>
