@@ -34,10 +34,12 @@ QString getAbsoluteAddress(QString address)
     return QCoreApplication::applicationDirPath() + "/" + address;
 }
 
+#include <QDir>
 QString dataFolder()
 {
+    QDir dir;
     QSettings settings("Sobhe", "Reghaabat");
-    return settings.value("DataFolder", getAbsoluteAddress("data")).toString();
+    return dir.absoluteFilePath(settings.value("DataFolder", getAbsoluteAddress("data")).toString());
 }
 
 QString filesUrl()
