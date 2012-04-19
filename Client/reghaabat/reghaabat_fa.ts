@@ -722,12 +722,11 @@
         <translation type="obsolete">ارتباط با کتابخانه</translation>
     </message>
     <message>
-        <location filename="optionsform.ui" line="+20"/>
         <source>General</source>
-        <translation>عمومی</translation>
+        <translation type="obsolete">عمومی</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location filename="optionsform.ui" line="+164"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
@@ -736,28 +735,38 @@
         <translation type="obsolete">عنوان</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-96"/>
         <source>Corrector Show</source>
         <translation>نحوه نمایش مصحح</translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location line="+17"/>
         <source>Max Concurrent Matches</source>
         <translation>حداکثر مسابقه‌های در دست عضو</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-37"/>
         <source>Max Matches In One Day</source>
         <translation>حداکثر تحویل مسابقه به عضو در روز</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location line="-28"/>
+        <source>Match</source>
+        <translation>مسابقه</translation>
+    </message>
+    <message>
+        <location line="+75"/>
+        <source>Library</source>
+        <translation>کتاب‌خانه</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Book Borrow Days</source>
         <oldsource>Object Borrow Days</oldsource>
         <translation>مدت امانت کتاب</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+26"/>
         <source>Local</source>
         <translation>محلی</translation>
     </message>

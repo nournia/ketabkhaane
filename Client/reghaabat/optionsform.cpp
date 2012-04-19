@@ -29,10 +29,12 @@ OptionsForm::OptionsForm(QWidget *parent) :
     ui->cPrinters->setCurrentIndex(ui->cPrinters->findText(settings.value("Printer", "").toString()));
     ui->lVersion->setText(QCoreApplication::applicationVersion());
 
-    ui->sBookBorrowDays->setValue(options()["BookBorrowDays"].toInt());
+    ui->gMatch->setChecked(options()["Match"].toBool());
     ui->cCorrectorIdentifier->setCurrentIndex(ui->cCorrectorIdentifier->findData(options()["CorrectorIdentifier"].toString()));
     ui->sMaxConcurrentMatches->setValue(options()["MaxConcurrentMatches"].toInt());
     ui->sMaxMatchesInOneDay->setValue(options()["MaxMatchesInOneDay"].toInt());
+
+    ui->sBookBorrowDays->setValue(options()["BookBorrowDays"].toInt());
 }
 
 OptionsForm::~OptionsForm()
@@ -51,10 +53,12 @@ void OptionsForm::on_buttonBox_accepted()
     settings.setValue("DataFolder", ui->eDataFolder->text());
     settings.setValue("Printer", ui->cPrinters->currentText());
 
-    writeOption("BookBorrowDays", ui->sBookBorrowDays->value());
+    writeOption("Match", ui->gMatch->isChecked());
     writeOption("CorrectorIdentifier", ui->cCorrectorIdentifier->itemData(ui->cCorrectorIdentifier->currentIndex()).toString());
     writeOption("MaxConcurrentMatches", ui->sMaxConcurrentMatches->value());
     writeOption("MaxMatchesInOneDay", ui->sMaxMatchesInOneDay->value());
+
+    writeOption("BookBorrowDays", ui->sBookBorrowDays->value());
 
     QString msg = "";
 

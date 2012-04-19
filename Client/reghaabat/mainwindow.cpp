@@ -56,6 +56,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     firstPage();
 
+    if (! options()["Match"].toBool())
+    {
+        ui->actionUserManagement->setVisible(false);
+        ui->actionMatchManagement->setVisible(false);
+        ui->actionSetScores->setVisible(false);
+        ui->actionPayment->setVisible(false);
+    }
 
     // check for db connection
     if (! Connector::connectDb().isOpen())

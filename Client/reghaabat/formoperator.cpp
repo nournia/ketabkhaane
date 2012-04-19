@@ -37,6 +37,9 @@ FormOperator::FormOperator(QWidget *parent) :
     ui->cLimitedSearch->setVisible(false);
     on_cDeliver_currentIndexChanged(0);
 
+    if (! options()["Match"].toBool())
+        ui->cDeliver->setEnabled(false);
+
     cancelUser();
 }
 
