@@ -116,6 +116,15 @@ QString MObjects::renew(QString userId, QString objectId)
     return "";
 }
 
+int MObjects::getDebt(QString userId)
+{
+    QSqlQuery qry;
+
+    qry.exec(QString("select -1 * sum(score) from transactions where user_id = %1 and (description = 'fin' or description = 'dis' or description = 'chg')").arg(userId));
+    qry.next();
+    return qry.value(0).toInt();
+}
+
 int MObjects::getFine(QString userId, QString objectId)
 {
     int days = 0;
@@ -143,15 +152,22 @@ QString MObjects::charge(QString userId, int fine, int discount, int money)
 {
     QSqlQuery qry;
 
-    if (money < 0 || discount < 0)
-        return QObject::tr("Invalid input.");
-    if (discount > fine)
-        return QObject::tr("Discount is greater than fine.");
+    if ((money + discount > 0) and (money + discount > fine + getDebt(userId)))
+        return QObject::tr("Your score goes down zero.");
 
-    // insert fine - discount
-    if (fine > 0 || discount > 0)
+    // insert fine
+    if (fine > 0)
     {
-        if (qry.exec(QString("insert into transactions (user_id, score, description) values (%1, %2, 'off:%3')").arg(userId).arg(-1*(fine - discount)).arg(discount)))
+        if (qry.exec(QString("insert into transactions (user_id, score, description) values (%1, %2, 'fin')").arg(userId).arg(-1*fine)))
+            insertLog("transactions", "insert", qry.lastInsertId());
+        else
+            return qry.lastError().text();
+    }
+
+    // insert discount
+    if (discount > 0)
+    {
+        if (qry.exec(QString("insert into transactions (user_id, score, description) values (%1, %2, 'dis')").arg(userId).arg(discount)))
             insertLog("transactions", "insert", qry.lastInsertId());
         else
             return qry.lastError().text();

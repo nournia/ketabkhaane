@@ -19,8 +19,8 @@
         <translation>وب‌گاه</translation>
     </message>
     <message>
-        <location line="+16"/>
-        <source>reghaabat.ir</source>
+        <location line="+13"/>
+        <source>&lt;a href=&quot;http://reghaabat.ir&quot; style=&quot;color:#049cdb; text-decoration: none;&quot;&gt;reghaabat.ir&lt;/a&gt;</source>
         <translation></translation>
     </message>
 </context>
@@ -203,7 +203,7 @@
         <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="+90"/>
+        <location filename="formoperator.cpp" line="+93"/>
         <location line="+13"/>
         <location line="+204"/>
         <source>Received</source>
@@ -312,7 +312,7 @@
     <message>
         <location line="+9"/>
         <location line="+3"/>
-        <location filename="mainwindow.cpp" line="+159"/>
+        <location filename="mainwindow.cpp" line="+166"/>
         <source>Logout</source>
         <translation>خروج</translation>
     </message>
@@ -822,7 +822,7 @@
         <translation type="obsolete">انتخاب پایگاه داده کتابخانه</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+49"/>
         <source>Select Reghaabat Data Folder</source>
         <translation>انتخاب پوشه داده‌ها</translation>
     </message>
@@ -902,7 +902,7 @@
     <message>
         <location line="+1"/>
         <source>manager</source>
-        <translation>طراح یار</translation>
+        <translation>ناظر</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1135,14 +1135,17 @@
         <translation>این شئ هم‌اکنون به امانت پیش شماست.</translation>
     </message>
     <message>
-        <location line="+55"/>
-        <source>Invalid input.</source>
-        <translation>ورودی نامعتبر است.</translation>
+        <location line="+64"/>
+        <source>Your score goes down zero.</source>
+        <translation>کتاب‌خانه نباید به کسی بدهکار شود.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <source>Invalid input.</source>
+        <translation type="obsolete">ورودی نامعتبر است.</translation>
+    </message>
+    <message>
         <source>Discount is greater than fine.</source>
-        <translation>مقدار تخفیف بیشتر از مقدار جریمه است.</translation>
+        <translation type="obsolete">مقدار تخفیف بیشتر از مقدار جریمه است.</translation>
     </message>
 </context>
 <context>

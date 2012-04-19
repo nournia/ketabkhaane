@@ -14,6 +14,7 @@ public:
     /* borrows */
 
     static int getFine(QString userId, QString objectId);
+    static int getDebt(QString userId);
 
     static QString charge(QString userId, int fine, int discount, int money);
     static QString receive(QString userId, QString objectId);

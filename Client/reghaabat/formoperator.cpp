@@ -113,15 +113,15 @@ void FormOperator::selectUser()
         ui->lObjects->layout()->addWidget(new QWidget);
 
         // numbers
-        qry.exec(QString("select -1 * sum(score) from transactions where user_id = %1 and (description = 'chg' or substr(description, 1, 3) = 'off')").arg(ui->eUser->value()));
-        qry.next();
-        int debt = qry.value(0).toInt();
+        int debt = MObjects::getDebt(ui->eUser->value());
         ui->lDebt->setText(QString("%1").arg(debt));
         refreshFine();
 
         ui->gDeliver->setEnabled(true);
         if (receive)
             ui->gReceive->setEnabled(true);
+
+        ui->sDiscount->setEnabled(Reghaabat::hasAccess("manager"));
 
         on_cDeliver_currentIndexChanged(ui->cDeliver->currentIndex());
     }
@@ -139,11 +139,6 @@ void FormOperator::refreshFine()
     }
 
     ui->lFine->setText(QString("%1").arg(fine));
-    int all = fine + ui->lDebt->text().toInt();
-    if (all < 0) all = 0;
-    ui->sPayment->setMaximum(all);
-    if (fine > all) all = fine;
-    ui->sDiscount->setMaximum(all);
 }
 
 void FormOperator::selectObject()
