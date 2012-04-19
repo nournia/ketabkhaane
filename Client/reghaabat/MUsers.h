@@ -12,6 +12,7 @@ public:
     static QString getAgeClassCase(QString userId);
     static QString getAgeClass(QString userId);
     static QString getNewLabel();
+    static QString getUsersQuery();
     static int getScore(QString userId);
     static int getPayment(QString userId);
 

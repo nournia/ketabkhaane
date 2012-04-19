@@ -193,6 +193,18 @@ void MainWindow::on_actionLogout_triggered()
          delete child->widget();
     delete ui->statusBar->layout();
 
+    // close open forms
+    if (formOperator) {
+        stackedLayout->removeWidget(formOperator);
+        delete formOperator;
+        formOperator = 0;
+    }
+    if (userForm) {
+        stackedLayout->removeWidget(userForm);
+        delete userForm;
+        userForm = 0;
+    }
+
     firstPage();
 
     applyPermission();

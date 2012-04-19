@@ -43,6 +43,14 @@ QString MUsers::getNewLabel()
         return "1111";
 }
 
+QString MUsers::getUsersQuery()
+{
+    QString condition;
+    if (! Reghaabat::hasAccess("master"))
+        condition = QString(" and gender = '%1'").arg(Reghaabat::instance()->userGender);
+    return "select id as cid, label as clabel, firstname||' '||lastname as ctitle from users where 1" + condition;
+}
+
 QString MUsers::set(QString userId, StrMap user)
 {
     QSqlQuery qry;

@@ -3,6 +3,7 @@
 
 #include <spinboxdelegate.h>
 #include <uihelper.h>
+#include <musers.h>
 
 ScoreForm::ScoreForm(QWidget *parent) :
     QWidget(parent),
@@ -11,7 +12,7 @@ ScoreForm::ScoreForm(QWidget *parent) :
     ui->setupUi(this);
 
     // add corrector edit
-    ui->eCorrector->setQuery("select id as cid, label as clabel, firstname ||' '|| lastname as ctitle from users where id in (select corrector_id from supports)");
+    ui->eCorrector->setQuery(MUsers::getUsersQuery() + " and id in (select corrector_id from supports)");
     connect(ui->eCorrector, SIGNAL(select()), this, SLOT(selectCorrector()));
     connect(ui->eCorrector, SIGNAL(cancel()), this, SLOT(cancelCorrector()));
 
