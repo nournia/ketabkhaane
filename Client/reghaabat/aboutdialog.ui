@@ -54,11 +54,14 @@
           <bold>true</bold>
          </font>
         </property>
-        <property name="styleSheet">
-         <string notr="true">color: #049cdb</string>
-        </property>
         <property name="text">
-         <string>reghaabat.ir</string>
+         <string>&lt;a href=&quot;http://reghaabat.ir&quot; style=&quot;color:#049cdb; text-decoration: none;&quot;&gt;reghaabat.ir&lt;/a&gt;</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
