@@ -5,3 +5,5 @@ release
 
 ui_*
 *.qm
+*.pro.*
+Makefile*
