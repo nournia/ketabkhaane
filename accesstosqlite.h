@@ -428,14 +428,14 @@ void importLibraryDb(QString accessFilename)
     if (! buildSqliteDb(true))
         return;
 
-    sqliteQry.exec("pragma foreign_keys = on");
-
     importTable("users", "select id, name, family, t_t as tdate, adress +' - '+ str(block) +' - '+ str(`home no`), phon, iif(`is men` = true, 'male', 'female'), memo, id, usertypedescription, '', `reg date` from users left join usertype on users.ozviat = usertype.usertypename",
                 QStringList() << "id" << "firstname" << "lastname" << "birth_date" << "address" << "phone" << "gender" << "description" << "label" << "account");
 
     // restore user passwords
     foreach(QString pq, passQry)
         sqliteQry.exec(pq);
+
+    sqliteQry.exec("pragma foreign_keys = on");
 
     importTransactions();
 

@@ -1,5 +1,7 @@
-Client/reghaabat-build-desktop/*
+data
+deploy
+debug
+release
+
+ui_*
 *.qm
-Client/deploy/
-Client/data
-data/
