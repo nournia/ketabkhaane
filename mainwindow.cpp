@@ -134,13 +134,13 @@ void MainWindow::applyPermission()
 
    if (Reghaabat::hasAccess("manager"))
    {
-       ui->actionChangePermissions->setEnabled(true);
        ui->actionSetScores->setEnabled(true);
        ui->actionPayment->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("master"))
    {
+       ui->actionChangePermissions->setEnabled(true);
        ui->actionOptions->setEnabled(true);
    }
 }
