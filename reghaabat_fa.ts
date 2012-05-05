@@ -183,12 +183,12 @@
         <translation type="obsolete">دریافت</translation>
     </message>
     <message>
-        <location line="+110"/>
+        <location line="+116"/>
         <source>Accept</source>
         <translation>تایید</translation>
     </message>
     <message>
-        <location line="-329"/>
+        <location line="-335"/>
         <location line="+56"/>
         <source>Deliver</source>
         <translation>تحویل</translation>
@@ -203,15 +203,15 @@
         <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="+93"/>
+        <location filename="formoperator.cpp" line="+89"/>
         <location line="+13"/>
-        <location line="+204"/>
+        <location line="+199"/>
         <source>Received</source>
         <translation>دریافت</translation>
     </message>
     <message>
-        <location line="-204"/>
-        <location line="+211"/>
+        <location line="-199"/>
+        <location line="+206"/>
         <source>Renewed</source>
         <translation>تمدید</translation>
     </message>
@@ -945,7 +945,7 @@
         <location filename="objectform.cpp" line="+1"/>
         <location line="+4"/>
         <location filename="optionsform.cpp" line="-5"/>
-        <location filename="payment.cpp" line="+95"/>
+        <location filename="payment.cpp" line="+92"/>
         <location filename="userform.cpp" line="+78"/>
         <location line="+4"/>
         <source>Reghaabat</source>
@@ -959,7 +959,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="musers.cpp" line="+54"/>
+        <location filename="musers.cpp" line="+62"/>
         <source>User name is required.</source>
         <translation>نام عضو وارد نشده است.</translation>
     </message>
@@ -1130,12 +1130,17 @@
         <translation type="obsolete">امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
     </message>
     <message>
-        <location filename="mobjects.cpp" line="+51"/>
+        <location filename="mobjects.cpp" line="+52"/>
         <source>You borrowed this object.</source>
         <translation>این شئ هم‌اکنون به امانت پیش شماست.</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+14"/>
+        <source>We&apos;ve got no more instance of this object. Following users currently borrowed it: %1</source>
+        <translation>این شئ به عضو %1 امانت داده شده است.</translation>
+    </message>
+    <message>
+        <location line="+65"/>
         <source>Your score goes down zero.</source>
         <translation>کتاب‌خانه نباید به کسی بدهکار شود.</translation>
     </message>

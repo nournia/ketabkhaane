@@ -87,10 +87,26 @@ QString MObjects::deliver(QString userId, QString objectId)
 {
     QSqlQuery qry;
 
+    // check object in users bag
     qry.exec(QString("select id from borrows where user_id = %1 and object_id = %2 and received_at is null").arg(userId).arg(objectId));
     if (qry.next())
         return QObject::tr("You borrowed this object.");
 
+    // check object count in library
+    int cnt = 0;
+    qry.exec(QString("select cnt from objects where id = %1").arg(objectId));
+    if (qry.next())
+        cnt = qry.value(0).toInt();
+
+    QStringList users;
+    qry.exec(QString("select user_id from borrows where object_id = %1 and received_at is null").arg(objectId));
+    while (qry.next())
+        users << qry.value(0).toString();
+
+    if (cnt - users.count() <= 0)
+        return QObject::tr("We've got no more instance of this object. Following users currently borrowed it: %1").arg(users.join(" ,"));
+
+    // deliver
     if (! qry.exec(QString("insert into borrows (user_id, object_id) values (%1, %2)").arg(userId).arg(objectId)))
         return qry.lastError().text();
 
