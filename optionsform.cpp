@@ -35,6 +35,17 @@ OptionsForm::OptionsForm(QWidget *parent) :
     ui->sMaxMatchesInOneDay->setValue(options()["MaxMatchesInOneDay"].toInt());
 
     ui->sBookBorrowDays->setValue(options()["BookBorrowDays"].toInt());
+
+    QSqlQuery qry;
+    qry.exec("select title, description, image from library");
+    if (qry.next())
+    {
+        ui->eLibraryTitle->setText(qry.value(0).toString());
+        ui->eLibraryDescription->setText(qry.value(1).toString());
+
+        libraryLogo = qry.value(2).toString();
+        ui->bLibraryLogo->setIcon(QIcon(QString("%1/files/%2").arg(dataFolder(), libraryLogo)));
+    }
 }
 
 OptionsForm::~OptionsForm()
@@ -59,6 +70,10 @@ void OptionsForm::on_buttonBox_accepted()
     writeOption("MaxMatchesInOneDay", ui->sMaxMatchesInOneDay->value());
 
     writeOption("BookBorrowDays", ui->sBookBorrowDays->value());
+
+    QSqlQuery qry;
+    if (qry.exec(QString("update library set title = '%1', description = '%2', image = '%3' where id = 1").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), libraryLogo)))
+        insertLog("library", "update", "1");
 
     QString msg = "";
 

@@ -14,6 +14,7 @@ class OptionsForm : public QWidget
 public:
     explicit OptionsForm(QWidget *parent = 0);
     ~OptionsForm();
+    QString libraryLogo;
 
 private:
     Ui::OptionsForm *ui;
