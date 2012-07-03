@@ -43,8 +43,9 @@ OptionsForm::OptionsForm(QWidget *parent) :
         ui->eLibraryTitle->setText(qry.value(0).toString());
         ui->eLibraryDescription->setText(qry.value(1).toString());
 
-        libraryLogo = qry.value(2).toString();
-        ui->bLibraryLogo->setIcon(QIcon(QString("%1/files/%2").arg(dataFolder(), libraryLogo)));
+        libraryLogo = QString("%1/files/%2").arg(dataFolder(), qry.value(2).toString());
+        ui->bLibraryLogo->setIcon(QIcon(libraryLogo));
+        newLibraryLogo = "";
     }
 }
 
@@ -71,8 +72,15 @@ void OptionsForm::on_buttonBox_accepted()
 
     writeOption("BookBorrowDays", ui->sBookBorrowDays->value());
 
+    if (!newLibraryLogo.isEmpty())
+    {
+        QFile::remove(libraryLogo);
+        QFile::copy(newLibraryLogo, libraryLogo);
+        insertLog("files", "update", "1");
+    }
+
     QSqlQuery qry;
-    if (qry.exec(QString("update library set title = '%1', description = '%2', image = '%3' where id = 1").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), libraryLogo)))
+    if (qry.exec(QString("update library set title = '%1', description = '%2' where id = 1").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText())))
         insertLog("library", "update", "1");
 
     QString msg = "";
@@ -89,4 +97,19 @@ void OptionsForm::on_bSelectDataFolder_clicked()
     QString filename = QFileDialog::getExistingDirectory(this, tr("Select Reghaabat Data Folder")).replace("\\", "/");
     if (!filename.isEmpty())
         ui->eDataFolder->setText(filename);
+}
+
+void OptionsForm::on_bLibraryLogo_clicked()
+{
+    newLibraryLogo = QFileDialog::getOpenFileName(this, tr("Select Library Logo"), "", "Image (*.jpg)");
+    if (!newLibraryLogo.isEmpty())
+    {
+        // check for logo format and dimension
+        QImage logo(newLibraryLogo);
+
+        if (logo.size() == QSize(300, 300))
+            ui->bLibraryLogo->setIcon(QIcon(newLibraryLogo));
+        else
+            QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Logo must be in 300px x 300px dimension."));
+    }
 }

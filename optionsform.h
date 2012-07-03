@@ -14,7 +14,7 @@ class OptionsForm : public QWidget
 public:
     explicit OptionsForm(QWidget *parent = 0);
     ~OptionsForm();
-    QString libraryLogo;
+    QString libraryLogo, newLibraryLogo;
 
 private:
     Ui::OptionsForm *ui;
@@ -23,6 +23,7 @@ signals:
     void closeForm();
 
 private slots:
+    void on_bLibraryLogo_clicked();
     void on_bSelectDataFolder_clicked();
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();

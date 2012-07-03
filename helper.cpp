@@ -167,7 +167,7 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
     if (qry.next())
         data = getRecordJSON(qry);
 
-    if (operation == "update")
+    if (operation == "update" && table != "files")
     {
         qry.exec(QString("select row_data from logs where table_name = '%1' and row_id = %2 order by created_at desc").arg(table).arg(id.toString()));
         if (qry.next() && data == qry.value(0).toString())

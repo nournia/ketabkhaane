@@ -33,6 +33,9 @@
           <property name="text">
            <string>Logo must be in 300px x 300px dimension.</string>
           </property>
+          <property name="textFormat">
+           <enum>Qt::RichText</enum>
+          </property>
          </widget>
         </item>
         <item row="0" column="1">

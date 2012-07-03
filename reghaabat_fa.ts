@@ -726,16 +726,33 @@
         <translation type="obsolete">عمومی</translation>
     </message>
     <message>
-        <location filename="optionsform.ui" line="+164"/>
+        <location filename="optionsform.ui" line="+248"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
     <message>
+        <location line="-204"/>
         <source>Title</source>
-        <translation type="obsolete">عنوان</translation>
+        <translation>عنوان</translation>
     </message>
     <message>
-        <location line="-96"/>
+        <location line="-10"/>
+        <location filename="optionsform.cpp" line="+113"/>
+        <source>Logo must be in 300px x 300px dimension.</source>
+        <translation>آرم کتاب‌خانه باید در ابعاد 300 × 300 پیکسل باشد.</translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Logo</source>
+        <translation>آرم کتاب‌خانه</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Librarianship</source>
+        <translation>کتاب‌داری</translation>
+    </message>
+    <message>
+        <location line="+80"/>
         <source>Corrector Show</source>
         <translation>نحوه نمایش مصحح</translation>
     </message>
@@ -755,18 +772,18 @@
         <translation>مسابقه</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="-116"/>
         <source>Library</source>
         <translation>کتاب‌خانه</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+90"/>
         <source>Book Borrow Days</source>
         <oldsource>Object Borrow Days</oldsource>
         <translation>مدت امانت کتاب</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+101"/>
         <source>Local</source>
         <translation>محلی</translation>
     </message>
@@ -775,7 +792,8 @@
         <translation type="obsolete">آدرس پایگاه داده</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="-160"/>
+        <location line="+217"/>
         <source>Description</source>
         <translation>توضیحات</translation>
     </message>
@@ -799,7 +817,7 @@
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="+23"/>
+        <location filename="optionsform.cpp" line="-90"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -814,6 +832,11 @@
         <translation>کد</translation>
     </message>
     <message>
+        <location line="+79"/>
+        <source>Select Library Logo</source>
+        <translation>انتخاب آرم کتاب‌خانه</translation>
+    </message>
+    <message>
         <source>Id</source>
         <translation type="obsolete">کد عضویت</translation>
     </message>
@@ -822,7 +845,7 @@
         <translation type="obsolete">انتخاب پایگاه داده کتابخانه</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="-7"/>
         <source>Select Reghaabat Data Folder</source>
         <translation>انتخاب پوشه داده‌ها</translation>
     </message>
@@ -945,6 +968,7 @@
         <location filename="objectform.cpp" line="+1"/>
         <location line="+4"/>
         <location filename="optionsform.cpp" line="-5"/>
+        <location line="+21"/>
         <location filename="payment.cpp" line="+92"/>
         <location filename="userform.cpp" line="+78"/>
         <location line="+4"/>
