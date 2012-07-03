@@ -44,7 +44,10 @@ Section
 	SetOutPath "C:\Qt"
 	File /r "Qt\*.*"
 	SetOutPath $INSTDIR
-	File /r "Files\*.*"
+	File /r /x data "Files\*.*"
+	SetOverwrite off
+	SetOutPath $INSTDIR\data
+	File /r "Files\data\*.*"
 
 	;ShortCuts
 	CreateShortCut "$SMPROGRAMS\Programs\Reghaabat\Reghaabat.lnk" "$INSTDIR\reghaabat.exe"
