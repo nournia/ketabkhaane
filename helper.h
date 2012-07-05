@@ -117,7 +117,7 @@ public:
     static bool hasAccess(QString limit)
     {
         QString permission = Reghaabat::instance()->userPermission;
-        QStringList permissions = QStringList() << "user" << "operator" << "designer" << "manager" << "master" << "admin";
+        QStringList permissions = QStringList() << "user" << "operator" << "designer" << "manager" << "master";
 
         if (permission == "designer" && limit == "operator")
             return false;

@@ -63,7 +63,6 @@ public:
     static QList<StrPair> getPermissions()
     {
         QList<StrPair> permissions;
-        permissions.append(qMakePair(PermissionModel::tr("admin"), QString("admin")));
         permissions.append(qMakePair(PermissionModel::tr("master"), QString("master")));
         permissions.append(qMakePair(PermissionModel::tr("manager"), QString("manager")));
         permissions.append(qMakePair(PermissionModel::tr("designer"), QString("designer")));

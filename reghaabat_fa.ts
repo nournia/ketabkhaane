@@ -950,12 +950,11 @@
 <context>
     <name>PermissionModel</name>
     <message>
-        <location filename="formchangepermissions.h" line="+66"/>
         <source>admin</source>
-        <translation>مدیر سامانه</translation>
+        <translation type="obsolete">مدیر سامانه</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location filename="formchangepermissions.h" line="+66"/>
         <source>master</source>
         <translation>مدیر</translation>
     </message>
@@ -972,7 +971,7 @@
     <message>
         <location line="+1"/>
         <source>operator</source>
-        <translation>عضو یار</translation>
+        <translation>اپراتور</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -980,7 +979,7 @@
         <translation>عضو</translation>
     </message>
     <message>
-        <location line="-49"/>
+        <location line="-48"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>
@@ -1519,12 +1518,12 @@
     <message>
         <location line="+10"/>
         <location line="+14"/>
-        <location line="+57"/>
+        <location line="+56"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="-71"/>
+        <location line="-70"/>
         <source>AgeClass</source>
         <translation>رده سنی</translation>
     </message>
@@ -1540,7 +1539,7 @@
         <translation>گروه</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+56"/>
         <source>Lablel</source>
         <translation>شماره</translation>
     </message>
@@ -1561,6 +1560,7 @@
     </message>
     <message>
         <location line="+4"/>
+        <location line="+9"/>
         <source>Page</source>
         <translation>صفحه</translation>
     </message>
@@ -1585,7 +1585,7 @@
         <translation>عالی</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="+59"/>
+        <location filename="viewerform.cpp" line="+51"/>
         <source>Your score depends on your mood, attention and genuis.</source>
         <translation>امتیاز مسابقه به حوصله، دقت و استعداد شما داده می‌شود.</translation>
     </message>
