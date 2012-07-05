@@ -11,6 +11,7 @@
 #include <QFileDialog>
 #include <QSettings>
 #include <QProcess>
+#include <QDesktopServices>
 
 #include <jalali.h>
 #include <matchform.h>
@@ -20,8 +21,7 @@ ViewerForm::ViewerForm(QWidget *parent) :
     ui(new Ui::ViewerForm)
 {
     ui->setupUi(this);
-    setMinimumWidth(915);
-    setMinimumHeight(600);
+    printLandscape = false;
 }
 
 ViewerForm::~ViewerForm()
@@ -29,11 +29,19 @@ ViewerForm::~ViewerForm()
     delete ui;
 }
 
-void ViewerForm::loadHtml(QString name)
+void ViewerForm::loadHtml(QString name, bool landscape)
 {
     QFile file(QString(":/resources/%1.html").arg(name));
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
         ui->webView->setHtml(QTextStream(&file).readAll());
+
+    setMinimumHeight(600);
+    if (!landscape)
+        setMinimumWidth(915);
+    else
+        setMinimumWidth(1000);
+
+    printLandscape = landscape;
 }
 
 QString ViewerForm::addTable(QString title, QStringList fields, QString query)
@@ -151,7 +159,7 @@ void ViewerForm::bMatchAgeGroup()
     ui->webView->page()->mainFrame()->findFirstElement("body").setInnerXml(content);
 }
 
-void ViewerForm::showLabels(QString from, QString to)
+void ViewerForm::showObjectLabels(QString from, QString to)
 {
     loadHtml("labels");
 
@@ -184,6 +192,38 @@ void ViewerForm::showLabels(QString from, QString to)
         content += QString("<td><div class='label'><span class='logo'></span><span class='library'>%1</span><span class='id'>%2</span></div></td>").arg(library, qry.value(0).toString());
     }
     content += "</tr></tbody></table>";
+
+    ui->webView->page()->mainFrame()->findFirstElement("body").setInnerXml(content);
+}
+
+void ViewerForm::showObjectList(QString from, QString to)
+{
+    loadHtml("objects", true);
+
+    QString content;
+
+    QSqlQuery qry;
+    qry.exec(QString(
+        "select objects.label, objects.title, authors.title as author, publications.title as publication, _branches.title as branch, types.title as type "
+        "from objects inner join types on objects.type_id = types.id left join authors on objects.author_id = authors.id left join publications on objects.publication_id = publications.id "
+        "left join (select branches.id, roots.title ||' - '|| branches.title as title from branches inner join roots on branches.root_id = roots.id) as _branches on objects.branch_id = _branches.id "
+        "where objects.label >= '%1' and objects.label <= '%2' order by label").arg(from, to));
+
+    int p = 0;
+    QString thead = QString("<thead><tr><th>%1</th><th>%2</th><th>%3</th><th>%4</th><th>%5</th></tr></thead>").arg(tr("Lablel"), tr("Title"), tr("Author"), tr("Publication"), tr("Branch"));
+    for (int i = 0; qry.next(); i++) {
+        if (!(i % 35))
+        {
+            if (i != 0) content += QString("</tbody></table><span class='page'>%1 %2</span>").arg(tr("Page")).arg(++p);
+            content += "<table cellspacing='0'>"+ thead +"<tbody>";
+        }
+
+        content += "<tr>";
+        for (int j = 0; j < 5; j++)
+            content += QString("<td>%1</td>").arg(qry.value(j).toString());
+        content += "</tr>";
+    }
+    content += QString("</tbody></table><span class='page'>%1 %2</span>").arg(tr("Page")).arg(++p);
 
     ui->webView->page()->mainFrame()->findFirstElement("body").setInnerXml(content);
 }
@@ -299,8 +339,14 @@ void ViewerForm::savePdf(QString filename)
 {
     QPrinter printer(QPrinterInfo::defaultPrinter());
     printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
     printer.setOutputFileName(filename);
+    if (!printLandscape) {
+        printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
+        printer.setOrientation(QPrinter::Portrait);
+    } else {
+        printer.setPageMargins(8, 5, 8, 5, QPrinter::Millimeter);
+        printer.setOrientation(QPrinter::Landscape);
+    }
     ui->webView->print(&printer);
 }
 
@@ -319,6 +365,8 @@ void ViewerForm::on_bPdf_clicked()
     if (!filename.endsWith(".pdf"))
         filename += ".pdf";
     savePdf(filename);
+
+    QDesktopServices::openUrl(QUrl(filename));
 }
 
 void ViewerForm::on_bPrint_clicked()

@@ -710,6 +710,43 @@
         <source>Edit Object</source>
         <translation>ویرایش شئ</translation>
     </message>
+    <message>
+        <location line="+24"/>
+        <location line="+14"/>
+        <source>Print</source>
+        <translation>چاپ</translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>List</source>
+        <translation>فهرست</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Labels</source>
+        <translation>برچسب‌ها</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>From</source>
+        <translation>از</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <location line="+23"/>
+        <source>999-999;_</source>
+        <translation>999-999;_</translation>
+    </message>
+    <message>
+        <location line="-13"/>
+        <source>To</source>
+        <translation>تا</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Preview</source>
+        <translation>نمایش</translation>
+    </message>
 </context>
 <context>
     <name>OptionsForm</name>
@@ -726,7 +763,7 @@
         <translation type="obsolete">عمومی</translation>
     </message>
     <message>
-        <location filename="optionsform.ui" line="+248"/>
+        <location filename="optionsform.ui" line="+251"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
@@ -736,13 +773,13 @@
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-13"/>
         <location filename="optionsform.cpp" line="+113"/>
         <source>Logo must be in 300px x 300px dimension.</source>
         <translation>آرم کتاب‌خانه باید در ابعاد 300 × 300 پیکسل باشد.</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+54"/>
         <source>Logo</source>
         <translation>آرم کتاب‌خانه</translation>
     </message>
@@ -772,12 +809,12 @@
         <translation>مسابقه</translation>
     </message>
     <message>
-        <location line="-116"/>
+        <location line="-119"/>
         <source>Library</source>
         <translation>کتاب‌خانه</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+93"/>
         <source>Book Borrow Days</source>
         <oldsource>Object Borrow Days</oldsource>
         <translation>مدت امانت کتاب</translation>
@@ -1411,7 +1448,7 @@
         <translation type="obsolete">با تفکیک آقا و خانم</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="+135"/>
+        <location filename="viewerform.cpp" line="+143"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -1482,11 +1519,12 @@
     <message>
         <location line="+10"/>
         <location line="+14"/>
+        <location line="+57"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="-14"/>
+        <location line="-71"/>
         <source>AgeClass</source>
         <translation>رده سنی</translation>
     </message>
@@ -1500,6 +1538,31 @@
         <location line="+0"/>
         <source>Group</source>
         <translation>گروه</translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Lablel</source>
+        <translation>شماره</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Author</source>
+        <translation>نویسنده</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Publication</source>
+        <translation>ناشر</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Branch</source>
+        <translation>گروه</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Page</source>
+        <translation>صفحه</translation>
     </message>
     <message>
         <location filename="payment.cpp" line="-38"/>
@@ -1522,7 +1585,7 @@
         <translation>عالی</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="+51"/>
+        <location filename="viewerform.cpp" line="+59"/>
         <source>Your score depends on your mood, attention and genuis.</source>
         <translation>امتیاز مسابقه به حوصله، دقت و استعداد شما داده می‌شود.</translation>
     </message>

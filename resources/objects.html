@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<style>
+body
+{
+	text-align: right;
+	direction:rtl; 
+	font-family: "B Mitra";
+	font-size: 16px;
+	margin: 0;
+}
+
+table {
+	width: 100%;
+}
+th {
+	border-bottom: 4px solid grey;
+}
+td {
+	border-bottom: 1px solid grey;
+}
+tbody tr:nth-child(odd) {
+   background-color: hsl(0, 0%, 90%);
+}
+
+table:not(:first-child) {
+	page-break-before: always;
+}
+td:nth-child(1), th:nth-child(1) {
+	width: 70px;
+	text-align: center;
+}
+td:nth-child(3), tr td:nth-child(4), td:nth-child(5) {
+	width: 200px;
+}
+th:not(:first-child) {
+	padding-right: 7px;
+}
+
+/* overflow */
+td:not(:nth-child(2)) {
+	white-space: nowrap;
+	max-width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 0 5px;
+}
+
+span.page {
+	float: left;
+	margin-top: 3px;
+}
+</style></head>
+<body>
+<table cellspacing="0">
+    <thead><tr><th>شماره</th><th>عنوان</th><th>نویسنده</th><th>ناشر</th><th>گروه</th></tr></thead>
+    <tbody><tr><td>161-297</td><td>قصه ما مثل شد جلد4</td><td>میرکیانی محمد</td><td>استان قدس رضوی</td><td>کودکان  - داستان</td></tr><tr><td>161-315</td><td>ماجراهای اردک آتلانتیس</td><td>راهپای فرد بامداد</td><td>پیک ایران</td><td>کودکان  - داستان</td></tr></tr></tbody>
+</table>
+<span class="page">صفحه 1</span>
+</body>
+</html>

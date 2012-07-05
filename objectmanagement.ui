@@ -62,9 +62,13 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="bLabels">
+       <widget class="QPushButton" name="bPrint">
         <property name="text">
-         <string>Labels</string>
+         <string>Print</string>
+        </property>
+        <property name="icon">
+         <iconset resource="reghaabat.qrc">
+          <normaloff>:/images/print.png</normaloff>:/images/print.png</iconset>
         </property>
        </widget>
       </item>
@@ -72,9 +76,9 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="gLabels">
+    <widget class="QGroupBox" name="gSelectObjects">
      <property name="title">
-      <string/>
+      <string>Print</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <property name="topMargin">
@@ -84,7 +88,40 @@
        <number>3</number>
       </property>
       <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rList">
+        <property name="text">
+         <string>List</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rLabels">
+        <property name="text">
+         <string>Labels</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">color: #aaa</string>
+        </property>
         <property name="text">
          <string>From</string>
         </property>
@@ -105,6 +142,9 @@
       </item>
       <item>
        <widget class="QLabel" name="label_2">
+        <property name="styleSheet">
+         <string notr="true">color: #aaa</string>
+        </property>
         <property name="text">
          <string>To</string>
         </property>
@@ -124,7 +164,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="bPreviewLabels">
+       <widget class="QPushButton" name="bPreview">
         <property name="text">
          <string>Preview</string>
         </property>
@@ -133,19 +173,6 @@
           <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
         </property>
        </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </widget>
