@@ -7,3 +7,7 @@ ui_*
 *.qm
 *.pro.*
 Makefile*
+
+*.pdf
+*.Release
+*.Debug
