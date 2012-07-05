@@ -20,6 +20,7 @@ public:
     void loadHtml(QString name);
     void showMatch(StrMap match, QList<StrPair> questions);
     void savePdf(QString filename);
+    void showLabels(QString from, QString to);
 
     void bMatchAgeGroup();
     void bUserGenderGroup();

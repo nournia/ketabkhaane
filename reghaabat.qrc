@@ -5,6 +5,7 @@
         <file>resources/sqlite.sql</file>
         <file>resources/library.sql</file>
         <file>resources/default.qss</file>
+        <file>resources/labels.html</file>
         <file>images/cancel.png</file>
         <file>images/deliver.png</file>
         <file>images/login.png</file>

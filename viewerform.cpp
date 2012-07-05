@@ -151,6 +151,43 @@ void ViewerForm::bMatchAgeGroup()
     ui->webView->page()->mainFrame()->findFirstElement("body").setInnerXml(content);
 }
 
+void ViewerForm::showLabels(QString from, QString to)
+{
+    loadHtml("labels");
+
+    QString content, library, image;
+
+    QSqlQuery qry;
+    qry.exec("select title, image from library");
+    if (qry.next())
+    {
+        library = qry.value(0).toString();
+        image = QString("%1/%2").arg(filesUrl(), qry.value(1).toString());
+    }
+
+    content += QString("<style>span.logo { background: url(%1) no-repeat; }</style>").arg(image);
+
+    qry.exec(QString("select label from objects where label >= '%1' and label <= '%2' order by label").arg(from, to));
+    for (int i = 0; qry.next(); i++) {
+
+        if (!(i % 56))
+        {
+            if (i) content += "</tr></tbody></table>";
+            content += "<table cellspacing='0'><tbody>";
+        }
+        if (!(i % 4))
+        {
+            if (i) content += "</tr>";
+            content += "<tr>";
+        }
+
+        content += QString("<td><div class='label'><span class='logo'></span><span class='library'>%1</span><span class='id'>%2</span></div></td>").arg(library, qry.value(0).toString());
+    }
+    content += "</tr></tbody></table>";
+
+    ui->webView->page()->mainFrame()->findFirstElement("body").setInnerXml(content);
+}
+
 void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 {
     setWindowTitle(tr("Preview"));
