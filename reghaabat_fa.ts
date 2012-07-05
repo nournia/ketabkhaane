@@ -1437,6 +1437,30 @@
     </message>
 </context>
 <context>
+    <name>UsersModel</name>
+    <message>
+        <location filename="usermanagement.h" line="+21"/>
+        <source>Name</source>
+        <translation>نام</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Object</source>
+        <translation>شئ</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Borrow Date</source>
+        <translation>زمان امانت</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Days</source>
+        <oldsource>Borrow Days</oldsource>
+        <translation>روزها</translation>
+    </message>
+</context>
+<context>
     <name>ViewerForm</name>
     <message>
         <source>All</source>

@@ -1,6 +1,8 @@
 #include "usermanagement.h"
 #include "ui_usermanagement.h"
 
+#include <uihelper.h>
+
 UserManagement::UserManagement(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::UserManagement)
@@ -9,6 +11,12 @@ UserManagement::UserManagement(QWidget *parent) :
 
     connect(ui->bNewUser, SIGNAL(clicked()), parent, SLOT(newUser()));
     connect(ui->bEditUser, SIGNAL(clicked()), parent, SLOT(editUser()));
+
+    model = new UsersModel(this);
+    ui->tUsers->setModel(model);
+
+    customizeTable(ui->tUsers, 4, 80, true, 2);
+    ui->tUsers->setColumnWidth(1, 160);
 
     viewer = ((MainWindow*) parent)->viewer;
 }
