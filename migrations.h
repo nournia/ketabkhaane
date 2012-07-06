@@ -72,6 +72,14 @@ void migrate(QString newVersion)
                 insertLog("borrows", "delete", qryTmp.value(0), master);
             }
         }
+
+        ok &= qry.exec("update branches set id = 138, root_id = 4, label = 138 where id = 110");
+        ok &= qry.exec("delete from roots where id = 1");
+        ok &= qry.exec("update objects set branch_id = 138 where branch_id = 110");
+        ok &= qry.exec("update objects set label = replace(label, '110', '138') where branch_id = 138");
+        ok &= qry.exec("delete from borrows where object_id = 1838");
+        ok &= qry.exec("delete from objects where branch_id < 111");
+        ok &= qry.exec("delete from objects where id = 677");
     }
 
     if (change && ok)
