@@ -21,7 +21,8 @@ ViewerForm::ViewerForm(QWidget *parent) :
     ui(new Ui::ViewerForm)
 {
     ui->setupUi(this);
-    printLandscape = false;
+    landscape = false;
+    margin = true;
 }
 
 ViewerForm::~ViewerForm()
@@ -29,19 +30,20 @@ ViewerForm::~ViewerForm()
     delete ui;
 }
 
-void ViewerForm::loadHtml(QString name, bool landscape)
+void ViewerForm::loadHtml(QString name, bool _margin, bool _landscape)
 {
     QFile file(QString(":/resources/%1.html").arg(name));
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
         ui->webView->setHtml(QTextStream(&file).readAll());
+
+    landscape = _landscape;
+    margin = _margin;
 
     setMinimumHeight(600);
     if (!landscape)
         setMinimumWidth(915);
     else
         setMinimumWidth(1000);
-
-    printLandscape = landscape;
 }
 
 QString ViewerForm::addTable(QString title, QStringList fields, QString query)
@@ -159,9 +161,9 @@ void ViewerForm::bMatchAgeGroup()
     ui->webView->page()->mainFrame()->findFirstElement("body").setInnerXml(content);
 }
 
-void ViewerForm::showObjectLabels(QString from, QString to)
+void ViewerForm::showObjectLabels(QString from, QString to, bool ageclass)
 {
-    loadHtml("labels");
+    loadHtml("labels", false);
 
     QString content, library, image;
 
@@ -175,10 +177,18 @@ void ViewerForm::showObjectLabels(QString from, QString to)
 
     content += QString("<style>span.logo { background: url(%1) no-repeat; }</style>").arg(image);
 
-    qry.exec(QString("select label from objects where label >= '%1' and label <= '%2' order by label").arg(from, to));
+    QString sql;
+    if (ageclass) {
+        sql = "select label, case matches.ageclass when 0 then '*' when 1 then '**' when 2 then '***' when 3 then '****' when 4 then '*****' end from objects left join matches on objects.id = matches.object_id";
+    } else {
+        sql = "select label, '' from objects";
+        content += "<style>span.age { display: none; } span.id { margin-right: 0; }</style>";
+    }
+
+    qry.exec(QString(sql + " where label >= '%1' and label <= '%2' order by label").arg(from, to));
     for (int i = 0; qry.next(); i++) {
 
-        if (!(i % 56))
+        if (!(i % 60))
         {
             if (i) content += "</tr></tbody></table>";
             content += "<table cellspacing='0'><tbody>";
@@ -189,7 +199,7 @@ void ViewerForm::showObjectLabels(QString from, QString to)
             content += "<tr>";
         }
 
-        content += QString("<td><div class='label'><span class='logo'></span><span class='library'>%1</span><span class='id'>%2</span></div></td>").arg(library, qry.value(0).toString());
+        content += QString("<td><div class='label'><span class='logo'></span><span class='library'>%1</span><span class='id'>%2</span><span class='age'>%3</span></div></td>").arg(library, qry.value(0).toString(), qry.value(1).toString());
     }
     content += "</tr></tbody></table>";
 
@@ -198,7 +208,7 @@ void ViewerForm::showObjectLabels(QString from, QString to)
 
 void ViewerForm::showObjectList(QString from, QString to)
 {
-    loadHtml("objects", true);
+    loadHtml("objects", false, true);
 
     QString content;
 
@@ -340,13 +350,17 @@ void ViewerForm::savePdf(QString filename)
     QPrinter printer(QPrinterInfo::defaultPrinter());
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setOutputFileName(filename);
-    if (!printLandscape) {
-        printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
+
+    if (!landscape)
         printer.setOrientation(QPrinter::Portrait);
-    } else {
-        printer.setPageMargins(8, 5, 8, 5, QPrinter::Millimeter);
+    else
         printer.setOrientation(QPrinter::Landscape);
-    }
+
+    if (margin)
+        printer.setPageMargins(10, 10, 10, 10, QPrinter::Millimeter);
+    else
+        printer.setPageMargins(8, 4, 8, 4, QPrinter::Millimeter);
+
     ui->webView->print(&printer);
 }
 

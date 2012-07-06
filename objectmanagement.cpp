@@ -12,7 +12,8 @@ ObjectManagement::ObjectManagement(QWidget *parent) :
     connect(ui->bNewObject, SIGNAL(clicked()), parent, SLOT(newObject()));
     connect(ui->bEditObject, SIGNAL(clicked()), parent, SLOT(editObject()));
 
-    ui->gSelectObjects->setVisible(false);
+    ui->gList->setVisible(false);
+    ui->gLabels->setVisible(false);
 }
 
 ObjectManagement::~ObjectManagement()
@@ -20,27 +21,44 @@ ObjectManagement::~ObjectManagement()
     delete ui;
 }
 
-void ObjectManagement::on_bPrint_clicked()
+void ObjectManagement::on_bPreviewList_clicked()
 {
-    ui->gSelectObjects->setVisible(!ui->gSelectObjects->isVisible());
+    ViewerForm* viewer = new ViewerForm((MainWindow*) parent());
+    viewer->showObjectList(ui->eFromList->text(), ui->eToList->text());
+    viewer->exec();
+}
+
+void ObjectManagement::on_bPreviewLabels_clicked()
+{
+    ViewerForm* viewer = new ViewerForm((MainWindow*) parent());
+    viewer->showObjectLabels(ui->eFromLabels->text(), ui->eToLabels->text(), ui->cAgeclass->isChecked());
+    viewer->exec();
+}
+
+void ObjectManagement::on_bPrintLabels_clicked()
+{
+    ui->gLabels->setVisible(!ui->gLabels->isVisible());
+    ui->gList->setVisible(false);
 
     QSqlQuery qry;
     qry.exec("select min(label), max(label) from objects where label > '000-000'");
     if (qry.next())
     {
-        ui->eFromLabel->setText(qry.value(0).toString());
-        ui->eToLabel->setText(qry.value(1).toString());
+        ui->eFromLabels->setText(qry.value(0).toString());
+        ui->eToLabels->setText(qry.value(1).toString());
     }
 }
 
-void ObjectManagement::on_bPreview_clicked()
+void ObjectManagement::on_bPrintList_clicked()
 {
-    ViewerForm* viewer = new ViewerForm((MainWindow*) parent());
+    ui->gList->setVisible(!ui->gList->isVisible());
+    ui->gLabels->setVisible(false);
 
-    if (ui->rList->isChecked())
-        viewer->showObjectList(ui->eFromLabel->text(), ui->eToLabel->text());
-    else if (ui->rLabels->isChecked())
-        viewer->showObjectLabels(ui->eFromLabel->text(), ui->eToLabel->text());
-
-    viewer->exec();
+    QSqlQuery qry;
+    qry.exec("select min(label), max(label) from objects where label > '000-000'");
+    if (qry.next())
+    {
+        ui->eFromList->setText(qry.value(0).toString());
+        ui->eToList->setText(qry.value(1).toString());
+    }
 }

@@ -16,9 +16,13 @@ public:
     ~ObjectManagement();
 
 private slots:
-    void on_bPrint_clicked();
+    void on_bPreviewList_clicked();
 
-    void on_bPreview_clicked();
+    void on_bPreviewLabels_clicked();
+
+    void on_bPrintLabels_clicked();
+
+    void on_bPrintList_clicked();
 
 private:
     Ui::ObjectManagement *ui;

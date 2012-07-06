@@ -711,41 +711,51 @@
         <translation>ویرایش شئ</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <location line="+14"/>
         <source>Print</source>
-        <translation>چاپ</translation>
+        <translation type="obsolete">چاپ</translation>
     </message>
     <message>
+        <location line="+24"/>
         <location line="+25"/>
         <source>List</source>
         <translation>فهرست</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-14"/>
+        <location line="+93"/>
         <source>Labels</source>
         <translation>برچسب‌ها</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-67"/>
+        <location line="+79"/>
         <source>From</source>
         <translation>از</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location line="+23"/>
+        <location line="-66"/>
+        <location line="+20"/>
+        <location line="+59"/>
+        <location line="+20"/>
         <source>999-999;_</source>
         <translation>999-999;_</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-92"/>
+        <location line="+79"/>
         <source>To</source>
         <translation>تا</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-59"/>
+        <location line="+86"/>
         <source>Preview</source>
         <translation>نمایش</translation>
+    </message>
+    <message>
+        <location line="-7"/>
+        <source>Match Ageclass</source>
+        <translation>رده سنی مسابقه</translation>
     </message>
 </context>
 <context>
@@ -1019,7 +1029,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="musers.cpp" line="+62"/>
+        <location filename="musers.cpp" line="+66"/>
         <source>User name is required.</source>
         <translation>نام عضو وارد نشده است.</translation>
     </message>
@@ -1439,7 +1449,7 @@
 <context>
     <name>UsersModel</name>
     <message>
-        <location filename="usermanagement.h" line="+21"/>
+        <location filename="usermanagement.h" line="+22"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>
@@ -1471,7 +1481,7 @@
         <translation type="obsolete">با تفکیک آقا و خانم</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="+143"/>
+        <location filename="viewerform.cpp" line="+145"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -1542,12 +1552,12 @@
     <message>
         <location line="+10"/>
         <location line="+14"/>
-        <location line="+56"/>
+        <location line="+64"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="-70"/>
+        <location line="-78"/>
         <source>AgeClass</source>
         <translation>رده سنی</translation>
     </message>
@@ -1563,7 +1573,7 @@
         <translation>گروه</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+64"/>
         <source>Lablel</source>
         <translation>شماره</translation>
     </message>

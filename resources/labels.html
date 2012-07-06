@@ -8,11 +8,15 @@ body
 	direction:rtl; 
 	font-family: "B Mitra";
 	font-size: 24px;
+	margin: 0;
 }
 
 table {
-	margin: 0 auto;
+	margin: 0 auto 100px;
 	width: 888px;
+}
+td {
+	width: 222px;
 }
 
 .label {
@@ -20,10 +24,9 @@ table {
 	border: 2px solid #aaa;
 	border-radius: 15px;
 	height: 80px;
-	margin: 0 3px 6px;
+	margin: 0 3px 5px;
 	position: relative;
 }
-
 span.logo {
 	background-size: 25px 25px;
 	height: 25px;
@@ -47,14 +50,26 @@ span.id {
 	position: absolute;
 	width: 100%;
 	margin-top: 5px;
+	margin-right: 10px;
 }
 
 table:not(:last-child) {
 	page-break-after: always;
 }
+
+.age {
+	font-size: .8em;
+	line-height: 10px;
+	position: absolute;
+	-webkit-transform: rotate(-90deg);
+	right: 2px;
+	top: 48px;
+	width: 45px;
+}
+
 </style>
 <body>
-<style>span.logo { background: url(file:///d:/repo/reghaabat/data/files/1.jpg) no-repeat; }</style>
+<style>span.logo { background: url(../data/files/1.jpg) no-repeat; }</style>
 <table cellspacing="0">
 	<tbody>
 		<tr>
@@ -63,6 +78,7 @@ table:not(:last-child) {
 					<span class="logo"></span>
 					<span class="library">کتاب‌خانه شهید خرازی</span>
 					<span class="id">122-009</span>
+					<span class="age">*</span>
 				</div>
 			</td>
 			<td>
@@ -70,6 +86,7 @@ table:not(:last-child) {
 					<span class="logo"></span>
 					<span class="library">کتاب‌خانه شهید خرازی</span>
 					<span class="id">122-009</span>
+					<span class="age">***</span>
 				</div>
 			</td>
 			<td>
@@ -77,6 +94,7 @@ table:not(:last-child) {
 					<span class="logo"></span>
 					<span class="library">کتاب‌خانه شهید خرازی</span>
 					<span class="id">122-009</span>
+					<span class="age">*****</span>
 				</div>
 			</td>
 			<td>
@@ -84,6 +102,7 @@ table:not(:last-child) {
 					<span class="logo"></span>
 					<span class="library">کتاب‌خانه شهید خرازی</span>
 					<span class="id">122-009</span>
+					<span class="age">**</span>
 				</div>
 			</td>
 		</tr>

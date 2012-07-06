@@ -17,10 +17,10 @@ public:
     ~ViewerForm();
 
     QString addTable(QString title, QStringList fields, QString query);
-    void loadHtml(QString name, bool landscape = false);
+    void loadHtml(QString name, bool _margin = true, bool _landscape = false);
     void showMatch(StrMap match, QList<StrPair> questions);
     void savePdf(QString filename);
-    void showObjectLabels(QString from, QString to);
+    void showObjectLabels(QString from, QString to, bool ageclass);
     void showObjectList(QString from, QString to);
 
     void bMatchAgeGroup();
@@ -28,7 +28,7 @@ public:
     void bMatchAll();
     void bUserAll();
 
-    bool printLandscape;
+    bool landscape, margin;
 private:
     Ui::ViewerForm *ui;
 
