@@ -16,7 +16,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setApplicationVersion("0.9.0");
+    a.setApplicationVersion("0.9.1");
 
     // arguments
     if (argc == 2 && !strcmp(argv[1], "-bootstrap"))

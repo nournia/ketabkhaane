@@ -16,7 +16,7 @@ bool isBetween(QString version, QString min, QString max)
 
 void migrate(QString newVersion)
 {
-    QSqlQuery qry, qryTmp;
+    QSqlQuery qry, qryTmp, qryTmp2;
     bool ok = true;
     change = false;
 
@@ -57,6 +57,21 @@ void migrate(QString newVersion)
         qry.exec("select id from matches where content is not null");
         while (qry.next())
             insertLog("matches", "update", qry.value(0), master);
+    }
+
+    if (isBetween(version, "0.9.0", "0.9.1")) {
+        ok &= qry.exec("select min(id) as mid, user_id, object_id, delivered_at, count(id) as cnt from borrows group by user_id, object_id, delivered_at order by cnt desc");
+        while (qry.next()) {
+            if (qry.value(4).toInt() <= 1)
+                break;
+            qDebug() << qry.value(4).toString();
+
+            ok &= qryTmp.exec(QString("select id from borrows where id != %1 and user_id = %2 and object_id = %3").arg(qry.value(0).toString(), qry.value(1).toString(), qry.value(2).toString()));
+            while (qryTmp.next()) {
+                ok &= qryTmp2.exec(QString("delete from borrows where id = %1").arg(qryTmp.value(0).toString()));
+                insertLog("borrows", "delete", qryTmp.value(0), master);
+            }
+        }
     }
 
     if (change && ok)
