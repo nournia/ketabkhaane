@@ -186,7 +186,8 @@ void ViewerForm::showObjectLabels(QString from, QString to, bool ageclass)
     }
 
     qry.exec(QString(sql + " where label >= '%1' and label <= '%2' order by label").arg(from, to));
-    for (int i = 0; qry.next(); i++) {
+    int i = 0;
+    for (; qry.next(); i++) {
 
         if (!(i % 60))
         {
@@ -201,6 +202,11 @@ void ViewerForm::showObjectLabels(QString from, QString to, bool ageclass)
 
         content += QString("<td><div class='label'><span class='logo'></span><span class='library'>%1</span><span class='id'>%2</span><span class='age'>%3</span></div></td>").arg(library, qry.value(0).toString(), qry.value(1).toString());
     }
+
+    // empty grid bug
+    for (int j = 4 - i; j > 0; j--)
+        content += "<td></td>";
+
     content += "</tr></tbody></table>";
 
     ui->webView->page()->mainFrame()->findFirstElement("body").setInnerXml(content);
@@ -376,11 +382,14 @@ void ViewerForm::on_bPdf_clicked()
     }
 
     QString filename = QFileDialog::getSaveFileName(this, "");
-    if (!filename.endsWith(".pdf"))
-        filename += ".pdf";
-    savePdf(filename);
+    if (!filename.isEmpty())
+    {
+        if (!filename.endsWith(".pdf"))
+            filename += ".pdf";
+        savePdf(filename);
 
-    QDesktopServices::openUrl(QUrl(filename));
+        QDesktopServices::openUrl(QUrl(filename));
+    }
 }
 
 void ViewerForm::on_bPrint_clicked()
