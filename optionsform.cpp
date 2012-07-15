@@ -67,12 +67,14 @@ void OptionsForm::on_buttonBox_accepted()
     settings.setValue("DataFolder", ui->eDataFolder->text());
     settings.setValue("Printer", ui->cPrinters->currentText());
 
-    writeOption("Match", ui->gMatch->isChecked());
-    writeOption("CorrectorIdentifier", ui->cCorrectorIdentifier->itemData(ui->cCorrectorIdentifier->currentIndex()).toString());
-    writeOption("MaxConcurrentMatches", ui->sMaxConcurrentMatches->value());
-    writeOption("MaxMatchesInOneDay", ui->sMaxMatchesInOneDay->value());
+    QVariantMap opt = options();
 
-    writeOption("BookBorrowDays", ui->sBookBorrowDays->value());
+    opt["Match"] = ui->gMatch->isChecked();
+    opt["CorrectorIdentifier"] = ui->cCorrectorIdentifier->itemData(ui->cCorrectorIdentifier->currentIndex()).toString();
+    opt["MaxConcurrentMatches"] = ui->sMaxConcurrentMatches->value();
+    opt["MaxMatchesInOneDay"] = ui->sMaxMatchesInOneDay->value();
+
+    opt["BookBorrowDays"] = ui->sBookBorrowDays->value();
 
     if (!newLibraryLogo.isEmpty())
     {
@@ -81,8 +83,9 @@ void OptionsForm::on_buttonBox_accepted()
         insertLog("files", "update", "1");
     }
 
+    // store options
     QSqlQuery qry;
-    if (qry.exec(QString("update library set title = '%1', description = '%2', started_at = '%3' where id = 1").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), formatDate(toGregorian(ui->eStartDate->text())))))
+    if (qry.exec(QString("update library set title = '%1', description = '%2', started_at = '%3', options = '%4' where id = 1").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), formatDate(toGregorian(ui->eStartDate->text())), QVariantMapToString(opt))))
         insertLog("library", "update", "1");
 
     QString msg = "";

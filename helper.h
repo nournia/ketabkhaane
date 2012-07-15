@@ -19,6 +19,7 @@ typedef QPair<QString, QString> StrPair;
 
 // refine
 
+QString QVariantMapToString(QVariantMap& data);
 QString getAbsoluteAddress(QString address);
 
 // constants
