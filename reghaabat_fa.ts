@@ -773,18 +773,18 @@
         <translation type="obsolete">عمومی</translation>
     </message>
     <message>
-        <location filename="optionsform.ui" line="+251"/>
+        <location filename="optionsform.ui" line="+271"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
     <message>
-        <location line="-204"/>
+        <location line="-224"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
     <message>
         <location line="-13"/>
-        <location filename="optionsform.cpp" line="+113"/>
+        <location filename="optionsform.cpp" line="+115"/>
         <source>Logo must be in 300px x 300px dimension.</source>
         <translation>آرم کتاب‌خانه باید در ابعاد 300 × 300 پیکسل باشد.</translation>
     </message>
@@ -799,22 +799,27 @@
         <translation>کتاب‌داری</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+47"/>
+        <source>Start Date</source>
+        <translation>تاریخ آغاز</translation>
+    </message>
+    <message>
+        <location line="+47"/>
         <source>Corrector Show</source>
         <translation>نحوه نمایش مصحح</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="-40"/>
         <source>Max Concurrent Matches</source>
         <translation>حداکثر مسابقه‌های در دست عضو</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="+20"/>
         <source>Max Matches In One Day</source>
         <translation>حداکثر تحویل مسابقه به عضو در روز</translation>
     </message>
     <message>
-        <location line="-28"/>
+        <location line="-42"/>
         <source>Match</source>
         <translation>مسابقه</translation>
     </message>
@@ -830,7 +835,12 @@
         <translation>مدت امانت کتاب</translation>
     </message>
     <message>
-        <location line="+101"/>
+        <location line="+111"/>
+        <source>9999/99/99;_</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Local</source>
         <translation>محلی</translation>
     </message>
@@ -839,8 +849,8 @@
         <translation type="obsolete">آدرس پایگاه داده</translation>
     </message>
     <message>
-        <location line="-160"/>
-        <location line="+217"/>
+        <location line="-180"/>
+        <location line="+237"/>
         <source>Description</source>
         <translation>توضیحات</translation>
     </message>
@@ -864,7 +874,7 @@
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="-90"/>
+        <location filename="optionsform.cpp" line="-91"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -879,7 +889,7 @@
         <translation>کد</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+80"/>
         <source>Select Library Logo</source>
         <translation>انتخاب آرم کتاب‌خانه</translation>
     </message>
@@ -1552,12 +1562,12 @@
     <message>
         <location line="+10"/>
         <location line="+14"/>
-        <location line="+64"/>
+        <location line="+70"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="-78"/>
+        <location line="-84"/>
         <source>AgeClass</source>
         <translation>رده سنی</translation>
     </message>
@@ -1573,7 +1583,7 @@
         <translation>گروه</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+70"/>
         <source>Lablel</source>
         <translation>شماره</translation>
     </message>

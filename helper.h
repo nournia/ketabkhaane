@@ -53,6 +53,11 @@ inline QString refineText(QString text)
                .replace(QString::fromUtf8("ك"), QString::fromUtf8("ک"));
 }
 
+inline QString formatDate(QDate date)
+{
+    return date.toString("yyyy-MM-dd");
+}
+
 inline QString formatDateTime(QDateTime time)
 {
     return time.toString("yyyy-MM-dd hh:mm:ss");

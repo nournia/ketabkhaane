@@ -8,6 +8,7 @@
 #include <QCoreApplication>
 
 #include <helper.h>
+#include <jalali.h>
 
 
 OptionsForm::OptionsForm(QWidget *parent) :
@@ -37,11 +38,12 @@ OptionsForm::OptionsForm(QWidget *parent) :
     ui->sBookBorrowDays->setValue(options()["BookBorrowDays"].toInt());
 
     QSqlQuery qry;
-    qry.exec("select title, description, image from library");
+    qry.exec("select title, description, image, started_at from library");
     if (qry.next())
     {
         ui->eLibraryTitle->setText(qry.value(0).toString());
         ui->eLibraryDescription->setText(qry.value(1).toString());
+        ui->eStartDate->setText(toJalali(qry.value(3).toDate()));
 
         libraryLogo = QString("%1/files/%2").arg(dataFolder(), qry.value(2).toString());
         ui->bLibraryLogo->setIcon(QIcon(libraryLogo));
@@ -80,7 +82,7 @@ void OptionsForm::on_buttonBox_accepted()
     }
 
     QSqlQuery qry;
-    if (qry.exec(QString("update library set title = '%1', description = '%2' where id = 1").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText())))
+    if (qry.exec(QString("update library set title = '%1', description = '%2', started_at = '%3' where id = 1").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), formatDate(toGregorian(ui->eStartDate->text())))))
         insertLog("library", "update", "1");
 
     QString msg = "";
