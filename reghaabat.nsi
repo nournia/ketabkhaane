@@ -50,6 +50,7 @@ Section
 	File /r "Files\data\*.*"
 
 	;ShortCuts
+	SetOutPath $INSTDIR
 	CreateShortCut "$SMPROGRAMS\Programs\Reghaabat\Reghaabat.lnk" "$INSTDIR\reghaabat.exe"
 	CreateShortCut "$DESKTOP\Reghaabat.lnk" "$INSTDIR\reghaabat.exe"
 
