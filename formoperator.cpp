@@ -76,17 +76,16 @@ void FormOperator::selectUser()
     {
         bool receive = false;
         QStringList matchObjects;
-
-        // show delivered matches
         QSqlQuery qry;
         MatchRow* row;
         int fine;
 
-        qry.exec(QString("select match_id, matches.title, matches.object_id from answers inner join matches on answers.match_id = matches.id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
+        // show delivered matches
+        qry.exec(QString("select match_id, matches.title, matches.object_id, objects.label from answers inner join matches on answers.match_id = matches.id left join objects on matches.object_id = objects.id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
         for (int i = 1; qry.next(); i++)
         {
             fine = qry.value(2).toString().isEmpty() ? 0 : MObjects::getFine(ui->eUser->value(), qry.value(2).toString());
-            row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received"), qry.value(0).toString(), qry.value(2).toString(), fine, ui->gObjects);
+            row = new MatchRow(qry.value(1).toString(), qry.value(3).toString(), QStringList() << "" << tr("Received"), qry.value(0).toString(), qry.value(2).toString(), fine, ui->gObjects);
             ui->lObjects->layout()->addWidget(row);
             matchObjects << qry.value(2).toString();
             connect(row, SIGNAL(changed()), this, SLOT(refreshFine()));
@@ -94,12 +93,12 @@ void FormOperator::selectUser()
         }
 
         // show delivered objects
-        qry.exec(QString("select object_id, objects.title from borrows inner join objects on borrows.object_id = objects.id where user_id = %1 and received_at is null").arg(ui->eUser->value()));
+        qry.exec(QString("select object_id, objects.title, objects.label from borrows inner join objects on borrows.object_id = objects.id where user_id = %1 and received_at is null").arg(ui->eUser->value()));
         for (int i = 1; qry.next(); i++)
         if (! matchObjects.contains(qry.value(0).toString()))
         {
             fine = MObjects::getFine(ui->eUser->value(), qry.value(0).toString());
-            row = new MatchRow(qry.value(1).toString(), QStringList() << "" << tr("Received") << tr("Renewed"), "", qry.value(0).toString(), fine, ui->gObjects);
+            row = new MatchRow(qry.value(1).toString(), qry.value(2).toString(), QStringList() << "" << tr("Received") << tr("Renewed"), "", qry.value(0).toString(), fine, ui->gObjects);
             ui->lObjects->layout()->addWidget(row);
             connect(row, SIGNAL(changed()), this, SLOT(refreshFine()));
             receive = true;

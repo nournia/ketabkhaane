@@ -12,7 +12,7 @@ class MatchRow : public QWidget
     Q_OBJECT
 
 public:
-    explicit MatchRow(QString title, QStringList states, QString mid, QString oid, int fi, QWidget *parent = 0);
+    explicit MatchRow(QString title, QString label, QStringList states, QString mid, QString oid, int fi, QWidget *parent = 0);
     ~MatchRow();
     QString getState();
 

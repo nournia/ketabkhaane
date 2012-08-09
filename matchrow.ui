@@ -83,14 +83,27 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="lTitle">
      <property name="text">
-      <string/>
+      <string>عنوان</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
      </property>
     </widget>
+   </item>
+   <item>
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item>
     <widget class="QLabel" name="lFine">
@@ -101,7 +114,33 @@
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: #9d261d</string>
+      <string notr="true">margin: 1px 0 2px;
+padding: 0 3px;
+background: #9d261d;
+color: whitesmoke;
+border-radius: 5px</string>
+     </property>
+     <property name="text">
+      <string>جریمه</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lLabel">
+     <property name="maximumSize">
+      <size>
+       <width>50</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #777</string>
+     </property>
+     <property name="text">
+      <string>کد</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
