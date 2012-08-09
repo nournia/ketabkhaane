@@ -22,7 +22,6 @@ public:
 
     ViewerForm* viewer;
     QStackedLayout *stackedLayout;
-    QString tmpId;
 private:
     Ui::MainWindow *ui;
 

@@ -15,6 +15,7 @@ public:
     MyCompleter(MyLineEdit *parent = 0);
     ~MyCompleter();
     bool eventFilter(QObject *obj, QEvent *ev);
+    QString getText(QString id);
 
     QTreeWidget *popup;
 
@@ -43,6 +44,7 @@ public:
     MyLineEdit(QWidget *parent = 0);
 
     void setValue(QString val);
+    void selectValue(QString val);
 
     QString value()
     {

@@ -74,8 +74,14 @@ void MatchForm::editMode(bool edit)
     ui->gMatch->setVisible(edit);
     ui->gData->setEnabled(! edit);
 
-    if (edit)
-        ui->eMatch->setFocus();
+    if (edit) {
+        if (!Reghaabat::instance()->tmpId.isEmpty())
+            ui->eMatch->selectValue(Reghaabat::instance()->tmpId);
+        else
+            ui->eMatch->setFocus();
+
+        Reghaabat::instance()->tmpId = "";
+    }
 }
 
 void MatchForm::selectMatch()

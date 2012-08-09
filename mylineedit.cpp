@@ -158,10 +158,25 @@ void MyCompleter::updateSuggestions()
     editor->setValue(valueId);
 }
 
+QString MyCompleter::getText(QString id)
+{
+    QSqlQuery tqry;
+    tqry.exec(query + QString(" where cid = %1").arg(id));
+    if (tqry.next())
+        return tqry.value(2).toString();
+    return "";
+}
+
 MyLineEdit::MyLineEdit(QWidget *parent): QLineEdit(parent)
 {
     completer = new MyCompleter(this);
     connect(this, SIGNAL(returnPressed()), completer, SLOT(updateSuggestions()));
+}
+
+void MyLineEdit::selectValue(QString val)
+{
+    setText(completer->getText(val));
+    setValue(val);
 }
 
 void MyLineEdit::setValue(QString val)

@@ -111,7 +111,7 @@ private:
     static Reghaabat* m_Instance;
 
 public:
-    QString userId, userName, userGender, userPermission;
+    QString userId, userName, userGender, userPermission, tmpId;
 
     static Reghaabat* instance()
     {
