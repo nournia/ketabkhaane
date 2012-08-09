@@ -30,8 +30,6 @@ void LoginDialog::on_buttonBox_accepted()
     if (ui->ePassword->text().isEmpty())
         return;
 
-    this->close();
-
     StrMap user;
     if (MUsers::login(ui->eUsername->value(), ui->ePassword->text(), user))
     {
@@ -39,8 +37,13 @@ void LoginDialog::on_buttonBox_accepted()
         Reghaabat::instance()->userName = user["name"].toString();
         Reghaabat::instance()->userGender = user["gender"].toString();
         Reghaabat::instance()->userPermission = user["permission"].toString();
+        this->close();
     }
-    else QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Invalid Username or Password."));
+    else {
+        QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Invalid Username or Password."));
+        ui->ePassword->setText("");
+        ui->ePassword->setFocus();
+    }
 }
 
 void LoginDialog::on_buttonBox_rejected()
