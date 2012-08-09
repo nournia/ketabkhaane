@@ -31,7 +31,7 @@ void ObjectManagement::on_bPreviewList_clicked()
 void ObjectManagement::on_bPreviewLabels_clicked()
 {
     ViewerForm* viewer = new ViewerForm((MainWindow*) parent());
-    viewer->showObjectLabels(ui->eFromLabels->text(), ui->eToLabels->text(), ui->cAgeclass->isChecked());
+    viewer->showObjectLabels(ui->eFromLabels->text(), ui->eToLabels->text(), ui->cOnlyMatchObjects->isChecked());
     viewer->exec();
 }
 

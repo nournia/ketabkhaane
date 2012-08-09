@@ -218,9 +218,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="cAgeclass">
+       <widget class="QCheckBox" name="cOnlyMatchObjects">
         <property name="text">
-         <string>Match Ageclass</string>
+         <string>Only Match Objects</string>
         </property>
        </widget>
       </item>

@@ -161,7 +161,7 @@ void ViewerForm::bMatchAgeGroup()
     ui->webView->page()->mainFrame()->findFirstElement("body").setInnerXml(content);
 }
 
-void ViewerForm::showObjectLabels(QString from, QString to, bool ageclass)
+void ViewerForm::showObjectLabels(QString from, QString to, bool onlyMatchObjects)
 {
     loadHtml("labels", false);
 
@@ -178,8 +178,8 @@ void ViewerForm::showObjectLabels(QString from, QString to, bool ageclass)
     content += QString("<style>span.logo { background: url(%1) no-repeat; }</style>").arg(image);
 
     QString sql;
-    if (ageclass) {
-        sql = "select label, case matches.ageclass when 0 then '*' when 1 then '**' when 2 then '***' when 3 then '****' when 4 then '*****' end from objects left join matches on objects.id = matches.object_id";
+    if (onlyMatchObjects) {
+        sql = "select label, case matches.ageclass when 0 then '*' when 1 then '**' when 2 then '***' when 3 then '****' when 4 then '*****' end from objects inner join matches on objects.id = matches.object_id";
     } else {
         sql = "select label, '' from objects";
         content += "<style>span.age { display: none; } span.id { margin-right: 0; }</style>";

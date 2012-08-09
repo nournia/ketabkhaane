@@ -754,8 +754,9 @@
     </message>
     <message>
         <location line="-7"/>
-        <source>Match Ageclass</source>
-        <translation>رده سنی مسابقه</translation>
+        <source>Only Match Objects</source>
+        <oldsource>Match Ageclass</oldsource>
+        <translation>محدود به اشیاء مسابقه</translation>
     </message>
 </context>
 <context>
@@ -784,7 +785,7 @@
     </message>
     <message>
         <location line="-13"/>
-        <location filename="optionsform.cpp" line="+115"/>
+        <location filename="optionsform.cpp" line="+118"/>
         <source>Logo must be in 300px x 300px dimension.</source>
         <translation>آرم کتاب‌خانه باید در ابعاد 300 × 300 پیکسل باشد.</translation>
     </message>
@@ -874,7 +875,7 @@
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="-91"/>
+        <location filename="optionsform.cpp" line="-94"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -889,7 +890,7 @@
         <translation>کد</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+83"/>
         <source>Select Library Logo</source>
         <translation>انتخاب آرم کتاب‌خانه</translation>
     </message>

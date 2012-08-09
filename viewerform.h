@@ -20,7 +20,7 @@ public:
     void loadHtml(QString name, bool _margin = true, bool _landscape = false);
     void showMatch(StrMap match, QList<StrPair> questions);
     void savePdf(QString filename);
-    void showObjectLabels(QString from, QString to, bool ageclass);
+    void showObjectLabels(QString from, QString to, bool onlyMatchObjects);
     void showObjectList(QString from, QString to);
 
     void bMatchAgeGroup();
