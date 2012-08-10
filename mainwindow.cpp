@@ -143,6 +143,8 @@ void MainWindow::applyPermission()
        ui->actionOptions->setEnabled(true);
        ui->actionWeb->setEnabled(true);
    }
+
+   ui->actionWeb->setVisible(false);
 }
 
 void MainWindow::on_actionLogin_triggered()
