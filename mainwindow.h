@@ -43,7 +43,6 @@ public slots:
     void on_actionUserManagement_triggered();
     void on_actionLogout_triggered();
     void on_actionLogin_triggered();
-    void on_actionSync_triggered();
 
     void firstPage();
 
@@ -52,6 +51,7 @@ private slots:
     void on_actionObjectManagement_triggered();
     void on_actionEditUser_triggered();
     void on_actionNewUser_triggered();
+    void on_actionWeb_triggered();
 };
 
 #endif // MAINWINDOW_H

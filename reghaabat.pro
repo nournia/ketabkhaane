@@ -9,7 +9,7 @@ QT       += core sql gui network webkit
 TARGET = reghaabat
 TEMPLATE = app
 TRANSLATIONS = reghaabat_fa.ts
-RESOURCES = reghaabat.qrc
+RESOURCES = resources.qrc
 RC_FILE = reghaabat.rc
 
 
@@ -43,7 +43,8 @@ SOURCES += main.cpp\
     objectform.cpp \
     objectmanagement.cpp \
     mobjects.cpp \
-    aboutdialog.cpp
+    aboutdialog.cpp \
+    webconnection.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -79,7 +80,8 @@ HEADERS  += mainwindow.h \
     objectform.h \
     objectmanagement.h \
     mobjects.h \
-    aboutdialog.h
+    aboutdialog.h \
+    webconnection.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -99,4 +101,5 @@ FORMS    += mainwindow.ui \
     payment.ui \
     objectform.ui \
     objectmanagement.ui \
-    aboutdialog.ui
+    aboutdialog.ui \
+    webconnection.ui

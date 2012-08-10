@@ -11,7 +11,6 @@
 #include <formchangepermissions.h>
 #include <scoreform.h>
 #include <matchtable.h>
-#include <sender.h>
 #include <formoperator.h>
 #include <userform.h>
 #include <matchform.h>
@@ -21,6 +20,7 @@
 #include <usermanagement.h>
 #include <objectmanagement.h>
 #include <payment.h>
+#include <webconnection.h>
 
 // forms
 FormFirst* formFirst;
@@ -36,6 +36,8 @@ MatchTable* matchListForm;
 UserManagement* userManagement;
 ObjectManagement* objectManagement;
 Payment* paymentForm;
+WebConnection* webConnection;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -97,15 +99,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::applyPermission()
 {
-   ui->actionSync->setVisible(false);
-
+   ui->actionWeb->setEnabled(false);
    ui->actionDeliver->setEnabled(false);
    ui->actionNewUser->setEnabled(false);
    ui->actionEditUser->setEnabled(false);
    ui->actionUserManagement->setEnabled(false);
    ui->actionMatchManagement->setEnabled(false);
    ui->actionObjectManagement->setEnabled(false);
-   ui->actionSync->setEnabled(false);
    ui->actionOptions->setEnabled(false);
    ui->actionChangePermissions->setEnabled(false);
    ui->actionSetScores->setEnabled(false);
@@ -119,7 +119,6 @@ void MainWindow::applyPermission()
 
    if (Reghaabat::hasAccess("operator"))
    {
-//       ui->actionSync->setEnabled(true);
        ui->actionNewUser->setEnabled(true);
        ui->actionEditUser->setEnabled(true);
        ui->actionDeliver->setEnabled(true);
@@ -142,13 +141,8 @@ void MainWindow::applyPermission()
    {
        ui->actionChangePermissions->setEnabled(true);
        ui->actionOptions->setEnabled(true);
+       ui->actionWeb->setEnabled(true);
    }
-}
-
-void MainWindow::on_actionSync_triggered()
-{
-    static Sender sender(this);
-    sender.sync();
 }
 
 void MainWindow::on_actionLogin_triggered()
@@ -405,4 +399,14 @@ void MainWindow::on_actionAbout_triggered()
 {
     AboutDialog ad(this);
     ad.exec();
+}
+
+void MainWindow::on_actionWeb_triggered()
+{
+    if (! webConnection)
+    {
+        webConnection = new WebConnection(this);
+        stackedLayout->addWidget(webConnection);
+    }
+    stackedLayout->setCurrentWidget(webConnection);
 }
