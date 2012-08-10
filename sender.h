@@ -12,11 +12,14 @@ class Sender : public QObject
 
     QNetworkAccessManager qnam;
     QNetworkReply* reply;
-    void send(QUrl url, QMap<QString, QString>& posts, QStringList& files);
 
 public:
     Sender(QObject *parent = 0);
-    void sync();
+    void post(QUrl url, QMap<QString, QString>& data);
+    void postMultiPart(QUrl url, QMap<QString, QString>& data, QStringList& files);
+
+signals:
+     void received(QString response);
 
 private slots:
     void httpFinished();

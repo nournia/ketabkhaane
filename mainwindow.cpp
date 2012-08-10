@@ -44,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    Reghaabat::instance()->syncer = new Syncer(this);
 
     resize(790, 550);
 
@@ -143,8 +144,6 @@ void MainWindow::applyPermission()
        ui->actionOptions->setEnabled(true);
        ui->actionWeb->setEnabled(true);
    }
-
-   ui->actionWeb->setVisible(false);
 }
 
 void MainWindow::on_actionLogin_triggered()

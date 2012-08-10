@@ -102,6 +102,7 @@ inline QString getRecordJSON(QSqlQuery& qry)
     return json;
 }
 
+#include <syncer.h>
 
 // rghaabat global variables
 // from: http://stackoverflow.com/questions/3747085/global-variables-in-qt
@@ -112,6 +113,7 @@ private:
 
 public:
     QString userId, userName, userGender, userPermission, tmpId;
+    Syncer* syncer;
 
     static Reghaabat* instance()
     {

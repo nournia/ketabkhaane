@@ -1,7 +1,7 @@
 #include "webconnection.h"
 #include "ui_webconnection.h"
 
-#include <sender.h>
+#include <helper.h>
 
 WebConnection::WebConnection(QWidget *parent) :
     QDialog(parent),
@@ -17,6 +17,5 @@ WebConnection::~WebConnection()
 
 void WebConnection::on_bSync_clicked()
 {
-    static Sender sender(this);
-    sender.sync();
+    Reghaabat::instance()->syncer->exec();
 }
