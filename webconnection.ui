@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>579</width>
-    <height>470</height>
+    <width>428</width>
+    <height>163</height>
    </rect>
   </property>
   <property name="layoutDirection">
@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="bSync">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>50</y>
+     <x>50</x>
+     <y>30</y>
      <width>75</width>
      <height>23</height>
     </rect>

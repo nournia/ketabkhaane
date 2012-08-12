@@ -5,10 +5,6 @@
 #include <QFile>
 #include <QSqlQuery>
 #include <QStringList>
-#include <connector.h>
-#include <QPair>
-#include <QDateTime>
-#include <QCryptographicHash>
 #include <QFileInfo>
 #include <QUrl>
 
@@ -16,7 +12,8 @@ Sender::Sender(QObject *parent)
     :QObject(parent)
 {}
 
-void Sender::post(QUrl url, QMap<QString, QString>& data) {
+void Sender::post(QUrl url, QMap<QString, QString>& data)
+{
     QNetworkRequest req;
     req.setUrl(QUrl(url));
     QByteArray bytes;

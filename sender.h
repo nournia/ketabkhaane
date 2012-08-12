@@ -2,9 +2,9 @@
 #define SENDER_H
 
 #include <QNetworkAccessManager>
-#include <QUrl>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QUrl>
 
 class Sender : public QObject
 {
