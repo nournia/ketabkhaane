@@ -16,7 +16,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setApplicationVersion("0.9.1");
+    a.setApplicationVersion("0.9.5");
 
     // arguments
     if (argc == 2 && !strcmp(argv[1], "-bootstrap"))
@@ -41,7 +41,6 @@ int main(int argc, char *argv[])
     }
 
     // importMatchDb("C:\\Users\\Noorian\\Desktop\\Reghaabat.mdb");
-    // importLibraryDb("C:\\Users\\Noorian\\Desktop\\Library.mdb");
     // exit(0);
 
     // translation
