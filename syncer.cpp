@@ -44,7 +44,7 @@ void Syncer::registerFinished(QString response)
     if (values.length() > 0 && values[0] == "ok") {
         QSqlQuery qry;
         qry.exec(QString("update library set id = %1, license = \"%2\", synced_at = null").arg(values[1], values[2]));
-        insertLog("library", "update", values[0]);
+        insertLog("library", "update", values[1]);
         qDebug() << "library registered.";
     } else
         qDebug() << response;
@@ -62,7 +62,7 @@ void Syncer::sendLogs()
     QMap<QString, QString> data;
     data["command"] = "receive";
     data["id"] = id;
-    data["key"] = QCryptographicHash::hash(QString(id +"x"+ license).toUtf8(), QCryptographicHash::Sha1).toHex();
+    data["key"] = QCryptographicHash::hash(QString(id +"|x|"+ license).toUtf8(), QCryptographicHash::Sha1).toHex();
 
     QDateTime syncTime; QStringList files; bool finished; int count;
     data["logs"] = getLogsData(syncTime, count, finished, files);
