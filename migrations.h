@@ -82,6 +82,25 @@ void migrate(QString newVersion)
         ok &= qry.exec("delete from objects where id = 677");
     }
 
+    if (isBetween(version, "0.9.1", "0.9.5")) {
+        // remove library extra fields
+        qry.exec("select title from library");
+        qry.next();
+        QString title = qry.value(0).toString();
+
+        ok &= qry.exec("drop table library");
+        ok &= qry.exec("create table library (id integer null default null, title varchar(255) not null, description varchar(1000) null default null, started_at datetime not null, image varchar(50) null default null, version varchar(10) null, synced_at timestamp null default null, license varchar(255) null default null, options text null)");
+        ok &= qry.exec("insert into library (id, title, image, started_at, version) values (1, '"+ title +"', '1.jpg', '2012-01-01', '0.9.1')");
+        ok &= qry.exec("delete from logs where table_name = 'library'");
+        insertLog("library", "insert", 1);
+
+        // fix log density
+        QStringList seconds = QStringList() << "43" << "44" << "45" << "46" << "47" << "48";
+
+        for (int i = 0; i < 6; i++)
+            ok &= qry.exec("update logs set created_at = '2011-07-02 16:08:"+ seconds[i] +"' where table_name='questions' and row_id in (select row_id from logs where table_name = 'questions' and created_at >= '2011-07-02 16:08:41' and created_at <= '2011-07-02 16:08:42' limit 1000) and created_at >= '2011-07-02 16:08:41' and created_at <= '2011-07-02 16:08:42'" );
+    }
+
     if (change && ok)
         ok &= qry.exec(QString("update library set version = '%1'").arg(newVersion));
 
