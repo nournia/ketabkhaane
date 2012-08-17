@@ -122,7 +122,7 @@ void MatchForm::selectMatch()
         {
             ui->cType->setCurrentIndex(1); // Instructions
             ui->cGroup->setCurrentIndex(ui->cGroup->findData(match["category_id"].toString()));
-            ui->eContent->page()->mainFrame()->evaluateJavaScript(QString("$('#wysiwyg').wysiwyg('setContent', '%1');").arg(match["content"].toString()));
+            ui->eContent->page()->mainFrame()->evaluateJavaScript(QString("$('#wysiwyg').wysiwyg('setContent', '%1');").arg(match["content"].toString().replace("'", "\"")));
         }
 
         ui->gData->setEnabled(true);

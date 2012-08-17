@@ -63,7 +63,7 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
     {
         match["category_id"] = data["category_id"];
 
-        QString content = data["content"].toString();
+        QString content = data["content"].toString().replace("'", "\"");
 
         // move extenal files
         QStringList filenames = extractFilenames(content);

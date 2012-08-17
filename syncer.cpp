@@ -46,6 +46,7 @@ void Syncer::registerFinished(QString response)
         qry.exec(QString("update library set id = %1, license = \"%2\", synced_at = null").arg(values[1], values[2]));
         insertLog("library", "update", values[1]);
         qDebug() << "library registered.";
+        exec();
     } else
         qDebug() << response;
 }
@@ -70,10 +71,13 @@ void Syncer::sendLogs()
     data["finished"] = QString("%1").arg(finished);
     data["synced_at"] = formatDateTime(syncTime);
 
-    Sender* sender = new Sender(this);
-    sender->post(backendUrl, data);
-    connect(sender, SIGNAL(received(QString)), this, SLOT(sendFinished(QString)));
-    qDebug() << "data sent.";
+    if (count > 0) {
+        Sender* sender = new Sender(this);
+        sender->post(backendUrl, data);
+        connect(sender, SIGNAL(received(QString)), this, SLOT(sendFinished(QString)));
+        qDebug() << count << " rows sent.";
+    } else
+        qDebug() << "reghaabat is synced.";
 }
 
 void Syncer::sendFinished(QString response)
@@ -83,17 +87,46 @@ void Syncer::sendFinished(QString response)
         QSqlQuery qry;
         qry.exec(QString("update library set synced_at = \"%1\"").arg(values[1]));
         qDebug() << "data received.";
+        exec();
     } else
         qDebug() << response;
+}
+
+bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
+{
+    QSqlQuery qry;
+
+    // set last sync time
+    qry.exec("select synced_at from library");
+    if (qry.next() && qry.value(0).toString() != "")
+        lastSync = qry.value(0).toDateTime();
+    else
+        lastSync.setDate(QDate(1900, 01, 01));
+
+    qry.exec(QString("select created_at, count(row_id) from logs where created_at > \"%1\" group by created_at order by created_at").arg(formatDateTime(lastSync)));
+    int rows, count = 0;
+    while (qry.next()) {
+        rows = qry.value(1).toInt();
+
+        if ((rows+count) <= maxRows)
+            syncTime = qry.value(0).toDateTime();
+        else if (count == 0)
+            syncTime = qry.value(0).toDateTime();
+        else
+            return false;
+
+        count += rows;
+    }
+
+    // unsynced rows are less than limit
+    syncTime = QDateTime::currentDateTime();
+    return true;
 }
 
 QByteArray getLogsData(QDateTime& syncTime, int& count, bool& finished, QStringList& files)
 {
     QDateTime lastSync;
-    //finished = setSyncBoundaries(1000000, lastSync, syncTime);
-    syncTime = QDateTime::currentDateTime();
-    lastSync.setDate(QDate(2012, 05, 01));
-    finished = true;
+    finished = setSyncBoundaries(2000, lastSync, syncTime);
 
     QString logs, row, delimeter = "|-|";
     QSqlQuery qry;
