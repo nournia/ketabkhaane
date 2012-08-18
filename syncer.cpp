@@ -7,7 +7,7 @@
 #include <QDateTime>
 #include <QCryptographicHash>
 
-// http://reghaabat.ap01.aws.af.cm/backend.php
+//QUrl backendUrl("http://reghaabat.ap01.aws.af.cm/backend.php");
 QUrl backendUrl("http://localhost/reghaabat-server/backend.php");
 
 Syncer::Syncer(QObject *parent)
@@ -31,7 +31,6 @@ void Syncer::registerDb()
 {
     QMap<QString, QString> data;
     data["command"] = "register";
-
     Sender* sender = new Sender(this);
     sender->post(backendUrl, data);
     connect(sender, SIGNAL(received(QString)), this, SLOT(registerFinished(QString)));
@@ -73,9 +72,9 @@ void Syncer::sendLogs()
 
     if (count > 0) {
         Sender* sender = new Sender(this);
-        sender->post(backendUrl, data);
+        sender->postMultiPart(backendUrl, data, files);
         connect(sender, SIGNAL(received(QString)), this, SLOT(sendFinished(QString)));
-        qDebug() << count << " rows sent.";
+        qDebug() << count << "rows sent.";
     } else
         qDebug() << "reghaabat is synced.";
 }
@@ -130,8 +129,8 @@ QByteArray getLogsData(QDateTime& syncTime, int& count, bool& finished, QStringL
 
     QString logs, row, delimeter = "|-|";
     QSqlQuery qry;
-    QString condition = QString(" where created_at > \"%1\" and created_at <= \"%2\"").arg(formatDateTime(lastSync), formatDateTime(syncTime));
-    qry.exec("select table_name, row_op, row_id, user_id, created_at, row_data from logs"+ condition);
+    QString timeCondition = QString("created_at > \"%1\" and created_at <= \"%2\"").arg(formatDateTime(lastSync), formatDateTime(syncTime));
+    qry.exec("select table_name, row_op, row_id, user_id, created_at, row_data from logs where "+ timeCondition);
 
     bool first = true; count = 0;
     for (int i; qry.next(); count++) {
@@ -145,9 +144,9 @@ QByteArray getLogsData(QDateTime& syncTime, int& count, bool& finished, QStringL
     }
 
     // extract new filenames
-//    qry.exec("select id ||'.'|| extension from files where updated_at > "+ dtLast +" and updated_at <= "+ dtSync);
-//    while (qry.next())
-//        files.append(QString("%1/files/").arg(dataFolder()) + qry.value(0).toString());
+    qry.exec("select files.id||'.'||files.extension as filename from logs inner join files on files.id = logs.row_id where table_name = 'files' and (row_op = 'insert' or row_op = 'update') and "+ timeCondition);
+    while (qry.next())
+        files.append(QString("%1/files/").arg(dataFolder()) + qry.value(0).toString());
 
     return logs.toUtf8();
 }
