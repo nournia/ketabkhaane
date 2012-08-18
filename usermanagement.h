@@ -74,7 +74,10 @@ private:
     Ui::UserManagement *ui;
 
 private slots:
-    void on_bMatchList_clicked();
+    void on_bPreviewLogs_clicked();
+    void on_bPreviewScoreList_clicked();
+    void on_bScoreList_clicked();
+    void on_bLogs_clicked();
 };
 
 #endif // USERMANAGEMENT_H

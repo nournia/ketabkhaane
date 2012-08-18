@@ -23,7 +23,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="pixmap">
-      <pixmap resource="reghaabat.qrc">:/images/reghaabat.ico</pixmap>
+      <pixmap resource="resources.qrc">:/images/reghaabat.ico</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -71,7 +71,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="reghaabat.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>

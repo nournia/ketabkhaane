@@ -258,7 +258,7 @@
            <string>Select</string>
           </property>
           <property name="icon">
-           <iconset resource="reghaabat.qrc">
+           <iconset resource="resources.qrc">
             <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
           </property>
          </widget>
@@ -339,7 +339,7 @@
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources>
-  <include location="reghaabat.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>

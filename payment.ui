@@ -139,7 +139,7 @@
          <string>Pay</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/ok.png</normaloff>:/images/ok.png</iconset>
         </property>
        </widget>
@@ -260,7 +260,7 @@
   <tabstop>tPayments</tabstop>
  </tabstops>
  <resources>
-  <include location="reghaabat.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>
