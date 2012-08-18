@@ -19,6 +19,9 @@ UserManagement::UserManagement(QWidget *parent) :
     ui->tUsers->setColumnWidth(1, 160);
 
     viewer = ((MainWindow*) parent)->viewer;
+
+    ui->gScoreList->setVisible(false);
+    ui->gLogs->setVisible(false);
 }
 
 UserManagement::~UserManagement()
@@ -26,11 +29,29 @@ UserManagement::~UserManagement()
     delete ui;
 }
 
-void UserManagement::on_bMatchList_clicked()
+void UserManagement::on_bLogs_clicked()
+{
+    ui->gScoreList->setVisible(false);
+    ui->gLogs->setVisible(!ui->gLogs->isVisible());
+}
+
+void UserManagement::on_bScoreList_clicked()
+{
+    ui->gScoreList->setVisible(!ui->gScoreList->isVisible());
+    ui->gLogs->setVisible(false);
+}
+
+void UserManagement::on_bPreviewScoreList_clicked()
 {
     if (ui->cGenderGroup->isChecked())
         viewer->bUserGenderGroup();
     else
         viewer->bUserAll();
+    viewer->exec();
+}
+
+void UserManagement::on_bPreviewLogs_clicked()
+{
+    viewer->showLogs();
     viewer->exec();
 }

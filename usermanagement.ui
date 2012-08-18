@@ -32,7 +32,7 @@
          <string>New User</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/add_user.png</normaloff>:/images/add_user.png</iconset>
         </property>
        </widget>
@@ -43,7 +43,7 @@
          <string>Edit User</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/edit_user.png</normaloff>:/images/edit_user.png</iconset>
         </property>
        </widget>
@@ -62,20 +62,109 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="bMatchList">
+       <widget class="QPushButton" name="bLogs">
+        <property name="text">
+         <string>Logs</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/log.png</normaloff>:/images/log.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="bScoreList">
         <property name="text">
          <string>Score List</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/scores.png</normaloff>:/images/scores.png</iconset>
         </property>
        </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gScoreList">
+     <property name="title">
+      <string>Score List</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="topMargin">
+       <number>3</number>
+      </property>
+      <property name="bottomMargin">
+       <number>6</number>
+      </property>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>412</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
        <widget class="QCheckBox" name="cGenderGroup">
         <property name="text">
          <string>Gender Group</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="bPreviewScoreList">
+        <property name="text">
+         <string>Preview</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gLogs">
+     <property name="title">
+      <string>Logs</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="topMargin">
+       <number>3</number>
+      </property>
+      <property name="bottomMargin">
+       <number>6</number>
+      </property>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>508</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="bPreviewLogs">
+        <property name="text">
+         <string>Preview</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
         </property>
        </widget>
       </item>
@@ -88,7 +177,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="reghaabat.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -348,7 +348,56 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
         library += QString("<span>%1</span>").arg(qry.value(0).toString());
         frame->findFirstElement("#library").setInnerXml(library);
     }
+}
 
+QMap<QString, QStringList> logTable(QString join, QString condition)
+{
+    QSqlQuery qry;
+    QMap<QString, QStringList> table;
+
+    QString sql =
+        "select transactions.user_id, sum(transactions.score) as score, count(transactions.id) as count, avg(answers.rate) as rate from transactions "
+        "inner join matches on matches.id = substr(description,5) inner join answers on answers.user_id = transactions.user_id and answers.match_id = matches.id %1 "
+        "where created_at > (select started_at from library) %2 group by transactions.user_id order by score";
+
+    qry.exec(QString(sql).arg(join, condition));
+    for (int i = 1; qry.next(); i++)
+        table[qry.value(0).toString()] = QStringList() << QString("%1").arg(i) << qry.value(1).toString() << qry.value(2).toString() << qry.value(3).toString();
+
+    return table;
+}
+void ViewerForm::prepareLogs()
+{
+    if (!log_titles.isEmpty())
+        return;
+
+    QSqlQuery qry;
+
+    // types
+    qry.exec("select * from types");
+    while (qry.next()) {
+        log_titles << qry.value(1).toString();
+        log_tables << logTable("inner join objects on objects.id = matches.object_id", "and objects.type_id = "+ qry.value(0).toString());
+    }
+
+    // categories
+    qry.exec("select * from categories");
+    while (qry.next()) {
+        log_titles << qry.value(1).toString();
+        log_tables << logTable("", "and matches.category_id = "+ qry.value(0).toString());
+    }
+
+    // all
+    log_titles << tr("All");
+    log_tables << logTable("", "");
+}
+
+void ViewerForm::showLogs()
+{
+    prepareLogs();
+    for (int i = 0; i < log_titles.length(); i++) {
+        qDebug() << log_titles[i] << log_tables[i].keys().length();
+    }
 }
 
 void ViewerForm::savePdf(QString filename)

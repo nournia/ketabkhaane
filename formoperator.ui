@@ -119,7 +119,7 @@
             <string>Deliver</string>
            </property>
            <property name="icon">
-            <iconset resource="reghaabat.qrc">
+            <iconset resource="resources.qrc">
              <normaloff>:/images/ok.png</normaloff>:/images/ok.png</iconset>
            </property>
           </widget>
@@ -194,7 +194,7 @@
             <string>Preview</string>
            </property>
            <property name="icon">
-            <iconset resource="reghaabat.qrc">
+            <iconset resource="resources.qrc">
              <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
            </property>
           </widget>
@@ -398,7 +398,7 @@
             <string>Accept</string>
            </property>
            <property name="icon">
-            <iconset resource="reghaabat.qrc">
+            <iconset resource="resources.qrc">
              <normaloff>:/images/ok.png</normaloff>:/images/ok.png</iconset>
            </property>
           </widget>
@@ -422,7 +422,7 @@
   <tabstop>cLimitedSearch</tabstop>
  </tabstops>
  <resources>
-  <include location="reghaabat.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -32,7 +32,7 @@
          <string>New Match</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/add_match.png</normaloff>:/images/add_match.png</iconset>
         </property>
        </widget>
@@ -43,7 +43,7 @@
          <string>Edit Match</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/edit_match.png</normaloff>:/images/edit_match.png</iconset>
         </property>
        </widget>
@@ -67,7 +67,7 @@
          <string>Match List</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/matches.png</normaloff>:/images/matches.png</iconset>
         </property>
        </widget>
@@ -88,7 +88,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="reghaabat.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>

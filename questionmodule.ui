@@ -74,7 +74,7 @@
            <enum>Qt::NoFocus</enum>
           </property>
           <property name="icon">
-           <iconset resource="reghaabat.qrc">
+           <iconset resource="resources.qrc">
             <normaloff>:/images/minus.png</normaloff>:/images/minus.png</iconset>
           </property>
           <property name="flat">
@@ -125,7 +125,7 @@
   <tabstop>eAnswer</tabstop>
  </tabstops>
  <resources>
-  <include location="reghaabat.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>

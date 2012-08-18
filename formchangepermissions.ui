@@ -40,7 +40,7 @@
          <string>Add</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/plus.png</normaloff>:/images/plus.png</iconset>
         </property>
        </widget>
@@ -70,7 +70,7 @@
   <tabstop>tPermissions</tabstop>
  </tabstops>
  <resources>
-  <include location="reghaabat.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>

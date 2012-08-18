@@ -32,7 +32,7 @@
          <string>New Object</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/add_object.png</normaloff>:/images/add_object.png</iconset>
         </property>
        </widget>
@@ -43,7 +43,7 @@
          <string>Edit Object</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/edit_object.png</normaloff>:/images/edit_object.png</iconset>
         </property>
        </widget>
@@ -67,7 +67,7 @@
          <string>List</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/print.png</normaloff>:/images/print.png</iconset>
         </property>
        </widget>
@@ -78,7 +78,7 @@
          <string>Labels</string>
         </property>
         <property name="icon">
-         <iconset resource="reghaabat.qrc">
+         <iconset resource="resources.qrc">
           <normaloff>:/images/print.png</normaloff>:/images/print.png</iconset>
         </property>
        </widget>
@@ -96,7 +96,7 @@
        <number>3</number>
       </property>
       <property name="bottomMargin">
-       <number>3</number>
+       <number>6</number>
       </property>
       <item>
        <widget class="QLabel" name="label">
@@ -139,17 +139,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="bPreviewList">
-        <property name="text">
-         <string>Preview</string>
-        </property>
-        <property name="icon">
-         <iconset resource="reghaabat.qrc">
-          <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -161,6 +150,17 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="bPreviewList">
+        <property name="text">
+         <string>Preview</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -175,7 +175,7 @@
        <number>3</number>
       </property>
       <property name="bottomMargin">
-       <number>3</number>
+       <number>6</number>
       </property>
       <item>
        <widget class="QLabel" name="label_7">
@@ -225,17 +225,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="bPreviewLabels">
-        <property name="text">
-         <string>Preview</string>
-        </property>
-        <property name="icon">
-         <iconset resource="reghaabat.qrc">
-          <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
        <spacer name="horizontalSpacer_5">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -247,6 +236,17 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="bPreviewLabels">
+        <property name="text">
+         <string>Preview</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -267,7 +267,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="reghaabat.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>

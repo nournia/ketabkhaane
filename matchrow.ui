@@ -53,7 +53,7 @@
       </size>
      </property>
      <property name="pixmap">
-      <pixmap resource="reghaabat.qrc">:/images/object.png</pixmap>
+      <pixmap resource="resources.qrc">:/images/object.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -75,7 +75,7 @@
       </size>
      </property>
      <property name="pixmap">
-      <pixmap resource="reghaabat.qrc">:/images/match.png</pixmap>
+      <pixmap resource="resources.qrc">:/images/match.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -163,7 +163,7 @@ border-radius: 5px</string>
   </layout>
  </widget>
  <resources>
-  <include location="reghaabat.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -22,6 +22,8 @@ public:
     void savePdf(QString filename);
     void showObjectLabels(QString from, QString to, bool onlyMatchObjects);
     void showObjectList(QString from, QString to);
+    void prepareLogs();
+    void showLogs();
 
     void bMatchAgeGroup();
     void bUserGenderGroup();
@@ -29,6 +31,10 @@ public:
     void bUserAll();
 
     bool landscape, margin;
+
+    QStringList log_titles;
+    QList< QMap<QString, QStringList> > log_tables;
+
 private:
     Ui::ViewerForm *ui;
 
