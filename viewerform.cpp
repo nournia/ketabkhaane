@@ -360,7 +360,7 @@ QMap<QString, QStringList> logTable(QString join, QString condition)
         "select user_id, score, count, cast(rate*100 as int)||'%' from ("
             "select transactions.user_id, sum(transactions.score) as score, count(transactions.id) as count, round(avg(answers.rate), 2) as rate from transactions "
             "inner join matches on matches.id = substr(description,5) inner join answers on answers.user_id = transactions.user_id and answers.match_id = matches.id %1 "
-            "where created_at > (select started_at from library) and transactions.score %2 group by transactions.user_id"
+            "where created_at > (select started_at from library) and transactions.score > 0 %2 group by transactions.user_id"
         ") as _t order by score desc";
 
     qry.exec(QString(sql).arg(join, condition));
@@ -409,22 +409,26 @@ void ViewerForm::showLogs()
 {
     prepareLogs();
     loadHtml("logs");
-    QString content, rows;
+    QString content;
     QString header = QString("<tr><th>%1</th><th>%2</th><th>%3</th><th>%4</th><th>%5</th></tr>").arg(tr("Group"), tr("Rank"), tr("Score"), tr("Count"), tr("Quality"));
 
     QSqlQuery qry;
     QString libraryLogo = getLibraryLogo();
 
+    qry.exec(QString(
+        "select transactions.user_id as id, firstname||' '||lastname as name, ageclasses.title as ageclass, %1 as ageclass_id, sum(transactions.score) as score from transactions "
+        "inner join users on transactions.user_id = users.id inner join ageclasses on ageclass_id = ageclasses.id "
+        "inner join matches on matches.id = substr(transactions.description,5) inner join answers on answers.user_id = transactions.user_id and answers.match_id = matches.id "
+        "where created_at > (select started_at from library) and transactions.score > 0 group by transactions.user_id order by score desc"
+    ).arg(MUsers::getAgeClassCase("current_date")));
+
     // iterate users in all table
-    foreach(QString user_id, log_tables[log_tables.length()-1].keys()) {
+    while (qry.next()) {
         content += "<article>";
         content += libraryLogo;
+        content += QString("<div class='user'><p>%1: <span>%2</span></p><p>%3: <span>%4</span></p></div>").arg(tr("Name"), qry.value(1).toString(), tr("AgeClass"), qry.value(2).toString());
 
-        qry.exec(QString("select firstname||' '||lastname, ageclasses.title, %1 as ageclass_id from users left join ageclasses on ageclass_id =ageclasses.id where users.id = %2").arg(MUsers::getAgeClassCase("current_date"), user_id));
-        qry.next();
-        content += QString("<div class='user'><p>%1: <span>%2</span></p><p>%3: <span>%4</span></p></div>").arg(tr("Name"), qry.value(0).toString(), tr("AgeClass"), qry.value(1).toString());
-
-        rows = "";
+        QString rows, user_id = qry.value(0).toString();
         for (int i = 0; i < log_tables.length(); i++)
             if (log_tables[i].contains(user_id)) {
                 QStringList row = log_tables[i][user_id];
