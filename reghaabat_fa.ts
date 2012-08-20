@@ -203,7 +203,7 @@
         <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="+89"/>
+        <location filename="formoperator.cpp" line="+88"/>
         <location line="+13"/>
         <location line="+199"/>
         <source>Received</source>
@@ -298,10 +298,18 @@
         <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
-        <location line="+69"/>
-        <location line="+3"/>
         <source>Sync</source>
-        <translation>همزمانی</translation>
+        <translation type="obsolete">همزمانی</translation>
+    </message>
+    <message>
+        <location line="+74"/>
+        <source>Web</source>
+        <translation>وب</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Web Connection</source>
+        <translation>ارتباط با وب</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -312,7 +320,7 @@
     <message>
         <location line="+9"/>
         <location line="+3"/>
-        <location filename="mainwindow.cpp" line="+166"/>
+        <location filename="mainwindow.cpp" line="+162"/>
         <source>Logout</source>
         <translation>خروج</translation>
     </message>
@@ -467,7 +475,7 @@
         <translation type="obsolete">مسابقه‌ها</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="-96"/>
+        <location filename="mainwindow.cpp" line="-90"/>
         <source>Database Connection Error!</source>
         <oldsource>Database Connection Error.</oldsource>
         <translation>خطا در اتصال به پایگاه داده‌ها!</translation>
@@ -568,7 +576,7 @@
         <translation type="obsolete">چند رسانه‌ای</translation>
     </message>
     <message>
-        <location line="+238"/>
+        <location line="+244"/>
         <source>Select Image File</source>
         <translation>انتخاب تصویر</translation>
     </message>
@@ -617,9 +625,24 @@
         <translation type="obsolete">دریافت</translation>
     </message>
     <message>
-        <location filename="matchrow.cpp" line="+16"/>
+        <location filename="matchrow.cpp" line="+17"/>
         <source>fine: %1</source>
         <translation>جریمه: %1</translation>
+    </message>
+    <message>
+        <location filename="matchrow.ui" line="+88"/>
+        <source>title</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>fine</source>
+        <translation>جریمه</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>label</source>
+        <translation>برچسب</translation>
     </message>
 </context>
 <context>
@@ -747,13 +770,13 @@
         <translation>تا</translation>
     </message>
     <message>
-        <location line="-59"/>
+        <location line="-46"/>
         <location line="+86"/>
         <source>Preview</source>
         <translation>نمایش</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-20"/>
         <source>Only Match Objects</source>
         <oldsource>Match Ageclass</oldsource>
         <translation>محدود به اشیاء مسابقه</translation>
@@ -1448,13 +1471,26 @@
     </message>
     <message>
         <location line="+24"/>
+        <location line="+71"/>
+        <source>Logs</source>
+        <translation>کارنامه‌ها</translation>
+    </message>
+    <message>
+        <location line="-60"/>
+        <location line="+14"/>
         <source>Score List</source>
         <translation>لیست امتیازها</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+25"/>
         <source>Gender Group</source>
         <translation>با تفکیک آقا و خانم</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <location line="+39"/>
+        <source>Preview</source>
+        <translation>نمایش</translation>
     </message>
 </context>
 <context>
@@ -1484,15 +1520,16 @@
 <context>
     <name>ViewerForm</name>
     <message>
+        <location filename="viewerform.cpp" line="+392"/>
         <source>All</source>
-        <translation type="obsolete">همه</translation>
+        <translation>همه</translation>
     </message>
     <message>
         <source>Gender Group</source>
         <translation type="obsolete">با تفکیک آقا و خانم</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="+145"/>
+        <location line="-246"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -1521,17 +1558,19 @@
         <location line="+3"/>
         <location line="+31"/>
         <location line="+11"/>
+        <location line="+277"/>
         <source>Rank</source>
         <translation>رتبه</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-288"/>
         <location line="+11"/>
+        <location line="+289"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-300"/>
         <location line="+11"/>
         <source>Matches</source>
         <translation>مسابقه‌ها</translation>
@@ -1541,11 +1580,12 @@
         <location line="+11"/>
         <location line="+12"/>
         <location line="+14"/>
+        <location line="+251"/>
         <source>Score</source>
         <translation>امتیاز</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-288"/>
         <source>Score List</source>
         <translation>لیست امتیازها</translation>
     </message>
@@ -1569,22 +1609,24 @@
     </message>
     <message>
         <location line="-84"/>
+        <location line="+277"/>
         <source>AgeClass</source>
         <translation>رده سنی</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-277"/>
         <location line="+14"/>
         <source>Kind</source>
         <translation>نوع</translation>
     </message>
     <message>
         <location line="+0"/>
+        <location line="+251"/>
         <source>Group</source>
         <translation>گروه</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="-181"/>
         <source>Lablel</source>
         <translation>شماره</translation>
     </message>
@@ -1610,6 +1652,11 @@
         <translation>صفحه</translation>
     </message>
     <message>
+        <location line="+168"/>
+        <source>Count</source>
+        <translation>تعداد</translation>
+    </message>
+    <message>
         <location filename="payment.cpp" line="-38"/>
         <source>Grade1</source>
         <translation>ضعیف</translation>
@@ -1630,7 +1677,7 @@
         <translation>عالی</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="+51"/>
+        <location filename="viewerform.cpp" line="-117"/>
         <source>Your score depends on your mood, attention and genuis.</source>
         <translation>امتیاز مسابقه به حوصله، دقت و استعداد شما داده می‌شود.</translation>
     </message>
@@ -1653,15 +1700,24 @@
         <translation type="obsolete">چکیده</translation>
     </message>
     <message>
+        <location line="+106"/>
         <source>Quality</source>
-        <translation type="obsolete">کیفیت</translation>
+        <translation>کیفیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="-221"/>
-        <location line="+245"/>
-        <location filename="viewerform.cpp" line="-55"/>
+        <location filename="matchform.cpp" line="-227"/>
+        <location line="+251"/>
+        <location filename="viewerform.cpp" line="-161"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
+    </message>
+</context>
+<context>
+    <name>WebConnection</name>
+    <message>
+        <location filename="webconnection.ui" line="+26"/>
+        <source>Sync</source>
+        <translation>همزمانی</translation>
     </message>
 </context>
 </TS>

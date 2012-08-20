@@ -85,7 +85,7 @@
    <item>
     <widget class="QLabel" name="lTitle">
      <property name="text">
-      <string>عنوان</string>
+      <string>title</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
@@ -121,7 +121,7 @@ color: whitesmoke;
 border-radius: 5px</string>
      </property>
      <property name="text">
-      <string>جریمه</string>
+      <string>fine</string>
      </property>
     </widget>
    </item>
@@ -137,7 +137,7 @@ border-radius: 5px</string>
       <string notr="true">color: #777</string>
      </property>
      <property name="text">
-      <string>کد</string>
+      <string>label</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
