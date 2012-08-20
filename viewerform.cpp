@@ -405,15 +405,15 @@ QString getLibraryLogo()
     return "";
 }
 
-void ViewerForm::showLogs()
+void ViewerForm::showLogs(QString title)
 {
     prepareLogs();
     loadHtml("logs");
     QString content;
-    QString header = QString("<tr><th>%1</th><th>%2</th><th>%3</th><th>%4</th><th>%5</th></tr>").arg(tr("Group"), tr("Rank"), tr("Score"), tr("Count"), tr("Quality"));
+    QString header = getLibraryLogo() + QString("<div class='title'>%1</div>").arg(title);
+    QString tableHeader = QString("<tr><th>%1</th><th>%2</th><th>%3</th><th>%4</th><th>%5</th></tr>").arg(tr("Group"), tr("Rank"), tr("Score"), tr("Count"), tr("Quality"));
 
     QSqlQuery qry;
-    QString libraryLogo = getLibraryLogo();
 
     qry.exec(QString(
         "select transactions.user_id as id, firstname||' '||lastname as name, ageclasses.title as ageclass, %1 as ageclass_id, sum(transactions.score) as score from transactions "
@@ -425,8 +425,8 @@ void ViewerForm::showLogs()
     // iterate users in all table
     while (qry.next()) {
         content += "<article>";
-        content += libraryLogo;
-        content += QString("<div class='user'><p>%1: <span>%2</span></p><p>%3: <span>%4</span></p></div>").arg(tr("Name"), qry.value(1).toString(), tr("AgeClass"), qry.value(2).toString());
+        content += header;
+        content += QString("<div class='user'><p class='name'><span>%2</span></p><p class='ageclass'>%3 <span>%4</span></p></div>").arg(qry.value(1).toString(), tr("Class"), qry.value(2).toString());
 
         QString rows, user_id = qry.value(0).toString();
         for (int i = 0; i < log_tables.length(); i++)
@@ -435,7 +435,7 @@ void ViewerForm::showLogs()
                 rows += QString("<tr><td>%1</td><td>%2</td><td>%3</td><td>%4</td><td>%5</td></tr>").arg(log_titles[i], row[0], row[1], row[2], row[3]);
             }
 
-        content += QString("<table cellspacing='0'><thead>%2</thead><tbody>%3</tbody></table>").arg(header, rows);
+        content += QString("<table cellspacing='0'><thead>%2</thead><tbody>%3</tbody></table>").arg(tableHeader, rows);
         content += "</article>";
     }
 

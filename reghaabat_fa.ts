@@ -1488,9 +1488,20 @@
     </message>
     <message>
         <location line="+7"/>
-        <location line="+39"/>
+        <location line="+59"/>
         <source>Preview</source>
         <translation>نمایش</translation>
+    </message>
+    <message>
+        <location line="-33"/>
+        <source>Title</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>BookReading Tournament Log</source>
+        <oldsource>BookReading Tournament</oldsource>
+        <translation>کارنامه مسابقه کتاب‌خوانی</translation>
     </message>
 </context>
 <context>
@@ -1520,16 +1531,16 @@
 <context>
     <name>ViewerForm</name>
     <message>
-        <location filename="viewerform.cpp" line="+392"/>
+        <location filename="viewerform.cpp" line="+394"/>
         <source>All</source>
-        <translation>همه</translation>
+        <translation>کل</translation>
     </message>
     <message>
         <source>Gender Group</source>
         <translation type="obsolete">با تفکیک آقا و خانم</translation>
     </message>
     <message>
-        <location line="-246"/>
+        <location line="-248"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -1558,19 +1569,18 @@
         <location line="+3"/>
         <location line="+31"/>
         <location line="+11"/>
-        <location line="+277"/>
+        <location line="+280"/>
         <source>Rank</source>
         <translation>رتبه</translation>
     </message>
     <message>
-        <location line="-288"/>
+        <location line="-291"/>
         <location line="+11"/>
-        <location line="+289"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>
     <message>
-        <location line="-300"/>
+        <location line="-11"/>
         <location line="+11"/>
         <source>Matches</source>
         <translation>مسابقه‌ها</translation>
@@ -1580,12 +1590,12 @@
         <location line="+11"/>
         <location line="+12"/>
         <location line="+14"/>
-        <location line="+251"/>
+        <location line="+254"/>
         <source>Score</source>
         <translation>امتیاز</translation>
     </message>
     <message>
-        <location line="-288"/>
+        <location line="-291"/>
         <source>Score List</source>
         <translation>لیست امتیازها</translation>
     </message>
@@ -1609,24 +1619,23 @@
     </message>
     <message>
         <location line="-84"/>
-        <location line="+277"/>
         <source>AgeClass</source>
         <translation>رده سنی</translation>
     </message>
     <message>
-        <location line="-277"/>
+        <location line="+0"/>
         <location line="+14"/>
         <source>Kind</source>
         <translation>نوع</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+251"/>
+        <location line="+254"/>
         <source>Group</source>
         <translation>گروه</translation>
     </message>
     <message>
-        <location line="-181"/>
+        <location line="-184"/>
         <source>Lablel</source>
         <translation>شماره</translation>
     </message>
@@ -1652,9 +1661,14 @@
         <translation>صفحه</translation>
     </message>
     <message>
-        <location line="+168"/>
+        <location line="+171"/>
         <source>Count</source>
         <translation>تعداد</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Class</source>
+        <translation>رده</translation>
     </message>
     <message>
         <location filename="payment.cpp" line="-38"/>
@@ -1677,7 +1691,7 @@
         <translation>عالی</translation>
     </message>
     <message>
-        <location filename="viewerform.cpp" line="-117"/>
+        <location filename="viewerform.cpp" line="-135"/>
         <source>Your score depends on your mood, attention and genuis.</source>
         <translation>امتیاز مسابقه به حوصله، دقت و استعداد شما داده می‌شود.</translation>
     </message>
@@ -1700,14 +1714,14 @@
         <translation type="obsolete">چکیده</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+109"/>
         <source>Quality</source>
         <translation>کیفیت</translation>
     </message>
     <message>
         <location filename="matchform.cpp" line="-227"/>
         <location line="+251"/>
-        <location filename="viewerform.cpp" line="-161"/>
+        <location filename="viewerform.cpp" line="-164"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
     </message>

@@ -52,6 +52,6 @@ void UserManagement::on_bPreviewScoreList_clicked()
 
 void UserManagement::on_bPreviewLogs_clicked()
 {
-    viewer->showLogs();
+    viewer->showLogs(ui->eLogTitle->text());
     viewer->exec();
 }

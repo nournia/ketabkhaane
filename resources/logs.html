@@ -7,23 +7,22 @@ body {
 	text-align: right;
 	direction:rtl; 
 	font-family: "B Mitra";
-	font-size: 18px;
+	font-size: 20px;
 	margin: 0;
 }
 
 article {
-	position: relative;
 	page-break-after: always;
 	min-height: 400px;
-	width: 800px;
-	margin: 50px auto;
+	width: 600px;
+	margin: 0 auto;
+	padding: 100px;
 }
 
 .logo {
 	text-align: center;
 	width: 120px;
-	position: absolute;
-	left: 10px;
+	float: right;
 }
 .logo img {
 	width: 100px;
@@ -35,31 +34,70 @@ article {
 	font-size: 13px;
 }
 
+.title, .user, table {
+	margin-right: 140px;
+}
+
+.title {
+	padding-top: 20px;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
 .user {
-	padding: 30px 50px;
+	padding: 30px 20px 5px;
+	margin-right: 140px;
 }
 .user p {
 	margin: 0;
+	display: inline-block;
+	background: #eee;
+	border-top: 2px solid #aaa;
+	padding: 0 5px;
 }
 .user span {
 	font-weight: bold;
-	font-size: 16px;
+}
+.user p.name {
+}
+.user p.ageclass {
+	float: left;
+	margin-left: 40px;
 }
 
 table {
-	margin: 10px auto;
+	margin-top: 30px;
+}
+thead th {
+	border-bottom: 3px solid #888;
 }
 tr {
 	text-align: center;
 }
+tr:first-child td {
+	padding-top: 10px;
+}
+tr:last-child td {
+	font-weight: bold;
+	font-size: .9em;
+}
 td, th {
-	width: 100px;
+	width: 80px;
+	height: 28px
 }
 th:first-child, td:first-child {
-	text-align: right;	
+	text-align: right;
+	padding-right: 15px;
 }
+
 </style></head>
 <body>
-	<article><div class="logo"><img src="file:///D:/repo/reghaabat/data/files/1.jpg"><span>کتابخانه شهید خرازی</span></div><div class="user"><p>نام: <span>علی خدری</span></p><p>رده سنی: <span>ج</span></p></div><table cellspacing="0"><thead><tr><th>گروه</th><th>رتبه</th><th>امتیاز</th><th>تعداد</th><th>کیفیت</th></tr></thead><tbody><tr><td>کتاب</td><td>2</td><td>605</td><td>4</td><td>0.65</td></tr><tr><td>تحقیق</td><td>1</td><td>2250</td><td>1</td><td>0.9</td></tr><tr><td>همه</td><td>1</td><td>2855</td><td>5</td><td>0.7</td></tr></tbody></table></article>
+	<article>
+		<div class="logo"><img src="file:///D:/repo/reghaabat/data/files/1.jpg"><span>کتابخانه شهید خرازی</span></div>
+		<div class="title">مسابقه کتاب‌خوانی - تابستان 1391</div>
+		<div class="user"><p class="name"><span>علی خدری</span></p><p class="ageclass">رده <span>ج</span></p></div>
+		<table cellspacing="0"><thead><tr><th>گروه</th><th>رتبه</th><th>امتیاز</th><th>تعداد</th><th>کیفیت</th></tr></thead><tbody><tr><td>کتاب</td><td>2</td><td>605</td><td>4</td><td>65%</td></tr><tr><td>تحقیق</td><td>1</td><td>2250</td><td>1</td><td>90%</td></tr><tr><td>همه</td><td>1</td><td>2855</td><td>5</td><td>70%</td></tr></tbody>
+		</table>
+	</article>
 </body>
 </html>

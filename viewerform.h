@@ -23,7 +23,7 @@ public:
     void showObjectLabels(QString from, QString to, bool onlyMatchObjects);
     void showObjectList(QString from, QString to);
     void prepareLogs();
-    void showLogs();
+    void showLogs(QString title);
 
     void bMatchAgeGroup();
     void bUserGenderGroup();
