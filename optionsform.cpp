@@ -85,7 +85,7 @@ void OptionsForm::on_buttonBox_accepted()
 
     // store options
     QSqlQuery qry;
-    if (qry.exec(QString("update library set title = '%1', description = '%2', started_at = '%3', options = '%4' where id = 1").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), formatDate(toGregorian(ui->eStartDate->text())), QVariantMapToString(opt))))
+    if (qry.exec(QString("update library set title = '%1', description = '%2', started_at = '%3', options = '%4'").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), formatDate(toGregorian(ui->eStartDate->text())), QVariantMapToString(opt))))
         insertLog("library", "update", "1");
 
     QString msg = "";

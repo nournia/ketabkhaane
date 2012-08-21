@@ -116,12 +116,13 @@
          <item>
           <widget class="QLabel" name="lMatchError">
            <property name="styleSheet">
-            <string notr="true">margin: 2px 0 2px;
-padding: 0 5px;
-background: #9d261d;
-color: whitesmoke;
-border-radius: 5px;
-</string>
+            <string notr="true">color: #9d261d;
+margin-top: 4px;
+padding-bottom: 2px;
+margin-bottom: 3px;
+border-right: 3px solid #9d261d;
+border-left: 3px solid #9d261d;
+border-top: 1px solid rgba(0, 0, 0, 0);</string>
            </property>
            <property name="text">
             <string>Match Error</string>

@@ -151,15 +151,17 @@ void FormOperator::selectObject()
 
         ui->bDeliver->setEnabled(true);
 
-        if (ui->eObject->value().startsWith("x")) {
-            // pure matches
-            matchId = ui->eObject->value().mid(1);
-        } else {
-            // matches that linked with objects
-            QSqlQuery qry;
-            qry.exec(QString("select id from matches where object_id = %1").arg(ui->eObject->value()));
-            if (qry.next())
-                matchId = qry.value(0).toString();
+        if (options()["Match"].toBool()) {
+            if (ui->eObject->value().startsWith("x")) {
+                // pure matches
+                matchId = ui->eObject->value().mid(1);
+            } else {
+                // matches that linked with objects
+                QSqlQuery qry;
+                qry.exec(QString("select id from matches where object_id = %1").arg(ui->eObject->value()));
+                if (qry.next())
+                    matchId = qry.value(0).toString();
+            }
         }
 
         if (! matchId.isEmpty()) {
