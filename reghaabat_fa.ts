@@ -117,34 +117,30 @@
         <translation type="obsolete">جستجوی سریع</translation>
     </message>
     <message>
-        <location line="+150"/>
+        <location line="+132"/>
         <source>Preview</source>
         <translation>نمایش</translation>
     </message>
     <message>
-        <location line="-36"/>
         <source>Limited Search</source>
-        <translation>جستجوی محدود</translation>
+        <translation type="obsolete">جستجوی محدود</translation>
     </message>
     <message>
-        <location line="-61"/>
         <source>Object</source>
-        <translation>شئ</translation>
+        <translation type="obsolete">شئ</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Match</source>
-        <translation>مسابقه</translation>
+        <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="-16"/>
         <source>Print</source>
         <translation>چاپ</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Deliver Object</source>
-        <translation>تحویل شئ</translation>
+        <translation type="obsolete">تحویل شئ</translation>
     </message>
     <message>
         <location line="+97"/>
@@ -168,7 +164,17 @@
         <translation>جریمه</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-110"/>
+        <source>Match Error</source>
+        <translation>خطای مسابقه</translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Deliver Match</source>
+        <translation>تحویل مسابقه</translation>
+    </message>
+    <message>
+        <location line="+100"/>
         <location line="+27"/>
         <source>0</source>
         <translation></translation>
@@ -188,8 +194,8 @@
         <translation>تایید</translation>
     </message>
     <message>
-        <location line="-335"/>
-        <location line="+56"/>
+        <location line="-317"/>
+        <location line="+30"/>
         <source>Deliver</source>
         <translation>تحویل</translation>
     </message>
@@ -203,27 +209,25 @@
         <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="+88"/>
+        <location filename="formoperator.cpp" line="+98"/>
         <location line="+13"/>
-        <location line="+199"/>
+        <location line="+169"/>
         <source>Received</source>
         <translation>دریافت</translation>
     </message>
     <message>
-        <location line="-199"/>
-        <location line="+206"/>
+        <location line="-169"/>
+        <location line="+176"/>
         <source>Renewed</source>
         <translation>تمدید</translation>
     </message>
     <message>
-        <location line="-140"/>
         <source>You received enough matches at the moment.</source>
-        <translation>در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
+        <translation type="obsolete">در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>You received enough matches today.</source>
-        <translation>امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
+        <translation type="obsolete">امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
     </message>
 </context>
 <context>
@@ -1130,8 +1134,8 @@
     </message>
     <message>
         <location filename="formchangepermissions.h" line="+33"/>
-        <location filename="formoperator.cpp" line="+22"/>
-        <location line="+97"/>
+        <location filename="formoperator.cpp" line="-87"/>
+        <location line="+70"/>
         <location filename="matchtable.h" line="+59"/>
         <location filename="scoreform.h" line="+62"/>
         <source>Reghaabat</source>
@@ -1161,7 +1165,7 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+208"/>
+        <location line="+226"/>
         <source>Invalid record selected.</source>
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
@@ -1180,7 +1184,7 @@
     </message>
     <message>
         <location filename="matchtable.h" line="+18"/>
-        <location filename="mmatches.h" line="+52"/>
+        <location filename="mmatches.h" line="+54"/>
         <source>active</source>
         <translation>فعال</translation>
     </message>
@@ -1201,7 +1205,7 @@
         <translation type="obsolete">امتیاز وارد شده معتبر نیست.</translation>
     </message>
     <message>
-        <location filename="mmatches.cpp" line="-62"/>
+        <location filename="mmatches.cpp" line="-72"/>
         <source>You received this match before</source>
         <translation>شما این مسابقه را قبلا تحویل گرفته‌اید.</translation>
     </message>
@@ -1226,12 +1230,14 @@
         <translation>رده سنی این مسابقه بیش از یک سطح با شما اختلاف دارد.</translation>
     </message>
     <message>
+        <location line="-26"/>
         <source>You received enough matches at the moment.</source>
-        <translation type="obsolete">در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
+        <translation>در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
     </message>
     <message>
+        <location line="+5"/>
         <source>You received enough matches today.</source>
-        <translation type="obsolete">امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
+        <translation>امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
     </message>
     <message>
         <location filename="mobjects.cpp" line="+52"/>

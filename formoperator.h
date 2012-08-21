@@ -20,14 +20,14 @@ public:
     void prepareViewer();
     void focus();
 
+    QString matchId;
+
 private:
     Ui::FormOperator *ui;
     ViewerForm* viewer;
 
 private slots:
     void on_bReceive_clicked();
-    void on_cDeliver_currentIndexChanged(int);
-    void on_cLimitedSearch_clicked();
     void on_bPreview_clicked();
     void selectUser();
     void selectObject();

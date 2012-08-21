@@ -189,11 +189,19 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
     return "";
 }
 
-QString MMatches::deliver(QString userId, QString matchId)
+QString MMatches::isDeliverable(QString userId, QString matchId)
 {
     QSqlQuery qry;
 
-    // validations
+    // max concurrent matches
+    qry.exec(QString("select count(match_id) from answers where user_id = %1 and delivered_at > (select started_at from library) and received_at is null").arg(userId));
+    if (qry.next() && qry.value(0).toInt() >= options()["MaxConcurrentMatches"].toInt())
+        return QObject::tr("You received enough matches at the moment.");
+
+    // max matches in one day
+    qry.exec(QString("select count(match_id) from answers where user_id = %1 and delivered_at > (select started_at from library) and delivered_at > datetime('now', '-12 hours')").arg(userId));
+    if (qry.next() && qry.value(0).toInt() >= options()["MaxMatchesInOneDay"].toInt())
+        return QObject::tr("You received enough matches today.");
 
     // delivered match
     qry.exec(QString("select id from answers where user_id = %1 and match_id = %2").arg(userId).arg(matchId));
@@ -216,8 +224,18 @@ QString MMatches::deliver(QString userId, QString matchId)
     if (qry.value(0).toInt() > 1)
         return QObject::tr("This matches' ageclass deffers more than one level with yours.");
 
+    return "";
+}
+
+QString MMatches::deliver(QString userId, QString matchId)
+{
+    // validations
+    QString msg = isDeliverable(userId, matchId);
+    if (! msg.isEmpty())
+        return msg;
 
     // deliver
+    QSqlQuery qry;
     qry.prepare("insert into answers (user_id, match_id) values (?, ?)");
     qry.addBindValue(userId);
     qry.addBindValue(matchId);

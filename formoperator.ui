@@ -79,32 +79,6 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QComboBox" name="cDeliver">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>22</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>22</height>
-            </size>
-           </property>
-           <item>
-            <property name="text">
-             <string>Object</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Match</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item>
           <widget class="MyLineEdit" name="eObject"/>
          </item>
          <item>
@@ -140,6 +114,24 @@
           <number>0</number>
          </property>
          <item>
+          <widget class="QLabel" name="lMatchError">
+           <property name="styleSheet">
+            <string notr="true">margin: 2px 0 2px;
+padding: 0 5px;
+background: #9d261d;
+color: whitesmoke;
+border-radius: 5px;
+</string>
+           </property>
+           <property name="text">
+            <string>Match Error</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::RichText</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -153,9 +145,9 @@
           </spacer>
          </item>
          <item>
-          <widget class="QCheckBox" name="cLimitedSearch">
+          <widget class="QCheckBox" name="cDeliverMatch">
            <property name="text">
-            <string>Limited Search</string>
+            <string>Deliver Match</string>
            </property>
            <property name="checked">
             <bool>true</bool>
@@ -166,16 +158,6 @@
           <widget class="QCheckBox" name="cPrint">
            <property name="text">
             <string>Print</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="cDeliverObject">
-           <property name="text">
-            <string>Deliver Object</string>
            </property>
            <property name="checked">
             <bool>true</bool>
@@ -418,9 +400,6 @@
    <header>mylineedit.h</header>
   </customwidget>
  </customwidgets>
- <tabstops>
-  <tabstop>cLimitedSearch</tabstop>
- </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>

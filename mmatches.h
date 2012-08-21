@@ -17,6 +17,8 @@ public:
 
     /* answers */
 
+    static QString isDeliverable(QString userId, QString matchId);
+
     static QString receive(QString userId, QString matchId);
     static QString deliver(QString userId, QString matchId);
     static QString correct(QString answerId, QString Score);

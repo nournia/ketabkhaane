@@ -27,14 +27,17 @@ FormOperator::FormOperator(QWidget *parent) :
     connect(ui->eUser, SIGNAL(select()), this, SLOT(selectUser()));
     connect(ui->eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
 
+    QString query;
+    if (! options()["Match"].toBool())
+        query = "select id as cid, label as clabel, substr(title, 0, 80) as ctitle from objects";
+    else
+        query = "select cid, clabel, substr(ctitle, 0, 80) as ctitle from (select id as cid, label as clabel, title as ctitle from objects union "
+                "select 'x'||matches.id as cid, categories.title as clabel, matches.title as ctitle from matches inner join categories on matches.category_id = categories.id) as _t";
+
+    ui->eObject->setQuery(query);
+
     connect(ui->eObject, SIGNAL(select()), this, SLOT(selectObject()));
     connect(ui->eObject, SIGNAL(cancel()), this, SLOT(cancelObject()));
-
-    ui->cLimitedSearch->setVisible(false);
-    on_cDeliver_currentIndexChanged(0);
-
-    if (! options()["Match"].toBool())
-        ui->cDeliver->setEnabled(false);
 
     cancelUser();
 }
@@ -67,6 +70,13 @@ void FormOperator::cancelObject()
 {
     ui->bDeliver->setEnabled(false);
     ui->bPreview->setEnabled(false);
+
+    int height = 60;
+    ui->gMatchOpt->setVisible(false);
+    ui->gDeliver->setMaximumHeight(height);
+    ui->gDeliver->setMinimumHeight(height);
+
+    ui->lMatchError->setText("");
 }
 
 void FormOperator::selectUser()
@@ -117,8 +127,7 @@ void FormOperator::selectUser()
             ui->gReceive->setEnabled(true);
 
         ui->sDiscount->setEnabled(Reghaabat::hasAccess("manager"));
-
-        on_cDeliver_currentIndexChanged(ui->cDeliver->currentIndex());
+        ui->eObject->setFocus();
     }
 }
 
@@ -138,13 +147,34 @@ void FormOperator::refreshFine()
 
 void FormOperator::selectObject()
 {
-    ui->bDeliver->setEnabled(! ui->eObject->value().isEmpty());
-    ui->bPreview->setEnabled(! ui->eObject->value().isEmpty());
+    if (! ui->eObject->value().isEmpty()) {
 
-    if (! ui->eObject->value().isEmpty())
-    {
+        ui->bDeliver->setEnabled(true);
+
+        if (ui->eObject->value().startsWith("x")) {
+            // pure matches
+            matchId = ui->eObject->value().mid(1);
+        } else {
+            // matches that linked with objects
+            QSqlQuery qry;
+            qry.exec(QString("select id from matches where object_id = %1").arg(ui->eObject->value()));
+            if (qry.next())
+                matchId = qry.value(0).toString();
+        }
+
+        if (! matchId.isEmpty()) {
+            int height = 90;
+            ui->gMatchOpt->setVisible(true);
+            ui->gDeliver->setMaximumHeight(height);
+            ui->gDeliver->setMinimumHeight(height);
+            ui->lMatchError->setText(MMatches::isDeliverable(ui->eUser->value(), matchId));
+            ui->lMatchError->setVisible(!ui->lMatchError->text().isEmpty());
+
+            ui->bPreview->setEnabled(true);
+            prepareViewer();
+        }
+
         ui->bDeliver->setFocus();
-        prepareViewer();
     }
 }
 
@@ -153,43 +183,21 @@ void FormOperator::on_bDeliver_clicked()
     if (! ui->eUser->value().isEmpty() && ! ui->eObject->value().isEmpty())
     {
         QString msg;
-        QSqlQuery qry;
+        bool match = (!matchId.isEmpty()) && (ui->cDeliverMatch->isChecked());
 
-        bool object = ui->cDeliver->currentIndex() == 0;
+        if (match)
+            msg = MMatches::isDeliverable(ui->eUser->value(), matchId);
 
-        if (object)
-        {
+        if (msg.isEmpty() && !ui->eObject->value().startsWith("x"))
             msg = MObjects::deliver(ui->eUser->value(), ui->eObject->value());
-        }
-        else {
-            qry.exec(QString("select count(match_id) from answers where user_id = %1 and delivered_at > (select started_at from library) and received_at is null").arg(ui->eUser->value()));
-            if (qry.next() && qry.value(0).toInt() >= options()["MaxConcurrentMatches"].toInt())
-                msg = tr("You received enough matches at the moment.");
 
-            qry.exec(QString("select count(match_id) from answers where user_id = %1 and delivered_at > (select started_at from library) and delivered_at > datetime('now', '-12 hours')").arg(ui->eUser->value()));
-            if (qry.next() && qry.value(0).toInt() >= options()["MaxMatchesInOneDay"].toInt())
-                msg = tr("You received enough matches today.");
-
-            if (msg.isEmpty())
-            {
-                msg = MMatches::deliver(ui->eUser->value(), ui->eObject->value());
-
-                if (msg.isEmpty())
-                {
-                    if (ui->cPrint->isChecked())
-                        viewer->on_bPrint_clicked();
-                    if (ui->cDeliverObject->isChecked())
-                    {
-                        qry.exec(QString("select object_id from matches where id = %1").arg(ui->eObject->value()));
-                        if (qry.next() && ! qry.value(0).toString().isEmpty())
-                            MObjects::deliver(ui->eUser->value(), qry.value(0).toString());
-                    }
-                }
-            }
+        if (match && msg.isEmpty()) {
+            msg = MMatches::deliver(ui->eUser->value(), matchId);
+            if (msg.isEmpty() && ui->cPrint->isChecked())
+                viewer->on_bPrint_clicked();
         }
 
-        if (! msg.isEmpty())
-        {
+        if (! msg.isEmpty()) {
             QMessageBox::critical(0, QObject::tr("Reghaabat"), msg);
             return;
         }
@@ -207,12 +215,12 @@ void FormOperator::prepareViewer()
 {
     // don't perpare match again
     static QString prepared;
-    if (prepared == ui->eObject->value())
+    if (prepared == matchId)
         return;
 
     StrMap match;
     QList<StrPair> questions, asks;
-    MMatches::get(ui->eObject->value(), match, questions);
+    MMatches::get(matchId, match, questions);
     match["user"] = ui->eUser->value();
 
     QSqlQuery qry;
@@ -247,36 +255,9 @@ void FormOperator::prepareViewer()
     prepared = ui->eObject->value();
 }
 
-void FormOperator::on_cLimitedSearch_clicked()
-{
-    selectUser();
-}
-
 void FormOperator::focus()
 {
     ui->eUser->setFocus();
-}
-
-void FormOperator::on_cDeliver_currentIndexChanged(int index)
-{
-    bool object = index == 0;
-    ui->gMatchOpt->setVisible(! object);
-
-    int height = object ? 60 : 90;
-    ui->gDeliver->setMaximumHeight(height);
-    ui->gDeliver->setMinimumHeight(height);
-
-    QString query;
-    if (ui->cDeliver->currentIndex() == 0)
-        query = "select id as cid, label as clabel, substr(title, 0, 80) as ctitle from objects";
-    else
-        query = "select matches.id as cid, objects.label as clabel, substr(matches.title, 0, 80) as ctitle from matches left join objects on matches.object_id = objects.id";
-
-    // todo limited search of matches
-
-    ui->eObject->setText("");
-    ui->eObject->setQuery(query);
-    ui->eObject->setFocus();
 }
 
 void FormOperator::on_bReceive_clicked()
@@ -304,7 +285,7 @@ void FormOperator::on_bReceive_clicked()
             if (! row->matchId.isEmpty())
                 MMatches::receive(ui->eUser->value(), row->matchId);
         }
-        else if (row->getState()  == tr("Renewed"))
+        else if (row->getState() == tr("Renewed"))
         {
             if (! row->objectId.isEmpty())
                 MObjects::renew(ui->eUser->value(), row->objectId);
