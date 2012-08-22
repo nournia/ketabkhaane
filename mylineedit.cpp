@@ -8,7 +8,7 @@
 
 MyCompleter::MyCompleter(MyLineEdit *parent): QObject(parent), editor(parent)
 {
-    qry = new QSqlQuery;
+    // init popup
     const QPalette &pal = editor->palette();
     grayColor = pal.color(QPalette::Disabled, QPalette::WindowText);
 
@@ -40,6 +40,21 @@ MyCompleter::MyCompleter(MyLineEdit *parent): QObject(parent), editor(parent)
 MyCompleter::~MyCompleter()
 {
     delete popup;
+}
+
+void MyCompleter::setQuery(QString _table, QString query)
+{
+    table = _table;
+
+    // init cache
+    qry = new QSqlQuery(QSqlDatabase::database("cache"));
+    qry->exec(QString("drop table %1").arg(table));
+    qry->exec(QString("create table %1 (cid varchar(255) null default null, clabel varchar(255) null default null, ctitle varchar(255) null default null)").arg(table));
+
+    QSqlQuery qryTmp;
+    qryTmp.exec(query);
+    while (qryTmp.next())
+        qry->exec(QString("insert into %1 values ('%2', '%3', '%4'); ").arg(table, qryTmp.value(0).toString(), qryTmp.value(1).toString(), qryTmp.value(2).toString()));
 }
 
 bool MyCompleter::eventFilter(QObject *obj, QEvent *ev)
@@ -111,12 +126,15 @@ void MyCompleter::updateSuggestions()
     if (! text.isEmpty())
     {
         int i;
-        QString qtmp = query + (query.contains("where") ? " and " : " where ");
-
         popup->setUpdatesEnabled(false);
         popup->clear();
 
-        qry->exec(qtmp + QString("(ctitle like '%"+ text +"%' or clabel like '%"+ text +"%') order by ctitle limit 50"));
+//        qry->exec("select count(cid) from items");
+//        qry->next();
+//        qDebug() << qry->value(0).toString();
+
+        if(! qry->exec(QString("select cid, clabel, ctitle from %1 where (ctitle like '%"+ text +"%' or clabel like '%"+ text +"%') order by ctitle limit 50").arg(table)))
+            qDebug() << qry->lastError();
         for (i = 0; qry->next(); i++)
         {
             if (i == 0)
@@ -160,10 +178,9 @@ void MyCompleter::updateSuggestions()
 
 QString MyCompleter::getText(QString id)
 {
-    QSqlQuery tqry;
-    tqry.exec(query + QString(" where cid = %1").arg(id));
-    if (tqry.next())
-        return tqry.value(2).toString();
+    qry->exec(QString("select cid from %1 where cid = %2").arg(table, id));
+    if (qry->next())
+        return qry->value(2).toString();
     return "";
 }
 

@@ -23,6 +23,8 @@ MatchForm::MatchForm(QWidget *parent) :
 
     ui->eObject->setQuery("select id as cid, label as clabel, title as ctitle from objects");
     ui->eCorrector->setQuery("select id as cid, label as clabel, firstname ||' '|| lastname as ctitle from users");
+    ui->eMatch->setQuery("select matches.id as cid, ifnull(objects.label, categories.title) as clabel, matches.title as ctitle "
+                         "from matches left join objects on matches.object_id = objects.id left join categories on matches.category_id = categories.id");
 
     fillComboBox(ui->cState, MMatches::states());
     fillComboBox(ui->cAgeClass, MMatches::ageclasses());
@@ -132,8 +134,6 @@ void MatchForm::selectMatch()
 
 void MatchForm::cancelMatch()
 {
-    ui->eMatch->setQuery("select matches.id as cid, objects.label as clabel, matches.title as ctitle from matches left join objects on matches.object_id = objects.id");
-
     ui->eTitle->setText("");
     ui->eObject->setText("");
     ui->eCorrector->setText("");

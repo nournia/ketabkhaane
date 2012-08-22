@@ -16,6 +16,7 @@ public:
     ~MyCompleter();
     bool eventFilter(QObject *obj, QEvent *ev);
     QString getText(QString id);
+    void setQuery(QString _table, QString query);
 
     QTreeWidget *popup;
 
@@ -23,15 +24,10 @@ public slots:
     void doneCompletion();
     void updateSuggestions();
 
-    void setQuery(QString q)
-    {
-        query = q;
-    }
-
 private:
-    QString query; // cid, clabel, ctitle
     MyLineEdit *editor;
     QSqlQuery *qry;
+    QString table;
     QColor grayColor;
 };
 
@@ -46,14 +42,12 @@ public:
     void setValue(QString val);
     void selectValue(QString val);
 
-    QString value()
-    {
+    QString value() {
         return valueId;
     }
 
-    void setQuery(QString q)
-    {
-        completer->setQuery(q);
+    void setQuery(QString query) {
+        completer->setQuery(this->parent()->objectName() + this->objectName(), query);
     }
 
 signals:

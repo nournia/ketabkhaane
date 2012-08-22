@@ -67,7 +67,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QWidget" name="widget" native="true">
+       <widget class="QWidget" name="wDeliver" native="true">
         <property name="maximumSize">
          <size>
           <width>16777215</width>

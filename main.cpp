@@ -63,6 +63,11 @@ int main(int argc, char *argv[])
     if (Connector::connectDb().isOpen())
         migrate(a.applicationVersion());
 
+    // init cache db
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "cache");
+    db.setDatabaseName(":memory:");
+    if (! db.open()) qDebug() << "cache db error : " << db.lastError();
+
     // execute
     MainWindow w;
     w.show();
