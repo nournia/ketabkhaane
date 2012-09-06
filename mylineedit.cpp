@@ -178,9 +178,9 @@ void MyCompleter::updateSuggestions()
 
 QString MyCompleter::getText(QString id)
 {
-    qry->exec(QString("select cid from %1 where cid = %2").arg(table, id));
+    qry->exec(QString("select ctitle from %1 where cid = %2").arg(table, id));
     if (qry->next())
-        return qry->value(2).toString();
+        return qry->value(0).toString();
     return "";
 }
 
