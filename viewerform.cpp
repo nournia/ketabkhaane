@@ -22,6 +22,8 @@ ViewerForm::ViewerForm(QWidget *parent) :
     ui(new Ui::ViewerForm)
 {
     ui->setupUi(this);
+    setWindowTitle(QObject::tr("Reghaabat"));
+
     landscape = false;
     margin = true;
 }
