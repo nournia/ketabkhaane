@@ -12,7 +12,7 @@ class Sender : public QObject
 
     QNetworkAccessManager qnam;
     QNetworkReply* reply;
-    void send(QUrl url, QMap<QString, QString>& posts, QStringList& files);
+    void send(QString url, QMap<QString, QString>& posts, QStringList& files);
 
 public:
     Sender(QObject *parent = 0);
