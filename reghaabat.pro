@@ -38,7 +38,6 @@ SOURCES += main.cpp\
     mmatches.cpp \
     usermanagement.cpp \
     payment.cpp \
-    json.cpp \
     uihelper.cpp \
     objectform.cpp \
     objectmanagement.cpp \
@@ -75,7 +74,6 @@ HEADERS  += mainwindow.h \
     usermanagement.h \
     payment.h \
     migrations.h \
-    json.h \
     uihelper.h \
     objectform.h \
     objectmanagement.h \

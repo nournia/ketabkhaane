@@ -1,10 +1,10 @@
 #include <helper.h>
 
-#include <json.h>
-
 #include <QCoreApplication>
 #include <QSettings>
 #include <QFileInfo>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 
 // init reghaabat global variables
@@ -207,16 +207,12 @@ QVariantMap options()
     qry.exec("select options from library limit 1");
     if (qry.next())
     {
-        bool ok;
-        QVariantMap data = Json::parse(qry.value(0).toString(), ok).toMap();
-        if (ok)
-        {
-            QMapIterator<QString, QVariant> i(data);
-            while (i.hasNext()) {
-                i.next();
-                if (options.contains(i.key()))
-                    options[i.key()] = i.value();
-            }
+        QVariantMap data = QJsonDocument::fromJson(qry.value(0).toByteArray()).object().toVariantMap();
+        QMapIterator<QString, QVariant> i(data);
+        while (i.hasNext()) {
+            i.next();
+            if (options.contains(i.key()))
+                options[i.key()] = i.value();
         }
     }
 
