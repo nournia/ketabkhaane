@@ -15,7 +15,7 @@ void customizeTable(QTableView* table, int columns, int width, bool sort, int st
     for (int i = 0; i <= columns; i++)
         table->setColumnWidth(i, width);
 
-    table->horizontalHeader()->setResizeMode(stretch, QHeaderView::Stretch);
+    table->horizontalHeader()->setSectionResizeMode(stretch, QHeaderView::Stretch);
     table->verticalHeader()->setVisible(false);
     table->verticalHeader()->setDefaultSectionSize(22);
 }
