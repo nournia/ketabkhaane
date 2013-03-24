@@ -3,12 +3,12 @@
 
 #include <QMessageBox>
 #include <QFormLayout>
-#include <QWebView>
-#include <QWebFrame>
-#include <QWebElementCollection>
 #include <QPushButton>
 #include <QFile>
 #include <QFileDialog>
+#include <QWebElementCollection>
+#include <QtWebKitWidgets/QWebView>
+#include <QtWebKitWidgets/QWebFrame>
 
 #include <uihelper.h>
 #include <viewerform.h>

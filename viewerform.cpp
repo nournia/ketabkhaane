@@ -3,15 +3,16 @@
 
 #include <QTextStream>
 #include <QFile>
-#include <QWebFrame>
-#include <QWebElement>
 #include <QSqlQuery>
-#include <QPrinter>
-#include <QPrinterInfo>
 #include <QFileDialog>
 #include <QSettings>
 #include <QProcess>
 #include <QDesktopServices>
+#include <QtWebKit/QWebElement>
+#include <QtWebKitWidgets/QWebView>
+#include <QtWebKitWidgets/QWebFrame>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrinterInfo>
 
 #include <jalali.h>
 #include <matchform.h>

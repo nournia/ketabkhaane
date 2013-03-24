@@ -3,9 +3,9 @@
 
 #include <QSettings>
 #include <QMessageBox>
-#include <QPrinterInfo>
 #include <QFileDialog>
 #include <QCoreApplication>
+#include <QtPrintSupport/QPrinterInfo>
 
 #include <helper.h>
 #include <jalali.h>

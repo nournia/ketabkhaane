@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core sql gui network webkit
+QT = widgets sql network webkitwidgets
 
 TARGET = reghaabat
 TEMPLATE = app
