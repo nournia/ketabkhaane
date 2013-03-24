@@ -12,6 +12,7 @@
 #include <QCryptographicHash>
 #include <QFileInfo>
 #include <QUrl>
+#include <QHttpMultiPart>
 
 typedef QPair<QString, QString> TablePair;
 
@@ -168,43 +169,36 @@ Sender::Sender(QObject *parent)
 
 void Sender::send(QUrl url, QMap<QString, QString>& posts, QStringList& files)
 {
-    QNetworkRequest req;
-    req.setUrl(QUrl(url));
-    QByteArray data;
-    QString bound="------AaB13x";
+    QNetworkRequest request(url);
+    QHttpMultiPart* parts = new QHttpMultiPart(QHttpMultiPart::FormDataType);
 
     QMapIterator<QString, QString> i(posts);
     while (i.hasNext()) {
         i.next();
-        data += QString("--" + bound + "\r\n").toAscii();
-        data += QString("Content-Disposition: form-data; name=\"%1\"\r\n\r\n%2\r\n").arg(i.key()).arg(i.value());
+        QHttpPart* part = new QHttpPart();
+        part->setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\""+ i.key() +"\""));
+        part->setBody(i.value().toUtf8());
+        parts->append(*part);
     }
 
     foreach (QString filename, files)
     {
         QFileInfo finfo(filename);
-        QFile file(finfo.absoluteFilePath());
-        if (file.open(QIODevice::ReadOnly))
+        QFile* file = new QFile(finfo.absoluteFilePath());
+        if (file->open(QIODevice::ReadOnly))
         {
-            data += QString("--" + bound + "\r\n").toAscii();
-            data += QString("Content-Disposition: form-data; name=\"%1\"; filename=\"%1\"\r\n").arg(finfo.fileName());
-            data += "Content-Type: image/"+ finfo.suffix().toLower() +"\r\n\r\n";
-            data += file.readAll();
-            data += "\r\n";
+            QHttpPart* part = new QHttpPart();
+            part->setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/"+ finfo.suffix().toLower() +""));
+            part->setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; filename=\""+ finfo.fileName() +"\""));
+            part->setBodyDevice(file);
+            file->setParent(parts); // for delete time
+            parts->append(*part);
         }
     }
 
-    data += QString("--" + bound + "--\r\n").toAscii();
-
-    data += "\r\n";
-    req.setRawHeader(QString("Accept-Encoding").toAscii(), QString("gzip,deflate").toAscii());
-    req.setRawHeader(QString("Content-Type").toAscii(),QString("multipart/form-data; boundary=" + bound).toAscii());
-    req.setRawHeader(QString("Content-Length").toAscii(), QString::number(data.length()).toAscii());
-
-    reply = qnam.post(req,data);
-
-    connect(reply, SIGNAL(finished()),
-            this, SLOT(httpFinished()));
+    parts->setParent(reply); // for delete time
+    reply = qnam.post(request, parts);
+    connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
 }
 
 void Sender::httpFinished()
