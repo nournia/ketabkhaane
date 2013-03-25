@@ -15,14 +15,19 @@ class Syncer : public QObject
 {
     Q_OBJECT
 
+    QUrl url;
     QNetworkReply* reply;
     QNetworkAccessManager qnam;
+    QDateTime lastSync, syncTime;
+    int maxRows;
 
 public:
     Syncer(QObject *parent = 0);
+
+    void send(QMap<QString, QString>& posts, QStringList& files);
+    bool getLogsAndFiles(QStringList& logs, QStringList& files);
+    bool setSyncTime();
     void sync();
-    void send(QString url, QMap<QString, QString>& posts, QStringList& files);
-    bool getRecordsAndFiles(QDateTime& syncTime, QStringList& logs, QStringList& files);
 
 private slots:
     void receive();
