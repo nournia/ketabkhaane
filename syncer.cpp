@@ -2,11 +2,6 @@
 
 #include <helper.h>
 
-#include <QFile>
-
-// reverse priority of tables
-QStringList tables = QStringList() << "scores" << "permissions" << "answers" << "questions" << "payments" << "supports" << "open_scores" << "matches" << "resources" << "files" << "authors" << "publications" << "users";
-
 bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
 {
     QSqlQuery qry;
@@ -18,25 +13,9 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     else
         lastSync.setDate(QDate(1900, 01, 01));
 
-    QString sql = "select updated_at, sum(cid) from (";
-    for (int i = 0; i < tables.size(); i++)
-    {
-        sql += "select updated_at, count(id) as cid from "+ tables[i] + " where updated_at > '" + formatDateTime(lastSync) + "' group by updated_at ";
-
-        if (i != tables.size() - 1)
-            sql += "union ";
-    }
-    sql += ") as t_all group by updated_at order by updated_at";
-
-    if (! qry.exec(sql))
-    {
-        qDebug() << qry.lastError();
-        return false;
-    }
-
     int rows = 0;
-    while (qry.next())
-    {
+    qry.exec("select date(created_at) as ct, count(row_id) from logs where ct > '" + formatDateTime(lastSync) + "' group by ct order by ct");
+    while (qry.next()) {
         rows += qry.value(1).toInt();
         syncTime = qry.value(0).toDateTime();
 
@@ -49,90 +28,25 @@ bool setSyncBoundaries(int maxRows, QDateTime &lastSync, QDateTime &syncTime)
     return true;
 }
 
-QString writeJson(QDateTime& lastSync, QDateTime& syncTime, QStringList& files)
-{
-    QSqlQuery qry;
-
-    QString dtLast = "'" + formatDateTime(lastSync) + "'", dtSync = "'" + formatDateTime(syncTime) + "'";
-
-    QString json = "{";
-    for (int k = 0; k < 2; k++)
-    {
-        if (k == 0)
-            json += "\"insert\":{"; // first key
-        else
-            json += ",\"replace\":{"; // second key
-
-        bool firstTable = true;
-        foreach (QString table, tables)
-        {
-            if (k == 0)
-                qry.exec("select * from "+ table +" where created_at > "+ dtLast +" and created_at <= "+ dtSync);
-            else
-                qry.exec("select * from "+ table +" where updated_at > "+ dtLast +" and updated_at <= "+ dtSync +" and created_at < "+ dtLast);
-
-            if (! qry.next()) continue;
-
-            if (! firstTable) json += ','; else firstTable = false;
-            json += '\"' + table + '\"' + ':' + '[';
-            int cols = qry.record().count();
-            bool firstRow = true;
-
-            do {
-                if (! firstRow) json += ','; else firstRow = false;
-
-                json += '[';
-                bool firstCol = true;
-                for (int i = 0; i < cols-1; i++)
-                {
-                    if (! firstCol) json += ','; else firstCol = false;
-                    json += getJsonValue(qry.value(i).toString());
-                }
-                json += ']'; // end of row
-            } while (qry.next());
-
-            json += ']'; // end of table
-        }
-        json += '}'; // end of insert or update
-    }
-    json += '}'; // end of file
-
-
-    // extract new filenames
-    qry.exec("select id ||'.'|| extension from files where updated_at > "+ dtLast +" and updated_at <= "+ dtSync);
-    while (qry.next())
-        files.append(QString("%1/files/").arg(dataFolder()) + qry.value(0).toString());
-
-
-//    QFile file("tmp.json");
-//    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-//    {
-//        QTextStream out(&file);
-//        out.setCodec( "UTF-8" );
-//        out << json;
-//        file.close();
-//    }
-
-    return json;
-}
-
 Syncer::Syncer(QObject *parent)
     :QObject(parent)
 {}
 
-QByteArray Syncer::getChunk(QDateTime& syncTime, bool& finished, QStringList& files)
+bool Syncer::getRecordsAndFiles(QDateTime& syncTime, QStringList& logs, QStringList& files)
 {
+    QSqlQuery qry;
     QDateTime lastSync;
+    bool finished = setSyncBoundaries(5000, lastSync, syncTime);
+    QString condition = QString("created_at > '%1' and created_at <= '%2'").arg(formatDateTime(lastSync), formatDateTime(syncTime));
 
-    finished = setSyncBoundaries(1000000, lastSync, syncTime);
+    qry.exec("select table_name, row_op, row_id, user_id, created_at, row_data from logs where "+ condition);
+    while (qry.next())
+        logs.append(QString("%1, %2, %3, %4, %5|%6").arg(qry.value(0).toString(), qry.value(1).toString(), qry.value(2).toString(), qry.value(3).toString(), qry.value(4).toString(), qry.value(5).toString()));
 
-    return writeJson(lastSync, syncTime, files).toUtf8();
-}
+    // extract new filenames
+    qry.exec("select row_id, row_data from logs where table_name = 'files' and "+ condition);
+    while (qry.next())
+        files.append(QString("%1/files/").arg(dataFolder()) + qry.value(0).toString() +"."+ qry.value(1).toString().mid(1,3));
 
-void Syncer::syncDb()
-{
-//    Sender s(this);
-//    s.send(QUrl("http://localhost/server.php"), getChunk());
-
-//    qDebug() << "finished";
+    return finished;
 }

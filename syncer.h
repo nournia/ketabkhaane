@@ -14,8 +14,7 @@ class Syncer : public QObject
     Q_OBJECT
 public:
     Syncer(QObject *parent = 0);
-    void syncDb();
-    QByteArray getChunk(QDateTime& syncTime, bool& finished, QStringList& files);
+    bool getRecordsAndFiles(QDateTime& syncTime, QStringList& logs, QStringList& files);
 };
 
 #endif // SYNCER_H
