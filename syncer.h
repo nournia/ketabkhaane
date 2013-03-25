@@ -16,10 +16,11 @@ class Syncer : public QObject
     Q_OBJECT
 
     QUrl url;
+    int maxRows;
     QNetworkReply* reply;
     QNetworkAccessManager qnam;
     QDateTime lastSync, syncTime;
-    int maxRows;
+    int uploadedLogs, allLogs;
 
 public:
     Syncer(QObject *parent = 0);
@@ -31,6 +32,10 @@ public:
 
 private slots:
     void receive();
+
+signals:
+    void progress(int value);
+    void finished(QString message);
 };
 
 #endif // SYNCER_H

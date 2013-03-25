@@ -11,7 +11,8 @@
 Syncer::Syncer(QObject *parent)
     :QObject(parent)
 {
-    maxRows = 5000;
+    maxRows = 2000;
+    allLogs = uploadedLogs = 0;
     url = QUrl("http://127.0.0.1/reghaabat-server/backend.php");
 }
 
@@ -96,8 +97,12 @@ void Syncer::receive()
 
     QSqlQuery qry;
     QVariantMap response = QJsonDocument::fromJson(data.toUtf8()).object().toVariantMap();
+    if (!response.keys().length()) {
+        emit finished("Server Error");
+        return;
+    }
     if (response["state"] == "error") {
-        qDebug() << response["message"];
+        emit finished(response["message"].toString());
         return;
     }
 
@@ -113,8 +118,14 @@ void Syncer::receive()
 
     if (response["command"] == "store") {
         lastSync = response["synced_at"].toDateTime();
+        uploadedLogs += response["count"].toInt();
         qry.exec(QString("update library set synced_at = '%1'").arg(response["synced_at"].toString()));
+
+        if (allLogs > 0)
+            emit progress(100 * uploadedLogs / allLogs);
     }
+
+    sync();
 }
 
 void Syncer::sync()
@@ -140,8 +151,20 @@ void Syncer::sync()
         posts["count"] = QString("%1").arg(logs.length());
         posts["logs"] = logs.join("|-|");
 
-        if (logs.length() == 0)
+        // complete
+        if (logs.length() == 0) {
+            allLogs = uploadedLogs = 0;
+            emit finished("Successful");
             return;
+        }
+
+        // init progress
+        if (allLogs == 0) {
+            qry.exec(QString("select count(row_id) from logs where created_at > '%1'").arg(formatDateTime(lastSync)));
+            qry.next();
+            allLogs = qry.value(0).toInt();
+            uploadedLogs = 0;
+        }
     }
 
     send(posts, files);

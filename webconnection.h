@@ -18,6 +18,7 @@ public:
     Syncer* syncer;
 
 private slots:
+    void synced(QString message);
     void on_bSync_clicked();
 
 private:
