@@ -41,7 +41,7 @@ bool Syncer::getRecordsAndFiles(QDateTime& syncTime, QStringList& logs, QStringL
 
     qry.exec("select table_name, row_op, row_id, user_id, created_at, row_data from logs where "+ condition);
     while (qry.next())
-        logs.append(QString("%1, %2, %3, %4, %5|%6").arg(qry.value(0).toString(), qry.value(1).toString(), qry.value(2).toString(), qry.value(3).toString(), qry.value(4).toString(), qry.value(5).toString()));
+        logs.append(QString("%1,%2,%3,%4,%5|%6").arg(qry.value(0).toString(), qry.value(1).toString(), qry.value(2).toString(), qry.value(3).toString(), qry.value(4).toString(), qry.value(5).toString()));
 
     // extract new filenames
     qry.exec("select row_id, row_data from logs where table_name = 'files' and "+ condition);
