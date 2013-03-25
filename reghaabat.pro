@@ -17,7 +17,6 @@ SOURCES += main.cpp\
 	mainwindow.cpp \
     connector.cpp \
     syncer.cpp \
-    sender.cpp \
     logindialog.cpp \
     mylineedit.cpp \
     userform.cpp \
@@ -48,7 +47,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     connector.h \
     syncer.h \
-    sender.h \
     jalali.h \
     logindialog.h \
     mylineedit.h \
