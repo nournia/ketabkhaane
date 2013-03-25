@@ -3,6 +3,8 @@
 #include <helper.h>
 
 #include <QFileInfo>
+#include <QJsonObject>
+#include <QJsonDocument>
 #include <QHttpMultiPart>
 #include <QCryptographicHash>
 
@@ -64,8 +66,7 @@ void Syncer::send(QMap<QString, QString>& posts, QStringList& files)
         parts->append(*part);
     }
 
-    foreach (QString filename, files)
-    {
+    foreach (QString filename, files) {
         QFileInfo finfo(filename);
         QFile* file = new QFile(finfo.absoluteFilePath());
         if (file->open(QIODevice::ReadOnly)) {
@@ -85,22 +86,34 @@ void Syncer::send(QMap<QString, QString>& posts, QStringList& files)
 
 void Syncer::receive()
 {
-    QString response = reply->readAll();
-
-    QFile file("response.html");
+    QString data = reply->readAll();
+    QFile file("response.json");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream out(&file);
-        out << response;
+        out << data;
         file.close();
     }
 
     QSqlQuery qry;
-    QStringList sections = response.split(" - ");
-    if (sections[0] == "registered") {
-        if (qry.exec(QString("update library set id = %1, license = '%2'").arg(sections[1], sections[2]))) {
-            insertLog("library", "update", sections[1]);
-        } else
-            qDebug() << qry.lastError();
+    QVariantMap response = QJsonDocument::fromJson(data.toUtf8()).object().toVariantMap();
+    if (response["state"] == "error") {
+        qDebug() << response["message"];
+        return;
+    }
+
+    if (response["command"] == "register") {
+        qry.exec(QString("update library set id = %1, license = '%2'").arg(response["id"].toString(), response["license"].toString()));
+        insertLog("library", "update", response["id"]);
+        lastSync.setDate(QDate(1900, 01, 01));
+    }
+
+    if (response["command"] == "query") {
+        lastSync = response["synced_at"].toDateTime();
+    }
+
+    if (response["command"] == "store") {
+        lastSync = response["synced_at"].toDateTime();
+        qry.exec(QString("update library set synced_at = '%1'").arg(response["synced_at"].toString()));
     }
 }
 
@@ -112,19 +125,24 @@ void Syncer::sync()
 
     QStringList logs, files;
     QMap<QString, QString> posts;
+    posts["id"] = qry.value(0).toString();
+    posts["key"] = QCryptographicHash::hash(QString(qry.value(0).toString() + "|x|" + qry.value(1).toString()).toUtf8(), QCryptographicHash::Sha1).toHex();
 
     if (qry.value(1).toString().isEmpty())
         posts["command"] = "register";
-    else {
-        posts["id"] = qry.value(0).toString();
-        posts["key"] = QCryptographicHash::hash(QString(qry.value(0).toString() + "|x|" + qry.value(1).toString()).toUtf8(), QCryptographicHash::Sha1).toHex();
+    else if (!lastSync.isValid()) {
+        posts["command"] = "query";
+        posts["query"] = "synced_at";
+    } else {
         posts["command"] = "store";
         posts["finished"] = getLogsAndFiles(logs, files);
         posts["synced_at"] = formatDateTime(syncTime);
         posts["count"] = QString("%1").arg(logs.length());
         posts["logs"] = logs.join("|-|");
+
+        if (logs.length() == 0)
+            return;
     }
 
-    if (posts["command"] == "register" || posts["count"].toInt() > 0)
-        send(posts, files);
+    send(posts, files);
 }
