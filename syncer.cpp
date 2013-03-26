@@ -11,9 +11,9 @@
 Syncer::Syncer(QObject *parent)
     :QObject(parent)
 {
-    maxRows = 2000;
     allLogs = uploadedLogs = 0;
-    url = QUrl("http://127.0.0.1/reghaabat-server/backend.php");
+    url = QUrl("http://reghaabat.ap01.aws.af.cm/backend.php");
+    maxRows = 2000; // less than 2500 that is server batch insert size
 }
 
 bool Syncer::setSyncTime()
