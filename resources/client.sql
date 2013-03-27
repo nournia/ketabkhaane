@@ -47,7 +47,17 @@ CREATE TABLE files (
 	id integer not null primary key autoincrement,
 	extension varchar(5) not null
 );
-CREATE TABLE library (id integer null default null, title varchar(255) not null, description varchar(1000) null default null, started_at datetime not null, image varchar(50) null default null, version varchar(10) null, synced_at timestamp null default null, license varchar(255) null default null, options text null);
+CREATE TABLE library (
+	id integer null default null,
+	title varchar(255) not null,
+	description varchar(1000) null default null,
+	started_at datetime not null,
+	image varchar(50) null default null,
+	version varchar(10) null,
+	synced_at timestamp null default null,
+	license varchar(255) null default null,
+	options text null
+);
 CREATE TABLE logs (
 	table_name varchar(20) not null,
 	row_op varchar(10) not null, -- enum("insert","update", "delete")
@@ -56,7 +66,14 @@ CREATE TABLE logs (
 	user_id integer null references users(id) on update cascade,
 	created_at timestamp default current_timestamp
 );
-CREATE TABLE matches (id integer not null primary key autoincrement, designer_id integer null default null references users(id) on update cascade, title varchar(255) not null, ageclass tinyint(4) null default null, object_id integer null default null references objects(id) on update cascade, category_id tinyint(4) null default null references categories(id) on update cascade, content text null default null);
+CREATE TABLE matches (id integer not null primary key autoincrement,
+	designer_id integer null default null references users(id) on update cascade,
+	title varchar(255) not null,
+	ageclass tinyint(4) null default null,
+	object_id integer null default null references objects(id) on update cascade,
+	category_id tinyint(4) null default null references categories(id) on update cascade,
+	content text null default null
+);
 CREATE TABLE objects (
 	id integer not null primary key autoincrement,
 	author_id integer null default null references authors(id) on update cascade,
