@@ -5,11 +5,13 @@
 #include <connector.h>
 
 bool change;
-bool isBetween(QString version, QString min, QString max)
+bool isBetween(QString& version, QString min, QString max)
 {
     bool ok = (min <= version) && (version < max);
-    if (ok)
+    if (ok) {
+        version = max;
         qDebug() << QString("migrate %1 to %2").arg(min).arg(max);
+    }
     change |= ok;
     return ok;
 }
@@ -99,6 +101,22 @@ void migrate(QString newVersion)
 
         for (int i = 0; i < 6; i++)
             ok &= qry.exec("update logs set created_at = '2011-07-02 16:08:"+ seconds[i] +"' where table_name='questions' and row_id in (select row_id from logs where table_name = 'questions' and created_at >= '2011-07-02 16:08:41' and created_at <= '2011-07-02 16:08:42' limit 1000) and created_at >= '2011-07-02 16:08:41' and created_at <= '2011-07-02 16:08:42'" );
+    }
+
+    if (isBetween(version, "0.9.5", "0.9.6")) {
+        // clean logss
+        ok &= qry.exec("delete from logs where table_name='objects' and length(row_data) < 15");
+        ok &= qry.exec("delete from logs where table_name in ('users', 'matches', 'branches') and row_data is null");
+
+        // transactions table
+        ok &= qry.exec("delete from logs where table_name = 'payments'");
+
+        qry.exec("select id, created_at from transactions where id not in (select row_id from logs where table_name = 'transactions')");
+        while (qry.next())
+            insertLog("transactions", "insert", qry.value(0), master, qry.value(1).toDateTime());
+
+        insertLog("branches", "delete", 110);
+        insertLog("roots", "delete", 1);
     }
 
     if (change && ok)
