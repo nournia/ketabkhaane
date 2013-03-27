@@ -12,8 +12,8 @@ Syncer::Syncer(QObject *parent)
     :QObject(parent)
 {
     allLogs = uploadedLogs = 0;
+    maxRows = 500;
     url = QUrl("http://reghaabat.ap01.aws.af.cm/backend.php");
-    maxRows = 2000; // less than 2500 that is server batch insert size
 }
 
 bool Syncer::setSyncTime()
@@ -98,10 +98,12 @@ void Syncer::receive()
     QSqlQuery qry;
     QVariantMap response = QJsonDocument::fromJson(data.toUtf8()).object().toVariantMap();
     if (!response.keys().length()) {
+        allLogs = 0;
         emit finished("Server Error");
         return;
     }
     if (response["state"] == "error") {
+        allLogs = 0;
         emit finished(response["message"].toString());
         return;
     }
@@ -118,6 +120,12 @@ void Syncer::receive()
 
     if (response["command"] == "store") {
         lastSync = response["synced_at"].toDateTime();
+        if (!lastSync.isValid()) {
+            allLogs = 0;
+            emit finished("Server Error");
+            return;
+        }
+
         uploadedLogs += response["count"].toInt();
         qry.exec(QString("update library set synced_at = '%1'").arg(response["synced_at"].toString()));
 
@@ -146,10 +154,10 @@ void Syncer::sync()
         posts["query"] = "synced_at";
     } else {
         posts["command"] = "store";
-        posts["finished"] = getLogsAndFiles(logs, files);
+        posts["finished"] = QString("%1").arg(getLogsAndFiles(logs, files));
         posts["synced_at"] = formatDateTime(syncTime);
         posts["count"] = QString("%1").arg(logs.length());
-        posts["logs"] = logs.join("|-|");
+        posts["xlogs"] = logs.join("|-|"); // to be last in posted data
 
         // complete
         if (logs.length() == 0) {
