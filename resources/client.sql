@@ -83,10 +83,7 @@ CREATE TABLE objects (
 	author_id integer null default null references authors(id) on update cascade,
 	publication_id integer null default null references publications(id) on update cascade,
 	type_id tinyint(4) not null references types(id) on update cascade,
-	title varchar(255) not null,
-	branch_id integer not null references branches(id) on update cascade,
-	label varchar(50) not null,
-	cnt int not null default 0 -- count of object in this library
+	title varchar(255) not null
 );
 CREATE TABLE matches (
 	id integer not null primary key autoincrement,
@@ -155,6 +152,13 @@ CREATE TABLE supports (
 	corrector_id integer not null references users(id) on update cascade,
 	current_state varchar(10) not null, -- enum("active", "disabled", "imported")
 	score smallint
+);
+CREATE TABLE belongs (
+	id integer not null primary key autoincrement,
+	object_id integer not null references objects(id) on update cascade,
+	branch_id integer not null references branches(id) on update cascade,
+	label varchar(50) not null,
+	cnt int not null default 0 -- count of object in this library
 );
 CREATE TABLE transactions (
 	id integer not null primary key autoincrement,
