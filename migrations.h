@@ -170,12 +170,12 @@ void migrate(QString newVersion)
         ok &= qry.exec("DROP TABLE _temp_table");
 
         // log update
+        ok &= qry.exec("update logs set row_id = 100000+(row_id%100000) where table_name in ('users', 'authors', 'publications', 'roots', 'branches', 'matches', 'files', 'questions')");
+        ok &= qry.exec("update logs set user_id = 100000+(user_id%100000)");
         ok &= qry.exec("delete from logs where table_name == 'objects' or table_name == 'resources' or table_name == 'scores'");
         ok &= qry.exec("delete from logs where row_op = 'delete' or row_op = 'update'");
         ok &= qry.exec("delete from logs where table_name = 'questions' and row_id not in (select id from questions)");
         ok &= qry.exec("delete from logs where table_name = 'borrows' and row_id not in (select id from borrows)");
-        ok &= qry.exec("update logs set row_id = 100000+(row_id%100000) where table_name in ('users', 'authors', 'publications', 'roots', 'branches', 'matches', 'files', 'questions')");
-        ok &= qry.exec("update logs set user_id = 100000+(user_id%100000)");
 
         qDebug() << "logs";
         QString table, id;
@@ -192,12 +192,11 @@ void migrate(QString newVersion)
                 if (!qryTmp2.exec())
                     qDebug() << "update" << table << id << qryTmp2.lastError();
             } else {
-                qDebug() << "delete" << table << id;
                 if (!qryTmp.exec(QString("delete from logs where table_name = '%1' and row_id = %2").arg(table, id)))
                     qDebug() << "delete" << table << id << qryTmp.lastError();
             }
 
-            if ((i % 1000 == 0) && i)
+            if (i % 1000 == 0)
                 qDebug() << i;
         }
 
