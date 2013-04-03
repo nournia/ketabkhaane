@@ -70,7 +70,7 @@ void ObjectForm::selectObject()
 
 void ObjectForm::cancelObject()
 {
-    ui->eObject->setQuery("select id as cid, label as clabel, title as ctitle from objects");
+    ui->eObject->setQuery(MObjects::getObjectsQuery());
 
     ui->eTitle->setText("");
     ui->sCount->setValue(1);

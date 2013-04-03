@@ -3,8 +3,8 @@
 bool MObjects::get(QString objectId, StrMap& object)
 {
     QSqlQuery qry;
-    qry.exec("select objects.*, authors.title as author, publications.title as publication, branches.root_id "
-             "from objects left join authors on objects.author_id = authors.id left join publications on objects.publication_id = publications.id left join branches on objects.branch_id = branches.id where objects.id = "+ objectId);
+    qry.exec("select objects.*, belongs.branch_id, belongs.label, belongs.cnt, authors.title as author, publications.title as publication, branches.root_id "
+             "from objects inner join belongs on objects.id = belongs.object_id left join authors on objects.author_id = authors.id left join publications on objects.publication_id = publications.id left join branches on belongs.branch_id = branches.id where objects.id = "+ objectId);
     if (! qry.next()) return false;
 
     object = getRecord(qry);
@@ -21,7 +21,7 @@ QString MObjects::getNewLabel(QString branch)
         label = qry.value(0).toString();
 
     int number = 0;
-    qry.exec("select label from objects where branch_id = "+ branch +" order by label desc limit 1");
+    qry.exec("select label from belongs where branch_id = "+ branch +" order by label desc limit 1");
     if (qry.next())
         if (qry.value(0).toString().left(label.length()) == label)
             number = qry.value(0).toString().mid(label.length()+1).toInt();
@@ -32,37 +32,70 @@ QString MObjects::getNewLabel(QString branch)
     return result;
 }
 
-QString MObjects::set(QString objectId, StrMap object)
+QString MObjects::getObjectsQuery()
+{
+    return "select objects.id as cid, belongs.label as clabel, objects.title as ctitle from objects inner join belongs on objects.id = belongs.object_id";
+}
+
+QString MObjects::set(QString objectId, StrMap data)
 {
     QSqlQuery qry;
 
     // validate
-    if (object["title"].toString().trimmed().isEmpty())
+    if (data["title"].toString().trimmed().isEmpty())
         return QObject::tr("Title is required.");
 
     // set label
     if (objectId.isEmpty())
-        object["label"] = getNewLabel(object["branch_id"].toString());
+        data["label"] = getNewLabel(data["branch_id"].toString());
 
     // new author & publication
-    if (! object["author_id"].toString().isEmpty() && object["author_id"].toInt() == 0)
-        object["author_id"] = insertTitleEntry("authors", object["author_id"].toString());
-    if (! object["publication_id"].toString().isEmpty() && object["publication_id"].toInt() == 0)
-        object["publication_id"] = insertTitleEntry("publications", object["publication_id"].toString());
+    if (! data["author_id"].toString().isEmpty() && data["author_id"].toInt() == 0)
+        data["author_id"] = insertTitleEntry("authors", data["author_id"].toString());
+    if (! data["publication_id"].toString().isEmpty() && data["publication_id"].toInt() == 0)
+        data["publication_id"] = insertTitleEntry("publications", data["publication_id"].toString());
 
-    // store
+    // store object
+    StrMap object;
+    object["title"] = data["title"];
+    object["author_id"] = data["author_id"];
+    object["publication_id"] = data["publication_id"];
+    object["type_id"] = data["type_id"];
+
     if (! qry.exec(getReplaceQuery("objects", object, objectId)))
         return qry.lastError().text();
 
-    if (objectId.isEmpty())
-    {
+    if (objectId.isEmpty()) {
         objectId = qry.lastInsertId().toString();
         insertLog("objects", "insert", objectId);
     }
     else
         insertLog("objects", "update", objectId);
 
-    object["id"] = objectId;
+    data["id"] = objectId;
+
+    // store belong
+    QString belongId;
+    StrMap belong;
+    qry.exec("select id from belongs where object_id = "+ objectId);
+    if (qry.next())
+        belongId = qry.value(0).toString();
+
+    belong["object_id"] = objectId;
+    belong["branch_id"] = data["branch_id"];
+    belong["label"] = data["label"];
+    belong["cnt"] = data["cnt"];
+
+    if (! qry.exec(getReplaceQuery("belongs", belong, belongId)))
+        return qry.lastError().text();
+
+    if (belongId.isEmpty()) {
+        belongId = qry.lastInsertId().toString();
+        insertLog("belongs", "insert", belongId);
+    }
+    else
+        insertLog("belongs", "update", belongId);
+
     return "";
 }
 
@@ -94,7 +127,7 @@ QString MObjects::deliver(QString userId, QString objectId)
 
     // check object count in library
     int cnt = 0;
-    qry.exec(QString("select cnt from objects where id = %1").arg(objectId));
+    qry.exec(QString("select cnt from belongs where object_id = %1").arg(objectId));
     if (qry.next())
         cnt = qry.value(0).toInt();
 

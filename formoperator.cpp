@@ -29,9 +29,9 @@ FormOperator::FormOperator(QWidget *parent) :
 
     QString query;
     if (! options()["Match"].toBool())
-        query = "select id as cid, label as clabel, substr(title, 0, 80) as ctitle from objects";
+        query = MObjects::getObjectsQuery();
     else
-        query = "select cid, clabel, substr(ctitle, 0, 80) as ctitle from (select id as cid, label as clabel, title as ctitle from objects union "
+        query = "select cid, clabel, substr(ctitle, 0, 80) as ctitle from ("+ MObjects::getObjectsQuery() +" union "
                 "select 'x'||matches.id as cid, categories.title as clabel, matches.title as ctitle from matches inner join categories on matches.category_id = categories.id) as _t";
 
     ui->eObject->setQuery(query);
@@ -91,7 +91,7 @@ void FormOperator::selectUser()
         int fine;
 
         // show delivered matches
-        qry.exec(QString("select match_id, matches.title, matches.object_id, objects.label from answers inner join matches on answers.match_id = matches.id left join objects on matches.object_id = objects.id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
+        qry.exec(QString("select match_id, matches.title, matches.object_id, belongs.label from answers inner join matches on answers.match_id = matches.id left join belongs on matches.object_id = belongs.object_id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
         for (int i = 1; qry.next(); i++)
         {
             fine = qry.value(2).toString().isEmpty() ? 0 : MObjects::getFine(ui->eUser->value(), qry.value(2).toString());
@@ -103,7 +103,7 @@ void FormOperator::selectUser()
         }
 
         // show delivered objects
-        qry.exec(QString("select object_id, objects.title, objects.label from borrows inner join objects on borrows.object_id = objects.id where user_id = %1 and received_at is null").arg(ui->eUser->value()));
+        qry.exec(QString("select borrows.object_id, objects.title, belongs.label from borrows inner join objects on borrows.object_id = objects.id inner join belongs on borrows.object_id = belongs.object_id where user_id = %1 and received_at is null").arg(ui->eUser->value()));
         for (int i = 1; qry.next(); i++)
         if (! matchObjects.contains(qry.value(0).toString()))
         {

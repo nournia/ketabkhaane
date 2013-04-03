@@ -183,9 +183,9 @@ void ViewerForm::showObjectLabels(QString from, QString to, bool onlyMatchObject
 
     QString sql;
     if (onlyMatchObjects) {
-        sql = "select label, case matches.ageclass when 0 then '*' when 1 then '**' when 2 then '***' when 3 then '****' when 4 then '*****' end from objects inner join matches on objects.id = matches.object_id";
+        sql = "select label, case matches.ageclass when 0 then '*' when 1 then '**' when 2 then '***' when 3 then '****' when 4 then '*****' end from belongs inner join matches on belongs.object_id = matches.object_id";
     } else {
-        sql = "select label, '' from objects";
+        sql = "select label, '' from belongs";
         content += "<style>span.age { display: none; } span.id { margin-right: 0; }</style>";
     }
 
@@ -224,10 +224,10 @@ void ViewerForm::showObjectList(QString from, QString to)
 
     QSqlQuery qry;
     qry.exec(QString(
-        "select objects.label, objects.title, authors.title as author, publications.title as publication, _branches.title as branch, types.title as type "
-        "from objects inner join types on objects.type_id = types.id left join authors on objects.author_id = authors.id left join publications on objects.publication_id = publications.id "
-        "left join (select branches.id, roots.title ||' - '|| branches.title as title from branches inner join roots on branches.root_id = roots.id) as _branches on objects.branch_id = _branches.id "
-        "where objects.label >= '%1' and objects.label <= '%2' order by label").arg(from, to));
+        "select belongs.label, objects.title, authors.title as author, publications.title as publication, _branches.title as branch, types.title as type "
+        "from objects inner join belongs on objects.id = belongs.object_id inner join types on objects.type_id = types.id left join authors on objects.author_id = authors.id left join publications on objects.publication_id = publications.id "
+        "left join (select branches.id, roots.title ||' - '|| branches.title as title from branches inner join roots on branches.root_id = roots.id) as _branches on belongs.branch_id = _branches.id "
+        "where belongs.label >= '%1' and belongs.label <= '%2' order by label").arg(from, to));
 
     int p = 0;
     QString thead = QString("<thead><tr><th>%1</th><th>%2</th><th>%3</th><th>%4</th><th>%5</th></tr></thead>").arg(tr("Lablel"), tr("Title"), tr("Author"), tr("Publication"), tr("Branch"));

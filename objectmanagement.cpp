@@ -41,7 +41,7 @@ void ObjectManagement::on_bPrintLabels_clicked()
     ui->gList->setVisible(false);
 
     QSqlQuery qry;
-    qry.exec("select min(label), max(label) from objects where label > '000-000'");
+    qry.exec("select min(label), max(label) from belongs where label > '000-000'");
     if (qry.next())
     {
         ui->eFromLabels->setText(qry.value(0).toString());

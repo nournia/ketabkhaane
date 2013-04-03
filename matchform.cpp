@@ -13,6 +13,7 @@
 #include <uihelper.h>
 #include <viewerform.h>
 #include <mainwindow.h>
+#include <mobjects.h>
 
 MatchForm::MatchForm(QWidget *parent) :
     QWidget(parent),
@@ -21,10 +22,10 @@ MatchForm::MatchForm(QWidget *parent) :
     ui->setupUi(this);
     ui->buttonBox->addButton(new QPushButton(QIcon(":/images/preview.png"), ViewerForm::tr("Preview")), QDialogButtonBox::ResetRole);
 
-    ui->eObject->setQuery("select id as cid, label as clabel, title as ctitle from objects");
+    ui->eObject->setQuery(MObjects::getObjectsQuery());
     ui->eCorrector->setQuery("select id as cid, label as clabel, firstname ||' '|| lastname as ctitle from users");
-    ui->eMatch->setQuery("select matches.id as cid, ifnull(objects.label, categories.title) as clabel, matches.title as ctitle "
-                         "from matches left join objects on matches.object_id = objects.id left join categories on matches.category_id = categories.id");
+    ui->eMatch->setQuery("select matches.id as cid, ifnull(belongs.label, categories.title) as clabel, matches.title as ctitle "
+                         "from matches left join belongs on matches.object_id = belongs.object_id left join categories on matches.category_id = categories.id");
 
     fillComboBox(ui->cState, MMatches::states());
     fillComboBox(ui->cAgeClass, MMatches::ageclasses());

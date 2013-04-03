@@ -9,7 +9,8 @@ public:
 
     static bool get(QString objectId, StrMap& object);
     static QString getNewLabel(QString branch);
-    static QString set(QString userId, StrMap object);
+    static QString getObjectsQuery();
+    static QString set(QString userId, StrMap data);
 
     /* borrows */
 
