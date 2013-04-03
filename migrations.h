@@ -123,6 +123,11 @@ void migrate(QString newVersion)
 
     if (isBetween(version, "0.9.6", "0.9.7")) {
 
+        // remove invalid publication and author
+        ok &= qry.exec("update objects set publication_id = null where publication_id = 210");
+        ok &= qry.exec("update objects set author_id = null where author_id = 372");
+
+        // library image
         ok &= qry.exec("update library set image='100001.jpg'");
 
         // that strange id
