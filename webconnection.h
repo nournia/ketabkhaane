@@ -15,6 +15,7 @@ class WebConnection : public QDialog
     Q_OBJECT
 
     bool preview;
+    QStringList queue;
     QNetworkReply* reply;
     QNetworkAccessManager qnam;
 
@@ -25,7 +26,8 @@ public:
     ~WebConnection();
     Syncer* syncer;
 
-    void get(QString args, bool file = false);
+    void popUrl();
+    void queueUrl(QString args, bool file = false);
     void storeRows(QString table, QVariant rows);
 
 private slots:

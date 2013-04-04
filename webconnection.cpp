@@ -23,7 +23,7 @@ WebConnection::WebConnection(QWidget *parent) :
     connect(syncer, SIGNAL(progress(int)), ui->pSync, SLOT(setValue(int)));
     connect(syncer, SIGNAL(finished(QString)), this, SLOT(synced(QString)));
 
-    get("m=matches&o=list");
+    queueUrl("m=matches&o=list"); popUrl();
 }
 
 WebConnection::~WebConnection()
@@ -45,43 +45,49 @@ void WebConnection::synced(QString message)
     ui->pSync->setValue(0);
 }
 
-void WebConnection::get(QString args, bool file)
+void WebConnection::queueUrl(QString args, bool file)
 {
     QString url = Reghaabat::instance()->serverUrl;
     if (file)
         url += "files.php?q=";
     else
         url += "data.php?i="+ Reghaabat::instance()->libraryId +"&";
+    queue.append(url + args);
+}
 
-    QNetworkRequest request(QUrl(url + args));
-    reply = qnam.get(request);
-    connect(reply, SIGNAL(finished()), this, SLOT(receive()));
+void WebConnection::popUrl()
+{
+    if (queue.length() > 0) {
+        QNetworkRequest request(QUrl(queue.takeFirst()));
+        reply = qnam.get(request);
+        connect(reply, SIGNAL(finished()), this, SLOT(receive()));
+    }
 }
 
 void WebConnection::receive()
 {
-    // save file
     QString url = reply->url().toString();
     QString fileId = "files.php?q=";
 
+    // save file
     if (url.indexOf(fileId) > 0) {
         QString filename = url.mid(url.indexOf(fileId)+fileId.length());
         QFile file(QString("%1/files/%2").arg(dataFolder()).arg(filename));
         if (file.open(QIODevice::WriteOnly))
-            file.write(reply->read(reply->bytesAvailable()));
+            file.write(reply->readAll());
+
+        popUrl();
         return;
     }
 
     // read data
     QString data = reply->readAll();
+    QStringList fields;
     QVariantMap response = QJsonDocument::fromJson(data.toUtf8()).object().toVariantMap();
     if (!response.keys().length()) {
         qDebug() << "Server Error";
-        return;
     }
-
-    QStringList fields;
-    if (response["operation"] == "list") {
+    else if (response["operation"] == "list") {
         items = new QStandardItemModel(0, 5, this);
 
         items->setHeaderData(0, Qt::Horizontal, "");
@@ -121,7 +127,7 @@ void WebConnection::receive()
             // download files
             foreach(QVariant row, response["files"].toList()) {
                 fields = row.toStringList();
-                get(QString("%2.%3").arg(fields[0], fields[1]), true);
+                queueUrl(QString("%2.%3").arg(fields[0], fields[1]), true);
             }
 
         } else {
@@ -151,6 +157,8 @@ void WebConnection::receive()
             viewer->exec();
         }
     }
+
+    popUrl();
 }
 
 void WebConnection::storeRows(QString table, QVariant rows)
@@ -184,7 +192,8 @@ void WebConnection::on_bImport_clicked()
 
     preview = false;
     if (matchIds.length())
-        get("m=matches&o=items&q="+ matchIds.join(","));
+        queueUrl("m=matches&o=items&q="+ matchIds.join(","));
+    popUrl();
 }
 
 void WebConnection::on_bPreview_clicked()
@@ -193,6 +202,7 @@ void WebConnection::on_bPreview_clicked()
     if (c.isValid()) {
         QString matchId = items->data(c.sibling(c.row(), 1)).toString();
         preview = true;
-        get("m=matches&o=items&q="+ matchId);
+        queueUrl("m=matches&o=items&q="+ matchId);
     }
+    popUrl();
 }
