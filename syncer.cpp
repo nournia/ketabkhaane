@@ -99,12 +99,12 @@ void Syncer::receive()
     QVariantMap response = QJsonDocument::fromJson(data.toUtf8()).object().toVariantMap();
     if (!response.keys().length()) {
         allLogs = 0;
-        emit finished("Server Error");
+        emit finished(tr("Sync Error."));
         return;
     }
     if (response["state"] == "error") {
         allLogs = 0;
-        emit finished(response["message"].toString());
+        emit finished(tr("Error") +": "+ response["message"].toString());
         return;
     }
 
@@ -122,7 +122,7 @@ void Syncer::receive()
         lastSync = response["synced_at"].toDateTime();
         if (!lastSync.isValid()) {
             allLogs = 0;
-            emit finished("Server Error");
+            emit finished(tr("Sync Error."));
             return;
         }
 
@@ -162,7 +162,8 @@ void Syncer::sync()
         // complete
         if (logs.length() == 0) {
             allLogs = uploadedLogs = 0;
-            emit finished("Successful");
+            emit progress(100);
+            emit finished(tr("Sync complete."));
             return;
         }
 

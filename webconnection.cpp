@@ -19,30 +19,12 @@ WebConnection::WebConnection(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    syncer = new Syncer(this);
-    connect(syncer, SIGNAL(progress(int)), ui->pSync, SLOT(setValue(int)));
-    connect(syncer, SIGNAL(finished(QString)), this, SLOT(synced(QString)));
-
     queueUrl("m=matches&o=list"); popUrl();
 }
 
 WebConnection::~WebConnection()
 {
     delete ui;
-}
-
-void WebConnection::on_bSync_clicked()
-{
-    ui->bSync->setEnabled(false);
-    ui->pSync->setValue(0);
-    syncer->sync();
-}
-
-void WebConnection::synced(QString message)
-{
-    QMessageBox::warning(this, QApplication::tr("Reghaabat"), message);
-    ui->bSync->setEnabled(true);
-    ui->pSync->setValue(0);
 }
 
 void WebConnection::queueUrl(QString args, bool file)

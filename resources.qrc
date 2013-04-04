@@ -38,6 +38,8 @@
         <file>images/edit_object.png</file>
         <file>images/web.png</file>
         <file>images/log.png</file>
+        <file>images/download.png</file>
+        <file>images/sync.png</file>
         <file>images/reghaabat.ico</file>
     </qresource>
 </RCC>

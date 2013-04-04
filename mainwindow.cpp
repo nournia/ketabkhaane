@@ -1,9 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QLabel>
-#include <QPushButton>
 #include <QDesktopWidget>
+#include <QSpacerItem>
 
 #include <logindialog.h>
 #include <aboutdialog.h>
@@ -45,16 +44,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    resize(790, 550);
+    Reghaabat::instance()->serverUrl = "http://reghaabat.ap01.aws.af.cm/server/";
 
-    this->move(QApplication::desktop()->screen()->rect().center()-this->rect().center());
-
+    prepareUI();
     applyPermission();
-
-    stackedLayout = new QStackedLayout;
-    stackedLayout->setContentsMargins(0, 0, 0, 0);
-    delete ui->container->layout();
-    ui->container->setLayout(stackedLayout);
 
     firstPage();
 
@@ -72,8 +65,6 @@ MainWindow::MainWindow(QWidget *parent) :
         QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Database Connection Error!"));
         exit(1);
     }
-
-    Reghaabat::instance()->serverUrl = "http://reghaabat.ap01.aws.af.cm/server/";
 
     // check for startup situation
     QSqlQuery qry;
@@ -97,13 +88,65 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     else
         on_actionLogin_triggered();
-
-    viewer = new ViewerForm(this);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::prepareUI()
+{
+    // window
+    resize(790, 550);
+    this->move(QApplication::desktop()->screen()->rect().center()-this->rect().center());
+
+    viewer = new ViewerForm(this);
+    syncer = new Syncer(this);
+
+    // ui elements
+    stackedLayout = new QStackedLayout();
+    stackedLayout->setContentsMargins(0, 0, 0, 0);
+    delete ui->container->layout();
+    ui->container->setLayout(stackedLayout);
+
+    // status bar
+    lUser = new QLabel("", this);
+
+    bLogout = new QPushButton(QIcon(":/images/logout.png"), "", this);
+    bLogout->setFlat(true);
+    bLogout->setIconSize(QSize(20, 20));
+    bLogout->setMaximumWidth(20); bLogout->setMaximumHeight(20);
+    connect(bLogout, SIGNAL(clicked()), this, SLOT(on_actionLogout_triggered()));
+    bLogout->setToolTip(tr("Logout"));
+
+    bSync = new QPushButton(QIcon(":/images/sync.png"), "", this);
+    bSync->setFlat(true);
+    bSync->setIconSize(QSize(20, 20));
+    bSync->setMaximumWidth(20); bSync->setMaximumHeight(20);
+    connect(bSync, SIGNAL(clicked()), this, SLOT(sync()));
+    bSync->setToolTip(tr("Sync"));
+
+    pSync = new QProgressBar(this);
+    pSync->setMaximumWidth(50);
+    pSync->setLayoutDirection(Qt::LeftToRight);
+    connect(syncer, SIGNAL(progress(int)), pSync, SLOT(setValue(int)));
+    connect(syncer, SIGNAL(finished(QString)), this, SLOT(synced(QString)));
+    pSync->setVisible(false);
+
+    QSpacerItem* spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    QHBoxLayout* lay =  new QHBoxLayout();
+    lay->setContentsMargins(9, 3, 9, 3);
+    lay->addWidget(bLogout);
+    lay->addWidget(lUser);
+    lay->addItem(spacer);
+    lay->addWidget(bSync);
+    lay->addWidget(pSync);
+    delete ui->statusBar->layout();
+    ui->statusBar->setLayout(lay);
+    ui->statusBar->show();
+    ui->statusBar->setVisible(false);
 }
 
 void MainWindow::applyPermission()
@@ -159,27 +202,10 @@ void MainWindow::on_actionLogin_triggered()
     LoginDialog ld(this);
     ld.exec();
 
-    if (! Reghaabat::instance()->userId.isEmpty())
-    {
-        QPushButton* logout = new QPushButton(QIcon(":/images/logout.png"), "", this);
-        logout->setFlat(true);
-        logout->setMaximumWidth(15);
-        logout->setMaximumHeight(15);
-        connect(logout, SIGNAL(clicked()), this, SLOT(on_actionLogout_triggered()));
-        logout->setToolTip(tr("Logout"));
-
-        QLabel* username = new QLabel(Reghaabat::instance()->userName, this);
-
-        QHBoxLayout* lay =  new QHBoxLayout();
-        lay->setContentsMargins(9, 3, 9, 3);
-        lay->addWidget(logout);
-        lay->addWidget(username);
-        delete ui->statusBar->layout();
-        ui->statusBar->setLayout(lay);
-        ui->statusBar->show();
-
+    if (! Reghaabat::instance()->userId.isEmpty()) {
+        lUser->setText(Reghaabat::instance()->userName);
+        ui->statusBar->setVisible(true);
         applyPermission();
-
         on_actionDeliver_triggered();
     }
 }
@@ -191,10 +217,7 @@ void MainWindow::on_actionLogout_triggered()
     Reghaabat::instance()->userPermission = "";
 
     // clean status bar
-    QLayoutItem *child;
-    while ((child = ui->statusBar->layout()->takeAt(0)) != 0)
-         delete child->widget();
-    delete ui->statusBar->layout();
+    ui->statusBar->setVisible(false);
 
     // close open forms
     if (formOperator) {
@@ -418,4 +441,19 @@ void MainWindow::on_actionWeb_triggered()
         stackedLayout->addWidget(webConnection);
     }
     stackedLayout->setCurrentWidget(webConnection);
+}
+
+void MainWindow::sync()
+{
+    pSync->setValue(0);
+    pSync->setVisible(true);
+    bSync->setVisible(false);
+    syncer->sync();
+}
+
+void MainWindow::synced(QString message)
+{
+    QMessageBox::warning(this, QApplication::tr("Reghaabat"), message);
+    pSync->setVisible(false);
+    bSync->setVisible(true);
 }

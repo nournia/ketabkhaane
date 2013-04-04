@@ -117,7 +117,7 @@
         <translation type="obsolete">جستجوی سریع</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+133"/>
         <source>Preview</source>
         <translation>نمایش</translation>
     </message>
@@ -194,7 +194,7 @@
         <translation>تایید</translation>
     </message>
     <message>
-        <location line="-317"/>
+        <location line="-318"/>
         <location line="+30"/>
         <source>Deliver</source>
         <translation>تحویل</translation>
@@ -211,13 +211,13 @@
     <message>
         <location filename="formoperator.cpp" line="+98"/>
         <location line="+13"/>
-        <location line="+169"/>
+        <location line="+172"/>
         <source>Received</source>
         <translation>دریافت</translation>
     </message>
     <message>
-        <location line="-169"/>
-        <location line="+176"/>
+        <location line="-172"/>
+        <location line="+179"/>
         <source>Renewed</source>
         <translation>تمدید</translation>
     </message>
@@ -302,11 +302,12 @@
         <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
+        <location filename="mainwindow.cpp" line="+128"/>
         <source>Sync</source>
-        <translation type="obsolete">همزمانی</translation>
+        <translation>به روز رسانی</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location filename="mainwindow.ui" line="+74"/>
         <source>Web</source>
         <translation>وب</translation>
     </message>
@@ -324,7 +325,7 @@
     <message>
         <location line="+9"/>
         <location line="+3"/>
-        <location filename="mainwindow.cpp" line="+162"/>
+        <location filename="mainwindow.cpp" line="-7"/>
         <source>Logout</source>
         <translation>خروج</translation>
     </message>
@@ -479,7 +480,7 @@
         <translation type="obsolete">مسابقه‌ها</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="-90"/>
+        <location filename="mainwindow.cpp" line="-56"/>
         <source>Database Connection Error!</source>
         <oldsource>Database Connection Error.</oldsource>
         <translation>خطا در اتصال به پایگاه داده‌ها!</translation>
@@ -567,7 +568,7 @@
         <translation type="obsolete">انتشارات</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+43"/>
+        <location filename="matchform.cpp" line="+46"/>
         <source>New Question</source>
         <translation>سوال جدید</translation>
     </message>
@@ -580,7 +581,7 @@
         <translation type="obsolete">چند رسانه‌ای</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+242"/>
         <source>Select Image File</source>
         <translation>انتخاب تصویر</translation>
     </message>
@@ -1048,6 +1049,7 @@
         <location filename="dialogchangepassword.cpp" line="+25"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="mainwindow.cpp" line="+0"/>
+        <location line="+391"/>
         <location filename="matchform.cpp" line="-38"/>
         <location filename="objectform.cpp" line="+1"/>
         <location line="+4"/>
@@ -1138,12 +1140,13 @@
         <location line="+70"/>
         <location filename="matchtable.h" line="+59"/>
         <location filename="scoreform.h" line="+62"/>
+        <location filename="viewerform.cpp" line="+26"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
     <message>
         <location filename="mmatches.cpp" line="+38"/>
-        <location filename="mobjects.cpp" line="+41"/>
+        <location filename="mobjects.cpp" line="+46"/>
         <source>Title is required.</source>
         <oldsource>Title is required</oldsource>
         <translation>عنوان نباید خالی باشد.</translation>
@@ -1240,7 +1243,7 @@
         <translation>امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
     </message>
     <message>
-        <location filename="mobjects.cpp" line="+52"/>
+        <location filename="mobjects.cpp" line="+80"/>
         <source>You borrowed this object.</source>
         <translation>این شئ هم‌اکنون به امانت پیش شماست.</translation>
     </message>
@@ -1312,6 +1315,25 @@
     <message>
         <source>Rate</source>
         <translation type="obsolete">امتیاز</translation>
+    </message>
+</context>
+<context>
+    <name>Syncer</name>
+    <message>
+        <location filename="syncer.cpp" line="+102"/>
+        <location line="+23"/>
+        <source>Sync Error.</source>
+        <translation>خطا در هنگام به روز رسانی.</translation>
+    </message>
+    <message>
+        <location line="-18"/>
+        <source>Error</source>
+        <translation>خطا</translation>
+    </message>
+    <message>
+        <location line="+59"/>
+        <source>Sync complete.</source>
+        <translation>اتمام به روز رسانی.</translation>
     </message>
 </context>
 <context>
@@ -1537,7 +1559,7 @@
 <context>
     <name>ViewerForm</name>
     <message>
-        <location filename="viewerform.cpp" line="+394"/>
+        <location filename="viewerform.cpp" line="+371"/>
         <source>All</source>
         <translation>کل</translation>
     </message>
@@ -1735,9 +1757,33 @@
 <context>
     <name>WebConnection</name>
     <message>
-        <location filename="webconnection.ui" line="+26"/>
         <source>Sync</source>
-        <translation>همزمانی</translation>
+        <translation type="obsolete">همزمانی</translation>
+    </message>
+    <message>
+        <location filename="webconnection.ui" line="+39"/>
+        <source>Preview</source>
+        <translation>پیش نمایش</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Import</source>
+        <translation>وارد کردن</translation>
+    </message>
+    <message>
+        <location filename="webconnection.cpp" line="+77"/>
+        <source>Title</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>AgeClass</source>
+        <translation>رده سنی</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Category</source>
+        <translation>گروه</translation>
     </message>
 </context>
 </TS>

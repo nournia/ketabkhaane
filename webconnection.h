@@ -3,8 +3,7 @@
 
 #include <QDialog>
 #include <QStandardItemModel>
-
-#include <syncer.h>
+#include <QNetworkAccessManager>
 
 namespace Ui {
 class WebConnection;
@@ -24,7 +23,6 @@ class WebConnection : public QDialog
 public:
     explicit WebConnection(QWidget *parent = 0);
     ~WebConnection();
-    Syncer* syncer;
 
     void popUrl();
     void queueUrl(QString args, bool file = false);
@@ -32,11 +30,7 @@ public:
 
 private slots:
     void receive();
-    void synced(QString message);
-    void on_bSync_clicked();
-
     void on_bImport_clicked();
-
     void on_bPreview_clicked();
 
 private:

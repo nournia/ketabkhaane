@@ -6,43 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>335</height>
+    <width>567</width>
+    <height>422</height>
    </rect>
   </property>
   <property name="layoutDirection">
    <enum>Qt::RightToLeft</enum>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string/>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="bSync">
-        <property name="text">
-         <string>Sync</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QProgressBar" name="pSync">
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="value">
-         <number>0</number>
-        </property>
-        <property name="textVisible">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
@@ -67,12 +38,20 @@
         <property name="text">
          <string>Preview</string>
         </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/preview.png</normaloff>:/images/preview.png</iconset>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="bImport">
         <property name="text">
          <string>Import</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/download.png</normaloff>:/images/download.png</iconset>
         </property>
        </widget>
       </item>
@@ -91,6 +70,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
