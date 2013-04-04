@@ -49,7 +49,7 @@ void WebConnection::get(QString args, bool file)
 {
     QString url = Reghaabat::instance()->serverUrl;
     if (file)
-        url += "file.php?";
+        url += "files.php?q=";
     else
         url += "data.php?i="+ Reghaabat::instance()->libraryId +"&";
 
@@ -62,7 +62,7 @@ void WebConnection::receive()
 {
     // save file
     QString url = reply->url().toString();
-    QString fileId = "file.php?q=";
+    QString fileId = "files.php?q=";
 
     if (url.indexOf(fileId) > 0) {
         QString filename = url.mid(url.indexOf(fileId)+fileId.length());
@@ -121,7 +121,7 @@ void WebConnection::receive()
             // download files
             foreach(QVariant row, response["files"].toList()) {
                 fields = row.toStringList();
-                get(QString("q=%2.%3").arg(fields[0], fields[1]), true);
+                get(QString("%2.%3").arg(fields[0], fields[1]), true);
             }
 
         } else {
