@@ -73,8 +73,17 @@ MainWindow::MainWindow(QWidget *parent) :
         exit(1);
     }
 
+    Reghaabat::instance()->serverUrl = "http://reghaabat.ap01.aws.af.cm/server/";
+
     // check for startup situation
     QSqlQuery qry;
+    qry.exec("select id from library");
+    qry.next();
+    Reghaabat::instance()->libraryId = qry.value(0).toString();
+    if (Reghaabat::instance()->libraryId.isEmpty()) {
+        // todo: get new library_id from server
+    }
+
     qry.exec("select id from users where upassword is not null");
     if (! qry.next())
     {
@@ -143,8 +152,6 @@ void MainWindow::applyPermission()
        ui->actionOptions->setEnabled(true);
        ui->actionWeb->setEnabled(true);
    }
-
-   ui->actionWeb->setVisible(false);
 }
 
 void MainWindow::on_actionLogin_triggered()

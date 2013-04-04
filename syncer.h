@@ -15,7 +15,7 @@ class Syncer : public QObject
 {
     Q_OBJECT
 
-    QUrl url;
+    QString url;
     int maxRows;
     QNetworkReply* reply;
     QNetworkAccessManager qnam;

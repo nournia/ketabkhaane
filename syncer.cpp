@@ -13,7 +13,7 @@ Syncer::Syncer(QObject *parent)
 {
     allLogs = uploadedLogs = 0;
     maxRows = 500;
-    url = QUrl("http://reghaabat.ap01.aws.af.cm/backend.php");
+    url = Reghaabat::instance()->serverUrl + "backend.php";
 }
 
 bool Syncer::setSyncTime()
@@ -55,7 +55,7 @@ bool Syncer::getLogsAndFiles(QStringList& logs, QStringList& files)
 
 void Syncer::send(QMap<QString, QString>& posts, QStringList& files)
 {
-    QNetworkRequest request(url);
+    QNetworkRequest request(QUrl(url+""));
     QHttpMultiPart* parts = new QHttpMultiPart(QHttpMultiPart::FormDataType);
 
     QMapIterator<QString, QString> i(posts);
