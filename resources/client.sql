@@ -13,7 +13,7 @@ CREATE TABLE library (
 -- globals
 
 CREATE TABLE accounts (
-	id tinyint(4) not null primary key autoincrement,
+	id tinyint(4) not null primary key,
 	title varchar(255) not null,
 	bookfine integer not null, -- daily after one week
 	cdfine integer not null -- daily
@@ -31,11 +31,11 @@ CREATE TABLE categories (
 	title varchar(255) not null
 );
 CREATE TABLE open_categories (
-	id tinyint(4) not null primary key autoincrement,
+	id tinyint(4) not null primary key,
 	title varchar(255) not null
 );
 CREATE TABLE types (
-	id tinyint(4) not null primary key autoincrement,
+	id tinyint(4) not null primary key,
 	title varchar(50) not null
 );
 
@@ -168,13 +168,28 @@ CREATE TABLE transactions (
 	description varchar(20) null -- fin: (fine of objects), dis (discount in fine), chg (money user charged to he's account), mid:match_id (score from match), pay (money payed to user for matches)
 );
 
--- data ------------------------------------------------------------------------------
+-- data
 
-INSERT INTO ageclasses values (0, 'الف', 'آمادگی و اول دبستان', 6, 7, 4), (1, 'ب', 'دوم و سوم دبستان', 8, 9, 4), (2, 'ج', 'چهارم و پنجم دبستان', 10, 11, 5), (3, 'د', 'راهنمایی', 12, 14, 6), (4, 'ه', 'دبیرستان', 15, 18, 7);
-INSERT INTO categories (id, title) values (0, 'نقاشی'), (1, 'رنگ‌آمیزی'), (2, 'تحقیق'), (3, 'آزمایش'), (4, 'کاردستی');
-INSERT INTO open_categories (id, title) values (0, 'خلاصه‌نویسی'), (1, 'شعر'), (2, 'داستان');
-INSERT INTO accounts (id, title, bookfine, cdfine) values (0, 'عادی', 50, 100), (1, 'ویژه', 25, 100);
-INSERT INTO types (id, title) values (0, 'کتاب'), (1, 'چند رسانه‌ای');
+INSERT INTO ageclasses values (0, 'الف', 'آمادگی و اول دبستان', 6, 7, 4);
+INSERT INTO ageclasses values (1, 'ب', 'دوم و سوم دبستان', 8, 9, 4);
+INSERT INTO ageclasses values (2, 'ج', 'چهارم و پنجم دبستان', 10, 11, 5);
+INSERT INTO ageclasses values (3, 'د', 'راهنمایی', 12, 14, 6);
+INSERT INTO ageclasses values (4, 'ه', 'دبیرستان', 15, 18, 7);
 
-insert into library (title, started_at, version) values ('کتابخانه شما', current_timestamp, '0.9.0');
-insert into files values (1, 'jpg');
+INSERT INTO categories values (0, 'نقاشی');
+INSERT INTO categories values (1, 'رنگ‌آمیزی');
+INSERT INTO categories values (2, 'تحقیق');
+INSERT INTO categories values (3, 'آزمایش');
+INSERT INTO categories values (4, 'کاردستی');
+
+INSERT INTO open_categories values (0, 'خلاصه‌نویسی');
+INSERT INTO open_categories values (1, 'شعر');
+INSERT INTO open_categories values (2, 'داستان');
+
+INSERT INTO accounts values (0, 'عادی', 50, 100);
+INSERT INTO accounts values (1, 'ویژه', 25, 100);
+
+INSERT INTO types values (0, 'کتاب');
+INSERT INTO types values (1, 'چند رسانه‌ای');
+
+INSERT INTO library (title, started_at, version) values ('کتابخانه شما', current_timestamp, '0.9.7');

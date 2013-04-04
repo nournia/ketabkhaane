@@ -16,6 +16,10 @@ QSqlDatabase Connector::connectDb()
 
         if (! db.open())
             qDebug() << "reghaabat db connection error : " << db.lastError();
+
+        if (!db.tables().length())
+            buildDb();
+
         return db;
     } else
         return QSqlDatabase::database();
@@ -25,20 +29,18 @@ bool Connector::buildDb()
 {
     QSqlQuery qry;
 
-    QFile file(":/resources/sqlite.sql");
+    QFile file(":/resources/client.sql");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream input(&file);
+    input.setCodec("UTF-8");
 
-    foreach (QString q, QTextStream(&file).readAll().split(";"))
+    foreach (QString q, input.readAll().split(";"))
     if (q.contains("create", Qt::CaseInsensitive) || q.contains("insert", Qt::CaseInsensitive) || q.contains("update", Qt::CaseInsensitive))
-        if (! qry.exec(q))
-        {
+        if (! qry.exec(q)) {
+            qDebug() << q;
             qDebug() << "sql file error: " << qry.lastError();
             return false;
         }
-
-    insertLog("library", "insert", 1);
-    insertLog("files", "insert", 1);
-
     return true;
 }
 

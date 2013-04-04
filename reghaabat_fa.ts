@@ -1763,12 +1763,12 @@
     <message>
         <location filename="webconnection.ui" line="+39"/>
         <source>Preview</source>
-        <translation>پیش نمایش</translation>
+        <translation>نمایش</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Import</source>
-        <translation>وارد کردن</translation>
+        <translation>دریافت</translation>
     </message>
     <message>
         <location filename="webconnection.cpp" line="+77"/>
