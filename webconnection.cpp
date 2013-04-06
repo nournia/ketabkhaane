@@ -8,10 +8,7 @@
 
 #include <QMessageBox>
 #include <QCheckBox>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QAbstractItemView>
-#include <QFile>
 
 WebConnection::WebConnection(QWidget *parent) :
     QDialog(parent),
@@ -19,7 +16,10 @@ WebConnection::WebConnection(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    queueUrl("m=matches&o=list"); popUrl();
+    receiver = new Receiver(this);
+    connect(receiver, SIGNAL(received(QVariantMap)), this, SLOT(received(QVariantMap)));
+
+    receiver->get("m=matches&o=list");
 }
 
 WebConnection::~WebConnection()
@@ -27,49 +27,14 @@ WebConnection::~WebConnection()
     delete ui;
 }
 
-void WebConnection::queueUrl(QString args, bool file)
+void WebConnection::received(QVariantMap data)
 {
-    QString url = Reghaabat::instance()->serverUrl;
-    if (file)
-        url += "files.php?q=";
-    else
-        url += "data.php?i="+ Reghaabat::instance()->libraryId +"&";
-    queue.append(url + args);
-}
-
-void WebConnection::popUrl()
-{
-    if (queue.length() > 0) {
-        QNetworkRequest request(QUrl(queue.takeFirst()));
-        reply = qnam.get(request);
-        connect(reply, SIGNAL(finished()), this, SLOT(receive()));
-    }
-}
-
-void WebConnection::receive()
-{
-    QString url = reply->url().toString();
-    QString fileId = "files.php?q=";
-
-    // save file
-    if (url.indexOf(fileId) > 0) {
-        QString filename = url.mid(url.indexOf(fileId)+fileId.length());
-        QFile file(QString("%1/files/%2").arg(dataFolder()).arg(filename));
-        if (file.open(QIODevice::WriteOnly))
-            file.write(reply->readAll());
-
-        popUrl();
-        return;
-    }
-
     // read data
-    QString data = reply->readAll();
     QStringList fields;
-    QVariantMap response = QJsonDocument::fromJson(data.toUtf8()).object().toVariantMap();
-    if (!response.keys().length()) {
+    if (!data.keys().length()) {
         qDebug() << "Server Error";
     }
-    else if (response["operation"] == "list") {
+    else if (data["operation"] == "list") {
         items = new QStandardItemModel(0, 5, this);
 
         items->setHeaderData(0, Qt::Horizontal, "");
@@ -85,7 +50,7 @@ void WebConnection::receive()
             imported.append(qry.value(0).toString());
 
         QStandardItem* item;
-        foreach(QVariant row, response["matches"].toList()) {
+        foreach(QVariant row, data["matches"].toList()) {
             fields = row.toStringList();
             if (imported.contains(fields[0]))
                 continue;
@@ -106,19 +71,19 @@ void WebConnection::receive()
         ui->tImports->setColumnHidden(1, true);
         ui->tImports->setEditTriggers(QAbstractItemView::NoEditTriggers);
     }
-    else if (response["operation"] == "items") {
+    else if (data["operation"] == "items") {
         if (!preview) {
-            storeRows("authors", response["authors"]);
-            storeRows("publications", response["publications"]);
-            storeRows("objects", response["objects"]);
-            storeRows("matches", response["matches"]);
-            storeRows("questions", response["questions"]);
-            storeRows("files", response["files"]);
+            storeRows("authors", data["authors"]);
+            storeRows("publications", data["publications"]);
+            storeRows("objects", data["objects"]);
+            storeRows("matches", data["matches"]);
+            storeRows("questions", data["questions"]);
+            storeRows("files", data["files"]);
 
             // download files
-            foreach(QVariant row, response["files"].toList()) {
+            foreach(QVariant row, data["files"].toList()) {
                 fields = row.toStringList();
-                queueUrl(QString("%2.%3").arg(fields[0], fields[1]), true);
+                receiver->queueUrl(QString("%2.%3").arg(fields[0], fields[1]), true);
             }
 
             // complete
@@ -128,7 +93,7 @@ void WebConnection::receive()
                     items->removeRow(i);
             ui->bImport->setEnabled(true);
         } else {
-            fields = response["matches"].toList()[0].toStringList();
+            fields = data["matches"].toList()[0].toStringList();
 
             StrMap match;
             QList<StrPair> questions;
@@ -138,7 +103,7 @@ void WebConnection::receive()
             match["object_id"] = fields[4];
 
             if (fields[6].isEmpty()) {
-                foreach(QVariant row, response["questions"].toList()) {
+                foreach(QVariant row, data["questions"].toList()) {
                     fields = row.toStringList();
                     questions.append(qMakePair(fields[2], fields[3]));
                 }
@@ -155,7 +120,7 @@ void WebConnection::receive()
         }
     }
 
-    popUrl();
+    receiver->popUrl();
 }
 
 void WebConnection::storeRows(QString table, QVariant rows)
@@ -197,12 +162,10 @@ void WebConnection::on_bImport_clicked()
 
     preview = false;
     if (matchIds.length()) {
-        queueUrl("m=matches&o=items&q="+ matchIds.join(","));
+        receiver->get("m=matches&o=items&q="+ matchIds.join(","));
         ui->bImport->setEnabled(false);
     } else
         QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Please select matches."));
-
-    popUrl();
 }
 
 void WebConnection::on_bPreview_clicked()
@@ -211,8 +174,6 @@ void WebConnection::on_bPreview_clicked()
     if (c.isValid()) {
         QString matchId = items->data(c.sibling(c.row(), 1)).toString();
         preview = true;
-        queueUrl("m=matches&o=items&q="+ matchId);
+        receiver->get("m=matches&o=items&q="+ matchId);
     }
-
-    popUrl();
 }

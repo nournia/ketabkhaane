@@ -5,6 +5,8 @@
 #include <QStandardItemModel>
 #include <QNetworkAccessManager>
 
+#include <receiver.h>
+
 namespace Ui {
 class WebConnection;
 }
@@ -14,22 +16,17 @@ class WebConnection : public QDialog
     Q_OBJECT
 
     bool preview;
-    QStringList queue;
-    QNetworkReply* reply;
-    QNetworkAccessManager qnam;
-
+    Receiver* receiver;
     QStandardItemModel* items;
 
 public:
     explicit WebConnection(QWidget *parent = 0);
     ~WebConnection();
 
-    void popUrl();
-    void queueUrl(QString args, bool file = false);
     void storeRows(QString table, QVariant rows);
 
 private slots:
-    void receive();
+    void received(QVariantMap data);
     void on_bImport_clicked();
     void on_bPreview_clicked();
 
