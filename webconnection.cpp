@@ -155,13 +155,21 @@ void WebConnection::storeRows(QString table, QVariant rows)
         for(int i = 0; i < fields.length(); i++)
             marks.append("?");
 
-        qry.prepare(QString("insert or ignore into %1 values (%2)").arg(table, marks.join(",")));
+        qry.prepare(QString("insert into %1 values (%2)").arg(table, marks.join(",")));
 
         foreach(QVariant field, fields)
             qry.addBindValue(field);
 
-        if (!qry.exec())
-            qDebug() << qry.lastError();
+        if (qry.exec()) {
+            // supports and belongs table
+            if (table == "matches") {
+                if (qry.exec(QString("insert into supports (match_id, corrector_id, current_state, score) values (%1, %2, 'imported', 0)").arg(fields[0].toString(), Reghaabat::instance()->userId)))
+                    insertLog("supports", "insert", qry.lastInsertId());
+            } else if (table == "objects") {
+                if (qry.exec(QString("insert into belongs (object_id) values (%1)").arg(fields[0].toString())))
+                    insertLog("belongs", "insert", qry.lastInsertId());
+            }
+        }
     }
 }
 

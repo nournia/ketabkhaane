@@ -13,6 +13,9 @@ bool MObjects::get(QString objectId, StrMap& object)
 
 QString MObjects::getNewLabel(QString branch)
 {
+    if (branch.isEmpty())
+        return "";
+
     QSqlQuery qry;
 
     QString label;

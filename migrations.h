@@ -166,7 +166,7 @@ void migrate(QString newVersion)
         }
 
         // separate objects table
-        ok &= qry.exec("CREATE TABLE belongs (id integer not null primary key autoincrement, object_id integer not null references objects(id) on update cascade, branch_id integer not null references branches(id) on update cascade, label varchar(50) not null, cnt int not null default 0)");
+        ok &= qry.exec("CREATE TABLE belongs (id integer not null primary key autoincrement, object_id integer not null references objects(id) on update cascade, branch_id integer null default null references branches(id) on update cascade, label varchar(50) null default null, cnt int not null default 0)");
         ok &= qry.exec("insert into belongs (object_id, branch_id, label, cnt) select id, branch_id, label, cnt from objects");
 
         ok &= qry.exec("ALTER TABLE objects RENAME TO _temp_table");

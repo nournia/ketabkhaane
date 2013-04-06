@@ -42,18 +42,18 @@ CREATE TABLE types (
 -- entities
 
 CREATE TABLE roots (
-	id integer not null primary key autoincrement,
+	id integer not null primary key,
 	title varchar(255) not null,
 	type_id tinyint(4) not null references types(id) on update cascade
 );
 CREATE TABLE branches (
-	id integer not null primary key autoincrement,
+	id integer not null primary key,
 	root_id integer not null references roots(id) on update cascade,
 	title varchar(255) not null,
 	label varchar(10) null default null
 );
 CREATE TABLE users (
-	id integer not null primary key autoincrement,
+	id integer not null primary key,
 	national_id integer null default null,
 	firstname varchar(255) not null,
 	lastname varchar(255) not null,
@@ -71,22 +71,22 @@ CREATE TABLE users (
 	unique (national_id) on conflict abort
 );
 CREATE TABLE authors (
-	id integer not null primary key autoincrement,
+	id integer not null primary key,
 	title varchar(255) not null
 );
 CREATE TABLE publications (
-	id integer not null primary key autoincrement,
+	id integer not null primary key,
 	title varchar(255) not null
 );
 CREATE TABLE objects (
-	id integer not null primary key autoincrement,
+	id integer not null primary key,
 	author_id integer null default null references authors(id) on update cascade,
 	publication_id integer null default null references publications(id) on update cascade,
 	type_id tinyint(4) not null references types(id) on update cascade,
 	title varchar(255) not null
 );
 CREATE TABLE matches (
-	id integer not null primary key autoincrement,
+	id integer not null primary key,
 	designer_id integer null default null references users(id) on update cascade,
 	title varchar(255) not null,
 	ageclass tinyint(4) null default null,
@@ -95,14 +95,14 @@ CREATE TABLE matches (
 	content text null default null
 );
 CREATE TABLE questions (
-	id integer not null primary key autoincrement,
+	id integer not null primary key,
 	match_id integer not null references matches(id) on update cascade,
 	question varchar(1000) not null,
 	answer varchar(1000) null default null
 	--choice tinyint(4) null default null -- null: no choice
 );
 CREATE TABLE files (
-	id integer not null primary key autoincrement,
+	id integer not null primary key,
 	extension varchar(5) not null
 );
 
@@ -156,8 +156,8 @@ CREATE TABLE supports (
 CREATE TABLE belongs (
 	id integer not null primary key autoincrement,
 	object_id integer not null references objects(id) on update cascade,
-	branch_id integer not null references branches(id) on update cascade,
-	label varchar(50) not null,
+	branch_id integer null default null references branches(id) on update cascade,
+	label varchar(50) null default null,
 	cnt int not null default 0 -- count of object in this library
 );
 CREATE TABLE transactions (
