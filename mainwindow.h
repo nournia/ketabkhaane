@@ -22,6 +22,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    bool isStartup();
     void prepareUI();
     void applyPermission();
 

@@ -302,7 +302,7 @@
         <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="+128"/>
+        <location filename="mainwindow.cpp" line="+125"/>
         <source>Sync</source>
         <translation>به روز رسانی</translation>
     </message>
@@ -480,7 +480,7 @@
         <translation type="obsolete">مسابقه‌ها</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="-56"/>
+        <location filename="mainwindow.cpp" line="-65"/>
         <source>Database Connection Error!</source>
         <oldsource>Database Connection Error.</oldsource>
         <translation>خطا در اتصال به پایگاه داده‌ها!</translation>
@@ -1049,15 +1049,20 @@
         <location filename="dialogchangepassword.cpp" line="+25"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="mainwindow.cpp" line="+0"/>
-        <location line="+391"/>
+        <location line="+401"/>
         <location filename="matchform.cpp" line="-38"/>
         <location filename="objectform.cpp" line="+1"/>
         <location line="+4"/>
         <location filename="optionsform.cpp" line="-5"/>
         <location line="+21"/>
         <location filename="payment.cpp" line="+92"/>
+        <location filename="startupdialog.cpp" line="+71"/>
+        <location line="+8"/>
+        <location line="+44"/>
         <location filename="userform.cpp" line="+78"/>
         <location line="+4"/>
+        <location filename="webconnection.cpp" line="+90"/>
+        <location line="+48"/>
         <source>Reghaabat</source>
         <translation>رقابت</translation>
     </message>
@@ -1097,7 +1102,7 @@
         <translation>این شماره ملی برای %1 ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+44"/>
         <source>Invalid Old Password.</source>
         <translation>کلمه عبور وارد شده اشتباه است.</translation>
     </message>
@@ -1146,7 +1151,7 @@
     </message>
     <message>
         <location filename="mmatches.cpp" line="+38"/>
-        <location filename="mobjects.cpp" line="+46"/>
+        <location filename="mobjects.cpp" line="+49"/>
         <source>Title is required.</source>
         <oldsource>Title is required</oldsource>
         <translation>عنوان نباید خالی باشد.</translation>
@@ -1168,7 +1173,7 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+226"/>
+        <location line="+218"/>
         <source>Invalid record selected.</source>
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
@@ -1243,7 +1248,7 @@
         <translation>امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
     </message>
     <message>
-        <location filename="mobjects.cpp" line="+80"/>
+        <location filename="mobjects.cpp" line="+79"/>
         <source>You borrowed this object.</source>
         <translation>این شئ هم‌اکنون به امانت پیش شماست.</translation>
     </message>
@@ -1318,6 +1323,83 @@
     </message>
 </context>
 <context>
+    <name>StartupDialog</name>
+    <message>
+        <location filename="startupdialog.ui" line="+26"/>
+        <source>Startup</source>
+        <translation>آغاز</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Hi</source>
+        <translation>سلام</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Your welcome. You must register before using reghaabat. If you registered in other instances please use login button.</source>
+        <translation>به رقابت خوش آمدید. برای استفاده باید اول ثبت نام کنید.
+اگر قبلا عضو شده‌اید لطفا از گزینه «ورود» استفاده کنید.</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <location line="+80"/>
+        <source>Login</source>
+        <translation>ورود</translation>
+    </message>
+    <message>
+        <location line="-66"/>
+        <source>Register</source>
+        <translation>ثبت نام</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Firstname</source>
+        <translation>نام</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Lastname</source>
+        <translation>نام خانوادگی</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <location line="+49"/>
+        <source>Password</source>
+        <translation>کلمه عبور</translation>
+    </message>
+    <message>
+        <location line="-20"/>
+        <source>NationalId</source>
+        <translation>شماره ملی</translation>
+    </message>
+    <message>
+        <location line="+52"/>
+        <source>Web Connection Error</source>
+        <translation>خطا در ارتباط با سرور</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Retry</source>
+        <translation>دوباره</translation>
+    </message>
+    <message>
+        <location filename="startupdialog.cpp" line="-58"/>
+        <source>Invalid id or password.</source>
+        <translation>شماره یا کلمه عبور نا معتبر است.</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Please wait until server connection establishment.</source>
+        <translation>لطفا تا برقراری تماس با سرور منتظر بمانید.</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <location line="+20"/>
+        <source>Please complete required info.</source>
+        <translation>لطفا اطلاعات خواسته شده را وارد کنید.</translation>
+    </message>
+</context>
+<context>
     <name>Syncer</name>
     <message>
         <location filename="syncer.cpp" line="+102"/>
@@ -1331,7 +1413,8 @@
         <translation>خطا</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location filename="startupdialog.cpp" line="-65"/>
+        <location filename="syncer.cpp" line="+59"/>
         <source>Sync complete.</source>
         <translation>اتمام به روز رسانی.</translation>
     </message>
@@ -1771,7 +1854,7 @@
         <translation>دریافت</translation>
     </message>
     <message>
-        <location filename="webconnection.cpp" line="+77"/>
+        <location filename="webconnection.cpp" line="-96"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
@@ -1784,6 +1867,16 @@
         <location line="+1"/>
         <source>Category</source>
         <translation>گروه</translation>
+    </message>
+    <message>
+        <location line="+46"/>
+        <source>Data Imported.</source>
+        <translation>دریافت داده‌ها انجام شد.</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Please select matches.</source>
+        <translation>برای دریافت مسابقه‌ها باید آن‌ها را انتخاب کنید.</translation>
     </message>
 </context>
 </TS>

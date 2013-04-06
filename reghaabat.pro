@@ -42,7 +42,9 @@ SOURCES += main.cpp\
     objectmanagement.cpp \
     mobjects.cpp \
     aboutdialog.cpp \
-    webconnection.cpp
+    webconnection.cpp \
+    startupdialog.cpp \
+    receiver.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -77,7 +79,9 @@ HEADERS  += mainwindow.h \
     objectmanagement.h \
     mobjects.h \
     aboutdialog.h \
-    webconnection.h
+    webconnection.h \
+    startupdialog.h \
+    receiver.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -98,4 +102,5 @@ FORMS    += mainwindow.ui \
     objectform.ui \
     objectmanagement.ui \
     aboutdialog.ui \
-    webconnection.ui
+    webconnection.ui \
+    startupdialog.ui

@@ -5,6 +5,7 @@
 #include <QSpacerItem>
 
 #include <logindialog.h>
+#include <startupdialog.h>
 #include <aboutdialog.h>
 #include <dialogchangepassword.h>
 #include <formchangepermissions.h>
@@ -44,55 +45,51 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Reghaabat::instance()->serverUrl = "http://reghaabat.ap01.aws.af.cm/server/";
-
+    Reghaabat::instance()->serverUrl = "http://127.0.0.1/reghaabat-server/server/";
     prepareUI();
-    applyPermission();
 
-    firstPage();
+    // check for db connection
+    if (! Connector::connectDb().isOpen()) {
+        QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Database Connection Error!"));
+        exit(1);
+    }
 
-    if (! options()["Match"].toBool())
-    {
+    // check for startup situation
+    if (isStartup()) {
+        StartupDialog dialog(this);
+        dialog.exec();
+
+        if (isStartup())
+            exit(0);
+    }
+
+    if (! options()["Match"].toBool()) {
         ui->actionUserManagement->setVisible(false);
         ui->actionMatchManagement->setVisible(false);
         ui->actionSetScores->setVisible(false);
         ui->actionPayment->setVisible(false);
     }
 
-    // check for db connection
-    if (! Connector::connectDb().isOpen())
-    {
-        QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Database Connection Error!"));
-        exit(1);
-    }
-
-    // check for startup situation
-    QSqlQuery qry;
-    qry.exec("select id from library");
-    qry.next();
-    Reghaabat::instance()->libraryId = qry.value(0).toString();
-    if (Reghaabat::instance()->libraryId.isEmpty()) {
-        // todo: get new library_id from server
-    }
-
-    qry.exec("select id from users where upassword is not null");
-    if (! qry.next())
-    {
-        Reghaabat::instance()->userId = "";
-        Reghaabat::instance()->userName = "";
-        Reghaabat::instance()->userGender = "male";
-        Reghaabat::instance()->userPermission = "master";
-
-        ui->actionLogin->setEnabled(false);
-        applyPermission();
-    }
-    else
-        on_actionLogin_triggered();
+    applyPermission();
+    firstPage();
+    on_actionLogin_triggered();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+bool MainWindow::isStartup()
+{
+    QSqlQuery qry;
+    qry.exec("select id from library"); qry.next();
+    Reghaabat::instance()->libraryId = qry.value(0).toString();
+    if (Reghaabat::instance()->libraryId.isEmpty())
+        return true;
+
+    qry.exec("select id from users where upassword is not null");
+    return !qry.next();
 }
 
 void MainWindow::prepareUI()
@@ -128,8 +125,9 @@ void MainWindow::prepareUI()
     bSync->setToolTip(tr("Sync"));
 
     pSync = new QProgressBar(this);
-    pSync->setMaximumWidth(50);
+    pSync->setMaximumWidth(70);
     pSync->setLayoutDirection(Qt::LeftToRight);
+    pSync->setTextVisible(false);
     connect(syncer, SIGNAL(progress(int)), pSync, SLOT(setValue(int)));
     connect(syncer, SIGNAL(finished(QString)), this, SLOT(synced(QString)));
     pSync->setVisible(false);
