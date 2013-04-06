@@ -174,6 +174,12 @@ void migrate(QString newVersion)
         ok &= qry.exec("INSERT INTO objects (id,author_id,publication_id,type_id,title) SELECT id,author_id,publication_id,type_id,title FROM _temp_table");
         ok &= qry.exec("DROP TABLE _temp_table");
 
+        // update users table
+        qry.exec("ALTER TABLE users RENAME TO _temp_table");
+        qry.exec("CREATE TABLE users (id integer not null primary key, national_id bigint null default null, firstname varchar(255) not null, lastname varchar(255) not null, birth_date date null default null, address varchar(255) null default null, phone varchar(50) null default null, gender varchar(10) not null, description varchar(255) null default null, email varchar(255) null default null, upassword char(40) null default null, label varchar(10) null default null, account tinyint(4) not null references accounts(id) on update cascade, unique (email) on conflict abort, unique (national_id) on conflict abort)");
+        qry.exec("insert into users select * from _temp_table");
+        qry.exec("DROP TABLE _temp_table");
+
         // log update
         ok &= qry.exec("update logs set row_id = 100000+(row_id%100000) where table_name in ('users', 'authors', 'publications', 'roots', 'branches', 'matches', 'files', 'questions')");
         ok &= qry.exec("update logs set user_id = 100000+(user_id%100000)");

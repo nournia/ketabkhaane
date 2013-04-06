@@ -54,7 +54,7 @@ CREATE TABLE branches (
 );
 CREATE TABLE users (
 	id integer not null primary key,
-	national_id integer null default null,
+	national_id bigint null default null,
 	firstname varchar(255) not null,
 	lastname varchar(255) not null,
 	birth_date date null default null,

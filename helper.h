@@ -82,9 +82,9 @@ inline QString getJsonValue(QVariant v)
     if (v.isNull())
         return "null";
     else {
-        bool ok; int i = v.toInt(&ok);
+        bool ok; v.toInt(&ok);
         if (ok)
-            return QString::number(i);
+            return v.toString();
         else
             return sanitizeString(v.toString());
     }
@@ -94,8 +94,7 @@ inline QString getRecordJSON(QSqlQuery& qry)
     int cols = qry.record().count();
     QString json;
     bool firstCol = true;
-    for (int i = 1; i < cols; i++)
-    {
+    for (int i = 1; i < cols; i++) {
         if (! firstCol) json += ','; else firstCol = false;
         json += getJsonValue(qry.value(i).toString());
     }
