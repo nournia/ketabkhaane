@@ -31,7 +31,7 @@ QString filesUrl();
 // db
 
 StrMap getRecord(QSqlQuery& query);
-QString getReplaceQuery(QString table, StrMap data, QString id);
+QString getReplaceQuery(QString table, StrMap data, QString& id);
 QVariant insertTitleEntry(QString table, QString title);
 void insertLog(QString table, QString operation, QVariant id, QString userId = "", QDateTime time = QDateTime::currentDateTime());
 

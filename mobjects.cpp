@@ -62,13 +62,12 @@ QString MObjects::set(QString objectId, StrMap data)
     object["publication_id"] = data["publication_id"];
     object["type_id"] = data["type_id"];
 
+    bool create = objectId.isEmpty();
     if (! qry.exec(getReplaceQuery("objects", object, objectId)))
         return qry.lastError().text();
 
-    if (objectId.isEmpty()) {
-        objectId = qry.lastInsertId().toString();
+    if (create)
         insertLog("objects", "insert", objectId);
-    }
     else
         insertLog("objects", "update", objectId);
 

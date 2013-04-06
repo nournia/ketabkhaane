@@ -55,7 +55,7 @@ QString MUsers::getUsersQuery()
     return "select id as cid, label as clabel, firstname||' '||lastname as ctitle from users where 1" + getGenderCondition();
 }
 
-QString MUsers::set(QString userId, StrMap user)
+QString MUsers::set(QString userId, StrMap& user)
 {
     QSqlQuery qry;
 
@@ -90,17 +90,13 @@ QString MUsers::set(QString userId, StrMap user)
         user["label"] = getNewLabel();
 
     // store
+    bool create = userId.isEmpty();
+
     if (! qry.exec(getReplaceQuery("users", user, userId)))
         return qry.lastError().text();
 
-    if (userId.isEmpty())
-    {
-        userId = qry.lastInsertId().toString();
+    if (create)
         insertLog("users", "insert", userId);
-
-        if (qry.exec(QString("insert into scores (user_id) values (%1)").arg(userId)))
-            insertLog("scores", "insert", userId);
-    }
     else
         insertLog("users", "update", userId);
 

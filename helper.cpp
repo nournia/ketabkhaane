@@ -58,7 +58,7 @@ StrMap getRecord(QSqlQuery& query)
     return map;
 }
 
-QString getReplaceQuery(QString table, StrMap data, QString id)
+QString getReplaceQuery(QString table, StrMap data, QString& id)
 {
     QString fields, values;
 
@@ -82,10 +82,22 @@ QString getReplaceQuery(QString table, StrMap data, QString id)
     }
 
     values = refineText(values);
-    if (id == "")
-        return QString("insert into %1 (%2) values (%3)").arg(table).arg(fields).arg(values);
+    if (id.isEmpty()) {
+        QStringList entityTables = QStringList() << "users" << "matches" << "questions" << "files" << "objects" << "authors" << "publications" << "roots" << "branches";
+        if (entityTables.contains(table)) {
+            QSqlQuery qry;
+            qry.exec("select ifnull(max(id), (select id from library)*100000) + 1 from "+ table +" where id/100000 = (select id from library)");
+            qry.next();
+            id = qry.value(0).toString();
+        }
+
+        if (id.isEmpty())
+            return QString("insert into %1 (%2) values (%3)").arg(table, fields, values);
+        else
+            return QString("insert into %1 (id, %2) values (%4, %3)").arg(table, fields, values, id);
+    }
     else
-        return QString("update %1 set %2 where id = %3").arg(table).arg(values).arg(id);
+        return QString("update %1 set %2 where id = %3").arg(table, values, id);
 }
 
 QVariant insertTitleEntry(QString table, QString title)
@@ -100,12 +112,14 @@ QVariant insertTitleEntry(QString table, QString title)
     if (tmp.next())
         return tmp.value(0);
 
-    if (tmp.exec("insert into " + table + " (title) values ('" + title + "')"))
-    {
-        QString id = tmp.lastInsertId().toString();
+    QString id;
+    StrMap entity;
+    entity["title"] = title;
+    if (tmp.exec(getReplaceQuery(table, entity, id))) {
         insertLog(table, "insert", id);
         return id;
     }
+    return "";
 }
 
 QString getInAppFilename(QString filename)
@@ -114,13 +128,16 @@ QString getInAppFilename(QString filename)
     {
         QString ext = filename.mid(filename.indexOf('.') + 1);
 
-        QSqlQuery qry;
-        if (qry.exec(QString("insert into files (extension) values ('%1')").arg(ext)))
-        {
-            QString id = qry.lastInsertId().toString();
-            insertLog("files", "insert", id);
+        StrMap file;
+        QString fileId;
+        file["extension"] = ext;
 
-            QString newfile = QString("%1/files/%2.%3").arg(dataFolder()).arg(id).arg(ext);
+        QSqlQuery qry;
+        if (qry.exec(getReplaceQuery("files", file, fileId)))
+        {
+            insertLog("files", "insert", fileId);
+
+            QString newfile = QString("%1/files/%2.%3").arg(dataFolder()).arg(fileId).arg(ext);
 
             if (QFile::exists(newfile))
                 QFile::remove(newfile);

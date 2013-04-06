@@ -87,16 +87,15 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
     match["ageclass"] = data["ageclass"];
 
     // matches table
-    if (! qry.exec(getReplaceQuery("matches", match, matchId)))
-    {
+    bool create = matchId.isEmpty();
+
+    if (! qry.exec(getReplaceQuery("matches", match, matchId))) {
         db.rollback();
         return qry.lastError().text();
     }
-    if (matchId.isEmpty())
-    {
-        matchId = qry.lastInsertId().toString();
+    if (create)
         insertLog("matches", "insert", matchId);
-    } else
+    else
         insertLog("matches", "update", matchId);
 
     QString supportId;
@@ -111,13 +110,11 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
     qry.exec("select id from supports where match_id = "+ matchId);
     if (qry.next())
         supportId = qry.value(0).toString();
-    if (! qry.exec(getReplaceQuery("supports", support, supportId)))
-    {
+    if (! qry.exec(getReplaceQuery("supports", support, supportId))) {
         db.rollback();
         return qry.lastError().text();
     }
-    if (supportId.isEmpty())
-    {
+    if (supportId.isEmpty()) {
         supportId = qry.lastInsertId().toString();
         insertLog("supports", "insert", supportId);
     } else
@@ -147,15 +144,13 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
                 persistent += (i == 0 ? "" : ",") + qry.value(0).toString();
             else
             {
-                if (! qry.exec(getReplaceQuery("questions", question, "")))
-                {
+                QString questionId;
+                if (! qry.exec(getReplaceQuery("questions", question, questionId))) {
                     db.rollback();
                     return qry.lastError().text();
                 }
 
-                QVariant questionId = qry.lastInsertId();
-                persistent += (i == 0 ? "" : ",") + questionId.toString();
-
+                persistent += (i == 0 ? "" : ",") + questionId;
                 insertLog("questions", "insert", questionId);
             }
         }
@@ -163,10 +158,8 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
         // delete removed questions
         QSqlQuery qryQ;
         qryQ.exec(QString("select id from questions where match_id = %1 and id not in (%2)").arg(matchId).arg(persistent));
-        while (qryQ.next())
-        {
-            if (! qry.exec("delete from questions where id = "+ qryQ.value(0).toString()))
-            {
+        while (qryQ.next()) {
+            if (! qry.exec("delete from questions where id = "+ qryQ.value(0).toString())) {
                 qryQ.clear();
                 db.rollback();
                 return qry.lastError().text();
@@ -177,11 +170,10 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
 
 
     // files table
-
     newfiles = extractFilenames(match["content"].toString());
     foreach (QString filename, oldfiles)
-    if (! newfiles.contains(filename))
-        removeInAppFile(filename);
+        if (! newfiles.contains(filename))
+            removeInAppFile(filename);
 
 
     db.commit();
