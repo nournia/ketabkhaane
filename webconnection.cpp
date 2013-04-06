@@ -73,12 +73,12 @@ void WebConnection::received(QVariantMap data)
     }
     else if (data["operation"] == "items") {
         if (!preview) {
-            storeRows("authors", data["authors"]);
-            storeRows("publications", data["publications"]);
-            storeRows("objects", data["objects"]);
-            storeRows("matches", data["matches"]);
-            storeRows("questions", data["questions"]);
-            storeRows("files", data["files"]);
+            receiver->storeRows("authors", data["authors"]);
+            receiver->storeRows("publications", data["publications"]);
+            receiver->storeRows("objects", data["objects"]);
+            receiver->storeRows("matches", data["matches"]);
+            receiver->storeRows("questions", data["questions"]);
+            receiver->storeRows("files", data["files"]);
 
             // download files
             foreach(QVariant row, data["files"].toList()) {
@@ -121,36 +121,6 @@ void WebConnection::received(QVariantMap data)
     }
 
     receiver->popUrl();
-}
-
-void WebConnection::storeRows(QString table, QVariant rows)
-{
-    QSqlQuery qry;
-    QStringList marks;
-    QVariantList fields;
-
-    foreach(QVariant row, rows.toList()) {
-        fields = row.toList();
-        marks.clear();
-        for(int i = 0; i < fields.length(); i++)
-            marks.append("?");
-
-        qry.prepare(QString("insert into %1 values (%2)").arg(table, marks.join(",")));
-
-        foreach(QVariant field, fields)
-            qry.addBindValue(field);
-
-        if (qry.exec()) {
-            // supports and belongs table
-            if (table == "matches") {
-                if (qry.exec(QString("insert into supports (match_id, corrector_id, current_state, score) values (%1, %2, 'imported', 0)").arg(fields[0].toString(), Reghaabat::instance()->userId)))
-                    insertLog("supports", "insert", qry.lastInsertId());
-            } else if (table == "objects") {
-                if (qry.exec(QString("insert into belongs (object_id) values (%1)").arg(fields[0].toString())))
-                    insertLog("belongs", "insert", qry.lastInsertId());
-            }
-        }
-    }
 }
 
 void WebConnection::on_bImport_clicked()

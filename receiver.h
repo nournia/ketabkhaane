@@ -18,6 +18,7 @@ public:
     void popUrl();
     void queueUrl(QString args, bool file = false);
     void get(QString args);
+    void storeRows(QString table, QVariant rows);
 
 signals:
     void received(QVariantMap data);

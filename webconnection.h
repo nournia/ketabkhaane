@@ -23,8 +23,6 @@ public:
     explicit WebConnection(QWidget *parent = 0);
     ~WebConnection();
 
-    void storeRows(QString table, QVariant rows);
-
 private slots:
     void received(QVariantMap data);
     void on_bImport_clicked();

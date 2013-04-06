@@ -55,3 +55,38 @@ void Receiver::received()
     QString data = reply->readAll();
     emit received(QJsonDocument::fromJson(data.toUtf8()).object().toVariantMap());
 }
+
+void Receiver::storeRows(QString table, QVariant rows)
+{
+    QSqlQuery qry;
+    QStringList marks;
+    QVariantList fields;
+
+    foreach(QVariant row, rows.toList()) {
+        fields = row.toList();
+        marks.clear();
+        for(int i = 0; i < fields.length(); i++)
+            marks.append("?");
+
+        qry.prepare(QString("insert into %1 values (%2)").arg(table, marks.join(",")));
+
+        foreach(QVariant field, fields) {
+            if (field.isNull())
+                qry.addBindValue(field);
+            else
+                qry.addBindValue(field.toString());
+        }
+
+        if (qry.exec()) {
+            // supports and belongs table
+            if (table == "matches") {
+                if (qry.exec(QString("insert into supports (match_id, corrector_id, current_state, score) values (%1, %2, 'imported', 0)").arg(fields[0].toString(), Reghaabat::instance()->userId)))
+                    insertLog("supports", "insert", qry.lastInsertId());
+            } else if (table == "objects") {
+                if (qry.exec(QString("insert into belongs (object_id) values (%1)").arg(fields[0].toString())))
+                    insertLog("belongs", "insert", qry.lastInsertId());
+            }
+        }
+    }
+}
+
