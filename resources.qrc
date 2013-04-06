@@ -41,6 +41,8 @@
         <file>images/log.png</file>
         <file>images/download.png</file>
         <file>images/sync.png</file>
+        <file>images/key.png</file>
+        <file>images/reload.png</file>
         <file>images/reghaabat.ico</file>
     </qresource>
 </RCC>
