@@ -78,10 +78,19 @@ void WebConnection::receive()
         items->setHeaderData(3, Qt::Horizontal, tr("AgeClass"));
         items->setHeaderData(4, Qt::Horizontal, tr("Category"));
 
+        QStringList imported;
+        QSqlQuery qry;
+        qry.exec("select id from matches where id / 100000 != (select id from library)");
+        while(qry.next())
+            imported.append(qry.value(0).toString());
+
         QStandardItem* item;
         foreach(QVariant row, response["matches"].toList()) {
-            items->insertRow(0);
             fields = row.toStringList();
+            if (imported.contains(fields[0]))
+                continue;
+
+            items->insertRow(0);
             for (int i = 0; i < 4; i++)
                 items->setData(items->index(0, i+1), fields[i]);
 
@@ -112,6 +121,12 @@ void WebConnection::receive()
                 queueUrl(QString("%2.%3").arg(fields[0], fields[1]), true);
             }
 
+            // complete
+            QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Data Imported."));
+            for(int i = 0; i < items->rowCount(); i++)
+                if (items->item(i, 0)->checkState())
+                    items->removeRow(i);
+            ui->bImport->setEnabled(true);
         } else {
             fields = response["matches"].toList()[0].toStringList();
 
@@ -181,8 +196,12 @@ void WebConnection::on_bImport_clicked()
             matchIds.append(items->data(items->index(i, 1)).toString());
 
     preview = false;
-    if (matchIds.length())
+    if (matchIds.length()) {
         queueUrl("m=matches&o=items&q="+ matchIds.join(","));
+        ui->bImport->setEnabled(false);
+    } else
+        QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Please select matches."));
+
     popUrl();
 }
 
@@ -194,5 +213,6 @@ void WebConnection::on_bPreview_clicked()
         preview = true;
         queueUrl("m=matches&o=items&q="+ matchId);
     }
+
     popUrl();
 }
