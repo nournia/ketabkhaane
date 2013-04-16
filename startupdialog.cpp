@@ -93,7 +93,7 @@ void StartupDialog::on_buttonBox_accepted()
             user["lastname"] = ui->eLastname->text();
             user["gender"] = "male";
             user["birth_date"] = toGregorian("1370/01/01");
-            user["account"] = "0";
+            user["account_id"] = "0";
             msg = MUsers::set("", user);
 
             // add permission
@@ -117,7 +117,7 @@ void StartupDialog::on_buttonBox_accepted()
     if (msg.isEmpty()) {
         db.commit();
         // login
-        // this->close();
+        this->close();
     } else {
         db.rollback();
         QMessageBox::warning(this, QApplication::tr("Reghaabat"), msg);
