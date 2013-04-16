@@ -10,7 +10,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->eUsername->setQuery("select users.id as cid, users.label as clabel, firstname || ' ' || lastname as ctitle from users inner join permissions on users.id = permissions.user_id where permission != 'user' and upassword is not null");
+    ui->eUsername->setQuery("select users.id as cid, permissions.label as clabel, firstname||' '||lastname as ctitle from users inner join permissions on users.id = permissions.user_id where permission != 'user' and upassword is not null");
     connect(ui->eUsername, SIGNAL(select()), this, SLOT(selectUser()));
     ui->eUsername->setFocus();
 }

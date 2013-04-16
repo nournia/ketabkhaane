@@ -64,8 +64,6 @@ CREATE TABLE users (
 	description varchar(255) null default null,
 	email varchar(255) null default null,
 	upassword char(40) null default null,
-	label varchar(10) null default null,
-	account tinyint(4) not null references accounts(id) on update cascade,
 
 	unique (email) on conflict abort,
 	unique (national_id) on conflict abort
@@ -143,8 +141,9 @@ CREATE TABLE open_scores (
 CREATE TABLE permissions (
 	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
+	account_id tinyint(4) not null references accounts(id) on update cascade,
 	permission varchar(10) not null, -- enum("user", "operator", "designer", "manager", "master", "admin")
-	accept tinyint(1) not null default "0"
+	label varchar(10) null default null
 );
 CREATE TABLE supports (
 	id integer not null primary key autoincrement,

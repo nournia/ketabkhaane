@@ -23,7 +23,7 @@ MatchForm::MatchForm(QWidget *parent) :
     ui->buttonBox->addButton(new QPushButton(QIcon(":/images/preview.png"), ViewerForm::tr("Preview")), QDialogButtonBox::ResetRole);
 
     ui->eObject->setQuery(MObjects::getObjectsQuery());
-    ui->eCorrector->setQuery("select id as cid, label as clabel, firstname ||' '|| lastname as ctitle from users");
+    ui->eCorrector->setQuery("select users.id as cid, label as clabel, firstname||' '||lastname as ctitle from users inner join permissions on users.id = permissions.user_id");
     ui->eMatch->setQuery("select matches.id as cid, ifnull(belongs.label, categories.title) as clabel, matches.title as ctitle "
                          "from matches left join belongs on matches.object_id = belongs.object_id left join categories on matches.category_id = categories.id");
 

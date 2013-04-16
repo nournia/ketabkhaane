@@ -187,7 +187,7 @@ int MObjects::getFine(QString userId, QString objectId)
 
     int fine = 0;
     bool book;
-    qry.exec(QString("select bookfine, cdfine, (select type_id from objects where id = %1) from accounts inner join users on users.account = accounts.id where users.id = %2").arg(objectId).arg(userId));
+    qry.exec(QString("select bookfine, cdfine, (select type_id from objects where id = %1) from accounts where id = (select account_id from permissions where user_id = %2)").arg(objectId).arg(userId));
     qry.next();
     book = qry.value(2).toInt() == 0;
     fine = qry.value(qry.value(2).toInt()).toInt();

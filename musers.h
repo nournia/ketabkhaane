@@ -17,7 +17,7 @@ public:
     static int getScore(QString userId);
     static int getPayment(QString userId);
 
-    static QString set(QString userId, StrMap& user);
+    static QString set(QString userId, StrMap& data);
     static bool login(QString userId, QString password, StrMap& user);
     static QString changePassword(QString userId, QString oldPass, QString newPass, QString rePass);
     static QString setPassword(QString userId, QString newPass);

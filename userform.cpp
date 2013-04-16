@@ -61,7 +61,7 @@ void UserForm::on_buttonBox_accepted()
     user["description"] = ui->eDescription->text();
     user["birth_date"] = toGregorian(ui->eBirthDate->text());
     user["gender"] = ui->rMale->isChecked() ? "male" : "female";
-    user["account"] = ui->cAccount->itemData(ui->cAccount->currentIndex());
+    user["account_id"] = ui->cAccount->itemData(ui->cAccount->currentIndex());
     user["label"] = ui->eLabel->text();
 
     QString msg = MUsers::set(ui->eUser->value(), user);
@@ -95,7 +95,7 @@ void UserForm::selectUser()
         ui->ePhone->setText(user["phone"].toString());
         ui->eDescription->setText(user["description"].toString());
         ui->eLabel->setText(user["label"].toString());
-        ui->cAccount->setCurrentIndex(ui->cAccount->findData(user["account"]));
+        ui->cAccount->setCurrentIndex(ui->cAccount->findData(user["account_id"]));
 
         ui->eBirthDate->setText(toJalali(user["birth_date"].toDate()));
 

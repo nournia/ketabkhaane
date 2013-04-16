@@ -15,40 +15,6 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>New User</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <layout class="QHBoxLayout" name="lUser">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Username</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MyLineEdit" name="eUser"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bAdd">
-        <property name="text">
-         <string>Add</string>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/images/plus.png</normaloff>:/images/plus.png</iconset>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <widget class="QTableView" name="tPermissions">
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
@@ -57,20 +23,9 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>mylineedit.h</header>
-  </customwidget>
- </customwidgets>
  <tabstops>
-  <tabstop>eUser</tabstop>
-  <tabstop>bAdd</tabstop>
   <tabstop>tPermissions</tabstop>
  </tabstops>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

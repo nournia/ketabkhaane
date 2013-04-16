@@ -107,11 +107,6 @@ public:
     PermissionModel* model;
 private:
     Ui::FormChangePermissions *ui;
-
-private slots:
-    void on_bAdd_clicked();
-    void selectUser();
-    void cancelUser();
 };
 
 

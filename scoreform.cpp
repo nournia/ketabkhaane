@@ -12,7 +12,7 @@ ScoreForm::ScoreForm(QWidget *parent) :
     ui->setupUi(this);
 
     // add corrector edit
-    ui->eCorrector->setQuery(MUsers::getUsersQuery() + " and id in (select corrector_id from supports)");
+    ui->eCorrector->setQuery(MUsers::getUsersQuery() + " and users.id in (select corrector_id from supports)");
     connect(ui->eCorrector, SIGNAL(select()), this, SLOT(selectCorrector()));
     connect(ui->eCorrector, SIGNAL(cancel()), this, SLOT(cancelCorrector()));
 

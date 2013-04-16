@@ -175,15 +175,25 @@ void migrate(QString newVersion)
         ok &= qry.exec("DROP TABLE _temp_table");
 
         // update users table
-        qry.exec("ALTER TABLE users RENAME TO _temp_table");
-        qry.exec("CREATE TABLE users (id integer not null primary key, national_id bigint null default null, firstname varchar(255) not null, lastname varchar(255) not null, birth_date date null default null, address varchar(255) null default null, phone varchar(50) null default null, gender varchar(10) not null, description varchar(255) null default null, email varchar(255) null default null, upassword char(40) null default null, label varchar(10) null default null, account tinyint(4) not null references accounts(id) on update cascade, unique (email) on conflict abort, unique (national_id) on conflict abort)");
-        qry.exec("insert into users select * from _temp_table");
-        qry.exec("DROP TABLE _temp_table");
+        ok &= qry.exec("ALTER TABLE permissions RENAME TO _permissions");
+        ok &= qry.exec("CREATE TABLE permissions (id integer not null primary key autoincrement, user_id integer not null references users(id) on update cascade, account_id tinyint(4) not null references accounts(id) on update cascade, permission varchar(10) not null, label varchar(10) null default null)");
+        ok &= qry.exec("insert into permissions (user_id, account_id, permission, label) select id, account, 'user', label from users");
+
+        qry.exec("select user_id, permission from _permissions");
+        while (qry.next())
+            ok &= qryTmp.exec(QString("update permissions set permission = '%2' where user_id = %1").arg(qry.value(0).toString(), qry.value(1).toString()));
+
+        ok &= qry.exec("DROP TABLE _permissions");
+
+        ok &= qry.exec("ALTER TABLE users RENAME TO _users");
+        ok &= qry.exec("CREATE TABLE users (id integer not null primary key, national_id bigint null default null, firstname varchar(255) not null, lastname varchar(255) not null, birth_date date null default null, address varchar(255) null default null, phone varchar(50) null default null, gender varchar(10) not null, description varchar(255) null default null, email varchar(255) null default null, upassword char(40) null default null, unique (email) on conflict abort, unique (national_id) on conflict abort)");
+        ok &= qry.exec("insert into users select id, national_id, firstname, lastname, birth_date, address, phone, gender, description, email, upassword from _users");
+        ok &= qry.exec("DROP TABLE _users");
 
         // log update
         ok &= qry.exec("update logs set row_id = 100000+(row_id%100000) where table_name in ('users', 'authors', 'publications', 'roots', 'branches', 'matches', 'files', 'questions')");
         ok &= qry.exec("update logs set user_id = 100000+(user_id%100000)");
-        ok &= qry.exec("delete from logs where table_name == 'objects' or table_name == 'resources' or table_name == 'scores'");
+        ok &= qry.exec("delete from logs where table_name == 'objects' or table_name == 'resources' or table_name == 'scores' or table_name == 'permissions'");
         ok &= qry.exec("delete from logs where row_op = 'delete' or row_op = 'update'");
         ok &= qry.exec("delete from logs where table_name = 'questions' and row_id not in (select id from questions)");
         ok &= qry.exec("delete from logs where table_name = 'borrows' and row_id not in (select id from borrows)");
@@ -220,6 +230,10 @@ void migrate(QString newVersion)
         qry.exec("select id from belongs");
         while (qry.next())
             insertLog("belongs", "insert", qry.value(0), master);
+
+        qry.exec("select id from permissions");
+        while (qry.next())
+            insertLog("permissions", "insert", qry.value(0), master);
     }
 
     if (change && ok)

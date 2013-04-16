@@ -4,7 +4,7 @@
 bool MUsers::get(QString userId, StrMap& user)
 {
     QSqlQuery qry;
-    qry.exec("select * from users where id = "+ userId);
+    qry.exec("select users.*, permissions.label, permissions.account_id from users inner join permissions on users.id = permissions.user_id where users.id = "+ userId);
     if (! qry.next()) return false;
 
     user = getRecord(qry);
@@ -36,7 +36,7 @@ QString MUsers::getAgeClass(QString userId)
 QString MUsers::getNewLabel()
 {
     QSqlQuery qry;
-    qry.exec("select max(label) from users");
+    qry.exec("select max(label) from permissions");
     if (qry.next() && qry.value(0).toInt())
         return QString("%1").arg(qry.value(0).toInt() + 1);
     else
@@ -52,47 +52,50 @@ QString MUsers::getGenderCondition()
 
 QString MUsers::getUsersQuery()
 {
-    return "select id as cid, label as clabel, firstname||' '||lastname as ctitle from users where 1" + getGenderCondition();
+    return "select users.id as cid, label as clabel, firstname||' '||lastname as ctitle from users inner join permissions on users.id = permissions.user_id where 1" + getGenderCondition();
 }
 
-QString MUsers::set(QString userId, StrMap& user)
+QString MUsers::set(QString userId, StrMap& data)
 {
     QSqlQuery qry;
 
     // validation
 
     // basic
-    if (user["firstname"].toString().isEmpty() || user["lastname"].toString().isEmpty())
+    if (data["firstname"].toString().isEmpty() || data["lastname"].toString().isEmpty())
         return QObject::tr("User name is required.");
-    if (! user["national_id"].toString().isEmpty() && user["national_id"].toInt() == 0)
+    if (! data["national_id"].toString().isEmpty() && data["national_id"].toInt() == 0)
         return QObject::tr("National id is not valid.");
-    if (! user["birth_date"].toDate().isValid())
+    if (! data["birth_date"].toDate().isValid())
         return QObject::tr("Birth date is not valid.");
 
     /*
     // used name
     user["firstname"] = refineText(user["firstname"].toString().trimmed());
     user["lastname"] = refineText(user["lastname"].toString().trimmed());
-    qry.exec(QString("select id, firstname ||' '|| lastname as name from users where name = '%1'").arg(user["firstname"].toString() +" "+ user["lastname"].toString()));
+    qry.exec(QString("select id, firstname ||' '|| lastname as name from users where name = '%1'").arg(data["firstname"].toString() +" "+ data["lastname"].toString()));
     if (qry.next())
         if (qry.value(0).toString() != userId)
             return QObject::tr("There is another user with this name.");
     */
 
     // used national id
-    qry.exec("select id, firstname ||' '|| lastname from users where national_id = "+ user["national_id"].toString());
+    qry.exec("select id, firstname ||' '|| lastname from users where national_id = "+ data["national_id"].toString());
     if (qry.next())
         if (qry.value(0).toString() != userId)
             return QObject::tr("%1 has exact same national id.").arg(qry.value(1).toString());
 
     // set user label
     if (userId.isEmpty())
-        user["label"] = getNewLabel();
+        data["label"] = getNewLabel();
 
     // store
     bool create = userId.isEmpty();
+    StrMap permission;
+    permission["account_id"] = data.take("account_id");
+    permission["label"] = data.take("label");
 
-    if (! qry.exec(getReplaceQuery("users", user, userId)))
+    if (! qry.exec(getReplaceQuery("users", data, userId)))
         return qry.lastError().text();
 
     if (create)
@@ -100,7 +103,28 @@ QString MUsers::set(QString userId, StrMap& user)
     else
         insertLog("users", "update", userId);
 
-    user["id"] = userId;
+    data["id"] = userId;
+
+    // store permission
+    permission["user_id"] = userId;
+    if (create)
+        permission["permission"] = "user";
+
+    QString permissionId;
+    qry.exec("select id from permissions where user_id = "+ userId);
+    if (qry.next())
+        permissionId = qry.value(0).toString();
+
+    if (! qry.exec(getReplaceQuery("permissions", permission, permissionId)))
+        return qry.lastError().text();
+
+    if (permissionId.isEmpty()) {
+        permissionId = qry.lastInsertId().toString();
+        insertLog("permissions", "insert", permissionId);
+    }
+    else
+        insertLog("permissions", "update", permissionId);
+
     return "";
 }
 
