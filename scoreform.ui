@@ -16,6 +16,12 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="gCorrection">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string/>
      </property>
@@ -27,45 +33,49 @@
        <number>3</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="lCorrector">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>21</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Corrector</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MyLineEdit" name="eCorrector"/>
-        </item>
-       </layout>
+       <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>21</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Corrector</string>
+        </property>
+       </widget>
       </item>
       <item>
-       <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="1">
-         <widget class="QSpinBox" name="sDays">
-          <property name="minimum">
-           <number>1</number>
-          </property>
-          <property name="maximum">
-           <number>1000</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Days For Show Score</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="MyLineEdit" name="eCorrector"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Days For Show Score</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="sDays">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>1000</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -87,9 +97,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>eCorrector</tabstop>
   <tabstop>tScores</tabstop>
-  <tabstop>sDays</tabstop>
  </tabstops>
  <resources/>
  <connections/>

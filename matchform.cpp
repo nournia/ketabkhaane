@@ -44,6 +44,7 @@ MatchForm::MatchForm(QWidget *parent) :
     fillerItem = new QWidget(this);
     QFormLayout* lay = new QFormLayout(fillerItem);
     QPushButton* button = new QPushButton(QIcon(":/images/star.png"), tr("New Question"), fillerItem);
+    button->setMaximumWidth(80);
     connect(button, SIGNAL(clicked()), this, SLOT(bNewQuestion_clicked()));
     lay->addRow("", button);
     fillerItem->setLayout(lay);

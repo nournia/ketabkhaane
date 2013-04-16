@@ -16,22 +16,16 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="gUser">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>32</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>32</height>
-      </size>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="title">
       <string/>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <property name="topMargin">
        <number>2</number>
       </property>
@@ -39,18 +33,20 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="lUser">
-        <item>
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Username</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MyLineEdit" name="eUser"/>
-        </item>
-       </layout>
+       <widget class="QLabel" name="label_6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Username</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="MyLineEdit" name="eUser"/>
       </item>
      </layout>
     </widget>
@@ -117,7 +113,16 @@
          </size>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <item>
@@ -288,7 +293,6 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>eUser</tabstop>
   <tabstop>eFirstname</tabstop>
   <tabstop>eLastname</tabstop>
   <tabstop>rMale</tabstop>

@@ -70,12 +70,7 @@ void FormOperator::cancelObject()
 {
     ui->bDeliver->setEnabled(false);
     ui->bPreview->setEnabled(false);
-
-    int height = 60;
     ui->gMatchOpt->setVisible(false);
-    ui->gDeliver->setMaximumHeight(height);
-    ui->gDeliver->setMinimumHeight(height);
-
     ui->lMatchError->setText("");
 }
 
@@ -165,10 +160,7 @@ void FormOperator::selectObject()
         }
 
         if (! matchId.isEmpty()) {
-            int height = 90;
             ui->gMatchOpt->setVisible(true);
-            ui->gDeliver->setMaximumHeight(height);
-            ui->gDeliver->setMinimumHeight(height);
             ui->lMatchError->setText(MMatches::isDeliverable(ui->eUser->value(), matchId));
             ui->lMatchError->setVisible(!ui->lMatchError->text().isEmpty());
 

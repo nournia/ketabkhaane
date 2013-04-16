@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>632</width>
-    <height>517</height>
+    <height>535</height>
    </rect>
   </property>
   <property name="layoutDirection">
@@ -305,6 +305,9 @@
        <widget class="QLabel" name="lVersion">
         <property name="text">
          <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
