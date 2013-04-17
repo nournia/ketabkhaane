@@ -126,6 +126,9 @@ QString getInAppFilename(QString filename)
 {
     if (! filename.startsWith(filesUrl()))
     {
+        if (filename.startsWith("file:///"))
+            filename = filename.mid(8);
+
         QString ext = filename.mid(filename.indexOf('.') + 1);
 
         StrMap file;
@@ -146,7 +149,7 @@ QString getInAppFilename(QString filename)
                 filename = newfile;
             else
             {
-                qDebug() << "file copy error: " << newfile;
+                qDebug() << "file copy error: " << filename << newfile;
                 return "";
             }
         } else {

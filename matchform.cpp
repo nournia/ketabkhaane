@@ -52,13 +52,13 @@ MatchForm::MatchForm(QWidget *parent) :
 
     // init editor
     QFile file(getAbsoluteAddress("jwysiwyg.html"));
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QString html = QTextStream(&file).readAll();
-        html = html.replace("\"jwysiwyg/", QString("\"%1/jwysiwyg/").arg(QCoreApplication::applicationDirPath()));
+        html = html.replace("\"jwysiwyg/", QString("\"file:///%1/jwysiwyg/").arg(QCoreApplication::applicationDirPath().replace("\"", "/")));
         ui->eContent->setHtml(html);
         ui->eContent->page()->mainFrame()->addToJavaScriptWindowObject("containerForm", this);
-    }
+    } else
+        qDebug() << "missed" << getAbsoluteAddress("jwysiwyg.html");
 
     cancelMatch();
 }
@@ -286,7 +286,10 @@ void MatchForm::on_buttonBox_clicked(QAbstractButton* button)
 
 QString MatchForm::getFilename()
 {
-    return QFileDialog::getOpenFileName(this, tr("Select Image File")).replace("/", "\\");
+    QString filename = QFileDialog::getOpenFileName(this, tr("Select Image File"));
+    if (!filename.isEmpty())
+        return QString("file:///%1").arg(filename);
+    return "";
 }
 
 void MatchForm::selectObject()

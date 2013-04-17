@@ -12,7 +12,7 @@ Syncer::Syncer(QObject *parent)
     :QObject(parent)
 {
     allLogs = uploadedLogs = 0;
-    maxRows = 500;
+    maxRows = 200;
     url = Reghaabat::instance()->serverUrl + "backend.php";
 }
 

@@ -105,3 +105,32 @@ background-color:white; padding:0px; margin:0; display:block; width: 100%; }
 .wysiwyg-dialog .form-row-value img { min-height: 120px; min-width: 120px; }
 .wysiwyg-dialog .button { font-size: 0.85em; min-width: 40px; height: 23px; }
 .wysiwyg-dialog input[type=text] { direction: ltr; text-align: center; }
+
+.wysiwyg-dialog .wysiwyg-dialog-topbar .wysiwyg-dialog-title {
+	font-size: 15px;
+	font-weight: bold;
+	padding: 3px 5px;
+}
+.wysiwyg-dialog .wysiwyg-dialog-content {
+	padding: 0;
+}
+.wysiwyg-dialog-content #browseImage {
+	margin: 2px;
+	padding: 5px;
+	max-width: 100%;
+	overflow:hidden;
+	max-height: 100px;
+	border: 1px solid #aaa;
+	cursor: pointer;
+}
+.wysiwyg-dialog-content #browseImage:hover {
+	box-shadow: 0 0 5px #777;
+}
+.wysiwyg-dialog-content form.wysiwyg fieldset {
+	border: none;
+	margin: 0;
+	padding: 5px 15px;
+}
+.wysiwyg-dialog .wysiwyg-dialog-topbar .wysiwyg-dialog-close-wrapper .wysiwyg-dialog-close-button {
+	padding: 4px 8px;
+}
