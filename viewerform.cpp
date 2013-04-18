@@ -289,32 +289,28 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
     // kind
     QString kind, advice;
 
-    if (! match["category_id"].toString().isEmpty())
-    {
+    if (! match["category_id"].toString().isEmpty()) {
         qry.exec("select title from categories where id = "+ match["category_id"].toString());
         if (qry.next())
             kind = qry.value(0).toString();
         advice = tr("Your score depends on your mood, attention and genuis.");
     }
-    else if (! match["object_id"].toString().isEmpty())
-    {
+    else if (! match["object_id"].toString().isEmpty()) {
         qry.exec("select objects.type_id, types.title from objects left join types on objects.type_id = types.id where objects.id = "+ match["object_id"].toString());
-        if (qry.next())
+        if (qry.next()) {
             kind = qry.value(1).toString();
-
-        if (qry.value(0).toString() == "0")
-            advice = tr("You can achive up to twice score for writing an abstract of book.");
-        else
-            advice = tr("You can achive up to twice score for writing an abstract of match content.");
+            if (qry.value(0).toString() == "0")
+                advice = tr("You can achive up to twice score for writing an abstract of book.");
+            else
+                advice = tr("You can achive up to twice score for writing an abstract of match content.");
+        }
     }
 
     frame->findFirstElement("#kind").setPlainText(kind);
     frame->findFirstElement("#help").setPlainText(advice);
 
-
     // user
-    if (! match["user"].toString().isEmpty())
-    {
+    if (! match["user"].toString().isEmpty()) {
         qry.exec("select firstname ||' '|| lastname from users where id = "+ match["user"].toString());
         if (qry.next())
             frame->findFirstElement("#user").setPlainText(qry.value(0).toString());
@@ -323,8 +319,7 @@ void ViewerForm::showMatch(StrMap match, QList<StrPair> questions)
 
     // corrector
     qry.exec("select firstname, lastname, label from users where id = "+ match["corrector_id"].toString());
-    if (qry.next())
-    {
+    if (qry.next()) {
         QString corrector;
         QString correctorPrint = options()["CorrectorIdentifier"].toString();
 

@@ -15,6 +15,9 @@ public:
     static QString set(QString matchId, StrMap data, QList<StrPair> questions);
     static QString getScoreSql(QString opt);
 
+    static QList<StrPair> extractQuestions(QString content);
+    static QStringList extractFilenames(QString content);
+
     /* answers */
 
     static QString isDeliverable(QString userId, QString matchId);

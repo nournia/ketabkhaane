@@ -5,6 +5,7 @@
 #include <uihelper.h>
 #include <viewerform.h>
 #include <mainwindow.h>
+#include <mmatches.h>
 
 #include <QMessageBox>
 #include <QCheckBox>
@@ -35,13 +36,14 @@ void WebConnection::received(QVariantMap data)
         qDebug() << "Server Error";
     }
     else if (data["operation"] == "list") {
-        items = new QStandardItemModel(0, 5, this);
+        items = new QStandardItemModel(0, 6, this);
 
         items->setHeaderData(0, Qt::Horizontal, "");
         items->setHeaderData(1, Qt::Horizontal, "");
         items->setHeaderData(2, Qt::Horizontal, tr("Title"));
         items->setHeaderData(3, Qt::Horizontal, tr("AgeClass"));
         items->setHeaderData(4, Qt::Horizontal, tr("Category"));
+        items->setHeaderData(5, Qt::Horizontal, tr("Answers"));
 
         QStringList imported;
         QSqlQuery qry;
@@ -56,7 +58,7 @@ void WebConnection::received(QVariantMap data)
                 continue;
 
             items->insertRow(0);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
                 items->setData(items->index(0, i+1), fields[i]);
 
             item = new QStandardItem();
@@ -66,7 +68,7 @@ void WebConnection::received(QVariantMap data)
         }
 
         ui->tImports->setModel(items);
-        customizeTable(ui->tImports, 5, 80, true, 2, true);
+        customizeTable(ui->tImports, 6, 80, true, 2, true);
         ui->tImports->setColumnWidth(0, 20);
         ui->tImports->setColumnHidden(1, true);
         ui->tImports->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -102,12 +104,9 @@ void WebConnection::received(QVariantMap data)
             match["ageclass"] = fields[3];
             match["object_id"] = fields[4];
 
-            if (fields[6].isEmpty()) {
-                foreach(QVariant row, data["questions"].toList()) {
-                    fields = row.toStringList();
-                    questions.append(qMakePair(fields[2], fields[3]));
-                }
-            } else {
+            if (fields[5].isEmpty())
+                questions = MMatches::extractQuestions(fields[6]);
+            else {
                 match["category_id"] = fields[5];
                 QString html = fields[6];
                 html.replace("src=\"", "src=\""+ Reghaabat::instance()->serverUrl +"files.php?q=");

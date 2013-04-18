@@ -15,21 +15,25 @@ bool MMatches::get(QString matchId, StrMap& match, QList<StrPair>& questions)
     match = getRecord(qry);
     if (!match["category_id"].toString().isEmpty())
         match["content"] = match["content"].toString().replace("src=\"", QString("src=\"%1/").arg(filesUrl()));
-    else {
-        QString content = match["content"].toString().mid(5);
-        QVariantList items = QJsonDocument::fromJson(content.toUtf8()).array().toVariantList();
-        foreach (QVariant item, items)
-            questions.append(qMakePair(item.toStringList()[0], item.toStringList()[1]));
-    }
+    else
+        questions = extractQuestions(match["content"].toString());
 
     return true;
 }
 
-QStringList extractFilenames(QString content)
+QList<StrPair> MMatches::extractQuestions(QString content)
+{
+    QList<StrPair> questions;
+    QVariantList items = QJsonDocument::fromJson(content.mid(5).toUtf8()).array().toVariantList();
+    foreach (QVariant item, items)
+        questions.append(qMakePair(item.toStringList()[0], item.toStringList()[1]));
+    return questions;
+}
+
+QStringList MMatches::extractFilenames(QString content)
 {
     QStringList filenames;
-    for (int i = 0; (i = content.indexOf("src=\"", i+1)) > 0;)
-    {
+    for (int i = 0; (i = content.indexOf("src=\"", i+1)) > 0;) {
         int cur = i + QString("src=\"").length();
         filenames << content.mid(cur, content.indexOf("\"", cur) - cur);
     }
