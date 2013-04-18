@@ -442,6 +442,15 @@ void ViewerForm::showLogs(QString title)
 
 void ViewerForm::savePdf(QString filename)
 {
+    // wkhtmltopdf
+    QString orientationStr = landscape ? "-O Lansscape" : "-O Portrait";
+    QString marginStr = margin ? "-L 10 -T 10 -R 10 -B 10" : "-L 4 -T 8 -R 4 -B 8";
+
+    QProcess* p = new QProcess(this);
+    p->start(QString("wkhtmltopdf.exe -q %3 %4 %1 %2").arg("p.html", filename, orientationStr, marginStr));
+    p->waitForFinished();
+
+/*
     QPrinter printer(QPrinterInfo::defaultPrinter());
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setOutputFileName(filename);
@@ -457,11 +466,12 @@ void ViewerForm::savePdf(QString filename)
         printer.setPageMargins(8, 4, 8, 4, QPrinter::Millimeter);
 
     ui->webView->print(&printer);
+*/
 }
 
 void ViewerForm::on_bPdf_clicked()
 {
-    QFile file("print.html");
+    QFile file("p.html");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream out(&file);

@@ -1868,7 +1868,7 @@
     <message>
         <location line="+1"/>
         <source>Answers</source>
-        <translation type="unfinished">پاسخها</translation>
+        <translation>پاسخها</translation>
     </message>
     <message>
         <location line="+46"/>
