@@ -190,12 +190,28 @@ void migrate(QString newVersion)
         ok &= qry.exec("insert into users select id, national_id, firstname, lastname, birth_date, address, phone, gender, description, email, upassword from _users");
         ok &= qry.exec("DROP TABLE _users");
 
+        // remove questions table
+        qDebug() << "questions";
+        qry.exec("select id from matches where category_id is null");
+        while(qry.next()) {
+            QStringList content; int q = 0, a = 0;
+            qryTmp.exec(QString("select question, answer from questions where match_id = %1").arg(qry.value(0).toString()));
+            while(qryTmp.next()) {
+                if (!qryTmp.value(0).isNull()) q++;
+                if (!qryTmp.value(1).isNull()) a++;
+                content.append(QString("[%1,%2]").arg(getJsonValue(qryTmp.value(0).toString().replace("'", "\"")), getJsonValue(qryTmp.value(1).toString().replace("'", "\""))));
+            }
+            QString aq = QString("%1/%2").arg(a).arg(q);
+            ok &= qryTmp.exec(QString("update matches set content = '%2' where id = %1").arg(qry.value(0).toString(), QString("%1[%2]").arg(aq.leftJustified(5, ' '), content.join(","))));
+        }
+
+        ok &= qry.exec("DROP TABLE questions");
+
         // log update
-        ok &= qry.exec("update logs set row_id = 100000+(row_id%100000) where table_name in ('users', 'authors', 'publications', 'roots', 'branches', 'matches', 'files', 'questions')");
+        ok &= qry.exec("update logs set row_id = 100000+(row_id%100000) where table_name in ('users', 'authors', 'publications', 'roots', 'branches', 'matches', 'files')");
         ok &= qry.exec("update logs set user_id = 100000+(user_id%100000)");
-        ok &= qry.exec("delete from logs where table_name == 'objects' or table_name == 'resources' or table_name == 'scores' or table_name == 'permissions'");
+        ok &= qry.exec("delete from logs where table_name == 'objects' or table_name == 'resources' or table_name == 'scores' or table_name == 'permissions' or table_name == 'questions'");
         ok &= qry.exec("delete from logs where row_op = 'delete' or row_op = 'update'");
-        ok &= qry.exec("delete from logs where table_name = 'questions' and row_id not in (select id from questions)");
         ok &= qry.exec("delete from logs where table_name = 'borrows' and row_id not in (select id from borrows)");
 
         qDebug() << "logs";

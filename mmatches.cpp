@@ -2,6 +2,9 @@
 #include <mmatches.h>
 #include <musers.h>
 
+#include <QJsonDocument>
+#include <QJsonArray>
+
 bool MMatches::get(QString matchId, StrMap& match, QList<StrPair>& questions)
 {
     QSqlQuery qry;
@@ -10,11 +13,15 @@ bool MMatches::get(QString matchId, StrMap& match, QList<StrPair>& questions)
     if (! qry.next()) return false;
 
     match = getRecord(qry);
-    match["content"] = match["content"].toString().replace("src=\"", QString("src=\"%1/").arg(filesUrl()));
+    if (!match["category_id"].toString().isEmpty())
+        match["content"] = match["content"].toString().replace("src=\"", QString("src=\"%1/").arg(filesUrl()));
+    else {
+        QString content = match["content"].toString().mid(5);
+        QVariantList items = QJsonDocument::fromJson(content.toUtf8()).array().toVariantList();
+        foreach (QVariant item, items)
+            questions.append(qMakePair(item.toStringList()[0], item.toStringList()[1]));
+    }
 
-    qry.exec("select question, answer from questions where match_id = "+ matchId);
-    while (qry.next())
-        questions.append(qMakePair(qry.value(0).toString(), qry.value(1).toString()));
     return true;
 }
 
@@ -79,8 +86,19 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
             oldfiles = extractFilenames(qry.value(0).toString());
 
         match["content"] = content;
-    } else
+    } else {
         match["object_id"] = data["object_id"];
+
+        // questions
+        QStringList content; int q = 0, a = 0;
+        foreach (StrPair item, questions) {
+            if (!item.first.isEmpty()) q++;
+            if (!item.second.isEmpty()) a++;
+            content.append(QString("[%1,%2]").arg(getJsonValue(item.first.replace("'", "\"")), getJsonValue(item.second.replace("'", "\""))));
+        }
+        QString aq = QString("%1/%2").arg(a).arg(q);
+        match["content"] = QString("%1[%2]").arg(aq.leftJustified(5, ' '), content.join(","));
+    }
 
     match["designer_id"] = data["corrector_id"];
     match["title"] = data["title"];
@@ -119,54 +137,6 @@ QString MMatches::set(QString matchId, StrMap data, QList<StrPair> questions)
         insertLog("supports", "insert", supportId);
     } else
         insertLog("supports", "update", supportId);
-
-
-    // questions table
-    if (data["category_id"].toString().isEmpty())
-    {
-        QString persistent;
-
-        // insert new questions
-        for (int i = 0; i < questions.size(); i++)
-        {
-            StrMap question;
-            question["match_id"] = matchId;
-            question["question"] = questions.at(i).first;
-            question["answer"] = questions.at(i).second;
-
-            qry.prepare("select id from questions where match_id = ? and question = ? and answer = ?");
-            qry.addBindValue(matchId);
-            qry.addBindValue(question["question"].toString());
-            qry.addBindValue(question["answer"].toString());
-            qry.exec();
-
-            if (qry.next())
-                persistent += (i == 0 ? "" : ",") + qry.value(0).toString();
-            else
-            {
-                QString questionId;
-                if (! qry.exec(getReplaceQuery("questions", question, questionId))) {
-                    db.rollback();
-                    return qry.lastError().text();
-                }
-
-                persistent += (i == 0 ? "" : ",") + questionId;
-                insertLog("questions", "insert", questionId);
-            }
-        }
-
-        // delete removed questions
-        QSqlQuery qryQ;
-        qryQ.exec(QString("select id from questions where match_id = %1 and id not in (%2)").arg(matchId).arg(persistent));
-        while (qryQ.next()) {
-            if (! qry.exec("delete from questions where id = "+ qryQ.value(0).toString())) {
-                qryQ.clear();
-                db.rollback();
-                return qry.lastError().text();
-            }
-            insertLog("questions", "delete", qryQ.value(0));
-        }
-    }
 
 
     // files table

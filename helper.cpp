@@ -83,7 +83,7 @@ QString getReplaceQuery(QString table, StrMap data, QString& id)
 
     values = refineText(values);
     if (id.isEmpty()) {
-        QStringList entityTables = QStringList() << "users" << "matches" << "questions" << "files" << "objects" << "authors" << "publications" << "roots" << "branches";
+        QStringList entityTables = QStringList() << "users" << "matches" << "files" << "objects" << "authors" << "publications" << "roots" << "branches";
         if (entityTables.contains(table)) {
             QSqlQuery qry;
             qry.exec("select ifnull(max(id), (select id from library)*100000) + 1 from "+ table +" where id/100000 = (select id from library)");
