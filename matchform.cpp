@@ -86,6 +86,7 @@ void MatchForm::editMode(bool edit)
 
         Reghaabat::instance()->tmpId = "";
     }
+    checkReadOnly();
 }
 
 void MatchForm::selectMatch()
@@ -132,6 +133,7 @@ void MatchForm::selectMatch()
         ui->gData->setEnabled(true);
         ui->eTitle->setFocus();
     }
+    checkReadOnly();
 }
 
 void MatchForm::cancelMatch()
@@ -154,6 +156,21 @@ void MatchForm::cancelMatch()
     ui->gData->setEnabled(false);
 
     ui->eMatch->setFocus();
+}
+
+void MatchForm::checkReadOnly()
+{
+    bool original = true;
+    if (! ui->eMatch->value().isEmpty())
+        original = ui->eMatch->value().startsWith(Reghaabat::instance()->libraryId);
+
+    ui->cType->setEnabled(original);
+    ui->cAgeClass->setEnabled(original);
+    ui->cGroup->setEnabled(original);
+    ui->eTitle->setEnabled(original);
+    ui->eObject->setEnabled(original);
+    ui->eContent->setEnabled(original);
+    ui->sQuestions->setEnabled(original);
 }
 
 void MatchForm::on_cType_currentIndexChanged(int index)

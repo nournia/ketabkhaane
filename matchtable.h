@@ -24,15 +24,15 @@ public:
         setHeaderData(1, Qt::Horizontal, tr("Title"));
         setHeaderData(2, Qt::Horizontal, tr("Kind"));
         setHeaderData(3, Qt::Horizontal, tr("Age Class"));
-        setHeaderData(4, Qt::Horizontal, tr("Score"));
-        setHeaderData(5, Qt::Horizontal, tr("Answers"));
+        setHeaderData(4, Qt::Horizontal, tr("Answers"));
+        setHeaderData(5, Qt::Horizontal, tr("Score"));
         setHeaderData(6, Qt::Horizontal, tr("State"));
     }
 
     Qt::ItemFlags flags(const QModelIndex &index) const
     {
         Qt::ItemFlags flags = QSqlQueryModel::flags(index);
-        if (/*index.column() == 1 || */index.column() == 3 || index.column() == 4 || index.column() == 6)
+        if (index.column() == 5 || index.column() == 6)
             flags |= Qt::ItemIsEditable;
         return flags;
     }
@@ -52,7 +52,7 @@ public:
 
     bool setData(const QModelIndex &index, const QVariant &value, int role)
     {
-        if (!(index.column() == 1 || index.column() == 3 || index.column() == 4 || index.column() == 6))
+        if (!(index.column() == 5 || index.column() == 6))
             return false;
 
         QString id = data(QSqlQueryModel::index(index.row(), 0)).toString();
@@ -62,24 +62,13 @@ public:
         MMatches::get(id, match, questions);
 
         QString val = value.toString();
-        switch (index.column())
-        {
-        case 1:
-            match["title"] = val;
-        break;
-        case 3:
-            match["ageclass"] = val;
-
-            for (int i = 0; i < ageclasses.size(); i++)
-                if (ageclasses.at(i).second == val)
-                    val = ageclasses.at(i).first;
-        break;
-        case 4:
-            match["score"] = val;
-        break;
-        case 6:
-            match["current_state"] = val;
-        break;
+        switch (index.column()) {
+            case 5:
+                match["score"] = val;
+            break;
+            case 6:
+                match["current_state"] = val;
+            break;
         }
 
         QString msg = MMatches::set(id, match, questions);
@@ -95,14 +84,14 @@ public:
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder)
     {
         edited.clear(); if (column == 0) return;
-        QStringList fields = QStringList() << "title" << "kind" << "ageclass" << "score" << "answer_ratio" << "state";
+        QStringList fields = QStringList() << "title" << "kind" << "ageclass" << "answer_ratio" << "score" << "state";
 
         QString sql = QString() +
             "select matches.id, matches.title as title, "+
             "ifnull(categories.title, types.title) as kind, "+
             "ageclasses.title as ageclass, "+
-            "supports.score, "+
             "case when category_id is null then trim(substr(content, 1, 5)) else '-' end as answer_ratio, "+
+            "supports.score, "+
             "case supports.current_state when 'active' then '"+ QObject::tr("active") +"' when 'imported' then '"+ QObject::tr("imported") +"' when 'disabled' then '"+ QObject::tr("disabled") +"' end as state "+
             "from matches inner join supports on matches.id = supports.match_id inner join ageclasses on matches.ageclass = ageclasses.id left join categories on categories.id = matches.category_id left join objects on matches.object_id = objects.id left join types on objects.type_id = types.id "+
             "order by " + fields[column-1];

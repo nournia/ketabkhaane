@@ -17,6 +17,7 @@ public:
     ~UserForm();
 
     void editMode(bool edit);
+    void checkReadOnly();
 
 private:
     Ui::UserForm *ui;

@@ -20,6 +20,7 @@ public:
     ~MatchForm();
 
     void editMode(bool edit);
+    void checkReadOnly();
 
     QList<QuestionModule*> qModules;
 

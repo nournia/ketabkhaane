@@ -36,11 +36,11 @@ void ObjectForm::editMode(bool edit)
     ui->gObject->setVisible(edit);
     ui->gData->setEnabled(! edit);
     ui->cType->setEnabled(! edit);
-    ui->cRoot->setEnabled(! edit);
     ui->cBranch->setEnabled(! edit);
 
     if (edit)
         ui->eObject->setFocus();
+    checkReadOnly();
 }
 
 void ObjectForm::selectObject()
@@ -55,7 +55,6 @@ void ObjectForm::selectObject()
         ui->eTitle->setText(object["title"].toString());
         ui->sCount->setValue(object["cnt"].toInt());
         ui->cType->setCurrentIndex(ui->cType->findData(object["type_id"]));
-        ui->cRoot->setCurrentIndex(ui->cRoot->findData(object["root_id"]));
         ui->cBranch->setCurrentIndex(ui->cBranch->findData(object["branch_id"]));
         ui->eAuthor->setText(object["author"].toString());
         ui->eAuthor->setValue(object["author_id"].toString());
@@ -66,6 +65,7 @@ void ObjectForm::selectObject()
         ui->gData->setEnabled(true);
         ui->eTitle->setFocus();
     }
+    checkReadOnly();
 }
 
 void ObjectForm::cancelObject()
@@ -75,7 +75,6 @@ void ObjectForm::cancelObject()
     ui->eTitle->setText("");
     ui->sCount->setValue(1);
     ui->cType->setCurrentIndex(0);
-    ui->cRoot->setCurrentIndex(0);
     ui->cBranch->setCurrentIndex(0);
     ui->eAuthor->setText("");
     ui->ePublication->setText("");
@@ -86,14 +85,21 @@ void ObjectForm::cancelObject()
     ui->eObject->setFocus();
 }
 
-void ObjectForm::on_cType_currentIndexChanged(int index)
+void ObjectForm::checkReadOnly()
 {
-    fillComboBox(ui->cRoot, MObjects::roots(ui->cType->itemData(index).toString()));
+    bool original = true;
+    if (! ui->eObject->value().isEmpty())
+        original = ui->eObject->value().startsWith(Reghaabat::instance()->libraryId);
+
+    ui->cType->setEnabled(original);
+    ui->eTitle->setEnabled(original);
+    ui->eAuthor->setEnabled(original);
+    ui->ePublication->setEnabled(original);
 }
 
-void ObjectForm::on_cRoot_currentIndexChanged(int index)
+void ObjectForm::on_cType_currentIndexChanged(int index)
 {
-    fillComboBox(ui->cBranch, MObjects::branches(ui->cRoot->itemData(index).toString()));
+    fillComboBox(ui->cBranch, MObjects::branches(ui->cType->itemData(index).toString()));
 }
 
 void ObjectForm::on_cBranch_currentIndexChanged(int index)

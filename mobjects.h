@@ -35,21 +35,10 @@ public:
         return tmp;
     }
 
-    static QList<StrPair> roots(QString type)
+    static QList<StrPair> branches(QString type)
     {
         QSqlQuery qry;
-        qry.exec("select id, title from roots where type_id = "+ type +" order by id");
-
-        QList<StrPair> tmp;
-        while(qry.next())
-            tmp.append(qMakePair(qry.value(1).toString(), qry.value(0).toString()));
-        return tmp;
-    }
-
-    static QList<StrPair> branches(QString root)
-    {
-        QSqlQuery qry;
-        qry.exec("select id, title from branches where root_id = "+ root +" order by id");
+        qry.exec(QString("select branches.id, roots.title ||' - '|| branches.title from branches inner join roots on branches.root_id = roots.id where roots.type_id = %1 order by branches.id").arg(type));
 
         QList<StrPair> tmp;
         while(qry.next())

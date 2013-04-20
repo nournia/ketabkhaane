@@ -23,9 +23,7 @@ MatchTable::MatchTable(QWidget *parent) :
 
     customizeTable(ui->tMatches, 5, 60);
 
-    ui->tMatches->setItemDelegateForColumn(1, new LineEditDelegate(false, ui->tMatches));
-    ui->tMatches->setItemDelegateForColumn(3, new ComboBoxDelegate(MMatches::ageclasses(true), ui->tMatches));
-    ui->tMatches->setItemDelegateForColumn(4, new SpinBoxDelegate(0, 10000, 50, ui->tMatches));
+    ui->tMatches->setItemDelegateForColumn(5, new SpinBoxDelegate(0, 10000, 50, ui->tMatches));
     ui->tMatches->setItemDelegateForColumn(6, new ComboBoxDelegate(MMatches::states(), ui->tMatches));
 
     viewer = ((MainWindow*) parent)->viewer;

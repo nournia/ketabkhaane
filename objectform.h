@@ -16,6 +16,7 @@ public:
     ~ObjectForm();
 
     void editMode(bool edit);
+    void checkReadOnly();
 
 private:
     Ui::ObjectForm *ui;
@@ -27,7 +28,6 @@ private slots:
     void on_buttonBox_accepted();
     void on_cType_currentIndexChanged(int index);
     void on_cBranch_currentIndexChanged(int index);
-    void on_cRoot_currentIndexChanged(int index);
     void selectObject();
     void cancelObject();
 

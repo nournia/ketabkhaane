@@ -9,6 +9,7 @@
 
 // init reghaabat global variables
 Reghaabat* Reghaabat::m_Instance = 0;
+QStringList entityTables = QStringList() << "users" << "matches" << "files" << "objects" << "authors" << "publications" << "roots" << "branches";
 
 
 QString QVariantMapToString(QVariantMap& data)
@@ -83,10 +84,9 @@ QString getReplaceQuery(QString table, StrMap data, QString& id)
 
     values = refineText(values);
     if (id.isEmpty()) {
-        QStringList entityTables = QStringList() << "users" << "matches" << "files" << "objects" << "authors" << "publications" << "roots" << "branches";
         if (entityTables.contains(table)) {
             QSqlQuery qry;
-            qry.exec("select ifnull(max(id), (select id from library)*100000) + 1 from "+ table +" where id/100000 = (select id from library)");
+            qry.exec(QString("select ifnull(max(id), %1*100000) + 1 from "+ table +" where id/100000 = %1").arg(Reghaabat::instance()->libraryId));
             qry.next();
             id = qry.value(0).toString();
         }
@@ -187,11 +187,17 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
     if (qry.next())
         data = getRecordJSON(qry);
 
-    if (operation == "update" && table != "files")
-    {
+    // check data change
+    if (operation == "update" && table != "files") {
         qry.exec(QString("select row_data from logs where table_name = '%1' and row_id = %2 order by created_at desc").arg(table).arg(id.toString()));
-        if (qry.next() && data == qry.value(0).toString())
-            return; // new data exact matches old one
+        if (!qry.next() || data == qry.value(0).toString())
+            return;
+    }
+
+    // check entity id
+    if (entityTables.contains(table) && !id.toString().startsWith(Reghaabat::instance()->libraryId)) {
+        qDebug() << "Denied entity edit:" << id.toString();
+        return;
     }
 
     if (! time.isValid())

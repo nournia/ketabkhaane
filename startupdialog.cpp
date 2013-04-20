@@ -45,6 +45,7 @@ void StartupDialog::synced(QString message)
         QSqlQuery qry;
         qry.exec("select id from library"); qry.next();
         Reghaabat::instance()->libraryId = qry.value(0).toString();
+        ui->gError->setVisible(false);
     } else {
         ui->lWebConnection->setText(message);
         ui->gError->setVisible(true);

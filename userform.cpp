@@ -43,6 +43,23 @@ void UserForm::editMode(bool edit)
         ui->eUser->setFocus();
     else
         ui->eLabel->setText(MUsers::getNewLabel());
+    checkReadOnly();
+}
+
+void UserForm::checkReadOnly()
+{
+    bool original = true;
+    if (! ui->eUser->value().isEmpty())
+        original = ui->eUser->value().startsWith(Reghaabat::instance()->libraryId);
+
+    ui->eFirstname->setEnabled(original);
+    ui->eLastname->setEnabled(original);
+    ui->gGender->setEnabled(original);
+    ui->eBirthDate->setEnabled(original);
+    ui->eNationalId->setEnabled(original);
+    ui->ePhone->setEnabled(original);
+    ui->eAddress->setEnabled(original);
+    ui->eDescription->setEnabled(original);
 }
 
 void UserForm::on_buttonBox_rejected()
@@ -108,6 +125,7 @@ void UserForm::selectUser()
         ui->buttonBox->setEnabled(true);
         ui->eFirstname->setFocus();
     }
+    checkReadOnly();
 }
 
 void UserForm::cancelUser()
