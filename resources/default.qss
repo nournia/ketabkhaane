@@ -42,7 +42,6 @@ QDialogButtonBox {
 
 QPushButton {
 	qproperty-layoutDirection: LeftToRight;
-	icon-size: 18px;
 	height: 16px;
 }
 QPushButton[flat="true"] {

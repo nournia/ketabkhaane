@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>492</width>
-    <height>25</height>
+    <height>26</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -36,18 +36,18 @@
     <widget class="QLabel" name="lObject">
      <property name="minimumSize">
       <size>
-       <width>22</width>
-       <height>22</height>
+       <width>16</width>
+       <height>16</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>22</width>
-       <height>22</height>
+       <width>16</width>
+       <height>16</height>
       </size>
      </property>
      <property name="pixmap">
-      <pixmap resource="resources.qrc">:/images/object.png</pixmap>
+      <pixmap resource="resources.qrc">:/images/book.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -58,18 +58,18 @@
     <widget class="QLabel" name="lMatch">
      <property name="minimumSize">
       <size>
-       <width>22</width>
-       <height>22</height>
+       <width>16</width>
+       <height>16</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>22</width>
-       <height>22</height>
+       <width>16</width>
+       <height>16</height>
       </size>
      </property>
      <property name="pixmap">
-      <pixmap resource="resources.qrc">:/images/match.png</pixmap>
+      <pixmap resource="resources.qrc">:/images/paper.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>

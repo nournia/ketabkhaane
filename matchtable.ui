@@ -33,7 +33,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources.qrc">
-          <normaloff>:/images/add_match.png</normaloff>:/images/add_match.png</iconset>
+          <normaloff>:/images/add.png</normaloff>:/images/add.png</iconset>
         </property>
        </widget>
       </item>
@@ -44,7 +44,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources.qrc">
-          <normaloff>:/images/edit_match.png</normaloff>:/images/edit_match.png</iconset>
+          <normaloff>:/images/edit.png</normaloff>:/images/edit.png</iconset>
         </property>
        </widget>
       </item>
@@ -68,7 +68,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources.qrc">
-          <normaloff>:/images/matches.png</normaloff>:/images/matches.png</iconset>
+          <normaloff>:/images/list.png</normaloff>:/images/list.png</iconset>
         </property>
        </widget>
       </item>

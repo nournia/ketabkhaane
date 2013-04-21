@@ -112,14 +112,12 @@ void MainWindow::prepareUI()
 
     bLogout = new QPushButton(QIcon(":/images/logout.png"), "", this);
     bLogout->setFlat(true);
-    bLogout->setIconSize(QSize(20, 20));
     bLogout->setMaximumWidth(20); bLogout->setMaximumHeight(20);
     connect(bLogout, SIGNAL(clicked()), this, SLOT(on_actionLogout_triggered()));
     bLogout->setToolTip(tr("Logout"));
 
     bSync = new QPushButton(QIcon(":/images/sync.png"), "", this);
     bSync->setFlat(true);
-    bSync->setIconSize(QSize(20, 20));
     bSync->setMaximumWidth(20); bSync->setMaximumHeight(20);
     connect(bSync, SIGNAL(clicked()), this, SLOT(sync()));
     bSync->setToolTip(tr("Sync"));

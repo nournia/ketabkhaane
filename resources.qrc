@@ -9,40 +9,42 @@
         <file>resources/labels.html</file>
         <file>resources/objects.html</file>
         <file>resources/logs.html</file>
-        <file>images/cancel.png</file>
+
         <file>images/deliver.png</file>
         <file>images/login.png</file>
         <file>images/match.png</file>
-        <file>images/ok.png</file>
         <file>images/options.png</file>
         <file>images/permissions.png</file>
         <file>images/user.png</file>
-        <file>images/logout.png</file>
-        <file>images/preview.png</file>
+        <file>images/edit_user.png</file>
+        <file>images/add_user.png</file>
         <file>images/payment.png</file>
         <file>images/password.png</file>
-        <file>images/pdf.png</file>
+        <file>images/setscores.png</file>
+        <file>images/object.png</file>
+        <file>images/web.png</file>
+        <file>images/reghaabat.ico</file>
+
+        <file>images/ok.png</file>
+        <file>images/cancel.png</file>
+        <file>images/logout.png</file>
+        <file>images/add.png</file>
+        <file>images/edit.png</file>
         <file>images/print.png</file>
-        <file>images/add_user.png</file>
-        <file>images/edit_user.png</file>
-        <file>images/scores.png</file>
+        <file>images/preview.png</file>
+        <file>images/save.png</file>
         <file>images/minus.png</file>
         <file>images/plus.png</file>
         <file>images/star.png</file>
-        <file>images/add_match.png</file>
-        <file>images/edit_match.png</file>
-        <file>images/matches.png</file>
         <file>images/search.png</file>
-        <file>images/setscores.png</file>
-        <file>images/object.png</file>
-        <file>images/add_object.png</file>
-        <file>images/edit_object.png</file>
-        <file>images/web.png</file>
-        <file>images/log.png</file>
         <file>images/download.png</file>
-        <file>images/sync.png</file>
         <file>images/key.png</file>
+        <file>images/list.png</file>
+        <file>images/tile.png</file>
+        <file>images/sync.png</file>
         <file>images/reload.png</file>
-        <file>images/reghaabat.ico</file>
+        <file>images/book.png</file>
+        <file>images/multimedia.png</file>
+        <file>images/paper.png</file>
     </qresource>
 </RCC>
