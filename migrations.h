@@ -207,6 +207,16 @@ void migrate(QString newVersion)
 
         ok &= qry.exec("DROP TABLE questions");
 
+        // branches
+        qry.exec("update belongs set branch_id = null where branch_id = 100230");
+        qry.exec("delete from branches where id = 100230");
+        qry.exec("delete from logs where row_id = 100230 and table_name = 'branches'");
+        qry.exec("select 100000+10*(max(label)/10), root_id, 10*(max(label)/10) from branches group by root_id");
+        while(qry.next())
+            if (qryTmp.exec(QString("insert into branches values (%1, %2, '', %3)").arg(qry.value(0).toString(), qry.value(1).toString(), qry.value(2).toString())))
+                insertLog("branches", "insert", qry.value(0), master);
+
+
         // log update
         ok &= qry.exec("update logs set row_id = 100000+(row_id%100000) where table_name in ('users', 'authors', 'publications', 'roots', 'branches', 'matches', 'files')");
         ok &= qry.exec("update logs set user_id = 100000+(user_id%100000)");
@@ -258,8 +268,7 @@ void migrate(QString newVersion)
     qry.clear();
     qryTmp.clear();
 
-    if (change && ok)
-    {
+    if (change && ok) {
         insertLog("library", "update", "1");
         if (db.commit())
             qDebug() << "migration complete";

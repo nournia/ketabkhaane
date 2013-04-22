@@ -157,7 +157,7 @@ CREATE TABLE transactions (
 	user_id integer not null references users(id) on update cascade,
 	score smallint not null, -- match: +answer -payment, library: +receipt -fine +discount
 	created_at timestamp not null default current_timestamp,
-	description varchar(20) null -- fin: (fine of objects), dis (discount in fine), chg (money user charged to he's account), mid:match_id (score from match), pay (money payed to user for matches)
+	description varchar(20) null -- fin: (fine of objects), dis (discount in fine), chg (money user charged to his account), mid:match_id (score from match), pay (money payed to user for matches)
 );
 
 -- data

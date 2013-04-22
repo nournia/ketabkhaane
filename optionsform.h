@@ -2,6 +2,8 @@
 #define OPTIONSFORM_H
 
 #include <QWidget>
+#include <treemodel.h>
+
 
 namespace Ui {
     class OptionsForm;
@@ -15,6 +17,8 @@ public:
     explicit OptionsForm(QWidget *parent = 0);
     ~OptionsForm();
     QString libraryLogo, newLibraryLogo;
+
+    TreeModel* model;
 
 private:
     Ui::OptionsForm *ui;

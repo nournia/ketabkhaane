@@ -38,7 +38,7 @@ public:
     static QList<StrPair> branches(QString type)
     {
         QSqlQuery qry;
-        qry.exec(QString("select branches.id, roots.title ||' - '|| branches.title from branches inner join roots on branches.root_id = roots.id where roots.type_id = %1 order by branches.id").arg(type));
+        qry.exec(QString("select branches.id, case when branches.title != '' then roots.title ||' - '|| branches.title else roots.title end from branches inner join roots on branches.root_id = roots.id where roots.type_id = %1 order by branches.id").arg(type));
 
         QList<StrPair> tmp;
         while(qry.next())

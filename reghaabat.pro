@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     aboutdialog.cpp \
     webconnection.cpp \
     startupdialog.cpp \
-    receiver.cpp
+    receiver.cpp \
+    treemodel.cpp
 
 HEADERS  += mainwindow.h \
     connector.h \
@@ -81,7 +82,8 @@ HEADERS  += mainwindow.h \
     aboutdialog.h \
     webconnection.h \
     startupdialog.h \
-    receiver.h
+    receiver.h \
+    treemodel.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \

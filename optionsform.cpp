@@ -49,6 +49,28 @@ OptionsForm::OptionsForm(QWidget *parent) :
         ui->bLibraryLogo->setIcon(QIcon(libraryLogo));
         newLibraryLogo = "";
     }
+
+    model = new TreeModel(QStringList() << tr("Branch") << tr("Label") << tr("Count"), this);
+    ui->tBranches->setModel(model);
+    ui->tBranches->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->tBranches->header()->setDefaultAlignment(Qt::AlignHCenter);
+
+    // fill branches model
+    TreeItem *root, *branch;
+    QSqlQuery qry1, qry2, qry3;
+    qry1.exec("select id, title from types");
+    while(qry1.next()) {
+        root = model->rootItem->appendChild(QStringList() << qry1.value(1).toString());
+        qry2.exec("select roots.id, roots.title, branches.label, ifnull(items, '') from roots left join branches on roots.id = branches.root_id left join (select branch_id, count(id) as items from belongs group by branch_id) as _t on branches.id = _t.branch_id where branches.title = '' and roots.type_id = "+ qry1.value(0).toString());
+        while(qry2.next()) {
+            branch = root->appendChild(QStringList() << qry2.value(1).toString() << qry2.value(2).toString() << qry2.value(3).toString());
+            qry3.exec("select id, title, label, ifnull(items, 0) from branches left join (select branch_id, count(id) as items from belongs group by branch_id) as _t on branches.id = _t.branch_id where title != '' and root_id = "+ qry2.value(0).toString());
+            while(qry3.next())
+                branch->appendChild(QStringList() << qry3.value(1).toString() << qry3.value(2).toString() << qry3.value(3).toString());
+        }
+    }
+
+    ui->tBranches->expandAll();
 }
 
 OptionsForm::~OptionsForm()

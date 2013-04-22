@@ -45,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Reghaabat::instance()->serverUrl = "http://127.0.0.1/reghaabat-server/server/";
+    Reghaabat::instance()->serverUrl = "http://127.0.0.1/reghaabat-server/php/server/";
     prepareUI();
 
     // check for db connection
