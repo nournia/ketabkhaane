@@ -165,7 +165,7 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
         return 0;
 
     Qt::ItemFlags flags = QAbstractItemModel::flags(index);
-    if (index.column() == 0)
+    if (index.parent().isValid() && (index.column() == 0 || index.column() == 1))
         flags |= Qt::ItemIsEditable;
 
     return flags;
