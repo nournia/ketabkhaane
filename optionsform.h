@@ -27,10 +27,14 @@ signals:
     void closeForm();
 
 private slots:
+    void updateSelectedBranch();
+
     void on_bLibraryLogo_clicked();
     void on_bSelectDataFolder_clicked();
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
+    void on_bAddBranch_clicked();
+    void on_bRemoveBranch_clicked();
 };
 
 #endif // OPTIONSFORM_H

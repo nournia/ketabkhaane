@@ -70,7 +70,10 @@ OptionsForm::OptionsForm(QWidget *parent) :
         }
     }
 
+    connect(ui->tBranches->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), this, SLOT(updateSelectedBranch()));
     ui->tBranches->expandAll();
+    ui->bAddBranch->setVisible(false);
+    ui->bRemoveBranch->setVisible(false);
 }
 
 OptionsForm::~OptionsForm()
@@ -139,4 +142,64 @@ void OptionsForm::on_bLibraryLogo_clicked()
         else
             QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Logo must be in 300px x 300px dimension."));
     }
+}
+
+void OptionsForm::updateSelectedBranch()
+{
+    bool add, remove;
+    QModelIndex index = ui->tBranches->selectionModel()->currentIndex();
+    if (index.isValid())
+        add = remove = true;
+
+    QAbstractItemModel *model = ui->tBranches->model();
+    int label = model->data(model->index(model->rowCount(index)-1, 1, index)).toInt();
+    QString title = model->data(index.sibling(index.row(), 0)).toString();
+
+    if (index.parent().isValid() && index.parent().parent().isValid()) {
+        add = false;
+        ui->bRemoveBranch->setText(tr("Remove Branch '%1'").arg(title));
+    } else if (index.parent().isValid()) {
+        add &= !(label % 10 == 9);
+        ui->bAddBranch->setText(tr("Add Branch To '%1'").arg(title));
+        ui->bRemoveBranch->setText(tr("Remove Root '%1'").arg(title));
+    } else {
+        add &= !(label % 10 != 0 || label % 100 == 90);
+        remove = false;
+        ui->bAddBranch->setText(tr("Add Root To '%1'").arg(title));
+    }
+
+    ui->bAddBranch->setVisible(add);
+    ui->bRemoveBranch->setVisible(remove);
+}
+
+void OptionsForm::on_bAddBranch_clicked()
+{
+    QModelIndex index = ui->tBranches->selectionModel()->currentIndex();
+    index = index.sibling(index.row(), 0);
+    QAbstractItemModel *model = ui->tBranches->model();
+    int row = model->rowCount(index);
+    int label = model->data(model->index(row-1, 1, index)).toInt();
+    if (label == 0) {
+        if (!index.parent().isValid())
+            label = 100 * (index.row()+1);
+        else
+            label = model->data(index.sibling(index.row(), 1)).toInt();
+    }
+
+    if (!model->insertRow(row, index))
+        return;
+
+    label += index.parent().isValid() ? 1 : 10;
+    model->setData(model->index(row, 0, index), "", Qt::EditRole);
+    model->setData(model->index(row, 1, index), label, Qt::EditRole);
+
+    ui->tBranches->selectionModel()->setCurrentIndex(model->index(row, 0, index), QItemSelectionModel::ClearAndSelect);
+}
+
+void OptionsForm::on_bRemoveBranch_clicked()
+{
+    QModelIndex index = ui->tBranches->selectionModel()->currentIndex();
+    QAbstractItemModel *model = ui->tBranches->model();
+    if (model->removeRow(index.row(), index.parent()))
+        updateSelectedBranch();
 }
