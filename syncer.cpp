@@ -115,7 +115,10 @@ void Syncer::receive()
     }
 
     if (response["command"] == "query") {
-        lastSync = response["synced_at"].toDateTime();
+        if(response["synced_at"].isValid())
+            lastSync = response["synced_at"].toDateTime();
+        else
+            lastSync.setDate(QDate(1900, 01, 01));
     }
 
     if (response["command"] == "store") {

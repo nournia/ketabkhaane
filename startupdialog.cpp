@@ -83,6 +83,7 @@ void StartupDialog::on_buttonBox_accepted()
 
     QSqlDatabase db = Connector::connectDb();
     db.transaction();
+    insertLog("library", "insert", Reghaabat::instance()->libraryId);
 
     if (!login) {
         // register user
