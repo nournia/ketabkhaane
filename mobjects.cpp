@@ -101,6 +101,43 @@ QString MObjects::set(QString objectId, StrMap data)
     return "";
 }
 
+QString MObjects::setRoot(QString rootId, QString typeId, QString title)
+{
+    qDebug() << rootId << typeId << title;
+    QSqlQuery qry;
+
+    StrMap data;
+    data["type_id"] = typeId;
+    data["title"] = title;
+
+    bool create = rootId.isEmpty();
+    if (! qry.exec(getReplaceQuery("roots", data, rootId)))
+        return qry.lastError().text();
+
+    insertLog("roots", create ? "insert" : "update", rootId);
+
+    return rootId;
+}
+
+QString MObjects::setBranch(QString branchId, QString rootId, QString title, QString label)
+{
+    qDebug() << branchId << rootId << title << label;
+    QSqlQuery qry;
+
+    StrMap data;
+    data["root_id"] = rootId;
+    data["title"] = title;
+    data["label"] = label;
+
+    bool create = branchId.isEmpty();
+    if (! qry.exec(getReplaceQuery("branches", data, branchId).replace("null", "''")))
+        return qry.lastError().text();
+
+    insertLog("branches", create ? "insert" : "update", branchId);
+
+    return branchId;
+}
+
 QString MObjects::receive(QString userId, QString objectId)
 {
     QSqlQuery qry;

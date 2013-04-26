@@ -66,6 +66,19 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
+           <widget class="QTreeView" name="tBranches">
+            <property name="animated">
+             <bool>true</bool>
+            </property>
+            <attribute name="headerDefaultSectionSize">
+             <number>70</number>
+            </attribute>
+            <attribute name="headerStretchLastSection">
+             <bool>false</bool>
+            </attribute>
+           </widget>
+          </item>
+          <item>
            <widget class="QWidget" name="widget_3" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -121,31 +134,7 @@
                </property>
               </spacer>
              </item>
-             <item>
-              <widget class="QPushButton" name="bApplyBranching">
-               <property name="text">
-                <string>Apply</string>
-               </property>
-               <property name="icon">
-                <iconset resource="resources.qrc">
-                 <normaloff>:/images/ok.png</normaloff>:/images/ok.png</iconset>
-               </property>
-              </widget>
-             </item>
             </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTreeView" name="tBranches">
-            <property name="animated">
-             <bool>true</bool>
-            </property>
-            <attribute name="headerDefaultSectionSize">
-             <number>70</number>
-            </attribute>
-            <attribute name="headerStretchLastSection">
-             <bool>false</bool>
-            </attribute>
            </widget>
           </item>
          </layout>

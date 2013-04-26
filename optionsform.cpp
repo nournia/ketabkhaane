@@ -9,6 +9,7 @@
 
 #include <helper.h>
 #include <jalali.h>
+#include <mobjects.h>
 
 
 OptionsForm::OptionsForm(QWidget *parent) :
@@ -71,7 +72,9 @@ OptionsForm::OptionsForm(QWidget *parent) :
         }
     }
 
+    connect(ui->tBranches->model(), SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(dataChanged(QModelIndex)));
     connect(ui->tBranches->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), this, SLOT(updateSelectedBranch()));
+    connect(ui->tBranches->model(), SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(updateSelectedBranch()));
     ui->tBranches->expandAll();
     ui->bAddBranch->setVisible(false);
     ui->bRemoveBranch->setVisible(false);
@@ -147,10 +150,10 @@ void OptionsForm::on_bLibraryLogo_clicked()
 
 void OptionsForm::updateSelectedBranch()
 {
-    bool add, remove;
+    bool add, enableAdd, remove;
     QModelIndex index = ui->tBranches->selectionModel()->currentIndex();
     if (index.isValid())
-        add = remove = true;
+        add = enableAdd = remove = true;
 
     QAbstractItemModel *model = ui->tBranches->model();
     int label = model->data(model->index(model->rowCount(index)-1, 1, index)).toInt();
@@ -160,15 +163,16 @@ void OptionsForm::updateSelectedBranch()
         add = false;
         ui->bRemoveBranch->setText(tr("Remove Branch '%1'").arg(title));
     } else if (index.parent().isValid()) {
-        add &= !(label % 10 == 9);
+        enableAdd &= !(label % 10 == 9);
         ui->bAddBranch->setText(tr("Add Branch To '%1'").arg(title));
         ui->bRemoveBranch->setText(tr("Remove Root '%1'").arg(title));
     } else {
-        add &= !(label % 10 != 0 || label % 100 == 90);
+        enableAdd &= !(label % 10 != 0 || label % 100 == 90);
         remove = false;
         ui->bAddBranch->setText(tr("Add Root To '%1'").arg(title));
     }
 
+    ui->bAddBranch->setEnabled(enableAdd);
     ui->bAddBranch->setVisible(add);
     ui->bRemoveBranch->setVisible(remove);
 }
@@ -200,13 +204,46 @@ void OptionsForm::on_bAddBranch_clicked()
 void OptionsForm::on_bRemoveBranch_clicked()
 {
     QModelIndex index = ui->tBranches->selectionModel()->currentIndex();
-    QAbstractItemModel *model = ui->tBranches->model();
+    QAbstractItemModel* model = ui->tBranches->model();
     if (model->removeRow(index.row(), index.parent()))
         updateSelectedBranch();
 }
 
-void OptionsForm::on_bApplyBranching_clicked()
+void OptionsForm::dataChanged(const QModelIndex& index)
 {
-    QAbstractItemModel *model = ui->tBranches->model();
-    //
+    QAbstractItemModel* model = ui->tBranches->model();
+    if (!index.isValid() || !index.parent().isValid() || index.column() == 3)
+        return;
+
+    QSqlQuery qry;
+    QString msg, typeId, rootId, branchId;
+    QString id = model->data(index.sibling(index.row(), 3)).toString(), title = model->data(index.sibling(index.row(), 0)).toString(), label = model->data(index.sibling(index.row(), 1)).toString();
+
+    if (title.isEmpty() || label.isEmpty())
+        return;
+
+    if (! index.parent().parent().isValid()) {
+        // root item
+        typeId = model->data(index.parent().sibling(index.parent().row(), 3)).toString();
+        msg = MObjects::setRoot(id, typeId, title);
+        if (msg.toInt()) {
+            rootId = msg;
+            model->setData(index.sibling(index.row(), 3), rootId, Qt::EditRole);
+
+            // update root branch
+            qry.exec("select id from branches where title = '' and root_id = "+ rootId);
+            if (qry.next())
+                branchId = qry.value(0).toString();
+            msg = MObjects::setBranch(branchId, rootId, "", label);
+        }
+    } else {
+        // branch item
+        rootId = model->data(index.parent().sibling(index.parent().row(), 3)).toString();
+        msg = MObjects::setBranch(id, rootId, title, label);
+        if (msg.toInt())
+            model->setData(index.sibling(index.row(), 3), msg, Qt::EditRole);
+    }
+
+    if (!msg.isEmpty() && !msg.toInt())
+        QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
 }

@@ -10,7 +10,12 @@ public:
     static bool get(QString objectId, StrMap& object);
     static QString getNewLabel(QString branch);
     static QString getObjectsQuery();
-    static QString set(QString userId, StrMap data);
+    static QString set(QString objectId, StrMap data);
+
+    /* branches */
+
+    static QString setRoot(QString rootId, QString typeId, QString title);
+    static QString setBranch(QString branchId, QString rootId, QString title, QString label);
 
     /* borrows */
 
