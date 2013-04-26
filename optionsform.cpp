@@ -46,8 +46,11 @@ OptionsForm::OptionsForm(QWidget *parent) :
         ui->eLibraryDescription->setText(qry.value(1).toString());
         ui->eStartDate->setText(toJalali(qry.value(3).toDate()));
 
-        libraryLogo = QString("%1/files/%2").arg(dataFolder(), qry.value(2).toString());
-        ui->bLibraryLogo->setIcon(QIcon(libraryLogo));
+        libraryLogo = "";
+        if (!qry.value(2).toString().isEmpty()) {
+            libraryLogo = QString("%1/files/%2").arg(dataFolder(), qry.value(2).toString());
+            ui->bLibraryLogo->setIcon(QIcon(libraryLogo));
+        }
         newLibraryLogo = "";
     }
 
@@ -105,17 +108,22 @@ void OptionsForm::on_buttonBox_accepted()
 
     opt["BookBorrowDays"] = ui->sBookBorrowDays->value();
 
-    if (!newLibraryLogo.isEmpty())
-    {
-        QFile::remove(libraryLogo);
-        QFile::copy(newLibraryLogo, libraryLogo);
-        insertLog("files", "update", "1");
+    QString image = "";
+    if (!newLibraryLogo.isEmpty()) {
+        if (libraryLogo.isEmpty())
+            image = QString("image = '%1', ").arg(getInAppFilename(newLibraryLogo));
+        else {
+            QString fileId = QFileInfo(libraryLogo).fileName().split(".")[0];
+            QFile::remove(libraryLogo);
+            QFile::copy(newLibraryLogo, libraryLogo);
+            insertLog("files", "update", fileId);
+        }
     }
 
     // store options
     QSqlQuery qry;
-    if (qry.exec(QString("update library set title = '%1', description = '%2', started_at = '%3', options = '%4'").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), formatDate(toGregorian(ui->eStartDate->text())), QVariantMapToString(opt))))
-        insertLog("library", "update", "1");
+    if (qry.exec(QString("update library set title = '%1', description = '%2', started_at = '%3', %4 options = '%5'").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), formatDate(toGregorian(ui->eStartDate->text())), image, QVariantMapToString(opt))))
+        insertLog("library", "update", Reghaabat::instance()->libraryId);
 
     QString msg = "";
 

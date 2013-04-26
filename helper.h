@@ -91,6 +91,7 @@ inline QString getJsonValue(QVariant v)
 }
 inline QString getRecordJSON(QSqlQuery& qry)
 {
+    // todo: using QJsonDocument::fromVariant(list).toJson()
     int cols = qry.record().count();
     QString json;
     bool firstCol = true;

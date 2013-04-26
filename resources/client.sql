@@ -184,4 +184,4 @@ INSERT INTO accounts values (1, 'ویژه', 25, 100);
 INSERT INTO types values (0, 'کتاب');
 INSERT INTO types values (1, 'چند رسانه‌ای');
 
-INSERT INTO library (title, started_at, version) values ('کتاب‌خانه شما', current_timestamp, '0.9.7');
+INSERT INTO library (title, started_at, version) values ('', current_timestamp, '0.9.7');
