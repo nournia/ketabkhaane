@@ -15,7 +15,7 @@ public:
     /* branches */
 
     static QString setRoot(QString rootId, QString typeId, QString title);
-    static QString setBranch(QString branchId, QString rootId, QString title, QString label);
+    static QString setBranch(QString branchId, QString rootId, QString title, QString label, QString& hint);
 
     /* borrows */
 

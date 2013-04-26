@@ -216,7 +216,8 @@ void OptionsForm::dataChanged(const QModelIndex& index)
         return;
 
     QSqlQuery qry;
-    QString msg, typeId, rootId, branchId;
+    QString msg, hint;
+    QString typeId, rootId, branchId;
     QString id = model->data(index.sibling(index.row(), 3)).toString(), title = model->data(index.sibling(index.row(), 0)).toString(), label = model->data(index.sibling(index.row(), 1)).toString();
 
     if (title.isEmpty() || label.isEmpty())
@@ -234,16 +235,18 @@ void OptionsForm::dataChanged(const QModelIndex& index)
             qry.exec("select id from branches where title = '' and root_id = "+ rootId);
             if (qry.next())
                 branchId = qry.value(0).toString();
-            msg = MObjects::setBranch(branchId, rootId, "", label);
+            msg = MObjects::setBranch(branchId, rootId, "", label, hint);
         }
     } else {
         // branch item
         rootId = model->data(index.parent().sibling(index.parent().row(), 3)).toString();
-        msg = MObjects::setBranch(id, rootId, title, label);
+        msg = MObjects::setBranch(id, rootId, title, label, hint);
         if (msg.toInt())
             model->setData(index.sibling(index.row(), 3), msg, Qt::EditRole);
     }
 
     if (!msg.isEmpty() && !msg.toInt())
         QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
+    if (!hint.isEmpty())
+        QMessageBox::warning(this, QApplication::tr("Reghaabat"), hint);
 }

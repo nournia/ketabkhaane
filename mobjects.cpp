@@ -103,7 +103,6 @@ QString MObjects::set(QString objectId, StrMap data)
 
 QString MObjects::setRoot(QString rootId, QString typeId, QString title)
 {
-    qDebug() << rootId << typeId << title;
     QSqlQuery qry;
 
     StrMap data;
@@ -119,9 +118,8 @@ QString MObjects::setRoot(QString rootId, QString typeId, QString title)
     return rootId;
 }
 
-QString MObjects::setBranch(QString branchId, QString rootId, QString title, QString label)
+QString MObjects::setBranch(QString branchId, QString rootId, QString title, QString label, QString& hint)
 {
-    qDebug() << branchId << rootId << title << label;
     QSqlQuery qry;
 
     StrMap data;
@@ -130,10 +128,37 @@ QString MObjects::setBranch(QString branchId, QString rootId, QString title, QSt
     data["label"] = label;
 
     bool create = branchId.isEmpty();
+
+    QString oldLabel;
+    if (!create) {
+        qry.exec("select label from branches where id = "+ branchId);
+        if (qry.next())
+            oldLabel = qry.value(0).toString();
+
+        // check duplicate label
+        qry.exec(QString("select id from branches where id != %1 and label = '%2'").arg(branchId, label));
+        if (qry.next())
+            return QObject::tr("There is another branch with this label!");
+    }
+
     if (! qry.exec(getReplaceQuery("branches", data, branchId).replace("null", "''")))
         return qry.lastError().text();
 
     insertLog("branches", create ? "insert" : "update", branchId);
+
+    // update object labels
+    if (oldLabel != label) {
+        if (! qry.exec(QString("update belongs set label = '%2-'||substr(label, 5, 7) where substr(label, 1, 3) == '%1'").arg(oldLabel, label)))
+            return qry.lastError().text();
+
+        int i = 0;
+        qry.exec(QString("select id from belongs where substr(label, 1, 3) = '%1'").arg(label));
+        for(; qry.next(); i++)
+            insertLog("belongs", "update", qry.value(0).toString());
+
+        if (i > 0)
+            hint = QObject::tr("Label of %1 objects changed.").arg(i);
+    }
 
     return branchId;
 }

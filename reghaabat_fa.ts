@@ -299,7 +299,7 @@
         <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="+125"/>
+        <location filename="mainwindow.cpp" line="+123"/>
         <source>Sync</source>
         <translation>به روز رسانی</translation>
     </message>
@@ -322,7 +322,7 @@
     <message>
         <location line="+9"/>
         <location line="+3"/>
-        <location filename="mainwindow.cpp" line="-7"/>
+        <location filename="mainwindow.cpp" line="-6"/>
         <source>Logout</source>
         <translation>خروج</translation>
     </message>
@@ -477,7 +477,7 @@
         <translation type="obsolete">مسابقه‌ها</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="-65"/>
+        <location filename="mainwindow.cpp" line="-64"/>
         <source>Database Connection Error!</source>
         <oldsource>Database Connection Error.</oldsource>
         <translation>خطا در اتصال به پایگاه داده‌ها!</translation>
@@ -526,7 +526,7 @@
         <translation>شئ</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+36"/>
         <source>Corrector</source>
         <translation>مصحح</translation>
     </message>
@@ -578,7 +578,7 @@
         <translation type="obsolete">چند رسانه‌ای</translation>
     </message>
     <message>
-        <location line="+243"/>
+        <location line="+260"/>
         <source>Select Image File</source>
         <translation>انتخاب تصویر</translation>
     </message>
@@ -596,7 +596,7 @@
         <translation>رده سنی</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Score</source>
         <translation>امتیاز</translation>
     </message>
@@ -605,17 +605,17 @@
         <translation type="obsolete">حداکثر امتیاز</translation>
     </message>
     <message>
-        <location line="-2"/>
+        <location line="-3"/>
         <source>Kind</source>
         <translation>نوع</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Answers</source>
         <translation>پاسخها</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>State</source>
         <translation>وضعیت</translation>
     </message>
@@ -688,9 +688,8 @@
         <translation>نوع</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>Root</source>
-        <translation>سرگروه</translation>
+        <translation type="obsolete">سرگروه</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -718,7 +717,7 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location filename="objectform.cpp" line="+125"/>
+        <location filename="objectform.cpp" line="+131"/>
         <source>%1 registered with %2 label.</source>
         <translation>«%1» با کد «%2» ثبت شد.</translation>
     </message>
@@ -799,33 +798,43 @@
         <translation type="obsolete">عمومی</translation>
     </message>
     <message>
-        <location filename="optionsform.ui" line="+271"/>
+        <location filename="optionsform.ui" line="+401"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
     <message>
-        <location line="-224"/>
+        <location line="-125"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="-13"/>
-        <location filename="optionsform.cpp" line="+118"/>
+        <location line="-27"/>
+        <source>Program</source>
+        <translation>برنامه</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Portfolio</source>
+        <translation>مشخصات</translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <location filename="optionsform.cpp" line="+147"/>
         <source>Logo must be in 300px x 300px dimension.</source>
         <translation>آرم کتاب‌خانه باید در ابعاد 300 × 300 پیکسل باشد.</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+25"/>
         <source>Logo</source>
         <translation>آرم کتاب‌خانه</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="-301"/>
         <source>Librarianship</source>
         <translation>کتاب‌داری</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+138"/>
         <source>Start Date</source>
         <translation>تاریخ آغاز</translation>
     </message>
@@ -845,48 +854,67 @@
         <translation>حداکثر تحویل مسابقه به عضو در روز</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-48"/>
+        <location line="+6"/>
         <source>Match</source>
         <translation>مسابقه</translation>
     </message>
     <message>
-        <location line="-119"/>
+        <location line="-129"/>
         <source>Library</source>
         <translation>کتاب‌خانه</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+15"/>
         <source>Book Borrow Days</source>
         <oldsource>Object Borrow Days</oldsource>
         <translation>مدت امانت کتاب</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+26"/>
+        <source>Branches</source>
+        <translation>گروه‌ها</translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>Add</source>
+        <translation>افزودن</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Remove</source>
+        <translation>حذف</translation>
+    </message>
+    <message>
+        <location line="+122"/>
         <source>9999/99/99;_</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Local</source>
-        <translation>محلی</translation>
+        <translation type="obsolete">محلی</translation>
     </message>
     <message>
         <source>Db Address</source>
         <translation type="obsolete">آدرس پایگاه داده</translation>
     </message>
     <message>
-        <location line="-180"/>
-        <location line="+237"/>
+        <location line="+48"/>
         <source>Description</source>
         <translation>توضیحات</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+64"/>
+        <source>Settings</source>
+        <translation>تنظیمات</translation>
+    </message>
+    <message>
+        <location line="+68"/>
         <source>Version</source>
         <translation>نسخه</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-31"/>
         <source>Select</source>
         <translation>انتخاب</translation>
     </message>
@@ -895,12 +923,12 @@
         <translation type="obsolete">شبکه رقابت</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-31"/>
         <source>Data Folder</source>
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="-94"/>
+        <location filename="optionsform.cpp" line="-122"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -911,13 +939,44 @@
     </message>
     <message>
         <location line="+1"/>
+        <location line="+27"/>
         <source>Label</source>
         <translation>کد</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+0"/>
+        <source>Branch</source>
+        <translation>گروه</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Count</source>
+        <translation>تعداد</translation>
+    </message>
+    <message>
+        <location line="+84"/>
         <source>Select Library Logo</source>
         <translation>انتخاب آرم کتاب‌خانه</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Remove Branch &apos;%1&apos;</source>
+        <translation>حذف زیرگروه %1</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Add Branch To &apos;%1&apos;</source>
+        <translation>افزودن زیرگروه به %1</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Remove Root &apos;%1&apos;</source>
+        <translation>حذف گروه %1</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Add Root To &apos;%1&apos;</source>
+        <translation>افزودن گروه به %1</translation>
     </message>
     <message>
         <source>Id</source>
@@ -928,7 +987,7 @@
         <translation type="obsolete">انتخاب پایگاه داده کتابخانه</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-41"/>
         <source>Select Reghaabat Data Folder</source>
         <translation>انتخاب پوشه داده‌ها</translation>
     </message>
@@ -1046,17 +1105,19 @@
         <location filename="dialogchangepassword.cpp" line="+25"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="mainwindow.cpp" line="+0"/>
-        <location line="+401"/>
+        <location line="+399"/>
         <location filename="matchform.cpp" line="-38"/>
         <location filename="objectform.cpp" line="+1"/>
         <location line="+4"/>
         <location filename="optionsform.cpp" line="-5"/>
         <location line="+21"/>
+        <location line="+102"/>
+        <location line="+2"/>
         <location filename="payment.cpp" line="+92"/>
-        <location filename="startupdialog.cpp" line="+71"/>
+        <location filename="startupdialog.cpp" line="+72"/>
         <location line="+8"/>
         <location line="+44"/>
-        <location filename="userform.cpp" line="+78"/>
+        <location filename="userform.cpp" line="+95"/>
         <location line="+4"/>
         <location filename="webconnection.cpp" line="+92"/>
         <location line="+45"/>
@@ -1140,7 +1201,7 @@
         <location filename="formchangepermissions.h" line="+33"/>
         <location filename="formoperator.cpp" line="-87"/>
         <location line="+70"/>
-        <location filename="matchtable.h" line="+59"/>
+        <location filename="matchtable.h" line="+48"/>
         <location filename="scoreform.h" line="+62"/>
         <location filename="viewerform.cpp" line="+26"/>
         <source>Reghaabat</source>
@@ -1245,7 +1306,17 @@
         <translation>امروز به اندازه‌ی کافی مسابقه دریافت کرده‌اید.</translation>
     </message>
     <message>
-        <location filename="mobjects.cpp" line="+79"/>
+        <location filename="mobjects.cpp" line="+92"/>
+        <source>There is another branch with this label!</source>
+        <translation>گروه دیگری با این برچسب وجود دارد!</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Label of %1 objects changed.</source>
+        <translation>برچسب %1 شئ تغییر کرد.</translation>
+    </message>
+    <message>
+        <location line="+30"/>
         <source>You borrowed this object.</source>
         <translation>این شئ هم‌اکنون به امانت پیش شماست.</translation>
     </message>
@@ -1410,7 +1481,7 @@
         <translation>خطا</translation>
     </message>
     <message>
-        <location filename="startupdialog.cpp" line="-65"/>
+        <location filename="startupdialog.cpp" line="-66"/>
         <location filename="syncer.cpp" line="+59"/>
         <source>Sync complete.</source>
         <translation>اتمام به روز رسانی.</translation>
@@ -1658,7 +1729,7 @@
         <translation type="obsolete">با تفکیک سنی</translation>
     </message>
     <message>
-        <location filename="viewerform.ui" line="+71"/>
+        <location filename="viewerform.ui" line="+80"/>
         <source>Save</source>
         <translation>ذخیره</translation>
     </message>
@@ -1827,8 +1898,8 @@
         <translation>کیفیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="-228"/>
-        <location line="+252"/>
+        <location filename="matchform.cpp" line="-245"/>
+        <location line="+269"/>
         <location filename="viewerform.cpp" line="-159"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>
