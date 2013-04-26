@@ -18,6 +18,8 @@ public:
     void editMode(bool edit);
     void checkReadOnly();
 
+    QString objectLabel;
+
 private:
     Ui::ObjectForm *ui;
 

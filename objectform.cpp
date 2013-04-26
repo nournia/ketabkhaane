@@ -36,7 +36,6 @@ void ObjectForm::editMode(bool edit)
     ui->gObject->setVisible(edit);
     ui->gData->setEnabled(! edit);
     ui->cType->setEnabled(! edit);
-    ui->cBranch->setEnabled(! edit);
 
     if (edit)
         ui->eObject->setFocus();
@@ -61,6 +60,7 @@ void ObjectForm::selectObject()
         ui->ePublication->setText(object["publication"].toString());
         ui->ePublication->setValue(object["publication_id"].toString());
         ui->eLabel->setText(object["label"].toString());
+        objectLabel = object["label"].toString();
 
         ui->gData->setEnabled(true);
         ui->eTitle->setFocus();
@@ -91,7 +91,6 @@ void ObjectForm::checkReadOnly()
     if (! ui->eObject->value().isEmpty())
         original = ui->eObject->value().startsWith(Reghaabat::instance()->libraryId);
 
-    ui->cType->setEnabled(original);
     ui->eTitle->setEnabled(original);
     ui->eAuthor->setEnabled(original);
     ui->ePublication->setEnabled(original);
@@ -104,7 +103,14 @@ void ObjectForm::on_cType_currentIndexChanged(int index)
 
 void ObjectForm::on_cBranch_currentIndexChanged(int index)
 {
-    ui->eLabel->setText(MObjects::getNewLabel(ui->cBranch->itemData(index).toString()));
+    QSqlQuery qry;
+    qry.exec("select label from branches where id = "+ ui->cBranch->itemData(index).toString());
+    if (qry.next()) {
+        if (objectLabel.startsWith(qry.value(0).toString()))
+             ui->eLabel->setText(objectLabel);
+         else
+             ui->eLabel->setText(MObjects::getNewLabel(ui->cBranch->itemData(index).toString()));
+    }
 }
 
 void ObjectForm::on_buttonBox_accepted()
