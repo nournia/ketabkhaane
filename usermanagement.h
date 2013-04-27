@@ -39,7 +39,7 @@ public:
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder)
     {
         if (column == 0) return;
-        QStringList fields = QStringList() << "user" << "object" << "days";
+        QStringList fields = QStringList() << "user" << "object" << "date" << "days";
 
         QString sql =
             "select borrows.id, firstname||' '||lastname as user, objects.title as object, ifnull(renewed_at, delivered_at) as date, julianday(date('now')) - julianday(date(ifnull(renewed_at, delivered_at))) as days "
