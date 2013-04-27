@@ -115,10 +115,13 @@ void Syncer::receive()
     }
 
     if (response["command"] == "query") {
-        if(response["synced_at"].isValid())
+        if (response["synced_at"].isValid())
             lastSync = response["synced_at"].toDateTime();
         else
             lastSync.setDate(QDate(1900, 01, 01));
+
+        if (response.contains("license"))
+            qry.exec(QString("update library set license = '%1'").arg(response["license"].toString()));
     }
 
     if (response["command"] == "store") {

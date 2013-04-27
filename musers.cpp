@@ -135,9 +135,14 @@ bool MUsers::login(QString userId, QString password, StrMap& user)
     QString query = QString("select users.id, firstname||' '||lastname as name, gender, permission from users inner join permissions on users.id = permissions.user_id where users.id = %1 and upassword = '%2'").arg(userId).arg(upassword);
     qry.exec(query);
 
-    if (qry.next())
-    {
+    if (qry.next()) {
         user = getRecord(qry);
+
+        // library license check
+        qry.exec("select id, license from library"); qry.next();
+        if (qry.value(1).toString() != QCryptographicHash::hash(QString("a" + qry.value(0).toString()).toUtf8(), QCryptographicHash::Sha1).toHex())
+            user["permission"] = "designer";
+
         return true;
     }
     else

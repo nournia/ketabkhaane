@@ -170,11 +170,11 @@ void MainWindow::applyPermission()
        ui->actionNewUser->setEnabled(true);
        ui->actionEditUser->setEnabled(true);
        ui->actionDeliver->setEnabled(true);
+       ui->actionUserManagement->setEnabled(true);
    }
 
    if (Reghaabat::hasAccess("designer"))
    {
-       ui->actionUserManagement->setEnabled(true);
        ui->actionMatchManagement->setEnabled(true);
        ui->actionObjectManagement->setEnabled(true);
    }
@@ -246,7 +246,7 @@ void MainWindow::on_actionUserManagement_triggered()
 
 void MainWindow::on_actionMatchManagement_triggered()
 {
-    if (! Reghaabat::hasAccess("manager")) return;
+    if (! Reghaabat::hasAccess("designer")) return;
 
     if (!matchListForm)
     {
@@ -413,7 +413,7 @@ void MainWindow::on_actionEditUser_triggered()
 
 void MainWindow::on_actionObjectManagement_triggered()
 {
-    if (! Reghaabat::hasAccess("manager")) return;
+    if (! Reghaabat::hasAccess("designer")) return;
 
     if (! objectManagement)
     {
