@@ -4,7 +4,7 @@
 ;General
 	;Name and file
 	Name "رقابت"
-	OutFile "Reghaabat-0.9.1.exe"
+	OutFile "Reghaabat-0.9.7.exe"
 
 	;Default installation folder
 	InstallDir "$PROGRAMFILES\Reghaabat"
