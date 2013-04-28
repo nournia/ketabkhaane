@@ -75,8 +75,12 @@ public:
 
         if (! msg.isEmpty())
             QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
-        else
-            edited[index] = val;
+        else {
+            if (index.column() == 6)
+                edited[index] = QObject::tr(val.toLatin1());
+            else
+                edited[index] = val;
+        }
 
         return msg.isEmpty();
     }
