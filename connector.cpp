@@ -41,6 +41,12 @@ bool Connector::buildDb()
             qDebug() << "sql file error: " << qry.lastError();
             return false;
         }
+
+    // create data folder
+    QDir dir(QString("%1/files/").arg(dataFolder()));
+    if (!dir.exists())
+        dir.mkpath(".");
+
     return true;
 }
 

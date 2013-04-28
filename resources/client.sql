@@ -134,7 +134,7 @@ CREATE TABLE open_scores (
 CREATE TABLE permissions (
 	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
-	account_id tinyint(4) not null references accounts(id) on update cascade,
+	account_id tinyint(4) not null default 0 references accounts(id) on update cascade,
 	permission varchar(10) not null, -- enum("user", "operator", "designer", "manager", "master", "admin")
 	label varchar(10) null default null
 );
