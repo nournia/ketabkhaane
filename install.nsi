@@ -47,7 +47,6 @@ Section
 	File /r /x data "Files\*.*"
 	SetOverwrite off
 	SetOutPath $INSTDIR\data
-	File /r "Files\data\*.*"
 
 	;ShortCuts
 	SetOutPath $INSTDIR
