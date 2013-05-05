@@ -2,12 +2,11 @@
 #define USERMANAGEMENT_H
 
 #include <QDialog>
+#include <QSqlQueryModel>
 
 #include <mainwindow.h>
 #include <jalali.h>
 #include <musers.h>
-
-#include <QSqlQueryModel>
 
 class UsersModel : public QSqlQueryModel
 {

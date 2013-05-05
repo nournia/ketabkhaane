@@ -226,7 +226,7 @@ void ViewerForm::showObjectList(QString from, QString to)
     qry.exec(QString(
         "select belongs.label, objects.title, authors.title as author, publications.title as publication, _branches.title as branch, types.title as type "
         "from objects inner join belongs on objects.id = belongs.object_id inner join types on objects.type_id = types.id left join authors on objects.author_id = authors.id left join publications on objects.publication_id = publications.id "
-        "left join (select branches.id, roots.title ||' - '|| branches.title as title from branches inner join roots on branches.root_id = roots.id) as _branches on belongs.branch_id = _branches.id "
+        "left join (select branches.id, case when branches.title != '' then roots.title ||' - '|| branches.title else roots.title end as title from branches inner join roots on branches.root_id = roots.id) as _branches on belongs.branch_id = _branches.id "
         "where belongs.label >= '%1' and belongs.label <= '%2' order by label").arg(from, to));
 
     int p = 0;

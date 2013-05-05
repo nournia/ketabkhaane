@@ -299,12 +299,12 @@
         <translation type="obsolete">مسابقه</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="+123"/>
+        <location filename="mainwindow.cpp" line="+119"/>
         <source>Sync</source>
         <translation>به روز رسانی</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="+74"/>
+        <location filename="mainwindow.ui" line="+80"/>
         <source>Web</source>
         <translation>وب</translation>
     </message>
@@ -322,7 +322,7 @@
     <message>
         <location line="+9"/>
         <location line="+3"/>
-        <location filename="mainwindow.cpp" line="-6"/>
+        <location filename="mainwindow.cpp" line="-10"/>
         <source>Logout</source>
         <translation>خروج</translation>
     </message>
@@ -385,6 +385,7 @@
     </message>
     <message>
         <location line="-69"/>
+        <location filename="mainwindow.cpp" line="+5"/>
         <source>Change Password</source>
         <translation>تغییر کلمه عبور</translation>
     </message>
@@ -477,7 +478,7 @@
         <translation type="obsolete">مسابقه‌ها</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="-64"/>
+        <location filename="mainwindow.cpp" line="-61"/>
         <source>Database Connection Error!</source>
         <oldsource>Database Connection Error.</oldsource>
         <translation>خطا در اتصال به پایگاه داده‌ها!</translation>
@@ -717,7 +718,7 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location filename="objectform.cpp" line="+131"/>
+        <location filename="objectform.cpp" line="+137"/>
         <source>%1 registered with %2 label.</source>
         <translation>«%1» با کد «%2» ثبت شد.</translation>
     </message>
@@ -784,6 +785,39 @@
     </message>
 </context>
 <context>
+    <name>ObjectsModel</name>
+    <message>
+        <location filename="objectmanagement.h" line="+17"/>
+        <source>Label</source>
+        <translation>کد</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Title</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Author</source>
+        <translation>نویسنده</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Publication</source>
+        <translation>ناشر</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Type</source>
+        <translation>نوع</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Branch</source>
+        <translation>گروه</translation>
+    </message>
+</context>
+<context>
     <name>OptionsForm</name>
     <message>
         <source>Convert Old Database</source>
@@ -819,7 +853,7 @@
     </message>
     <message>
         <location line="+45"/>
-        <location filename="optionsform.cpp" line="+147"/>
+        <location filename="optionsform.cpp" line="+155"/>
         <source>Logo must be in 300px x 300px dimension.</source>
         <translation>آرم کتاب‌خانه باید در ابعاد 300 × 300 پیکسل باشد.</translation>
     </message>
@@ -928,7 +962,7 @@
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="-122"/>
+        <location filename="optionsform.cpp" line="-130"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -939,7 +973,7 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+27"/>
+        <location line="+30"/>
         <source>Label</source>
         <translation>کد</translation>
     </message>
@@ -954,7 +988,7 @@
         <translation>تعداد</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+89"/>
         <source>Select Library Logo</source>
         <translation>انتخاب آرم کتاب‌خانه</translation>
     </message>
@@ -1105,7 +1139,7 @@
         <location filename="dialogchangepassword.cpp" line="+25"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="mainwindow.cpp" line="+0"/>
-        <location line="+399"/>
+        <location line="+404"/>
         <location filename="matchform.cpp" line="-38"/>
         <location filename="objectform.cpp" line="+1"/>
         <location line="+4"/>
@@ -1116,7 +1150,7 @@
         <location filename="payment.cpp" line="+92"/>
         <location filename="startupdialog.cpp" line="+72"/>
         <location line="+8"/>
-        <location line="+44"/>
+        <location line="+46"/>
         <location filename="userform.cpp" line="+95"/>
         <location line="+4"/>
         <location filename="webconnection.cpp" line="+92"/>
@@ -1160,7 +1194,7 @@
         <translation>این شماره ملی برای %1 ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+73"/>
         <source>Invalid Old Password.</source>
         <translation>کلمه عبور وارد شده اشتباه است.</translation>
     </message>
@@ -1249,7 +1283,7 @@
         <translation type="obsolete">چند رسانه‌ای</translation>
     </message>
     <message>
-        <location filename="matchtable.h" line="+18"/>
+        <location filename="matchtable.h" line="+22"/>
         <location filename="mmatches.h" line="+57"/>
         <source>active</source>
         <translation>فعال</translation>
@@ -1311,7 +1345,7 @@
         <translation>گروه دیگری با این برچسب وجود دارد!</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>Label of %1 objects changed.</source>
         <translation>برچسب %1 شئ تغییر کرد.</translation>
     </message>
@@ -1451,7 +1485,7 @@
         <translation>دوباره</translation>
     </message>
     <message>
-        <location filename="startupdialog.cpp" line="-58"/>
+        <location filename="startupdialog.cpp" line="-60"/>
         <source>Invalid id or password.</source>
         <translation>شماره یا کلمه عبور نا معتبر است.</translation>
     </message>
@@ -1461,7 +1495,7 @@
         <translation>لطفا تا برقراری تماس با سرور منتظر بمانید.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <location line="+20"/>
         <source>Please complete required info.</source>
         <translation>لطفا اطلاعات خواسته شده را وارد کنید.</translation>
@@ -1471,18 +1505,18 @@
     <name>Syncer</name>
     <message>
         <location filename="syncer.cpp" line="+102"/>
-        <location line="+23"/>
+        <location line="+29"/>
         <source>Sync Error.</source>
         <translation>خطا در هنگام به روز رسانی.</translation>
     </message>
     <message>
-        <location line="-18"/>
+        <location line="-24"/>
         <source>Error</source>
         <translation>خطا</translation>
     </message>
     <message>
-        <location filename="startupdialog.cpp" line="-66"/>
-        <location filename="syncer.cpp" line="+59"/>
+        <location filename="startupdialog.cpp" line="-67"/>
+        <location filename="syncer.cpp" line="+65"/>
         <source>Sync complete.</source>
         <translation>اتمام به روز رسانی.</translation>
     </message>
@@ -1686,7 +1720,7 @@
 <context>
     <name>UsersModel</name>
     <message>
-        <location filename="usermanagement.h" line="+22"/>
+        <location filename="usermanagement.h" line="+21"/>
         <source>Name</source>
         <translation>نام</translation>
     </message>
@@ -1816,7 +1850,7 @@
     <message>
         <location line="-179"/>
         <source>Lablel</source>
-        <translation>شماره</translation>
+        <translation>کد</translation>
     </message>
     <message>
         <location line="+0"/>

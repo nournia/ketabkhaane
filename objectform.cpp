@@ -37,8 +37,14 @@ void ObjectForm::editMode(bool edit)
     ui->gData->setEnabled(! edit);
     ui->cType->setEnabled(! edit);
 
-    if (edit)
-        ui->eObject->setFocus();
+    if (edit) {
+        if (!Reghaabat::instance()->tmpId.isEmpty())
+            ui->eObject->selectValue(Reghaabat::instance()->tmpId);
+        else
+            ui->eObject->setFocus();
+
+        Reghaabat::instance()->tmpId = "";
+    }
     checkReadOnly();
 }
 

@@ -2,6 +2,7 @@
 #include "ui_objectmanagement.h"
 
 #include <mainwindow.h>
+#include <uihelper.h>
 
 ObjectManagement::ObjectManagement(QWidget *parent) :
     QDialog(parent),
@@ -11,6 +12,14 @@ ObjectManagement::ObjectManagement(QWidget *parent) :
 
     connect(ui->bNewObject, SIGNAL(clicked()), parent, SLOT(newObject()));
     connect(ui->bEditObject, SIGNAL(clicked()), parent, SLOT(editObject()));
+
+    model = new ObjectsModel(this);
+    ui->tObjects->setModel(model);
+
+    customizeTable(ui->tObjects, 6, 80, true, 2);
+    ui->tObjects->setColumnWidth(3, 120);
+    ui->tObjects->setColumnWidth(4, 120);
+    ui->tObjects->setColumnWidth(6, 160);
 
     ui->gList->setVisible(false);
     ui->gLabels->setVisible(false);
@@ -64,4 +73,11 @@ void ObjectManagement::on_bPrintList_clicked()
         ui->eFromList->setText(qry.value(0).toString());
         ui->eToList->setText(qry.value(1).toString());
     }
+}
+
+void ObjectManagement::on_bEditObject_clicked()
+{
+    QModelIndex c = ui->tObjects->currentIndex();
+    if (c.isValid())
+        Reghaabat::instance()->tmpId = model->data(c.sibling(c.row(), 0)).toString();
 }
