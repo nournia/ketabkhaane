@@ -31,7 +31,7 @@ public:
 
     QStackedLayout *stackedLayout;
     QLabel *lUser;
-    QPushButton *bLogout, *bSync;
+    QPushButton *bLogout, *bSync, *bChangePassword;
     QProgressBar *pSync;
 private:
     Ui::MainWindow *ui;

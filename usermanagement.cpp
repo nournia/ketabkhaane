@@ -22,6 +22,10 @@ UserManagement::UserManagement(QWidget *parent) :
 
     ui->gScoreList->setVisible(false);
     ui->gLogs->setVisible(false);
+    if (! options()["Match"].toBool()) {
+        ui->bScoreList->setVisible(false);
+        ui->bLogs->setVisible(false);
+    }
 }
 
 UserManagement::~UserManagement()

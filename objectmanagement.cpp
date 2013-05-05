@@ -14,6 +14,9 @@ ObjectManagement::ObjectManagement(QWidget *parent) :
 
     ui->gList->setVisible(false);
     ui->gLabels->setVisible(false);
+    if (! options()["Match"].toBool()) {
+        ui->cOnlyMatchObjects->setVisible(false);
+    }
 }
 
 ObjectManagement::~ObjectManagement()

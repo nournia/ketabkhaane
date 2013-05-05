@@ -63,13 +63,6 @@ MainWindow::MainWindow(QWidget *parent) :
             exit(0);
     }
 
-    if (! options()["Match"].toBool()) {
-        ui->actionUserManagement->setVisible(false);
-        ui->actionMatchManagement->setVisible(false);
-        ui->actionSetScores->setVisible(false);
-        ui->actionPayment->setVisible(false);
-    }
-
     applyPermission();
     firstPage();
     on_actionLogin_triggered();
@@ -111,14 +104,17 @@ void MainWindow::prepareUI()
     lUser = new QLabel("", this);
 
     bLogout = new QPushButton(QIcon(":/images/logout.png"), "", this);
-    bLogout->setFlat(true);
-    bLogout->setMaximumWidth(20); bLogout->setMaximumHeight(20);
+    bLogout->setFlat(true); bLogout->setMaximumWidth(20); bLogout->setMaximumHeight(20);
     connect(bLogout, SIGNAL(clicked()), this, SLOT(on_actionLogout_triggered()));
     bLogout->setToolTip(tr("Logout"));
 
+    bChangePassword = new QPushButton(QIcon(":/images/key.png"), "", this);
+    bChangePassword->setFlat(true); bChangePassword->setMaximumWidth(20); bChangePassword->setMaximumHeight(20);
+    connect(bChangePassword, SIGNAL(clicked()), this, SLOT(on_actionChangePassword_triggered()));
+    bChangePassword->setToolTip(tr("Change Password"));
+
     bSync = new QPushButton(QIcon(":/images/sync.png"), "", this);
-    bSync->setFlat(true);
-    bSync->setMaximumWidth(20); bSync->setMaximumHeight(20);
+    bSync->setFlat(true); bSync->setMaximumWidth(20); bSync->setMaximumHeight(20);
     connect(bSync, SIGNAL(clicked()), this, SLOT(sync()));
     bSync->setToolTip(tr("Sync"));
 
@@ -135,6 +131,7 @@ void MainWindow::prepareUI()
     QHBoxLayout* lay =  new QHBoxLayout();
     lay->setContentsMargins(9, 3, 9, 3);
     lay->addWidget(bLogout);
+    lay->addWidget(bChangePassword);
     lay->addWidget(lUser);
     lay->addItem(spacer);
     lay->addWidget(bSync);
@@ -147,6 +144,14 @@ void MainWindow::prepareUI()
 
 void MainWindow::applyPermission()
 {
+   bool match = options()["Match"].toBool();
+   ui->actionMatchManagement->setVisible(match);
+   ui->actionSetScores->setVisible(match);
+   ui->actionPayment->setVisible(match);
+   ui->actionWeb->setVisible(match);
+
+   // enables
+
    ui->actionWeb->setEnabled(false);
    ui->actionDeliver->setEnabled(false);
    ui->actionNewUser->setEnabled(false);
@@ -155,15 +160,9 @@ void MainWindow::applyPermission()
    ui->actionMatchManagement->setEnabled(false);
    ui->actionObjectManagement->setEnabled(false);
    ui->actionOptions->setEnabled(false);
-   ui->actionChangePermissions->setEnabled(false);
    ui->actionSetScores->setEnabled(false);
    ui->actionPayment->setEnabled(false);
-
-   ui->actionLogin->setVisible(Reghaabat::instance()->userId.isEmpty());
-   ui->actionLogout->setVisible(! ui->actionLogin->isVisible());
-   ui->actionChangePassword->setEnabled(! ui->actionLogin->isVisible());
-
-   // enables
+   ui->actionChangePermissions->setEnabled(false);
 
    if (Reghaabat::hasAccess("operator"))
    {
@@ -190,6 +189,10 @@ void MainWindow::applyPermission()
        ui->actionChangePermissions->setEnabled(true);
        ui->actionOptions->setEnabled(true);
        ui->actionWeb->setEnabled(true);
+   }
+
+   if (Reghaabat::instance()->userPermission == "designer") {
+       ui->actionOptions->setEnabled(true);
    }
 }
 
@@ -230,6 +233,7 @@ void MainWindow::on_actionLogout_triggered()
     firstPage();
 
     applyPermission();
+    on_actionLogin_triggered();
 }
 
 void MainWindow::on_actionUserManagement_triggered()
@@ -324,7 +328,7 @@ void MainWindow::editObject()
 
 void MainWindow::on_actionOptions_triggered()
 {
-    if (! Reghaabat::hasAccess("master")) return;
+    if (! (Reghaabat::hasAccess("master") || Reghaabat::instance()->userPermission == "designer")) return;
 
     if (! optionsForm)
     {
@@ -356,6 +360,7 @@ void MainWindow::firstPage()
         stackedLayout->addWidget(formFirst);
     }
     stackedLayout->setCurrentWidget(formFirst);
+    applyPermission();
 }
 
 void MainWindow::on_actionChangePassword_triggered()

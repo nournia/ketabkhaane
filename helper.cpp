@@ -222,7 +222,7 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
 QVariantMap options()
 {
     QVariantMap options;
-    options["Match"] = true;
+    options["Match"] = false;
     options["CorrectorIdentifier"] = "NameFamily";
     options["MaxMatchesInOneDay"] = 3;
     options["MaxConcurrentMatches"] = 3;

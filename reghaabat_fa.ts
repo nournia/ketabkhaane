@@ -368,7 +368,7 @@
     <message>
         <location line="-114"/>
         <source>Options</source>
-        <translation>تنظمیات</translation>
+        <translation>تنظیمات</translation>
     </message>
     <message>
         <source>Deliver Match</source>

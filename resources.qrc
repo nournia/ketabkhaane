@@ -9,7 +9,6 @@
         <file>resources/labels.html</file>
         <file>resources/objects.html</file>
         <file>resources/logs.html</file>
-
         <file>images/deliver.png</file>
         <file>images/login.png</file>
         <file>images/match.png</file>
@@ -19,12 +18,10 @@
         <file>images/edit_user.png</file>
         <file>images/add_user.png</file>
         <file>images/payment.png</file>
-        <file>images/password.png</file>
         <file>images/setscores.png</file>
         <file>images/object.png</file>
         <file>images/web.png</file>
         <file>images/reghaabat.ico</file>
-
         <file>images/ok.png</file>
         <file>images/cancel.png</file>
         <file>images/logout.png</file>
