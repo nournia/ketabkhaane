@@ -50,7 +50,7 @@ void UserForm::checkReadOnly()
 {
     bool original = true;
     if (! ui->eUser->value().isEmpty())
-        original = ui->eUser->value().startsWith(Reghaabat::instance()->libraryId);
+        original = ui->eUser->value().startsWith(App::instance()->libraryId);
 
     ui->eFirstname->setEnabled(original);
     ui->eLastname->setEnabled(original);
@@ -92,11 +92,11 @@ void UserForm::on_buttonBox_accepted()
         {
             MUsers::get(user["id"].toString(), user);
             msg = tr("%1 registered with %2 label.").arg(user["firstname"].toString() +" "+ user["lastname"].toString()).arg(user["label"].toString());
-            QMessageBox::information(this, QApplication::tr("Reghaabat"), msg);
+            QMessageBox::information(this, QObject::tr("Ketabkhaane"), msg);
         }
     }
     else
-        QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
+        QMessageBox::critical(this, QObject::tr("Ketabkhaane"), msg);
 }
 
 void UserForm::selectUser()

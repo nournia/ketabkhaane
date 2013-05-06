@@ -74,7 +74,7 @@ public:
         QString msg = MMatches::set(id, match, questions);
 
         if (! msg.isEmpty())
-            QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
+            QMessageBox::warning(0, QObject::tr("Ketabkhaane"), msg);
         else {
             if (index.column() == 6)
                 edited[index] = QObject::tr(val.toLatin1());

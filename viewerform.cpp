@@ -23,7 +23,7 @@ ViewerForm::ViewerForm(QWidget *parent) :
     ui(new Ui::ViewerForm)
 {
     ui->setupUi(this);
-    setWindowTitle(QObject::tr("Reghaabat"));
+    setWindowTitle(QObject::tr("Ketabkhaane"));
 
     landscape = false;
     margin = true;
@@ -493,7 +493,7 @@ void ViewerForm::on_bPdf_clicked()
 
 void ViewerForm::on_bPrint_clicked()
 {
-    QSettings settings("Sobhe", "Reghaabat");
+    QSettings settings("Sobhe", "Ketabkhaane");
     QString tmpFile = "p";
 
     savePdf(tmpFile);

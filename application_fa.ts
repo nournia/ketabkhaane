@@ -9,9 +9,13 @@
         <translation>درباره</translation>
     </message>
     <message>
-        <location line="+22"/>
         <source>Book Reading Competition Software</source>
-        <translation>نرم افزار مسابقه کتاب‌خوانی</translation>
+        <translation type="obsolete">نرم افزار مسابقه کتاب‌خوانی</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Ketabkhaane Software</source>
+        <translation>نرم‌افزار کتاب‌خانه</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -20,7 +24,8 @@
     </message>
     <message>
         <location line="+13"/>
-        <source>&lt;a href=&quot;http://reghaabat.ir&quot; style=&quot;color:#049cdb; text-decoration: none;&quot;&gt;reghaabat.ir&lt;/a&gt;</source>
+        <source>&lt;a href=&quot;http://ketabkhaane.ir&quot; style=&quot;color:#049cdb; text-decoration: none;&quot;&gt;ketabkhaane.ir&lt;/a&gt;</source>
+        <oldsource>&lt;a href=&quot;http://reghaabat.ir&quot; style=&quot;color:#049cdb; text-decoration: none;&quot;&gt;reghaabat.ir&lt;/a&gt;</oldsource>
         <translation></translation>
     </message>
 </context>
@@ -277,9 +282,8 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="mainwindow.ui" line="+14"/>
         <source>Reghaabat</source>
-        <translation>رقابت</translation>
+        <translation type="obsolete">رقابت</translation>
     </message>
     <message>
         <source>Username</source>
@@ -304,7 +308,12 @@
         <translation>به روز رسانی</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="+80"/>
+        <location filename="mainwindow.ui" line="+14"/>
+        <source>Ketabkhaane</source>
+        <translation>کتاب‌خانه</translation>
+    </message>
+    <message>
+        <location line="+80"/>
         <source>Web</source>
         <translation>وب</translation>
     </message>
@@ -718,7 +727,7 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location filename="objectform.cpp" line="+137"/>
+        <location filename="objectform.cpp" line="+143"/>
         <source>%1 registered with %2 label.</source>
         <translation>«%1» با کد «%2» ثبت شد.</translation>
     </message>
@@ -1022,7 +1031,8 @@
     </message>
     <message>
         <location line="-41"/>
-        <source>Select Reghaabat Data Folder</source>
+        <source>Select Data Folder</source>
+        <oldsource>Select Reghaabat Data Folder</oldsource>
         <translation>انتخاب پوشه داده‌ها</translation>
     </message>
 </context>
@@ -1136,27 +1146,8 @@
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="dialogchangepassword.cpp" line="+25"/>
-        <location filename="logindialog.cpp" line="+0"/>
-        <location filename="mainwindow.cpp" line="+0"/>
-        <location line="+404"/>
-        <location filename="matchform.cpp" line="-38"/>
-        <location filename="objectform.cpp" line="+1"/>
-        <location line="+4"/>
-        <location filename="optionsform.cpp" line="-5"/>
-        <location line="+21"/>
-        <location line="+102"/>
-        <location line="+2"/>
-        <location filename="payment.cpp" line="+92"/>
-        <location filename="startupdialog.cpp" line="+72"/>
-        <location line="+8"/>
-        <location line="+46"/>
-        <location filename="userform.cpp" line="+95"/>
-        <location line="+4"/>
-        <location filename="webconnection.cpp" line="+92"/>
-        <location line="+45"/>
         <source>Reghaabat</source>
-        <translation>رقابت</translation>
+        <translation type="obsolete">رقابت</translation>
     </message>
     <message>
         <source>Rooyesh</source>
@@ -1232,14 +1223,8 @@
         <translation>کلمه عبور جدید ثبت شد.</translation>
     </message>
     <message>
-        <location filename="formchangepermissions.h" line="+33"/>
-        <location filename="formoperator.cpp" line="-87"/>
-        <location line="+70"/>
-        <location filename="matchtable.h" line="+48"/>
-        <location filename="scoreform.h" line="+62"/>
-        <location filename="viewerform.cpp" line="+26"/>
         <source>Reghaabat</source>
-        <translation>رقابت</translation>
+        <translation type="obsolete">رقابت</translation>
     </message>
     <message>
         <location filename="mmatches.cpp" line="+49"/>
@@ -1283,7 +1268,7 @@
         <translation type="obsolete">چند رسانه‌ای</translation>
     </message>
     <message>
-        <location filename="matchtable.h" line="+22"/>
+        <location filename="matchtable.h" line="+70"/>
         <location filename="mmatches.h" line="+57"/>
         <source>active</source>
         <translation>فعال</translation>
@@ -1372,6 +1357,35 @@
         <source>Discount is greater than fine.</source>
         <translation type="obsolete">مقدار تخفیف بیشتر از مقدار جریمه است.</translation>
     </message>
+    <message>
+        <location filename="dialogchangepassword.cpp" line="+25"/>
+        <location filename="formchangepermissions.h" line="+33"/>
+        <location filename="formoperator.cpp" line="-87"/>
+        <location line="+70"/>
+        <location filename="logindialog.cpp" line="+0"/>
+        <location filename="mainwindow.cpp" line="+0"/>
+        <location line="+404"/>
+        <location filename="matchform.cpp" line="-38"/>
+        <location filename="matchtable.h" line="-22"/>
+        <location filename="objectform.cpp" line="+1"/>
+        <location line="+4"/>
+        <location filename="optionsform.cpp" line="-5"/>
+        <location line="+21"/>
+        <location line="+102"/>
+        <location line="+2"/>
+        <location filename="payment.cpp" line="+92"/>
+        <location filename="scoreform.h" line="+62"/>
+        <location filename="startupdialog.cpp" line="+72"/>
+        <location line="+8"/>
+        <location line="+46"/>
+        <location filename="userform.cpp" line="+95"/>
+        <location line="+4"/>
+        <location filename="viewerform.cpp" line="+26"/>
+        <location filename="webconnection.cpp" line="+92"/>
+        <location line="+45"/>
+        <source>Ketabkhaane</source>
+        <translation>کتاب‌خانه</translation>
+    </message>
 </context>
 <context>
     <name>QuestionModule</name>
@@ -1439,7 +1453,7 @@
     <message>
         <location line="+12"/>
         <source>Your welcome. You must register before using reghaabat. If you registered in other instances please use login button.</source>
-        <translation>به رقابت خوش آمدید. برای استفاده باید اول ثبت نام کنید.
+        <translation>خوش آمدید. برای استفاده باید اول ثبت نام کنید.
 اگر قبلا عضو شده‌اید لطفا از گزینه «ورود» استفاده کنید.</translation>
     </message>
     <message>

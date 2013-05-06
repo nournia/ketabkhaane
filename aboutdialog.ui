@@ -33,7 +33,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Book Reading Competition Software</string>
+      <string>Ketabkhaane Software</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
       <property name="fieldGrowthPolicy">
@@ -55,7 +55,7 @@
          </font>
         </property>
         <property name="text">
-         <string>&lt;a href=&quot;http://reghaabat.ir&quot; style=&quot;color:#049cdb; text-decoration: none;&quot;&gt;reghaabat.ir&lt;/a&gt;</string>
+         <string>&lt;a href=&quot;http://ketabkhaane.ir&quot; style=&quot;color:#049cdb; text-decoration: none;&quot;&gt;ketabkhaane.ir&lt;/a&gt;</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

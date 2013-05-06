@@ -45,12 +45,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Reghaabat::instance()->serverUrl = "http://reghaabat-nournia.rhcloud.com/server/";
+    App::instance()->serverUrl = "http://reghaabat-nournia.rhcloud.com/server/";
     prepareUI();
 
     // check for db connection
     if (! Connector::connectDb().isOpen()) {
-        QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Database Connection Error!"));
+        QMessageBox::critical(this, QObject::tr("Ketabkhaane"), tr("Database Connection Error!"));
         exit(1);
     }
 
@@ -77,8 +77,8 @@ bool MainWindow::isStartup()
 {
     QSqlQuery qry;
     qry.exec("select id from library"); qry.next();
-    Reghaabat::instance()->libraryId = qry.value(0).toString();
-    if (Reghaabat::instance()->libraryId.isEmpty())
+    App::instance()->libraryId = qry.value(0).toString();
+    if (App::instance()->libraryId.isEmpty())
         return true;
 
     qry.exec("select id from users where upassword is not null");
@@ -164,7 +164,7 @@ void MainWindow::applyPermission()
    ui->actionPayment->setEnabled(false);
    ui->actionChangePermissions->setEnabled(false);
 
-   if (Reghaabat::hasAccess("operator"))
+   if (App::hasAccess("operator"))
    {
        ui->actionNewUser->setEnabled(true);
        ui->actionEditUser->setEnabled(true);
@@ -172,26 +172,26 @@ void MainWindow::applyPermission()
        ui->actionUserManagement->setEnabled(true);
    }
 
-   if (Reghaabat::hasAccess("designer"))
+   if (App::hasAccess("designer"))
    {
        ui->actionMatchManagement->setEnabled(true);
        ui->actionObjectManagement->setEnabled(true);
    }
 
-   if (Reghaabat::hasAccess("manager"))
+   if (App::hasAccess("manager"))
    {
        ui->actionSetScores->setEnabled(true);
        ui->actionPayment->setEnabled(true);
    }
 
-   if (Reghaabat::hasAccess("master"))
+   if (App::hasAccess("master"))
    {
        ui->actionChangePermissions->setEnabled(true);
        ui->actionOptions->setEnabled(true);
        ui->actionWeb->setEnabled(true);
    }
 
-   if (Reghaabat::instance()->userPermission == "designer") {
+   if (App::instance()->userPermission == "designer") {
        ui->actionOptions->setEnabled(true);
    }
 }
@@ -201,8 +201,8 @@ void MainWindow::on_actionLogin_triggered()
     LoginDialog ld(this);
     ld.exec();
 
-    if (! Reghaabat::instance()->userId.isEmpty()) {
-        lUser->setText(Reghaabat::instance()->userName);
+    if (! App::instance()->userId.isEmpty()) {
+        lUser->setText(App::instance()->userName);
         ui->statusBar->setVisible(true);
         applyPermission();
         on_actionDeliver_triggered();
@@ -211,9 +211,9 @@ void MainWindow::on_actionLogin_triggered()
 
 void MainWindow::on_actionLogout_triggered()
 {
-    Reghaabat::instance()->userId = "";
-    Reghaabat::instance()->userName = "";
-    Reghaabat::instance()->userPermission = "";
+    App::instance()->userId = "";
+    App::instance()->userName = "";
+    App::instance()->userPermission = "";
 
     // clean status bar
     ui->statusBar->setVisible(false);
@@ -238,7 +238,7 @@ void MainWindow::on_actionLogout_triggered()
 
 void MainWindow::on_actionUserManagement_triggered()
 {
-    if (! Reghaabat::hasAccess("operator")) return;
+    if (! App::hasAccess("operator")) return;
 
     if (! userManagement)
     {
@@ -250,7 +250,7 @@ void MainWindow::on_actionUserManagement_triggered()
 
 void MainWindow::on_actionMatchManagement_triggered()
 {
-    if (! Reghaabat::hasAccess("designer")) return;
+    if (! App::hasAccess("designer")) return;
 
     if (!matchListForm)
     {
@@ -262,7 +262,7 @@ void MainWindow::on_actionMatchManagement_triggered()
 
 void MainWindow::newUser()
 {
-    if (! Reghaabat::hasAccess("operator")) return;
+    if (! App::hasAccess("operator")) return;
 
     if (! userForm)
     {
@@ -276,7 +276,7 @@ void MainWindow::newUser()
 
 void MainWindow::editUser()
 {
-    if (! Reghaabat::hasAccess("operator")) return;
+    if (! App::hasAccess("operator")) return;
 
     newUser();
     userForm->editMode(true);
@@ -284,7 +284,7 @@ void MainWindow::editUser()
 
 void MainWindow::newMatch()
 {
-    if (! Reghaabat::hasAccess("designer")) return;
+    if (! App::hasAccess("designer")) return;
 
     if (! matchForm)
     {
@@ -298,7 +298,7 @@ void MainWindow::newMatch()
 
 void MainWindow::editMatch()
 {
-    if (! Reghaabat::hasAccess("designer")) return;
+    if (! App::hasAccess("designer")) return;
 
     newMatch();
     matchForm->editMode(true);
@@ -306,7 +306,7 @@ void MainWindow::editMatch()
 
 void MainWindow::newObject()
 {
-    if (! Reghaabat::hasAccess("designer")) return;
+    if (! App::hasAccess("designer")) return;
 
     if (! objectForm)
     {
@@ -320,7 +320,7 @@ void MainWindow::newObject()
 
 void MainWindow::editObject()
 {
-    if (! Reghaabat::hasAccess("designer")) return;
+    if (! App::hasAccess("designer")) return;
 
     newObject();
     objectForm->editMode(true);
@@ -328,7 +328,7 @@ void MainWindow::editObject()
 
 void MainWindow::on_actionOptions_triggered()
 {
-    if (! (Reghaabat::hasAccess("master") || Reghaabat::instance()->userPermission == "designer")) return;
+    if (! (App::hasAccess("master") || App::instance()->userPermission == "designer")) return;
 
     if (! optionsForm)
     {
@@ -341,7 +341,7 @@ void MainWindow::on_actionOptions_triggered()
 
 void MainWindow::on_actionDeliver_triggered()
 {
-    if (! Reghaabat::hasAccess("operator")) return;
+    if (! App::hasAccess("operator")) return;
 
     if (! formOperator)
     {
@@ -371,7 +371,7 @@ void MainWindow::on_actionChangePassword_triggered()
 
 void MainWindow::on_actionChangePermissions_triggered()
 {
-    if (! Reghaabat::hasAccess("manager")) return;
+    if (! App::hasAccess("manager")) return;
 
     if (! formChangePermissions)
     {
@@ -383,7 +383,7 @@ void MainWindow::on_actionChangePermissions_triggered()
 
 void MainWindow::on_actionSetScores_triggered()
 {
-    if (! Reghaabat::hasAccess("manager")) return;
+    if (! App::hasAccess("manager")) return;
 
     if (! scoreForm)
     {
@@ -396,7 +396,7 @@ void MainWindow::on_actionSetScores_triggered()
 
 void MainWindow::on_actionPayment_triggered()
 {
-    if (! Reghaabat::hasAccess("manager")) return;
+    if (! App::hasAccess("manager")) return;
 
     if (! paymentForm)
     {
@@ -418,7 +418,7 @@ void MainWindow::on_actionEditUser_triggered()
 
 void MainWindow::on_actionObjectManagement_triggered()
 {
-    if (! Reghaabat::hasAccess("designer")) return;
+    if (! App::hasAccess("designer")) return;
 
     if (! objectManagement)
     {
@@ -454,7 +454,7 @@ void MainWindow::sync()
 
 void MainWindow::synced(QString message)
 {
-    QMessageBox::warning(this, QApplication::tr("Reghaabat"), message);
+    QMessageBox::warning(this, QObject::tr("Ketabkhaane"), message);
     pSync->setVisible(false);
     bSync->setVisible(true);
 }

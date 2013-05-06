@@ -105,24 +105,24 @@ inline QString getRecordJSON(QSqlQuery& qry)
 
 // rghaabat global variables
 // from: http://stackoverflow.com/questions/3747085/global-variables-in-qt
-class Reghaabat
+class App
 {
 private:
-    static Reghaabat* m_Instance;
+    static App* m_Instance;
 
 public:
     QString libraryId, userId, userName, userGender, userPermission, tmpId, serverUrl;
 
-    static Reghaabat* instance()
+    static App* instance()
     {
         if (! m_Instance)
-            m_Instance = new Reghaabat;
+            m_Instance = new App;
         return m_Instance;
     }
 
     static bool hasAccess(QString limit)
     {
-        QString permission = Reghaabat::instance()->userPermission;
+        QString permission = App::instance()->userPermission;
         QStringList permissions = QStringList() << "user" << "operator" << "designer" << "manager" << "master";
 
         if (permission == "designer" && limit == "operator")

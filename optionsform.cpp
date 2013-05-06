@@ -26,7 +26,7 @@ OptionsForm::OptionsForm(QWidget *parent) :
     ui->cCorrectorIdentifier->addItem(tr("Family"), "Family");
     ui->cCorrectorIdentifier->addItem(tr("Label"), "Label");
 
-    QSettings settings("Sobhe", "Reghaabat");
+    QSettings settings("Sobhe", "Ketabkhaane");
     ui->eDataFolder->setText(settings.value("DataFolder", "").toString());
     ui->cPrinters->setCurrentIndex(ui->cPrinters->findText(settings.value("Printer", "").toString()));
     ui->lVersion->setText(QCoreApplication::applicationVersion());
@@ -95,7 +95,7 @@ void OptionsForm::on_buttonBox_rejected()
 
 void OptionsForm::on_buttonBox_accepted()
 {
-    QSettings settings("Sobhe", "Reghaabat");
+    QSettings settings("Sobhe", "Ketabkhaane");
     settings.setValue("DataFolder", ui->eDataFolder->text());
     settings.setValue("Printer", ui->cPrinters->currentText());
 
@@ -123,7 +123,7 @@ void OptionsForm::on_buttonBox_accepted()
     // store options
     QSqlQuery qry;
     if (qry.exec(QString("update library set title = '%1', description = '%2', started_at = '%3', %4 options = '%5'").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), formatDate(toGregorian(ui->eStartDate->text())), image, QVariantMapToString(opt))))
-        insertLog("library", "update", Reghaabat::instance()->libraryId);
+        insertLog("library", "update", App::instance()->libraryId);
 
     QString msg = "";
 
@@ -131,12 +131,12 @@ void OptionsForm::on_buttonBox_accepted()
     if (msg == "")
         emit closeForm();
     else
-        QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
+        QMessageBox::critical(this, QObject::tr("Ketabkhaane"), msg);
 }
 
 void OptionsForm::on_bSelectDataFolder_clicked()
 {
-    QString filename = QFileDialog::getExistingDirectory(this, tr("Select Reghaabat Data Folder")).replace("\\", "/");
+    QString filename = QFileDialog::getExistingDirectory(this, tr("Select Data Folder")).replace("\\", "/");
     if (!filename.isEmpty())
         ui->eDataFolder->setText(filename);
 }
@@ -152,7 +152,7 @@ void OptionsForm::on_bLibraryLogo_clicked()
         if (logo.size() == QSize(300, 300))
             ui->bLibraryLogo->setIcon(QIcon(newLibraryLogo));
         else
-            QMessageBox::critical(this, QApplication::tr("Reghaabat"), tr("Logo must be in 300px x 300px dimension."));
+            QMessageBox::critical(this, QObject::tr("Ketabkhaane"), tr("Logo must be in 300px x 300px dimension."));
     }
 }
 
@@ -254,7 +254,7 @@ void OptionsForm::dataChanged(const QModelIndex& index)
     }
 
     if (!msg.isEmpty() && !msg.toInt())
-        QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
+        QMessageBox::critical(this, QObject::tr("Ketabkhaane"), msg);
     if (!hint.isEmpty())
-        QMessageBox::warning(this, QApplication::tr("Reghaabat"), hint);
+        QMessageBox::warning(this, QObject::tr("Ketabkhaane"), hint);
 }

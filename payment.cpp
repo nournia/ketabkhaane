@@ -89,5 +89,5 @@ void Payment::on_pushButton_clicked()
         selectUser();
     }
     else
-        QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
+        QMessageBox::critical(this, QObject::tr("Ketabkhaane"), msg);
 }

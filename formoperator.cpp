@@ -121,7 +121,7 @@ void FormOperator::selectUser()
         if (receive)
             ui->gReceive->setEnabled(true);
 
-        ui->sDiscount->setEnabled(Reghaabat::hasAccess("manager"));
+        ui->sDiscount->setEnabled(App::hasAccess("manager"));
         ui->eObject->setFocus();
     }
 }
@@ -192,7 +192,7 @@ void FormOperator::on_bDeliver_clicked()
         }
 
         if (! msg.isEmpty()) {
-            QMessageBox::critical(0, QObject::tr("Reghaabat"), msg);
+            QMessageBox::critical(0, QObject::tr("Ketabkhaane"), msg);
             return;
         }
 
@@ -262,7 +262,7 @@ void FormOperator::on_bReceive_clicked()
     msg = MObjects::charge(ui->eUser->value(), ui->lFine->text().toInt(), ui->sDiscount->value(), ui->sPayment->value());
     if (! msg.isEmpty())
     {
-        QMessageBox::critical(0, QObject::tr("Reghaabat"), msg);
+        QMessageBox::critical(0, QObject::tr("Ketabkhaane"), msg);
         return;
     }
 

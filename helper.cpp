@@ -7,8 +7,8 @@
 #include <QJsonObject>
 
 
-// init reghaabat global variables
-Reghaabat* Reghaabat::m_Instance = 0;
+// init global variables
+App* App::m_Instance = 0;
 QStringList entityTables = QStringList() << "users" << "matches" << "files" << "objects" << "authors" << "publications" << "roots" << "branches";
 
 
@@ -39,7 +39,7 @@ QString getAbsoluteAddress(QString address)
 QString dataFolder()
 {
     QDir dir;
-    QSettings settings("Sobhe", "Reghaabat");
+    QSettings settings("Sobhe", "Ketabkhaane");
     return dir.absoluteFilePath(settings.value("DataFolder", getAbsoluteAddress("data")).toString());
 }
 
@@ -86,7 +86,7 @@ QString getReplaceQuery(QString table, StrMap data, QString& id)
     if (id.isEmpty()) {
         if (entityTables.contains(table)) {
             QSqlQuery qry;
-            qry.exec(QString("select ifnull(max(id), %1*100000) + 1 from "+ table +" where id/100000 = %1").arg(Reghaabat::instance()->libraryId));
+            qry.exec(QString("select ifnull(max(id), %1*100000) + 1 from "+ table +" where id/100000 = %1").arg(App::instance()->libraryId));
             qry.next();
             id = qry.value(0).toString();
         }
@@ -195,7 +195,7 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
     }
 
     // check entity id
-    if (entityTables.contains(table) && !id.toString().startsWith(Reghaabat::instance()->libraryId)) {
+    if (entityTables.contains(table) && !id.toString().startsWith(App::instance()->libraryId)) {
         qDebug() << "Denied entity edit:" << id.toString();
         return;
     }
@@ -203,8 +203,8 @@ void insertLog(QString table, QString operation, QVariant id, QString userId, QD
     if (! time.isValid())
         time = QDateTime::currentDateTime();
 
-    if (userId.isEmpty() && !Reghaabat::instance()->userId.isEmpty())
-        userId = Reghaabat::instance()->userId;
+    if (userId.isEmpty() && !App::instance()->userId.isEmpty())
+        userId = App::instance()->userId;
     else if (userId.toInt() == 0)
         userId.clear();
 

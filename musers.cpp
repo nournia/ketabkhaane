@@ -45,8 +45,8 @@ QString MUsers::getNewLabel()
 
 QString MUsers::getGenderCondition()
 {
-    if (! Reghaabat::hasAccess("master"))
-        return QString(" and gender = '%1' ").arg(Reghaabat::instance()->userGender);
+    if (! App::hasAccess("master"))
+        return QString(" and gender = '%1' ").arg(App::instance()->userGender);
     return "";
 }
 

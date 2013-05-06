@@ -12,10 +12,10 @@ QSqlDatabase Connector::connectDb()
     if (! QSqlDatabase::contains())
     {
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(dataFolder() + "/reghaabat.dat");
+        db.setDatabaseName(dataFolder() + "/data.dat");
 
         if (! db.open())
-            qDebug() << "reghaabat db connection error : " << db.lastError();
+            qDebug() << "db connection error: " << dataFolder() + "/data.dat" << db.lastError();
 
         if (!db.tables().length())
             buildDb();
@@ -55,7 +55,7 @@ QSqlDatabase Connector::connectLibrary(bool& ok)
     QSqlDatabase db;
     ok = false;
 
-    QSettings settings("Sobhe", "Reghaabat");
+    QSettings settings("Sobhe", "Ketabkhaane");
     QString library = settings.value("LibraryAddress", "").toString();
 
     if (library.isEmpty() || ! QFile::exists(library))

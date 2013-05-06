@@ -59,7 +59,7 @@ public:
             msg = MMatches::correct(id, value.toString());
 
         if (! msg.isEmpty())
-            QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
+            QMessageBox::warning(0, QObject::tr("Ketabkhaane"), msg);
         else
             edited[index] = value;
 

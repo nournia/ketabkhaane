@@ -54,7 +54,7 @@ public:
             msg = MUsers::setPassword(id, value.toString());
 
         if (! msg.isEmpty())
-            QMessageBox::warning(0, QObject::tr("Reghaabat"), msg);
+            QMessageBox::warning(0, QObject::tr("Ketabkhaane"), msg);
 
         sort(_column, _order);
         return msg.isEmpty();

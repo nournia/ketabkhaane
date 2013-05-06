@@ -89,7 +89,7 @@ void WebConnection::received(QVariantMap data)
             }
 
             // complete
-            QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Data Imported."));
+            QMessageBox::warning(this, QObject::tr("Ketabkhaane"), tr("Data Imported."));
             for(int i = 0; i < items->rowCount(); i++)
                 if (items->item(i, 0)->checkState())
                     items->removeRow(i);
@@ -109,7 +109,7 @@ void WebConnection::received(QVariantMap data)
             else {
                 match["category_id"] = fields[5];
                 QString html = fields[6];
-                html.replace("src=\"", "src=\""+ Reghaabat::instance()->serverUrl +"files.php?q=");
+                html.replace("src=\"", "src=\""+ App::instance()->serverUrl +"files.php?q=");
                 match["content"] = html;
             }
 
@@ -134,7 +134,7 @@ void WebConnection::on_bImport_clicked()
         receiver->get("m=matches&o=items&q="+ matchIds.join(","));
         ui->bImport->setEnabled(false);
     } else
-        QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Please select matches."));
+        QMessageBox::warning(this, QObject::tr("Ketabkhaane"), tr("Please select matches."));
 }
 
 void WebConnection::on_bPreview_clicked()

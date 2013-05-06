@@ -6,11 +6,11 @@
 
 QT = widgets sql network webkitwidgets
 
-TARGET = reghaabat
+TARGET = ketabkhaane
 TEMPLATE = app
-TRANSLATIONS = reghaabat_fa.ts
+TRANSLATIONS = application_fa.ts
 RESOURCES = resources.qrc
-RC_FILE = reghaabat.rc
+RC_FILE = application.rc
 
 
 SOURCES += main.cpp\

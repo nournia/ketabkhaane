@@ -79,5 +79,5 @@ void ObjectManagement::on_bEditObject_clicked()
 {
     QModelIndex c = ui->tObjects->currentIndex();
     if (c.isValid())
-        Reghaabat::instance()->tmpId = model->data(c.sibling(c.row(), 0)).toString();
+        App::instance()->tmpId = model->data(c.sibling(c.row(), 0)).toString();
 }

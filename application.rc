@@ -8,14 +8,14 @@ IDI_ICON1   ICON    DISCARDABLE "images/reghaabat.ico"
 
 #define VER_COMPANYNAME_STR         "Sobhe"
 #define VER_FILEDESCRIPTION_STR     ""
-#define VER_INTERNALNAME_STR        "Reghaabat"
+#define VER_INTERNALNAME_STR        "Ketabkhaane"
 #define VER_LEGALCOPYRIGHT_STR      "Copyright © 2013 Sobhe"
 #define VER_LEGALTRADEMARKS1_STR    "All Rights Reserved"
 #define VER_LEGALTRADEMARKS2_STR    VER_LEGALTRADEMARKS1_STR
-#define VER_ORIGINALFILENAME_STR    "reghaabat.exe"
-#define VER_PRODUCTNAME_STR         "Reghaabat"
+#define VER_ORIGINALFILENAME_STR    "ketabkhaane.exe"
+#define VER_PRODUCTNAME_STR         "Ketabkhaane"
 
-#define VER_COMPANYDOMAIN_STR       "reghaabat.ir"
+#define VER_COMPANYDOMAIN_STR       "ketabkhaane.ir"
 
 
 VS_VERSION_INFO VERSIONINFO

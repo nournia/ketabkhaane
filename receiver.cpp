@@ -12,11 +12,11 @@ Receiver::Receiver(QObject *parent) :
 
 void Receiver::queueUrl(QString args, bool file)
 {
-    QString url = Reghaabat::instance()->serverUrl;
+    QString url = App::instance()->serverUrl;
     if (file)
         url += "files.php?q=";
     else
-        url += "data.php?i="+ Reghaabat::instance()->libraryId +"&";
+        url += "data.php?i="+ App::instance()->libraryId +"&";
     queue.append(url + args);
 }
 
@@ -80,7 +80,7 @@ void Receiver::storeRows(QString table, QVariant rows)
         if (qry.exec()) {
             // supports and belongs table
             if (table == "matches") {
-                if (qry.exec(QString("insert into supports (match_id, corrector_id, current_state, score) values (%1, %2, 'imported', 0)").arg(fields[0].toString(), Reghaabat::instance()->userId)))
+                if (qry.exec(QString("insert into supports (match_id, corrector_id, current_state, score) values (%1, %2, 'imported', 0)").arg(fields[0].toString(), App::instance()->userId)))
                     insertLog("supports", "insert", qry.lastInsertId());
             } else if (table == "objects") {
                 if (qry.exec(QString("insert into belongs (object_id) values (%1)").arg(fields[0].toString())))

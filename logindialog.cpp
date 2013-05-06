@@ -33,14 +33,14 @@ void LoginDialog::on_buttonBox_accepted()
     StrMap user;
     if (MUsers::login(ui->eUsername->value(), ui->ePassword->text(), user))
     {
-        Reghaabat::instance()->userId = user["id"].toString();
-        Reghaabat::instance()->userName = user["name"].toString();
-        Reghaabat::instance()->userGender = user["gender"].toString();
-        Reghaabat::instance()->userPermission = user["permission"].toString();
+        App::instance()->userId = user["id"].toString();
+        App::instance()->userName = user["name"].toString();
+        App::instance()->userGender = user["gender"].toString();
+        App::instance()->userPermission = user["permission"].toString();
         this->close();
     }
     else {
-        QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Invalid Username or Password."));
+        QMessageBox::warning(this, QObject::tr("Ketabkhaane"), tr("Invalid Username or Password."));
         ui->ePassword->setText("");
         ui->ePassword->setFocus();
     }

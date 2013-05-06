@@ -79,12 +79,12 @@ void MatchForm::editMode(bool edit)
     ui->gData->setEnabled(! edit);
 
     if (edit) {
-        if (!Reghaabat::instance()->tmpId.isEmpty())
-            ui->eMatch->selectValue(Reghaabat::instance()->tmpId);
+        if (!App::instance()->tmpId.isEmpty())
+            ui->eMatch->selectValue(App::instance()->tmpId);
         else
             ui->eMatch->setFocus();
 
-        Reghaabat::instance()->tmpId = "";
+        App::instance()->tmpId = "";
     }
     checkReadOnly();
 }
@@ -162,7 +162,7 @@ void MatchForm::checkReadOnly()
 {
     bool original = true;
     if (! ui->eMatch->value().isEmpty())
-        original = ui->eMatch->value().startsWith(Reghaabat::instance()->libraryId);
+        original = ui->eMatch->value().startsWith(App::instance()->libraryId);
 
     ui->cType->setEnabled(original);
     ui->cAgeClass->setEnabled(original);
@@ -265,7 +265,7 @@ void MatchForm::on_buttonBox_accepted()
     if (msg == "")
         emit closeForm();
     else
-        QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
+        QMessageBox::critical(this, QObject::tr("Ketabkhaane"), msg);
 }
 
 void MatchForm::on_buttonBox_rejected()

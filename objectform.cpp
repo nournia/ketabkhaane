@@ -38,12 +38,12 @@ void ObjectForm::editMode(bool edit)
     ui->cType->setEnabled(! edit);
 
     if (edit) {
-        if (!Reghaabat::instance()->tmpId.isEmpty())
-            ui->eObject->selectValue(Reghaabat::instance()->tmpId);
+        if (!App::instance()->tmpId.isEmpty())
+            ui->eObject->selectValue(App::instance()->tmpId);
         else
             ui->eObject->setFocus();
 
-        Reghaabat::instance()->tmpId = "";
+        App::instance()->tmpId = "";
     }
     checkReadOnly();
 }
@@ -95,7 +95,7 @@ void ObjectForm::checkReadOnly()
 {
     bool original = true;
     if (! ui->eObject->value().isEmpty())
-        original = ui->eObject->value().startsWith(Reghaabat::instance()->libraryId);
+        original = ui->eObject->value().startsWith(App::instance()->libraryId);
 
     ui->eTitle->setEnabled(original);
     ui->eAuthor->setEnabled(original);
@@ -141,9 +141,9 @@ void ObjectForm::on_buttonBox_accepted()
         {
             MObjects::get(object["id"].toString(), object);
             msg = tr("%1 registered with %2 label.").arg(object["title"].toString()).arg(object["label"].toString());
-            QMessageBox::information(this, QApplication::tr("Reghaabat"), msg);
+            QMessageBox::information(this, QObject::tr("Ketabkhaane"), msg);
         }
     }
     else
-        QMessageBox::critical(this, QApplication::tr("Reghaabat"), msg);
+        QMessageBox::critical(this, QObject::tr("Ketabkhaane"), msg);
 }

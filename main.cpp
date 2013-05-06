@@ -9,7 +9,7 @@
 #include <accesstosqlite.h>
 
 /** parameters
-*   reghaabat.exe -data $FOLDER
+*   ketabkhaane.exe -data $FOLDER
 *       if $FOLDER != "" set data folder to $FOLDER else $APPFOLDER/data
 */
 
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     // arguments
     if (argc == 2 && !strcmp(argv[1], "-bootstrap"))
     {
-        QSettings settings("Sobhe", "Reghaabat");
+        QSettings settings("Sobhe", "Ketabkhaane");
         settings.setValue("DataFolder", "data");
 
         Connector::connectDb();
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     }
     else if (argc == 3 && !strcmp(argv[1], "-data"))
     {
-        QSettings settings("Sobhe", "Reghaabat");
+        QSettings settings("Sobhe", "Ketabkhaane");
 
         QString filename = argv[2];
         if (filename.isEmpty())
@@ -40,12 +40,9 @@ int main(int argc, char *argv[])
             settings.setValue("DataFolder", filename);
     }
 
-    // importMatchDb("C:\\Users\\Noorian\\Desktop\\Reghaabat.mdb");
-    // exit(0);
-
     // translation
     QTranslator rTranslator;
-    rTranslator.load("reghaabat_fa");
+    rTranslator.load("application_fa");
     a.installTranslator(& rTranslator);
 
     QTranslator qTranslator;

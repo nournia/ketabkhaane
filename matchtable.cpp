@@ -38,7 +38,7 @@ void MatchTable::on_bEditMatch_clicked()
 {
     QModelIndex c = ui->tMatches->currentIndex();
     if (c.isValid())
-        Reghaabat::instance()->tmpId = model->data(c.sibling(c.row(), 0)).toString();
+        App::instance()->tmpId = model->data(c.sibling(c.row(), 0)).toString();
 }
 
 void MatchTable::on_bMatchList_clicked()

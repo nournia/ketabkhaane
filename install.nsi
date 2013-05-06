@@ -3,21 +3,21 @@
 
 ;General
 	;Name and file
-	Name "رقابت"
-	OutFile "Reghaabat-0.9.7.exe"
+	Name "کتاب‌خانه"
+	OutFile "Ketabkhaane-0.9.7.exe"
 
 	;Default installation folder
-	InstallDir "$PROGRAMFILES\Reghaabat"
+	InstallDir "$PROGRAMFILES\Ketabkhaane"
 
 	;Get installation folder from registry if available
-	InstallDirRegKey HKCU "Software\Reghaabat" ""
+	InstallDirRegKey HKCU "Software\Ketabkhaane" ""
 
 	SetCompressor /SOLID lzma
 	BrandingText " "
 	
 	;Interface Settings
 	!define MUI_ABORTWARNING
-	!define MUI_ICON "Reghaabat.ico" 
+	!define MUI_ICON "application.ico" 
 	!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\orange-uninstall.ico" 
 	
 ;Pages
@@ -50,16 +50,16 @@ Section
 
 	;ShortCuts
 	SetOutPath $INSTDIR
-	CreateShortCut "$SMPROGRAMS\Programs\Reghaabat\Reghaabat.lnk" "$INSTDIR\reghaabat.exe"
-	CreateShortCut "$DESKTOP\Reghaabat.lnk" "$INSTDIR\reghaabat.exe"
+	CreateShortCut "$SMPROGRAMS\Programs\Ketabkhaane\Ketabkhaane.lnk" "$INSTDIR\ketabkhaane.exe"
+	CreateShortCut "$DESKTOP\Ketabkhaane.lnk" "$INSTDIR\ketabkhaane.exe"
 
 	;Programs
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Reghaabat" "DisplayName" "Reghaabat"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Reghaabat" "UninstallString" "$\"$INSTDIR\Uninstall.exe$\""
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Reghaabat" "QuietUninstallString" "$\"$INSTDIR\Uninstall.exe$\" /S"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Ketabkhaane" "DisplayName" "Ketabkhaane"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Ketabkhaane" "UninstallString" "$\"$INSTDIR\Uninstall.exe$\""
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Ketabkhaane" "QuietUninstallString" "$\"$INSTDIR\Uninstall.exe$\" /S"
 	
 	;Store installation folder
-	WriteRegStr HKCU "Software\Reghaabat" "" $INSTDIR
+	WriteRegStr HKCU "Software\Ketabkhaane" "" $INSTDIR
 
 	;Create uninstaller
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
@@ -67,10 +67,10 @@ SectionEnd
 
 ;Uninstaller Section
 Section "Uninstall"
-	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Reghaabat"
-	DeleteRegKey /ifempty HKCU "Software\Reghaabat"
-	Delete "$SMPROGRAMS\Programs\Reghaabat\Reghaabat.lnk"
-	Delete "$DESKTOP\Reghaabat.lnk"
+	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Ketabkhaane"
+	DeleteRegKey /ifempty HKCU "Software\Ketabkhaane"
+	Delete "$SMPROGRAMS\Programs\Ketabkhaane\Ketabkhaane.lnk"
+	Delete "$DESKTOP\Ketabkhaane.lnk"
 	
 	Delete "$INSTDIR\*.*"
 	RMDir /r "$INSTDIR\jwysiwyg\*.*"

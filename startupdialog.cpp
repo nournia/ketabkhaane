@@ -44,7 +44,7 @@ void StartupDialog::synced(QString message)
     if (message == Syncer::tr("Sync complete.")) {
         QSqlQuery qry;
         qry.exec("select id from library"); qry.next();
-        Reghaabat::instance()->libraryId = qry.value(0).toString();
+        App::instance()->libraryId = qry.value(0).toString();
         ui->gError->setVisible(false);
     } else {
         ui->lWebConnection->setText(message);
@@ -69,21 +69,21 @@ void StartupDialog::received(QVariantMap data)
     if (msg.isEmpty())
         this->close();
     else
-        QMessageBox::warning(this, QApplication::tr("Reghaabat"), msg);
+        QMessageBox::warning(this, QObject::tr("Ketabkhaane"), msg);
 }
 
 void StartupDialog::on_buttonBox_accepted()
 {
     QString msg;
 
-    if (Reghaabat::instance()->libraryId.isEmpty()) {
-        QMessageBox::warning(this, QApplication::tr("Reghaabat"), tr("Please wait until server connection establishment."));
+    if (App::instance()->libraryId.isEmpty()) {
+        QMessageBox::warning(this, QObject::tr("Ketabkhaane"), tr("Please wait until server connection establishment."));
         return;
     }
 
     QSqlDatabase db = Connector::connectDb();
     db.transaction();
-    insertLog("library", "insert", Reghaabat::instance()->libraryId);
+    insertLog("library", "insert", App::instance()->libraryId);
 
     if (!login) {
         // register user
@@ -123,7 +123,7 @@ void StartupDialog::on_buttonBox_accepted()
         this->close();
     } else {
         db.rollback();
-        QMessageBox::warning(this, QApplication::tr("Reghaabat"), msg);
+        QMessageBox::warning(this, QObject::tr("Ketabkhaane"), msg);
     }
 }
 

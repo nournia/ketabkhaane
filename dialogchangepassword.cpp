@@ -21,8 +21,8 @@ void DialogChangePassword::on_buttonBox_accepted()
 {
     this->close();
 
-    QString msg = MUsers::changePassword(Reghaabat::instance()->userId, ui->eOldPassword->text(), ui->eNewPassword->text(), ui->eRetypedPassword->text());
-    QMessageBox::warning(this, QApplication::tr("Reghaabat"), msg);
+    QString msg = MUsers::changePassword(App::instance()->userId, ui->eOldPassword->text(), ui->eNewPassword->text(), ui->eRetypedPassword->text());
+    QMessageBox::warning(this, QObject::tr("Ketabkhaane"), msg);
 }
 
 void DialogChangePassword::on_buttonBox_rejected()
