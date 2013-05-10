@@ -20,7 +20,7 @@ WebConnection::WebConnection(QWidget *parent) :
     receiver = new Receiver(this);
     connect(receiver, SIGNAL(received(QVariantMap)), this, SLOT(received(QVariantMap)));
 
-    receiver->get("m=matches&o=list");
+    receiver->get("match_list/"+ App::instance()->libraryId);
 }
 
 WebConnection::~WebConnection()
@@ -109,7 +109,7 @@ void WebConnection::received(QVariantMap data)
             else {
                 match["category_id"] = fields[5];
                 QString html = fields[6];
-                html.replace("src=\"", "src=\""+ App::instance()->serverUrl +"files.php?q=");
+                html.replace("src=\"", "src=\""+ App::instance()->serverUrl +"files/");
                 match["content"] = html;
             }
 
@@ -131,7 +131,7 @@ void WebConnection::on_bImport_clicked()
 
     preview = false;
     if (matchIds.length()) {
-        receiver->get("m=matches&o=items&q="+ matchIds.join(","));
+        receiver->get("match_items/"+ matchIds.join("-"));
         ui->bImport->setEnabled(false);
     } else
         QMessageBox::warning(this, QObject::tr("Ketabkhaane"), tr("Please select matches."));
@@ -143,6 +143,6 @@ void WebConnection::on_bPreview_clicked()
     if (c.isValid()) {
         QString matchId = items->data(c.sibling(c.row(), 1)).toString();
         preview = true;
-        receiver->get("m=matches&o=items&q="+ matchId);
+        receiver->get("match_items/"+ matchId);
     }
 }

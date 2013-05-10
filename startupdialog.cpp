@@ -111,7 +111,7 @@ void StartupDialog::on_buttonBox_accepted()
             msg = tr("Please complete required info.");
         else {
             QString password = QCryptographicHash::hash(ui->eLoginPassword->text().toUtf8(), QCryptographicHash::Sha1).toHex();
-            receiver->get(QString("m=users&o=login&i=%1&p=%2").arg(ui->eNationalId->text(), password));
+            receiver->get(QString("user_login/%1/%2").arg(ui->eNationalId->text(), password));
             ui->buttonBox->setEnabled(false);
             return;
         }

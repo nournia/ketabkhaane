@@ -14,10 +14,10 @@ void Receiver::queueUrl(QString args, bool file)
 {
     QString url = App::instance()->serverUrl;
     if (file)
-        url += "files.php?q=";
+        url += "files/"+ args;
     else
-        url += "data.php?i="+ App::instance()->libraryId +"&";
-    queue.append(url + args);
+        url += "data/"+ args;
+    queue.append(url);
 }
 
 void Receiver::popUrl()
@@ -38,7 +38,7 @@ void Receiver::get(QString args)
 void Receiver::received()
 {
     QString url = reply->url().toString();
-    QString fileId = "files.php?q=";
+    QString fileId = "files/";
 
     // save file
     if (url.indexOf(fileId) > 0) {

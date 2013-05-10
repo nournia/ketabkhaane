@@ -45,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    App::instance()->serverUrl = "http://reghaabat-nournia.rhcloud.com/server/";
+    App::instance()->serverUrl = "http://www.ketabkhaane.ir/";
     prepareUI();
 
     // check for db connection

@@ -13,7 +13,7 @@ Syncer::Syncer(QObject *parent)
 {
     allLogs = uploadedLogs = 0;
     maxRows = 200;
-    url = App::instance()->serverUrl + "backend.php";
+    url = App::instance()->serverUrl + "backend/";
 }
 
 bool Syncer::setSyncTime()
@@ -21,7 +21,9 @@ bool Syncer::setSyncTime()
     QSqlQuery qry;
 
     int rows = 0;
-    qry.exec("select date(created_at) as ct, count(row_id) from logs where ct > '" + formatDateTime(lastSync) + "' group by ct order by ct");
+    qry.exec(QString("select _f.ct, _f.cnt + 50*ifnull(_s.cnt, 0) as cnt from "
+            "(select created_at as ct, count(row_id) as cnt from logs where ct > '%1' group by ct) as _f left join "
+            "(select created_at as ct, count(row_id) as cnt from logs where table_name = 'files' and ct > '%1' group by ct) as _s on _f.ct = _s.ct order by _f.ct").arg(formatDateTime(lastSync)));
     while (qry.next()) {
         rows += qry.value(1).toInt();
         if (rows >= maxRows) {
@@ -55,7 +57,7 @@ bool Syncer::getLogsAndFiles(QStringList& logs, QStringList& files)
 
 void Syncer::send(QMap<QString, QString>& posts, QStringList& files)
 {
-    QNetworkRequest request(QUrl(url+""));
+    QNetworkRequest request(QUrl(url + posts["command"]));
     QHttpMultiPart* parts = new QHttpMultiPart(QHttpMultiPart::FormDataType);
 
     QMapIterator<QString, QString> i(posts);
