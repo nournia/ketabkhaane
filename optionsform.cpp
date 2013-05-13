@@ -26,9 +26,8 @@ OptionsForm::OptionsForm(QWidget *parent) :
     ui->cCorrectorIdentifier->addItem(tr("Family"), "Family");
     ui->cCorrectorIdentifier->addItem(tr("Label"), "Label");
 
-    QSettings settings("Sobhe", "Ketabkhaane");
-    ui->eDataFolder->setText(settings.value("DataFolder", "").toString());
-    ui->cPrinters->setCurrentIndex(ui->cPrinters->findText(settings.value("Printer", "").toString()));
+    ui->eDataFolder->setText(App::instance()->settings->value("DataFolder", "").toString());
+    ui->cPrinters->setCurrentIndex(ui->cPrinters->findText(App::instance()->settings->value("Printer", "").toString()));
     ui->lVersion->setText(QCoreApplication::applicationVersion());
 
     ui->gMatch->setChecked(options()["Match"].toBool());
@@ -95,9 +94,8 @@ void OptionsForm::on_buttonBox_rejected()
 
 void OptionsForm::on_buttonBox_accepted()
 {
-    QSettings settings("Sobhe", "Ketabkhaane");
-    settings.setValue("DataFolder", ui->eDataFolder->text());
-    settings.setValue("Printer", ui->cPrinters->currentText());
+    App::instance()->settings->setValue("DataFolder", ui->eDataFolder->text());
+    App::instance()->settings->setValue("Printer", ui->cPrinters->currentText());
 
     QVariantMap opt = options();
 

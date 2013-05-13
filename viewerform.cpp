@@ -493,12 +493,11 @@ void ViewerForm::on_bPdf_clicked()
 
 void ViewerForm::on_bPrint_clicked()
 {
-    QSettings settings("Sobhe", "Ketabkhaane");
     QString tmpFile = "p";
 
     savePdf(tmpFile);
 
-    QString printer = settings.value("Printer", "").toString();
+    QString printer = App::instance()->settings->value("Printer", "").toString();
 
     if (printer.isEmpty())
         printer = "-print-to-default";

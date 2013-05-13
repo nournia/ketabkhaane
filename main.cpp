@@ -17,27 +17,16 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     a.setApplicationVersion("0.9.7");
+    App::instance()->settings = new QSettings("Sobhe", "Ketabkhaane");
 
     // arguments
-    if (argc == 2 && !strcmp(argv[1], "-bootstrap"))
+    if (argc == 3 && !strcmp(argv[1], "-data"))
     {
-        QSettings settings("Sobhe", "Ketabkhaane");
-        settings.setValue("DataFolder", "data");
-
-        Connector::connectDb();
-        Connector::buildDb();
-
-        exit(0);
-    }
-    else if (argc == 3 && !strcmp(argv[1], "-data"))
-    {
-        QSettings settings("Sobhe", "Ketabkhaane");
-
         QString filename = argv[2];
         if (filename.isEmpty())
-            settings.setValue("DataFolder", getAbsoluteAddress("data"));
+            App::instance()->settings->setValue("DataFolder", getAbsoluteAddress("data"));
         else
-            settings.setValue("DataFolder", filename);
+            App::instance()->settings->setValue("DataFolder", filename);
     }
 
     // translation

@@ -4,6 +4,7 @@
 #include <QVariant>
 #include <QMap>
 #include <QStringList>
+#include <QSettings>
 
 #include <QSqlQuery>
 #include <QSqlRecord>
@@ -112,6 +113,7 @@ private:
 
 public:
     QString libraryId, userId, userName, userGender, userPermission, tmpId, serverUrl;
+    QSettings* settings;
 
     static App* instance()
     {

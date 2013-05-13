@@ -39,8 +39,7 @@ QString getAbsoluteAddress(QString address)
 QString dataFolder()
 {
     QDir dir;
-    QSettings settings("Sobhe", "Ketabkhaane");
-    return dir.absoluteFilePath(settings.value("DataFolder", getAbsoluteAddress("data")).toString());
+    return dir.absoluteFilePath(App::instance()->settings->value("DataFolder", getAbsoluteAddress("data")).toString());
 }
 
 QString filesUrl()
