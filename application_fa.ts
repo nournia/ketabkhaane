@@ -15,7 +15,7 @@
     <message>
         <location line="+22"/>
         <source>Ketabkhaane Software</source>
-        <translation>نرم‌افزار کتاب‌خانه</translation>
+        <translation>نرم‌افزار کتابخانه</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -310,7 +310,7 @@
     <message>
         <location filename="mainwindow.ui" line="+14"/>
         <source>Ketabkhaane</source>
-        <translation>کتاب‌خانه</translation>
+        <translation>کتابخانه</translation>
     </message>
     <message>
         <location line="+80"/>
@@ -1384,7 +1384,7 @@
         <location filename="webconnection.cpp" line="+92"/>
         <location line="+45"/>
         <source>Ketabkhaane</source>
-        <translation>کتاب‌خانه</translation>
+        <translation>کتابخانه</translation>
     </message>
 </context>
 <context>
