@@ -12,9 +12,6 @@ ObjectForm::ObjectForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->eAuthor->setQuery("select id as cid, '' as clabel, title as ctitle from authors");
-    ui->ePublication->setQuery("select id as cid, '' as clabel, title as ctitle from publications");
-
     connect(ui->eObject, SIGNAL(select()), this, SLOT(selectObject()));
     connect(ui->eObject, SIGNAL(cancel()), this, SLOT(cancelObject()));
 
@@ -52,8 +49,6 @@ void ObjectForm::selectObject()
 {
     if (! ui->eObject->value().isEmpty())
     {
-        cancelObject();
-
         StrMap object;
         MObjects::get(ui->eObject->value(), object);
 
@@ -76,6 +71,8 @@ void ObjectForm::selectObject()
 
 void ObjectForm::cancelObject()
 {
+    ui->eAuthor->setQuery("select id as cid, '' as clabel, title as ctitle from authors");
+    ui->ePublication->setQuery("select id as cid, '' as clabel, title as ctitle from publications");
     ui->eObject->setQuery(MObjects::getObjectsQuery());
 
     ui->eTitle->setText("");

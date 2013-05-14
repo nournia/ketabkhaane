@@ -76,7 +76,6 @@ void FormOperator::cancelObject()
 
 void FormOperator::selectUser()
 {
-    cancelUser();
     if (! ui->eUser->value().isEmpty())
     {
         bool receive = false;

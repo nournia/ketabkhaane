@@ -193,7 +193,8 @@ MyLineEdit::MyLineEdit(QWidget *parent): QLineEdit(parent)
 void MyLineEdit::selectValue(QString val)
 {
     setText(completer->getText(val));
-    setValue(val);
+    if (valueId.isEmpty())
+        setValue(val);
 }
 
 void MyLineEdit::setValue(QString val)
@@ -203,8 +204,7 @@ void MyLineEdit::setValue(QString val)
 
     valueId = val;
 
-    if (text().isEmpty())
-    {
+    if (text().isEmpty()) {
         setStyleSheet("");
         return;
     }

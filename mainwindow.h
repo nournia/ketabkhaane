@@ -37,11 +37,11 @@ private:
     Ui::MainWindow *ui;
 
 public slots:
-    void newUser();
+    void newUser(bool edit = false);
     void editUser();
-    void newMatch();
+    void newMatch(bool edit = false);
     void editMatch();
-    void newObject();
+    void newObject(bool edit = false);
     void editObject();
 
     void firstPage();

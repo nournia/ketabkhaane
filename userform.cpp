@@ -18,8 +18,6 @@ UserForm::UserForm(QWidget *parent) :
     connect(ui->eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
     fillComboBox(ui->cAccount, MUsers::accounts());
 
-    cancelUser();
-    editMode(false);
     ui->eFirstname->setFocus();
 }
 

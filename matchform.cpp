@@ -22,11 +22,6 @@ MatchForm::MatchForm(QWidget *parent) :
     ui->setupUi(this);
     ui->buttonBox->addButton(new QPushButton(QIcon(":/images/preview.png"), ViewerForm::tr("Preview")), QDialogButtonBox::ResetRole);
 
-    ui->eObject->setQuery(MObjects::getObjectsQuery());
-    ui->eCorrector->setQuery("select users.id as cid, label as clabel, firstname||' '||lastname as ctitle from users inner join permissions on users.id = permissions.user_id");
-    ui->eMatch->setQuery("select matches.id as cid, ifnull(belongs.label, categories.title) as clabel, matches.title as ctitle "
-                         "from matches left join belongs on matches.object_id = belongs.object_id left join categories on matches.category_id = categories.id");
-
     fillComboBox(ui->cState, MMatches::states());
     fillComboBox(ui->cAgeClass, MMatches::ageclasses());
     fillComboBox(ui->cGroup, MMatches::categories());
@@ -49,7 +44,6 @@ MatchForm::MatchForm(QWidget *parent) :
     lay->addRow("", button);
     fillerItem->setLayout(lay);
 
-
     // init editor
     QFile file(getAbsoluteAddress("jwysiwyg.html"));
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -59,8 +53,6 @@ MatchForm::MatchForm(QWidget *parent) :
         ui->eContent->page()->mainFrame()->addToJavaScriptWindowObject("containerForm", this);
     } else
         qDebug() << "missed" << getAbsoluteAddress("jwysiwyg.html");
-
-    cancelMatch();
 }
 
 MatchForm::~MatchForm()
@@ -93,7 +85,6 @@ void MatchForm::selectMatch()
 {
     if (! ui->eMatch->value().isEmpty())
     {
-        cancelMatch();
         clearQuestions();
 
         QList<StrPair> questions;
@@ -138,6 +129,11 @@ void MatchForm::selectMatch()
 
 void MatchForm::cancelMatch()
 {
+    ui->eObject->setQuery(MObjects::getObjectsQuery());
+    ui->eCorrector->setQuery("select users.id as cid, label as clabel, firstname||' '||lastname as ctitle from users inner join permissions on users.id = permissions.user_id");
+    ui->eMatch->setQuery("select matches.id as cid, ifnull(belongs.label, categories.title) as clabel, matches.title as ctitle "
+                         "from matches left join belongs on matches.object_id = belongs.object_id left join categories on matches.category_id = categories.id");
+
     ui->eTitle->setText("");
     ui->eObject->setText("");
     ui->eCorrector->setText("");

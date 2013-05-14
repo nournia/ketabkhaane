@@ -260,7 +260,7 @@ void MainWindow::on_actionMatchManagement_triggered()
     stackedLayout->setCurrentWidget(matchListForm);
 }
 
-void MainWindow::newUser()
+void MainWindow::newUser(bool edit)
 {
     if (! App::hasAccess("operator")) return;
 
@@ -271,18 +271,17 @@ void MainWindow::newUser()
         stackedLayout->addWidget(userForm);
     }
     stackedLayout->setCurrentWidget(userForm);
-    userForm->editMode(false);
+    userForm->editMode(edit);
 }
 
 void MainWindow::editUser()
 {
     if (! App::hasAccess("operator")) return;
 
-    newUser();
-    userForm->editMode(true);
+    newUser(true);
 }
 
-void MainWindow::newMatch()
+void MainWindow::newMatch(bool edit)
 {
     if (! App::hasAccess("designer")) return;
 
@@ -293,18 +292,17 @@ void MainWindow::newMatch()
         stackedLayout->addWidget(matchForm);
     }
     stackedLayout->setCurrentWidget(matchForm);
-    matchForm->editMode(false);
+    matchForm->editMode(edit);
 }
 
 void MainWindow::editMatch()
 {
     if (! App::hasAccess("designer")) return;
 
-    newMatch();
-    matchForm->editMode(true);
+    newMatch(true);
 }
 
-void MainWindow::newObject()
+void MainWindow::newObject(bool edit)
 {
     if (! App::hasAccess("designer")) return;
 
@@ -315,15 +313,14 @@ void MainWindow::newObject()
         stackedLayout->addWidget(objectForm);
     }
     stackedLayout->setCurrentWidget(objectForm);
-    objectForm->editMode(false);
+    objectForm->editMode(edit);
 }
 
 void MainWindow::editObject()
 {
     if (! App::hasAccess("designer")) return;
 
-    newObject();
-    objectForm->editMode(true);
+    newObject(true);
 }
 
 void MainWindow::on_actionOptions_triggered()
