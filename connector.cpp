@@ -29,6 +29,13 @@ bool Connector::buildDb()
 {
     QSqlQuery qry;
 
+    // create folders
+    QDir dir(dataFolder());
+    if (!dir.exists())
+        dir.mkpath(".");
+    dir.mkpath("files");
+
+    // database
     QFile file(":/resources/client.sql");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream input(&file);
@@ -41,11 +48,6 @@ bool Connector::buildDb()
             qDebug() << "sql file error: " << qry.lastError();
             return false;
         }
-
-    // create data folder
-    QDir dir(QString("%1/files/").arg(dataFolder()));
-    if (!dir.exists())
-        dir.mkpath(".");
 
     return true;
 }

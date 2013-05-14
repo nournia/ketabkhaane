@@ -27,6 +27,10 @@ int main(int argc, char *argv[])
             App::instance()->settings->setValue("DataFolder", getAbsoluteAddress("data"));
         else
             App::instance()->settings->setValue("DataFolder", filename);
+    } else {
+        // set default folder
+        if (App::instance()->settings->value("DataFolder").toString().isEmpty())
+            App::instance()->settings->setValue("DataFolder", getAbsoluteAddress("data"));
     }
 
     // translation

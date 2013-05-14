@@ -25,9 +25,6 @@ StartupDialog::StartupDialog(QWidget *parent) :
 
     receiver = new Receiver(this);
     connect(receiver, SIGNAL(received(QVariantMap)), this, SLOT(received(QVariantMap)));
-
-    // set data folder
-    App::instance()->settings->setValue("DataFolder", getAbsoluteAddress("data"));
 }
 
 StartupDialog::~StartupDialog()
