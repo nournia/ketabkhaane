@@ -15,6 +15,8 @@ class MatchListModel : public QSqlQueryModel
 public:
     QMap<QModelIndex, QVariant> edited;
     QList<StrPair> ageclasses;
+    int column;
+    Qt::SortOrder order;
 
     MatchListModel(QObject *parent = 0) : QSqlQueryModel(parent)
     {
@@ -85,9 +87,9 @@ public:
         return msg.isEmpty();
     }
 
-    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder)
+    void sort(int col, Qt::SortOrder ord = Qt::AscendingOrder)
     {
-        edited.clear(); if (column == 0) return;
+        edited.clear(); if (col == 0) return; column = col; order = ord;
         QStringList fields = QStringList() << "title" << "kind" << "ageclass" << "answer_ratio" << "score" << "state";
 
         QString sql = QString() +
@@ -118,6 +120,7 @@ class MatchTable : public QDialog
 public:
     explicit MatchTable(QWidget *parent = 0);
     ~MatchTable();
+    void refresh();
 
     MatchListModel* model;
     ViewerForm* viewer;

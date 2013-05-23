@@ -34,6 +34,11 @@ MatchTable::~MatchTable()
     delete ui;
 }
 
+void MatchTable::refresh()
+{
+    model->sort(model->column, model->order);
+}
+
 void MatchTable::on_bEditMatch_clicked()
 {
     QModelIndex c = ui->tMatches->currentIndex();

@@ -33,6 +33,11 @@ ObjectManagement::~ObjectManagement()
     delete ui;
 }
 
+void ObjectManagement::refresh()
+{
+    model->sort(model->column, model->order);
+}
+
 void ObjectManagement::on_bPreviewList_clicked()
 {
     ViewerForm* viewer = new ViewerForm((MainWindow*) parent());

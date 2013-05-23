@@ -9,6 +9,8 @@ class ObjectsModel : public QSqlQueryModel
     Q_OBJECT
 
 public:
+    int column;
+    Qt::SortOrder order;
 
     ObjectsModel(QObject *parent = 0) : QSqlQueryModel(parent)
     {
@@ -30,9 +32,9 @@ public:
         return QSqlQueryModel::data(index, role);
     }
 
-    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder)
+    void sort(int col, Qt::SortOrder ord = Qt::AscendingOrder)
     {
-        if (column == 0) return;
+        if (col == 0) return; column = col; order = ord;
         QStringList fields = QStringList() << "label" << "title" << "author" << "publication" << "type" << "branch";
 
         QString sql =
@@ -60,6 +62,7 @@ class ObjectManagement : public QDialog
 public:
     explicit ObjectManagement(QWidget *parent = 0);
     ~ObjectManagement();
+    void refresh();
 
     ObjectsModel* model;
 

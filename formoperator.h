@@ -20,7 +20,7 @@ public:
     void prepareViewer();
     void focus();
 
-    QString matchId;
+    QString matchId, itemsQuery;
 
 private:
     Ui::FormOperator *ui;

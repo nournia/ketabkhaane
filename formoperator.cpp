@@ -23,18 +23,14 @@ FormOperator::FormOperator(QWidget *parent) :
 
     viewer = new ViewerForm((MainWindow*) parent);
 
-    ui->eUser->setQuery(MUsers::getUsersQuery());
     connect(ui->eUser, SIGNAL(select()), this, SLOT(selectUser()));
     connect(ui->eUser, SIGNAL(cancel()), this, SLOT(cancelUser()));
 
-    QString query;
     if (! options()["Match"].toBool())
-        query = MObjects::getObjectsQuery();
+        itemsQuery = MObjects::getObjectsQuery();
     else
-        query = "select cid, clabel, substr(ctitle, 0, 80) as ctitle from ("+ MObjects::getObjectsQuery() +" union "
-                "select 'x'||matches.id as cid, categories.title as clabel, matches.title as ctitle from matches inner join categories on matches.category_id = categories.id) as _t";
-
-    ui->eObject->setQuery(query);
+        itemsQuery = "select cid, clabel, substr(ctitle, 0, 80) as ctitle from ("+ MObjects::getObjectsQuery() +" union "
+                     "select 'x'||matches.id as cid, categories.title as clabel, matches.title as ctitle from matches inner join categories on matches.category_id = categories.id) as _t";
 
     connect(ui->eObject, SIGNAL(select()), this, SLOT(selectObject()));
     connect(ui->eObject, SIGNAL(cancel()), this, SLOT(cancelObject()));
@@ -49,6 +45,8 @@ FormOperator::~FormOperator()
 
 void FormOperator::cancelUser()
 {
+    ui->eUser->setQuery(MUsers::getUsersQuery());
+
     ui->gDeliver->setEnabled(false);
     ui->gReceive->setEnabled(false);
 
@@ -68,6 +66,8 @@ void FormOperator::cancelUser()
 
 void FormOperator::cancelObject()
 {
+    ui->eObject->setQuery(itemsQuery);
+
     ui->bDeliver->setEnabled(false);
     ui->bPreview->setEnabled(false);
     ui->gMatchOpt->setVisible(false);

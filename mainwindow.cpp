@@ -260,6 +260,12 @@ void MainWindow::on_actionMatchManagement_triggered()
     stackedLayout->setCurrentWidget(matchListForm);
 }
 
+void MainWindow::showMatchesList()
+{
+    on_actionMatchManagement_triggered();
+    matchListForm->refresh();
+}
+
 void MainWindow::newUser(bool edit)
 {
     if (! App::hasAccess("operator")) return;
@@ -267,7 +273,7 @@ void MainWindow::newUser(bool edit)
     if (! userForm)
     {
         userForm = new UserForm(this);
-        connect(userForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
+        connect(userForm, SIGNAL(closeForm()), this, SLOT(on_actionDeliver_triggered()));
         stackedLayout->addWidget(userForm);
     }
     stackedLayout->setCurrentWidget(userForm);
@@ -288,7 +294,7 @@ void MainWindow::newMatch(bool edit)
     if (! matchForm)
     {
         matchForm = new MatchForm(this);
-        connect(matchForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
+        connect(matchForm, SIGNAL(closeForm()), this, SLOT(showMatchesList()));
         stackedLayout->addWidget(matchForm);
     }
     stackedLayout->setCurrentWidget(matchForm);
@@ -309,7 +315,7 @@ void MainWindow::newObject(bool edit)
     if (! objectForm)
     {
         objectForm = new ObjectForm(this);
-        connect(objectForm, SIGNAL(closeForm()), this, SLOT(firstPage()));
+        connect(objectForm, SIGNAL(closeForm()), this, SLOT(showObjectsList()));
         stackedLayout->addWidget(objectForm);
     }
     stackedLayout->setCurrentWidget(objectForm);
@@ -423,6 +429,12 @@ void MainWindow::on_actionObjectManagement_triggered()
         stackedLayout->addWidget(objectManagement);
     }
     stackedLayout->setCurrentWidget(objectManagement);
+}
+
+void MainWindow::showObjectsList()
+{
+    on_actionObjectManagement_triggered();
+    objectManagement->refresh();
 }
 
 void MainWindow::on_actionAbout_triggered()

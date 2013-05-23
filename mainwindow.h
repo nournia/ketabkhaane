@@ -43,6 +43,8 @@ public slots:
     void editMatch();
     void newObject(bool edit = false);
     void editObject();
+    void showObjectsList();
+    void showMatchesList();
 
     void firstPage();
     void sync();
