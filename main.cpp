@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
                 App::instance()->settings->setValue("DataFolder", getAbsoluteAddress("data"));
             else
                 App::instance()->settings->setValue("DataFolder", arg);
+            exit(0);
         }
     }
 

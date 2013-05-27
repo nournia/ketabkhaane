@@ -3,7 +3,7 @@
 
 ;General
 	;Name and file
-	Name "کتاب‌خانه"
+	Name "کتابخانه"
 	OutFile "Ketabkhaane-0.9.7.exe"
 
 	;Default installation folder
@@ -47,6 +47,7 @@ Section
 	File /r /x data "Files\*.*"
 	SetOverwrite off
 	SetOutPath $INSTDIR\data
+	Exec '"$INSTDIR\ketabkhaane.exe" --data data'
 
 	;ShortCuts
 	SetOutPath $INSTDIR
