@@ -9,7 +9,7 @@
 #include <accesstosqlite.h>
 
 /** parameters
-*   ketabkhaane.exe -data $FOLDER
+*   ketabkhaane.exe --data $FOLDER
 *       if $FOLDER != "" set data folder to $FOLDER else $APPFOLDER/data
 */
 
@@ -20,18 +20,20 @@ int main(int argc, char *argv[])
     App::instance()->settings = new QSettings("Sobhe", "Ketabkhaane");
 
     // arguments
-    if (argc == 3 && !strcmp(argv[1], "-data"))
-    {
-        QString filename = argv[2];
-        if (filename.isEmpty())
-            App::instance()->settings->setValue("DataFolder", getAbsoluteAddress("data"));
-        else
-            App::instance()->settings->setValue("DataFolder", filename);
-    } else {
-        // set default folder
-        if (App::instance()->settings->value("DataFolder").toString().isEmpty())
-            App::instance()->settings->setValue("DataFolder", getAbsoluteAddress("data"));
+    if (argc == 3) {
+        QString command = argv[1], arg = argv[2];
+
+        if (command == "--data") {
+            if (arg.isEmpty())
+                App::instance()->settings->setValue("DataFolder", getAbsoluteAddress("data"));
+            else
+                App::instance()->settings->setValue("DataFolder", arg);
+        }
     }
+
+    // set default folder
+    if (App::instance()->settings->value("DataFolder").toString().isEmpty())
+        App::instance()->settings->setValue("DataFolder", getAbsoluteAddress("data"));
 
     // translation
     QTranslator rTranslator;

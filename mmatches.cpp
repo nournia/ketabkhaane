@@ -183,7 +183,11 @@ QString MMatches::isDeliverable(QString userId, QString matchId)
         return QObject::tr("This match is not in active state.");
 
     // user ageclass
-    qry.exec(QString("select abs(ageclass - %1) from matches where id = %2").arg(MUsers::getAgeClass(userId)).arg(matchId));
+    QString ageclass = MUsers::getAgeClass(userId);
+    if (ageclass == "-100")
+        return QObject::tr("Invalid user birth date.");
+
+    qry.exec(QString("select abs(ageclass - %1) from matches where id = %2").arg(ageclass).arg(matchId));
     if (! qry.next())
         return QObject::tr("Error in user or match");
 

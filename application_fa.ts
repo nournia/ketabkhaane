@@ -211,7 +211,7 @@
         <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="+93"/>
+        <location filename="formoperator.cpp" line="+92"/>
         <location line="+13"/>
         <location line="+169"/>
         <source>Received</source>
@@ -575,7 +575,7 @@
         <translation type="obsolete">انتشارات</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="+46"/>
+        <location filename="matchform.cpp" line="+41"/>
         <source>New Question</source>
         <translation>سوال جدید</translation>
     </message>
@@ -588,7 +588,7 @@
         <translation type="obsolete">چند رسانه‌ای</translation>
     </message>
     <message>
-        <location line="+260"/>
+        <location line="+261"/>
         <source>Select Image File</source>
         <translation>انتخاب تصویر</translation>
     </message>
@@ -596,7 +596,7 @@
 <context>
     <name>MatchListModel</name>
     <message>
-        <location filename="matchtable.h" line="+24"/>
+        <location filename="matchtable.h" line="+26"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
@@ -727,7 +727,7 @@
         <translation>انتشارات</translation>
     </message>
     <message>
-        <location filename="objectform.cpp" line="+143"/>
+        <location filename="objectform.cpp" line="+140"/>
         <source>%1 registered with %2 label.</source>
         <translation>«%1» با کد «%2» ثبت شد.</translation>
     </message>
@@ -796,7 +796,7 @@
 <context>
     <name>ObjectsModel</name>
     <message>
-        <location filename="objectmanagement.h" line="+17"/>
+        <location filename="objectmanagement.h" line="+19"/>
         <source>Label</source>
         <translation>کد</translation>
     </message>
@@ -841,12 +841,12 @@
         <translation type="obsolete">عمومی</translation>
     </message>
     <message>
-        <location filename="optionsform.ui" line="+401"/>
+        <location filename="optionsform.ui" line="+443"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
     <message>
-        <location line="-125"/>
+        <location line="-167"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
@@ -862,7 +862,7 @@
     </message>
     <message>
         <location line="+45"/>
-        <location filename="optionsform.cpp" line="+155"/>
+        <location filename="optionsform.cpp" line="+154"/>
         <source>Logo must be in 300px x 300px dimension.</source>
         <translation>آرم کتاب‌خانه باید در ابعاد 300 × 300 پیکسل باشد.</translation>
     </message>
@@ -874,7 +874,7 @@
     <message>
         <location line="-301"/>
         <source>Librarianship</source>
-        <translation>کتاب‌داری</translation>
+        <translation>کتابداری</translation>
     </message>
     <message>
         <location line="+138"/>
@@ -905,7 +905,7 @@
     <message>
         <location line="-129"/>
         <source>Library</source>
-        <translation>کتاب‌خانه</translation>
+        <translation>کتابخانه</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -947,12 +947,22 @@
         <translation>توضیحات</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+70"/>
+        <source>Import</source>
+        <translation>وارد کردن</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Book List</source>
+        <translation>فهرست کتاب‌ها</translation>
+    </message>
+    <message>
+        <location line="+27"/>
         <source>Settings</source>
         <translation>تنظیمات</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+71"/>
         <source>Version</source>
         <translation>نسخه</translation>
     </message>
@@ -971,7 +981,7 @@
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="-130"/>
+        <location filename="optionsform.cpp" line="-128"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -982,7 +992,7 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+30"/>
+        <location line="+29"/>
         <source>Label</source>
         <translation>کد</translation>
     </message>
@@ -997,7 +1007,7 @@
         <translation>تعداد</translation>
     </message>
     <message>
-        <location line="+89"/>
+        <location line="+88"/>
         <source>Select Library Logo</source>
         <translation>انتخاب آرم کتاب‌خانه</translation>
     </message>
@@ -1022,6 +1032,11 @@
         <translation>افزودن گروه به %1</translation>
     </message>
     <message>
+        <location line="+84"/>
+        <source>Select List of Books</source>
+        <translation>انتخاب فهرست کتاب‌ها</translation>
+    </message>
+    <message>
         <source>Id</source>
         <translation type="obsolete">کد عضویت</translation>
     </message>
@@ -1030,7 +1045,7 @@
         <translation type="obsolete">انتخاب پایگاه داده کتابخانه</translation>
     </message>
     <message>
-        <location line="-41"/>
+        <location line="-125"/>
         <source>Select Data Folder</source>
         <oldsource>Select Reghaabat Data Folder</oldsource>
         <translation>انتخاب پوشه داده‌ها</translation>
@@ -1250,7 +1265,12 @@
         <translation>مسابقه دیگری با این عنوان ثبت شده است.</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+128"/>
+        <source>Invalid user birth date.</source>
+        <translation>تارخ تولد کاربر وارد نشده است.</translation>
+    </message>
+    <message>
+        <location line="+57"/>
         <source>Invalid record selected.</source>
         <translation>ردیف مناسبی انتخاب نشده است.</translation>
     </message>
@@ -1290,7 +1310,7 @@
         <translation type="obsolete">امتیاز وارد شده معتبر نیست.</translation>
     </message>
     <message>
-        <location filename="mmatches.cpp" line="-72"/>
+        <location filename="mmatches.cpp" line="-76"/>
         <source>You received this match before</source>
         <translation>شما این مسابقه را قبلا تحویل گرفته‌اید.</translation>
     </message>
@@ -1305,7 +1325,7 @@
         <translation>این مسابقه در وضعیت فعال نیست.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+9"/>
         <source>Error in user or match</source>
         <translation>خطا در داده‌های کاربر یا مسابقه</translation>
     </message>
@@ -1315,7 +1335,7 @@
         <translation>رده سنی این مسابقه بیش از یک سطح با شما اختلاف دارد.</translation>
     </message>
     <message>
-        <location line="-26"/>
+        <location line="-30"/>
         <source>You received enough matches at the moment.</source>
         <translation>در حال حاضر به اندازه کافی مسابقه دریافت کرده اید.</translation>
     </message>
@@ -1364,7 +1384,7 @@
         <location line="+70"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="mainwindow.cpp" line="+0"/>
-        <location line="+404"/>
+        <location line="+413"/>
         <location filename="matchform.cpp" line="-38"/>
         <location filename="matchtable.h" line="-22"/>
         <location filename="objectform.cpp" line="+1"/>
@@ -1378,7 +1398,7 @@
         <location filename="startupdialog.cpp" line="+72"/>
         <location line="+8"/>
         <location line="+46"/>
-        <location filename="userform.cpp" line="+95"/>
+        <location filename="userform.cpp" line="+93"/>
         <location line="+4"/>
         <location filename="viewerform.cpp" line="+26"/>
         <location filename="webconnection.cpp" line="+92"/>
@@ -1518,7 +1538,7 @@
 <context>
     <name>Syncer</name>
     <message>
-        <location filename="syncer.cpp" line="+102"/>
+        <location filename="syncer.cpp" line="+104"/>
         <location line="+29"/>
         <source>Sync Error.</source>
         <translation>خطا در هنگام به روز رسانی.</translation>
@@ -1538,7 +1558,7 @@
 <context>
     <name>UserForm</name>
     <message>
-        <location filename="userform.ui" line="+69"/>
+        <location filename="userform.ui" line="+89"/>
         <source>Firstname</source>
         <translation>نام</translation>
     </message>
@@ -1548,32 +1568,32 @@
         <translation>نام خانوادگی</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+102"/>
         <source>NationalId</source>
         <translation>شماره ملی</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-20"/>
         <source>BirthDate</source>
         <translation>تاریخ تولد</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+57"/>
         <source>Address</source>
         <translation>نشانی</translation>
     </message>
     <message>
-        <location line="-91"/>
+        <location line="-176"/>
         <source>Label</source>
         <translation>کد</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+102"/>
         <source>Account</source>
         <translation>عضویت</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+57"/>
         <source>Phone</source>
         <translation>شماره تماس</translation>
     </message>
@@ -1590,22 +1610,22 @@
         <translation type="obsolete">وارد کردن</translation>
     </message>
     <message>
-        <location line="-194"/>
+        <location line="-184"/>
         <source>Username</source>
         <translation>نام کاربر</translation>
     </message>
     <message>
-        <location line="+133"/>
+        <location line="+157"/>
         <source>9999/99/99;_</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+61"/>
         <source>Description</source>
         <translation>توضیحات</translation>
     </message>
     <message>
-        <location line="-169"/>
+        <location line="-139"/>
         <source>Gender</source>
         <translation>جنسیت</translation>
     </message>
@@ -1946,8 +1966,8 @@
         <translation>کیفیت</translation>
     </message>
     <message>
-        <location filename="matchform.cpp" line="-245"/>
-        <location line="+269"/>
+        <location filename="matchform.cpp" line="-241"/>
+        <location line="+265"/>
         <location filename="viewerform.cpp" line="-159"/>
         <source>Preview</source>
         <translation>پیش نمایش</translation>

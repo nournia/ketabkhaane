@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QCoreApplication>
 #include <QtPrintSupport/QPrinterInfo>
+#include <QFile>
 
 #include <helper.h>
 #include <jalali.h>
@@ -17,6 +18,7 @@ OptionsForm::OptionsForm(QWidget *parent) :
     ui(new Ui::OptionsForm)
 {
     ui->setupUi(this);
+    ui->gImport->setVisible(false);
 
     ui->cPrinters->clear();
     foreach(QPrinterInfo printer, QPrinterInfo::availablePrinters())
@@ -255,4 +257,28 @@ void OptionsForm::dataChanged(const QModelIndex& index)
         QMessageBox::critical(this, QObject::tr("Ketabkhaane"), msg);
     if (!hint.isEmpty())
         QMessageBox::warning(this, QObject::tr("Ketabkhaane"), hint);
+}
+
+void OptionsForm::on_bImportBookList_clicked()
+{
+    QFile file(QFileDialog::getOpenFileName(this, tr("Select List of Books"), "", "Text (*.txt)"));
+    if (file.open(QIODevice::ReadOnly)) {
+        QTextStream in(&file);
+        in.setCodec("UTF-8");
+        QStringList values;
+        while (!in.atEnd()) {
+            values = in.readLine().split(" - ");
+
+            StrMap object;
+            object["title"] = values.value(0, "");
+            object["author_id"] = values.value(1, "");
+            object["publication_id"] = values.value(2, "");
+            object["cnt"] = 1;
+            object["type_id"] = 0;
+            object["branch_id"] = "";
+            object["label"] = "";
+            qDebug() << MObjects::set("", object);
+        }
+        file.close();
+     }
 }

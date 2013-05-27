@@ -17,7 +17,7 @@ QString MUsers::getAgeClassCase(QString when)
     qry.exec("select id, beginage, endage from ageclasses order by id");
 
     QString field = when + " - users.birth_date";
-    QString caseSt = "case";
+    QString caseSt = "case when users.birth_date is null then -100 ";
     while (qry.next())
         caseSt += QString(" when %1 between %2 and %3 then %4").arg(field).arg(qry.value(1).toString()).arg(qry.value(2).toString()).arg(qry.value(0).toString());
     caseSt += " else -10 end";
@@ -66,7 +66,7 @@ QString MUsers::set(QString userId, StrMap& data)
         return QObject::tr("User name is required.");
     if (! data["national_id"].toString().isEmpty() && data["national_id"].toInt() == 0)
         return QObject::tr("National id is not valid.");
-    if (! data["birth_date"].toDate().isValid())
+    if (! (data["birth_date"].toString().isEmpty() || data["birth_date"].toDate().isValid()))
         return QObject::tr("Birth date is not valid.");
 
     /*

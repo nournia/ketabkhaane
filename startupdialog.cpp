@@ -94,7 +94,7 @@ void StartupDialog::on_buttonBox_accepted()
             user["firstname"] = ui->eFirstname->text();
             user["lastname"] = ui->eLastname->text();
             user["gender"] = "male";
-            user["birth_date"] = toGregorian("1370/01/01");
+            user["birth_date"] = "";
             user["account_id"] = "0";
             msg = MUsers::set("", user);
 

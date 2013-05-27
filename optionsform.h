@@ -36,6 +36,7 @@ private slots:
     void on_buttonBox_accepted();
     void on_bAddBranch_clicked();
     void on_bRemoveBranch_clicked();
+    void on_bImportBookList_clicked();
 };
 
 #endif // OPTIONSFORM_H
