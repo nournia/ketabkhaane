@@ -195,6 +195,7 @@ void FormOperator::on_bDeliver_clicked()
             return;
         }
 
+        cancelUser();
         selectUser();
     }
 }

@@ -196,12 +196,17 @@ QString MObjects::deliver(QString userId, QString objectId)
         cnt = qry.value(0).toInt();
 
     QStringList users;
-    qry.exec(QString("select user_id from borrows where object_id = %1 and received_at is null").arg(objectId));
+    qry.exec(QString("select users.firstname||' '||users.lastname from borrows inner join users on borrows.user_id = users.id where object_id = %1 and received_at is null").arg(objectId));
     while (qry.next())
         users << qry.value(0).toString();
 
-    if (cnt - users.count() <= 0)
-        return QObject::tr("We've got no more instance of this object. Following users currently borrowed it: %1").arg(users.join(" ,"));
+    if (cnt - users.count() <= 0) {
+        QString list;
+        if (users.count() > 1)
+            list = QObject::tr(" and ") + users.takeLast();
+        list = users.join(QObject::tr(", ")) + list;
+        return QObject::tr("We've got no more instance of this object. Following users currently borrowed it: %1").arg(list);
+    }
 
     // deliver
     if (! qry.exec(QString("insert into borrows (user_id, object_id) values (%1, %2)").arg(userId).arg(objectId)))

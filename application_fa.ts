@@ -213,13 +213,13 @@
     <message>
         <location filename="formoperator.cpp" line="+92"/>
         <location line="+13"/>
-        <location line="+169"/>
+        <location line="+170"/>
         <source>Received</source>
         <translation>دریافت</translation>
     </message>
     <message>
-        <location line="-169"/>
-        <location line="+176"/>
+        <location line="-170"/>
+        <location line="+177"/>
         <source>Renewed</source>
         <translation>تمدید</translation>
     </message>
@@ -862,7 +862,7 @@
     </message>
     <message>
         <location line="+45"/>
-        <location filename="optionsform.cpp" line="+154"/>
+        <location filename="optionsform.cpp" line="+155"/>
         <source>Logo must be in 300px x 300px dimension.</source>
         <translation>آرم کتاب‌خانه باید در ابعاد 300 × 300 پیکسل باشد.</translation>
     </message>
@@ -1360,12 +1360,22 @@
         <translation>این شئ هم‌اکنون به امانت پیش شماست.</translation>
     </message>
     <message>
-        <location line="+14"/>
-        <source>We&apos;ve got no more instance of this object. Following users currently borrowed it: %1</source>
-        <translation>این شئ به عضو %1 امانت داده شده است.</translation>
+        <location line="+16"/>
+        <source> and </source>
+        <translation> و </translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+1"/>
+        <source>, </source>
+        <translation>، </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>We&apos;ve got no more instance of this object. Following users currently borrowed it: %1</source>
+        <translation>این شئ به «%1» امانت داده شده است.</translation>
+    </message>
+    <message>
+        <location line="+66"/>
         <source>Your score goes down zero.</source>
         <translation>کتاب‌خانه نباید به کسی بدهکار شود.</translation>
     </message>
@@ -1380,8 +1390,8 @@
     <message>
         <location filename="dialogchangepassword.cpp" line="+25"/>
         <location filename="formchangepermissions.h" line="+33"/>
-        <location filename="formoperator.cpp" line="-87"/>
-        <location line="+70"/>
+        <location filename="formoperator.cpp" line="-88"/>
+        <location line="+71"/>
         <location filename="logindialog.cpp" line="+0"/>
         <location filename="mainwindow.cpp" line="+0"/>
         <location line="+413"/>
