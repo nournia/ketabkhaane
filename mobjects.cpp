@@ -201,6 +201,9 @@ QString MObjects::deliver(QString userId, QString objectId)
         users << qry.value(0).toString();
 
     if (cnt - users.count() <= 0) {
+        if (users.count() == 0)
+            return QObject::tr("We've got no more instance of this object.");
+
         QString list;
         if (users.count() > 1)
             list = QObject::tr(" and ") + users.takeLast();

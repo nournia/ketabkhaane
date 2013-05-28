@@ -1360,7 +1360,12 @@
         <translation>این شئ هم‌اکنون به امانت پیش شماست.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
+        <source>We&apos;ve got no more instance of this object.</source>
+        <translation>این شئ در کتابخانه موجود نیست.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source> and </source>
         <translation> و </translation>
     </message>
