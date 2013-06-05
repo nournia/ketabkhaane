@@ -47,7 +47,7 @@ Section
 	File /r /x data "Files\*.*"
 	SetOverwrite off
 	SetOutPath $INSTDIR\data
-	Exec '"$INSTDIR\ketabkhaane.exe" --data data'
+	Exec '"$INSTDIR\ketabkhaane.exe" --data "$INSTDIR\data"'
 
 	;ShortCuts
 	SetOutPath $INSTDIR

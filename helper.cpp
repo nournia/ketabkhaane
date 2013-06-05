@@ -44,7 +44,7 @@ QString dataFolder()
 
 QString filesUrl()
 {
-    QString folder = dataFolder();
+    QString folder = dataFolder().replace("\\", "/");
     if (!folder.startsWith("//"))
         folder = "///" + folder;
     return QString("file:%1/files").arg(folder);
