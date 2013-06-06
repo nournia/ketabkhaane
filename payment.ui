@@ -139,6 +139,12 @@
       </item>
       <item>
        <widget class="QSpinBox" name="sPay">
+        <property name="minimumSize">
+         <size>
+          <width>60</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="maximum">
          <number>100000</number>
         </property>
