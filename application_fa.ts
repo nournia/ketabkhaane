@@ -1267,7 +1267,7 @@
     <message>
         <location line="+128"/>
         <source>Invalid user birth date.</source>
-        <translation>تارخ تولد کاربر وارد نشده است.</translation>
+        <translation>تاریخ تولد کاربر وارد نشده است.</translation>
     </message>
     <message>
         <location line="+57"/>

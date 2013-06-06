@@ -4,7 +4,7 @@
 ;General
 	;Name and file
 	Name "کتابخانه"
-	OutFile "Ketabkhaane-0.9.7.exe"
+	OutFile "Ketabkhaane.exe"
 
 	;Default installation folder
 	InstallDir "$PROGRAMFILES\Ketabkhaane"
