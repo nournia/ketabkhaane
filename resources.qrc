@@ -2,9 +2,7 @@
     <qresource prefix="/">
         <file>resources/list.html</file>
         <file>resources/match.html</file>
-        <file>resources/sqlite.sql</file>
         <file>resources/client.sql</file>
-        <file>resources/library.sql</file>
         <file>resources/default.qss</file>
         <file>resources/labels.html</file>
         <file>resources/objects.html</file>

@@ -16,7 +16,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setApplicationVersion("0.9.7");
+    a.setApplicationVersion("0.9.8");
     App::instance()->settings = new QSettings("Sobhe", "Ketabkhaane");
 
     // arguments

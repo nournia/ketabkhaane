@@ -262,6 +262,10 @@ void migrate(QString newVersion)
             insertLog("permissions", "insert", qry.value(0), master);
     }
 
+    if (isBetween(version, "0.9.7", "0.9.8")) {
+        ok &= qry.exec("create index logs_table_id on logs (table_name, row_id)");
+    }
+
     if (change && ok)
         ok &= qry.exec(QString("update library set version = '%1'").arg(newVersion));
 

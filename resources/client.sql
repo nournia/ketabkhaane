@@ -99,14 +99,6 @@ CREATE TABLE files (
 
 -- events
 
-CREATE TABLE logs (
-	table_name varchar(20) not null,
-	row_op varchar(10) not null, -- enum("insert","update", "delete")
-	row_id integer not null,
-	row_data text null,
-	user_id integer null references users(id) on update cascade,
-	created_at timestamp default current_timestamp
-);
 CREATE TABLE answers (
 	id integer not null primary key autoincrement,
 	user_id integer not null references users(id) on update cascade,
@@ -160,6 +152,16 @@ CREATE TABLE transactions (
 	description varchar(20) null -- fin: (fine of objects), dis (discount in fine), chg (money user charged to his account), mid:match_id (score from match), pay (money payed to user for matches)
 );
 
+CREATE TABLE logs (
+	table_name varchar(20) not null,
+	row_op varchar(10) not null, -- enum("insert","update", "delete")
+	row_id integer not null,
+	row_data text null,
+	user_id integer null references users(id) on update cascade,
+	created_at timestamp default current_timestamp
+);
+CREATE INDEX logs_table_id on logs (table_name, row_id);
+
 -- data
 
 INSERT INTO ageclasses values (0, 'الف', 'آمادگی و اول دبستان', 6, 7, 4);
@@ -184,4 +186,4 @@ INSERT INTO accounts values (1, 'ویژه', 25, 100);
 INSERT INTO types values (0, 'کتاب');
 INSERT INTO types values (1, 'چند رسانه‌ای');
 
-INSERT INTO library (title, started_at, version) values ('', current_timestamp, '0.9.7');
+INSERT INTO library (title, started_at, version) values ('', current_timestamp, '0.9.8');
