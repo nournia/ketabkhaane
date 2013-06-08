@@ -133,14 +133,8 @@ border-radius: 5px</string>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="maximumSize">
-      <size>
-       <width>50</width>
-       <height>16777215</height>
-      </size>
-     </property>
      <property name="styleSheet">
-      <string notr="true">color: #777</string>
+      <string notr="true">color: #555</string>
      </property>
      <property name="text">
       <string>label</string>

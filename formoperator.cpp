@@ -85,11 +85,10 @@ void FormOperator::selectUser()
         int fine;
 
         // show delivered matches
-        qry.exec(QString("select match_id, matches.title, matches.object_id, belongs.label from answers inner join matches on answers.match_id = matches.id left join belongs on matches.object_id = belongs.object_id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
-        for (int i = 1; qry.next(); i++)
-        {
+        qry.exec(QString("select match_id, matches.title, matches.object_id, belongs.label, answers.delivered_at from answers inner join matches on answers.match_id = matches.id left join belongs on matches.object_id = belongs.object_id where user_id = %1 and received_at is null and answers.delivered_at > (select started_at from library)").arg(ui->eUser->value()));
+        while (qry.next()) {
             fine = qry.value(2).toString().isEmpty() ? 0 : MObjects::getFine(ui->eUser->value(), qry.value(2).toString());
-            row = new MatchRow(qry.value(1).toString(), qry.value(3).toString(), QStringList() << "" << tr("Received"), qry.value(0).toString(), qry.value(2).toString(), fine, ui->gObjects);
+            row = new MatchRow(qry.value(1).toString(), qry.value(3).toString(), QStringList() << "" << tr("Received"), qry.value(0).toString(), qry.value(2).toString(), fine, qry.value(4).toDate(), QDate(), ui->gObjects);
             ui->lObjects->layout()->addWidget(row);
             matchObjects << qry.value(2).toString();
             connect(row, SIGNAL(changed()), this, SLOT(refreshFine()));
@@ -97,12 +96,11 @@ void FormOperator::selectUser()
         }
 
         // show delivered objects
-        qry.exec(QString("select borrows.object_id, objects.title, belongs.label from borrows inner join objects on borrows.object_id = objects.id inner join belongs on borrows.object_id = belongs.object_id where user_id = %1 and received_at is null").arg(ui->eUser->value()));
-        for (int i = 1; qry.next(); i++)
-        if (! matchObjects.contains(qry.value(0).toString()))
-        {
+        qry.exec(QString("select borrows.object_id, objects.title, belongs.label, borrows.delivered_at, borrows.renewed_at from borrows inner join objects on borrows.object_id = objects.id inner join belongs on borrows.object_id = belongs.object_id where user_id = %1 and received_at is null").arg(ui->eUser->value()));
+        while(qry.next()) {
+            if (matchObjects.contains(qry.value(0).toString())) continue;
             fine = MObjects::getFine(ui->eUser->value(), qry.value(0).toString());
-            row = new MatchRow(qry.value(1).toString(), qry.value(2).toString(), QStringList() << "" << tr("Received") << tr("Renewed"), "", qry.value(0).toString(), fine, ui->gObjects);
+            row = new MatchRow(qry.value(1).toString(), qry.value(2).toString(), QStringList() << "" << tr("Received") << tr("Renewed"), "", qry.value(0).toString(), fine, qry.value(3).toDate(), qry.value(4).toDate(), ui->gObjects);
             ui->lObjects->layout()->addWidget(row);
             connect(row, SIGNAL(changed()), this, SLOT(refreshFine()));
             receive = true;

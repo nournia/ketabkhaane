@@ -211,8 +211,8 @@
         <translation type="obsolete">مسابقه‌های برده شده</translation>
     </message>
     <message>
-        <location filename="formoperator.cpp" line="+92"/>
-        <location line="+13"/>
+        <location filename="formoperator.cpp" line="+91"/>
+        <location line="+12"/>
         <location line="+170"/>
         <source>Received</source>
         <translation>دریافت</translation>
@@ -637,7 +637,19 @@
         <translation type="obsolete">دریافت</translation>
     </message>
     <message>
-        <location filename="matchrow.cpp" line="+17"/>
+        <location filename="matchrow.cpp" line="+16"/>
+        <source>delivered: %1</source>
+        <oldsource>delivered: %2</oldsource>
+        <translation>تاریخ تحویل: %1</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>renewed: %1</source>
+        <oldsource>renewed: %2</oldsource>
+        <translation>تاریخ تمدید: %1</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>fine: %1</source>
         <translation>جریمه: %1</translation>
     </message>
@@ -652,9 +664,17 @@
         <translation>جریمه</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+16"/>
         <source>label</source>
         <translation>برچسب</translation>
+    </message>
+    <message>
+        <source>fine: %1, delivered: %2</source>
+        <translation type="obsolete">جریمه: %1، تاریخ تحویل: %2</translation>
+    </message>
+    <message>
+        <source>fine: %1, renewed: %2</source>
+        <translation type="obsolete">جریمه: %1، تاریخ تمدید: %2</translation>
     </message>
 </context>
 <context>
@@ -867,7 +887,7 @@
     </message>
     <message>
         <location line="+45"/>
-        <location filename="optionsform.cpp" line="+187"/>
+        <location filename="optionsform.cpp" line="+188"/>
         <source>Logo must be in 300px x 300px dimension.</source>
         <translation>آرم کتاب‌خانه باید در ابعاد 300 × 300 پیکسل باشد.</translation>
     </message>
@@ -986,7 +1006,7 @@
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="-160"/>
+        <location filename="optionsform.cpp" line="-161"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -1012,7 +1032,7 @@
         <translation>تعداد</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>Account</source>
         <translation>عضویت</translation>
     </message>
