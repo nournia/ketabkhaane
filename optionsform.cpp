@@ -82,6 +82,24 @@ OptionsForm::OptionsForm(QWidget *parent) :
     ui->tBranches->expandAll();
     ui->bAddBranch->setVisible(false);
     ui->bRemoveBranch->setVisible(false);
+
+    // fill fines table
+    ui->tFines->setColumnCount(4);
+    ui->tFines->setColumnHidden(0, true);
+    ui->tFines->verticalHeader()->setDefaultSectionSize(22);
+    ui->tFines->horizontalHeader()->setDefaultSectionSize(80);
+    ui->tFines->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->tFines->verticalHeader()->hide();
+    ui->tFines->setHorizontalHeaderLabels(QStringList() << "" << tr("Account") << tr("Book") << tr("MultiMedia"));
+    qry.exec("select id, title, bookfine, cdfine from accounts");
+    for (int row = 0 ; qry.next(); row++) {
+        ui->tFines->setRowCount(row+1);
+        for (int column = 0; column < 4; column++) {
+          QTableWidgetItem* item = new QTableWidgetItem();
+          item->setText(qry.value(column).toString());
+          ui->tFines->setItem(row, column, item);
+        }
+    }
 }
 
 OptionsForm::~OptionsForm()
@@ -121,11 +139,26 @@ void OptionsForm::on_buttonBox_accepted()
     }
 
     // store options
+    QString msg;
     QSqlQuery qry;
     if (qry.exec(QString("update library set title = '%1', description = '%2', started_at = '%3', %4 options = '%5'").arg(ui->eLibraryTitle->text(), ui->eLibraryDescription->toPlainText(), formatDate(toGregorian(ui->eStartDate->text())), image, QVariantMapToString(opt))))
         insertLog("library", "update", App::instance()->libraryId);
+    else
+        msg = qry.lastError().text();
 
-    QString msg = "";
+    // update fines
+    for (int row = 0; row < ui->tFines->rowCount(); row++) {
+        QString id = ui->tFines->item(row, 0)->text(), title = ui->tFines->item(row, 1)->text(), bookfine = ui->tFines->item(row, 2)->text(), cdfine = ui->tFines->item(row, 3)->text();
+        bool bn, cn; bookfine.toInt(&bn); cdfine.toInt(&cn);
+        if (!bn or !cn) {
+            msg = tr("Invalid fine value.");
+            continue;
+        }
+        if (!qry.exec(QString("update accounts set title = '%2', bookfine = %3, cdfine = %4 where id = %1").arg(id, title, bookfine, cdfine))) {
+            msg = qry.lastError().text();
+            break;
+        }
+    }
 
     // there isn't any error
     if (msg == "")

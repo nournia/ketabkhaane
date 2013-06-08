@@ -841,7 +841,7 @@
         <translation type="obsolete">عمومی</translation>
     </message>
     <message>
-        <location filename="optionsform.ui" line="+443"/>
+        <location filename="optionsform.ui" line="+505"/>
         <source>Printer</source>
         <translation>چاپگر</translation>
     </message>
@@ -851,7 +851,12 @@
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="-27"/>
+        <location line="-143"/>
+        <source>Fines</source>
+        <translation>جریمه‌ها</translation>
+    </message>
+    <message>
+        <location line="+116"/>
         <source>Program</source>
         <translation>برنامه</translation>
     </message>
@@ -862,7 +867,7 @@
     </message>
     <message>
         <location line="+45"/>
-        <location filename="optionsform.cpp" line="+155"/>
+        <location filename="optionsform.cpp" line="+187"/>
         <source>Logo must be in 300px x 300px dimension.</source>
         <translation>آرم کتاب‌خانه باید در ابعاد 300 × 300 پیکسل باشد.</translation>
     </message>
@@ -872,12 +877,12 @@
         <translation>آرم کتاب‌خانه</translation>
     </message>
     <message>
-        <location line="-301"/>
+        <location line="-270"/>
         <source>Librarianship</source>
         <translation>کتابداری</translation>
     </message>
     <message>
-        <location line="+138"/>
+        <location line="+107"/>
         <source>Start Date</source>
         <translation>تاریخ آغاز</translation>
     </message>
@@ -903,18 +908,18 @@
         <translation>مسابقه</translation>
     </message>
     <message>
-        <location line="-129"/>
+        <location line="-191"/>
         <source>Library</source>
         <translation>کتابخانه</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+126"/>
         <source>Book Borrow Days</source>
         <oldsource>Object Borrow Days</oldsource>
         <translation>مدت امانت کتاب</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="-120"/>
         <source>Branches</source>
         <translation>گروه‌ها</translation>
     </message>
@@ -929,7 +934,7 @@
         <translation>حذف</translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+219"/>
         <source>9999/99/99;_</source>
         <translation></translation>
     </message>
@@ -981,7 +986,7 @@
         <translation>آدرس پوشه داده‌ها</translation>
     </message>
     <message>
-        <location filename="optionsform.cpp" line="-128"/>
+        <location filename="optionsform.cpp" line="-160"/>
         <source>NameFamily</source>
         <translation>نام و نام خانوادگی</translation>
     </message>
@@ -1007,7 +1012,35 @@
         <translation>تعداد</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+34"/>
+        <source>Account</source>
+        <translation>عضویت</translation>
+    </message>
+    <message>
+        <source>Book Fine</source>
+        <translation type="obsolete">جریمه کتاب</translation>
+    </message>
+    <message>
+        <source>MultiMedia Fine</source>
+        <translation type="obsolete">جریمه چندرسانه‌ای</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Book</source>
+        <translation>کتاب</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>MultiMedia</source>
+        <translation>چند رسانه‌ای</translation>
+    </message>
+    <message>
+        <location line="+61"/>
+        <source>Invalid fine value.</source>
+        <translation>مقدار جریمه نامعتبر است.</translation>
+    </message>
+    <message>
+        <location line="+25"/>
         <source>Select Library Logo</source>
         <translation>انتخاب آرم کتاب‌خانه</translation>
     </message>
@@ -1076,7 +1109,7 @@
     </message>
     <message>
         <location line="+41"/>
-        <location line="+95"/>
+        <location line="+101"/>
         <source>Score</source>
         <translation>امتیاز</translation>
     </message>
