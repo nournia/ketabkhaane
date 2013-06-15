@@ -20,14 +20,17 @@ int main(int argc, char *argv[])
     App::instance()->settings = new QSettings("Sobhe", "Ketabkhaane");
 
     // arguments
-    if (argc == 3) {
-        QString command = argv[1], arg = argv[2];
+    if (argc >= 2) {
+        QString command = argv[1];
 
         if (command == "--data") {
-            if (arg.isEmpty())
-                App::instance()->settings->setValue("DataFolder", getAbsoluteAddress("data"));
-            else
-                App::instance()->settings->setValue("DataFolder", arg);
+            QString folder;
+            if (argc == 3)
+                folder = argv[2];
+            if (folder.isEmpty())
+                folder = getAbsoluteAddress("data");
+
+            App::instance()->settings->setValue("DataFolder", folder.replace("\\", "/"));
             exit(0);
         }
     }

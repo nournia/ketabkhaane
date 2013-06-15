@@ -47,7 +47,6 @@ Section
 	File /r /x data "Files\*.*"
 	SetOverwrite off
 	SetOutPath $INSTDIR\data
-	Exec '"$INSTDIR\ketabkhaane.exe" --data "$INSTDIR\data"'
 
 	;ShortCuts
 	SetOutPath $INSTDIR
@@ -64,6 +63,10 @@ Section
 
 	;Create uninstaller
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
+
+	;Set data
+	Exec '"$INSTDIR\ketabkhaane.exe" --data "$INSTDIR\data"'
+
 SectionEnd
 
 ;Uninstaller Section
