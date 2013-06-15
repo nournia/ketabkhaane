@@ -165,7 +165,7 @@ void ViewerForm::bMatchAgeGroup()
     ui->webView->page()->mainFrame()->findFirstElement("body").setInnerXml(content);
 }
 
-void ViewerForm::showObjectLabels(QString from, QString to, bool onlyMatchObjects)
+void ViewerForm::showObjectLabels(QStringList labels, QStringList stars, bool marks)
 {
     loadHtml("labels", false);
 
@@ -173,38 +173,28 @@ void ViewerForm::showObjectLabels(QString from, QString to, bool onlyMatchObject
 
     QSqlQuery qry;
     qry.exec("select title, image from library");
-    if (qry.next())
-    {
+    if (qry.next()) {
         library = qry.value(0).toString();
         image = QString("%1/%2").arg(filesUrl(), qry.value(1).toString());
     }
 
     content += QString("<style>span.logo { background: url(%1) no-repeat; }</style>").arg(image);
-
-    QString sql;
-    if (onlyMatchObjects) {
-        sql = "select label, case matches.ageclass when 0 then '*' when 1 then '**' when 2 then '***' when 3 then '****' when 4 then '*****' end from belongs inner join matches on belongs.object_id = matches.object_id";
-    } else {
-        sql = "select label, '' from belongs";
+    if (! marks)
         content += "<style>span.age { display: none; } span.id { margin-right: 0; }</style>";
-    }
 
-    qry.exec(QString(sql + " where label >= '%1' and label <= '%2' order by label").arg(from, to));
     int i = 0;
-    for (; qry.next(); i++) {
+    for (; i < labels.length(); i++) {
 
-        if (!(i % 60))
-        {
+        if (!(i % 60)) {
             if (i) content += "</tr></tbody></table>";
             content += "<table cellspacing='0'><tbody>";
         }
-        if (!(i % 4))
-        {
+        if (!(i % 4)) {
             if (i) content += "</tr>";
             content += "<tr>";
         }
 
-        content += QString("<td><div class='label'><span class='logo'></span><span class='library'>%1</span><span class='id'>%2</span><span class='age'>%3</span></div></td>").arg(library, qry.value(0).toString(), qry.value(1).toString());
+        content += QString("<td><div class='label'><span class='logo'></span><span class='library'>%1</span><span class='id'>%2</span><span class='age'>%3</span></div></td>").arg(library, labels[i], stars[i]);
     }
 
     // empty grid bug

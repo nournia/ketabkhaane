@@ -782,35 +782,91 @@
     </message>
     <message>
         <location line="-73"/>
-        <location line="+91"/>
+        <location line="+130"/>
+        <location line="+96"/>
         <source>From</source>
         <translation>از</translation>
     </message>
     <message>
-        <location line="-78"/>
+        <location line="-213"/>
         <location line="+26"/>
-        <location line="+65"/>
+        <location line="+200"/>
         <location line="+26"/>
+        <location line="+71"/>
         <source>999-999;_</source>
         <translation>999-999;_</translation>
     </message>
     <message>
-        <location line="-104"/>
-        <location line="+91"/>
+        <location line="-310"/>
+        <location line="+136"/>
+        <location line="+90"/>
         <source>To</source>
         <translation>تا</translation>
     </message>
     <message>
-        <location line="-58"/>
-        <location line="+98"/>
+        <location line="-193"/>
+        <location line="+402"/>
         <source>Preview</source>
         <translation>نمایش</translation>
     </message>
     <message>
-        <location line="-20"/>
+        <location line="-349"/>
+        <source>Creation Date Range</source>
+        <translation>تاریخ ثبت شئ</translation>
+    </message>
+    <message>
+        <location line="+37"/>
+        <location line="+32"/>
+        <source>9999/99/99;_</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <location line="+84"/>
+        <location line="+71"/>
+        <source>Add</source>
+        <translation>افزودن</translation>
+    </message>
+    <message>
+        <location line="-135"/>
+        <source>Label Range</source>
+        <translation>محدوده برچسب</translation>
+    </message>
+    <message>
+        <location line="+97"/>
+        <source>One Label</source>
+        <translation>تک برچسب</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <location filename="objectmanagement.cpp" line="+32"/>
+        <source>Label</source>
+        <translation>کد</translation>
+    </message>
+    <message>
+        <location line="+96"/>
+        <source>Remove All</source>
+        <translation>حذف همه</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Remove</source>
+        <translation>حذف</translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>AgeClass Mark</source>
+        <translation>نشان رده‌سنی</translation>
+    </message>
+    <message>
         <source>Only Match Objects</source>
         <oldsource>Match Ageclass</oldsource>
-        <translation>محدود به اشیاء مسابقه</translation>
+        <translation type="obsolete">محدود به اشیاء مسابقه</translation>
+    </message>
+    <message>
+        <location filename="objectmanagement.cpp" line="+0"/>
+        <source>Title</source>
+        <translation>عنوان</translation>
     </message>
 </context>
 <context>
@@ -1846,7 +1902,7 @@
 <context>
     <name>ViewerForm</name>
     <message>
-        <location filename="viewerform.cpp" line="+366"/>
+        <location filename="viewerform.cpp" line="+356"/>
         <source>All</source>
         <translation>کل</translation>
     </message>
@@ -1855,7 +1911,7 @@
         <translation type="obsolete">با تفکیک آقا و خانم</translation>
     </message>
     <message>
-        <location line="-243"/>
+        <location line="-233"/>
         <location line="+14"/>
         <source>Match List</source>
         <translation>لیست مسابقه‌ها</translation>
@@ -1884,12 +1940,12 @@
         <location line="+3"/>
         <location line="+31"/>
         <location line="+11"/>
-        <location line="+275"/>
+        <location line="+265"/>
         <source>Rank</source>
         <translation>رتبه</translation>
     </message>
     <message>
-        <location line="-286"/>
+        <location line="-276"/>
         <location line="+11"/>
         <source>Name</source>
         <translation>نام</translation>
@@ -1905,12 +1961,12 @@
         <location line="+11"/>
         <location line="+12"/>
         <location line="+14"/>
-        <location line="+249"/>
+        <location line="+239"/>
         <source>Score</source>
         <translation>امتیاز</translation>
     </message>
     <message>
-        <location line="-286"/>
+        <location line="-276"/>
         <source>Score List</source>
         <translation>لیست امتیازها</translation>
     </message>
@@ -1928,12 +1984,12 @@
     <message>
         <location line="+10"/>
         <location line="+14"/>
-        <location line="+70"/>
+        <location line="+60"/>
         <source>Title</source>
         <translation>عنوان</translation>
     </message>
     <message>
-        <location line="-84"/>
+        <location line="-74"/>
         <source>AgeClass</source>
         <translation>رده سنی</translation>
     </message>
@@ -1945,7 +2001,7 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+249"/>
+        <location line="+239"/>
         <source>Group</source>
         <translation>گروه</translation>
     </message>

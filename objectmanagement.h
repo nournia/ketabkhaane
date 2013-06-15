@@ -65,8 +65,11 @@ public:
     void refresh();
 
     ObjectsModel* model;
+    QStringList labels, stars;
 
 private slots:
+    void addLabels(QString condition);
+
     void on_bPreviewList_clicked();
 
     void on_bPreviewLabels_clicked();
@@ -76,6 +79,16 @@ private slots:
     void on_bPrintList_clicked();
 
     void on_bEditObject_clicked();
+
+    void on_bAddLabelRange_clicked();
+
+    void on_bAddOneLabel_clicked();
+
+    void on_bAddCreationDateRange_clicked();
+
+    void on_bRemoveAllLabels_clicked();
+
+    void on_bRemoveLabel_clicked();
 
 private:
     Ui::ObjectManagement *ui;

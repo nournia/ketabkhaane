@@ -20,7 +20,7 @@ public:
     void loadHtml(QString name, bool _margin = true, bool _landscape = false);
     void showMatch(StrMap match, QList<StrPair> questions);
     void savePdf(QString filename);
-    void showObjectLabels(QString from, QString to, bool onlyMatchObjects);
+    void showObjectLabels(QStringList labels, QStringList stars, bool marks);
     void showObjectList(QString from, QString to);
     void prepareLogs();
     void showLogs(QString title);
