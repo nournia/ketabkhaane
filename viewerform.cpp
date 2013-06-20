@@ -432,6 +432,14 @@ void ViewerForm::showLogs(QString title)
 
 void ViewerForm::savePdf(QString filename)
 {
+    QFile file("p.html");
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out.setCodec( "UTF-8" );
+        out << ui->webView->page()->mainFrame()->toHtml();
+        file.close();
+    }
+
     // wkhtmltopdf
     QString orientationStr = landscape ? "-O Landscape" : "-O Portrait";
     QString marginStr = margin ? "-L 10 -T 10 -R 10 -B 10" : "-L 4 -T 8 -R 4 -B 8";
@@ -461,18 +469,8 @@ void ViewerForm::savePdf(QString filename)
 
 void ViewerForm::on_bPdf_clicked()
 {
-    QFile file("p.html");
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        QTextStream out(&file);
-        out.setCodec( "UTF-8" );
-        out << ui->webView->page()->mainFrame()->toHtml();
-        file.close();
-    }
-
     QString filename = QFileDialog::getSaveFileName(this, "");
-    if (!filename.isEmpty())
-    {
+    if (!filename.isEmpty()) {
         if (!filename.endsWith(".pdf"))
             filename += ".pdf";
         savePdf(filename);
@@ -483,7 +481,7 @@ void ViewerForm::on_bPdf_clicked()
 
 void ViewerForm::on_bPrint_clicked()
 {
-    QString tmpFile = "p";
+    QString tmpFile = "p.p";
 
     savePdf(tmpFile);
 
