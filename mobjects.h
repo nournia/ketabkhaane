@@ -16,6 +16,8 @@ public:
 
     static QString setRoot(QString rootId, QString typeId, QString title);
     static QString setBranch(QString branchId, QString rootId, QString title, QString label, QString& hint);
+    static QString getBranchId(QString title);
+    static QString getNewLabel(QString typeId, QString rootId);
 
     /* borrows */
 

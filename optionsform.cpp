@@ -67,7 +67,7 @@ OptionsForm::OptionsForm(QWidget *parent) :
     qry1.exec("select id, title from types");
     while(qry1.next()) {
         root = model->rootItem->appendChild(QStringList() << qry1.value(1).toString() << "" << "" << qry1.value(0).toString());
-        qry2.exec("select roots.id, roots.title, branches.label, ifnull(items, '') from roots left join branches on roots.id = branches.root_id left join (select branch_id, count(id) as items from belongs group by branch_id) as _t on branches.id = _t.branch_id where branches.title = '' and roots.type_id = "+ qry1.value(0).toString());
+        qry2.exec("select roots.id, roots.title, branches.label, ifnull(items, '') from roots left join branches on roots.id = branches.root_id left join (select branch_id, count(id) as items from belongs group by branch_id) as _t on branches.id = _t.branch_id where branches.title = '' and roots.type_id = "+ qry1.value(0).toString() +" order by roots.id");
         while(qry2.next()) {
             branch = root->appendChild(QStringList() << qry2.value(1).toString() << qry2.value(2).toString() << qry2.value(3).toString() << qry2.value(0).toString());
             qry3.exec("select id, title, label, ifnull(items, 0) from branches left join (select branch_id, count(id) as items from belongs group by branch_id) as _t on branches.id = _t.branch_id where title != '' and root_id = "+ qry2.value(0).toString());
@@ -300,17 +300,17 @@ void OptionsForm::on_bImportBookList_clicked()
         in.setCodec("UTF-8");
         QStringList values;
         while (!in.atEnd()) {
-            values = in.readLine().split(" - ");
+            values = refineText(in.readLine()).split("|");
 
             StrMap object;
-            object["title"] = values.value(0, "");
-            object["author_id"] = values.value(1, "");
-            object["publication_id"] = values.value(2, "");
+            object["title"] = values.value(0, "").trimmed();
+            object["author_id"] = values.value(1, "").trimmed();
+            object["publication_id"] = values.value(2, "").trimmed();
+            object["branch_id"] = values.value(3, "").trimmed();
             object["cnt"] = 1;
             object["type_id"] = 0;
-            object["branch_id"] = "";
             object["label"] = "";
-            qDebug() << MObjects::set("", object);
+            MObjects::set("", object);
         }
         file.close();
      }

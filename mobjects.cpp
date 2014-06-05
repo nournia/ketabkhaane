@@ -52,11 +52,13 @@ QString MObjects::set(QString objectId, StrMap data)
     if (objectId.isEmpty())
         data["label"] = getNewLabel(data["branch_id"].toString());
 
-    // new author & publication
+    // new author, publication and branch
     if (! data["author_id"].toString().isEmpty() && data["author_id"].toInt() == 0)
         data["author_id"] = insertTitleEntry("authors", data["author_id"].toString());
     if (! data["publication_id"].toString().isEmpty() && data["publication_id"].toInt() == 0)
         data["publication_id"] = insertTitleEntry("publications", data["publication_id"].toString());
+    if (! data["branch_id"].toString().isEmpty() && data["branch_id"].toInt() == 0)
+        data["branch_id"] = getBranchId(data["branch_id"].toString());
 
     // store object
     StrMap object;
@@ -161,6 +163,82 @@ QString MObjects::setBranch(QString branchId, QString rootId, QString title, QSt
     }
 
     return branchId;
+}
+
+QString MObjects::getNewLabel(QString typeId, QString rootId) {
+    QSqlQuery qry;
+
+    // create root
+    if (rootId.isEmpty()) {
+        qry.exec("select count(id) from roots where type_id = "+ typeId);
+        qry.next();
+
+        if (typeId == "0")
+            return "1" + qry.value(0).toString() + "0";
+        else if (typeId == "1")
+            return "2" + qry.value(0).toString() + "0";
+        else
+            return "";
+    }
+    // create branch
+    else {
+        qry.exec("select max(label) from branches where root_id = "+ rootId);
+        qry.next();
+
+        // todo: fix overflow bug
+        return QString::number(qry.value(0).toInt() + 1);
+    }
+}
+
+QString MObjects::getBranchId(QString title) {
+    QStringList values = title.split(" - ");
+    QString root = values.value(0, "").trimmed();
+    QString branch = values.value(1, "").trimmed();
+
+    QString rootId, branchId;
+    QSqlQuery tmp;
+    StrMap entity;
+
+    tmp.exec("select id from roots where title = '"+ root +"'");
+    if (tmp.next())
+        rootId = tmp.value(0).toString();
+    else {
+        entity["title"] = root;
+        entity["type_id"] = "0";
+        QString label = getNewLabel("0", "");
+        if (tmp.exec(getReplaceQuery("roots", entity, rootId))) {
+            insertLog("roots", "insert", rootId);
+
+            // insert root branch
+            entity.clear();
+            entity["title"] = "";
+            entity["root_id"] = rootId;
+            entity["label"] = label;
+            if (tmp.exec(getReplaceQuery("branches", entity, branchId).replace("null", "''")))
+                insertLog("branches", "insert", branchId);
+            else
+                qDebug() << tmp.lastError().text();
+        } else
+            return "";
+    }
+
+    tmp.exec("select id from branches where title = '"+ branch +"' and root_id = "+ rootId);
+    if (tmp.next())
+        return tmp.value(0).toString();
+    else {
+        branchId = "";
+        entity.clear();
+        entity["title"] = branch;
+        entity["root_id"] = rootId;
+        entity["label"] = getNewLabel("0", rootId);
+        if (tmp.exec(getReplaceQuery("branches", entity, branchId))) {
+            insertLog("branches", "insert", branchId);
+            return branchId;
+        } else
+            qDebug() << tmp.lastError().text();
+    }
+
+    return "";
 }
 
 QString MObjects::receive(QString userId, QString objectId)
