@@ -48,10 +48,6 @@ QString MObjects::set(QString objectId, StrMap data)
     if (data["title"].toString().trimmed().isEmpty())
         return QObject::tr("Title is required.");
 
-    // set label
-    if (objectId.isEmpty())
-        data["label"] = getNewLabel(data["branch_id"].toString());
-
     // new author, publication and branch
     if (! data["author_id"].toString().isEmpty() && data["author_id"].toInt() == 0)
         data["author_id"] = insertTitleEntry("authors", data["author_id"].toString());
@@ -59,6 +55,10 @@ QString MObjects::set(QString objectId, StrMap data)
         data["publication_id"] = insertTitleEntry("publications", data["publication_id"].toString());
     if (! data["branch_id"].toString().isEmpty() && data["branch_id"].toInt() == 0)
         data["branch_id"] = getBranchId(data["branch_id"].toString());
+
+    // set label
+    if (objectId.isEmpty())
+        data["label"] = getNewLabel(data["branch_id"].toString());
 
     // store object
     StrMap object;
